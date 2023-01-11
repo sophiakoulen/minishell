@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/11 20:45:23 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/12 00:09:05 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,6 @@ fclean :
 test_tokenizer : all test_tokenizer.o
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $@.o
 #	./$@ "this is a test"
-
+# make test_tokenizer && ./test_tokenizer "&&||< >>>| some_test && more  ||  make test_tokenizer"
 
 re: fclean all
