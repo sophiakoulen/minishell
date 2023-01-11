@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:01:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 22:06:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:07:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	print_token_list(t_token *tok)
 {
 	if (!tok)
 		return ;
-	if (tok->type == e_string)
+	if (tok->type == e_end)
+		ft_printf("token is a type \"end\"\n");
+	else if (tok->type == e_string)
 		ft_printf("token is a string \"%s\"\n", tok->str);
 	else
 		ft_printf("token is a type   \"%s\"\n", ret_token_literal(tok->type));

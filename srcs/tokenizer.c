@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 22:20:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:04:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,15 @@ int	check_token_literals(char *str)
 	int	i;
 
 	i = -1;
-	// printf("literals \"%s\"\n", str);
-	if (*str == '\n' || *str == '\0' || (*str == '\r' && *str == '\n'))
+	if (*str == '\0' || *str == '\n' || (*str == '\r' && *str + 1 == '\n'))
 		return (e_end);
 	while (++i < NUM_TOKEN_LITERALS)
 	{
-		// ft_printf("i:%d\n", i);
-		if (!ft_strncmp(str, ret_token_literal(i), ft_strlen(ret_token_literal(i))))
-		{
-			// str = str + ft_strlen(ret_token_literal(i));
+		if (!ft_strncmp(str,
+				ret_token_literal(i),
+				ft_strlen(ret_token_literal(i))))
 			return (i);
-		}
 	}
-	// ft_printf("end of literals\n");
 	return (-1);
 }
 
@@ -64,42 +60,25 @@ static t_token	*lexer(char	**str)
 {
 	t_token	*tok;
 	int		i;
-	int		tmp;
 
 	tok = allocate(sizeof(t_token), 1);
 	tok->next = NULL;
-	i = -1;
-	if (**str == '\n' || **str == '\0')
+	tok->type = check_token_literals(*str);
+	if (tok->type == e_end)
+		;
+	else if ((int)tok->type != -1)
+		*str = *str + ft_strlen(ret_token_literal(tok->type));
+	else
 	{
-		tok->type = e_end;
-		return (tok);
+		i = -1;
+		while ((*str)[i++] && (int)tok->type == -1)
+			tok->type = check_token_literals(*str + i);
+		if ((int)tok->type != -1)
+			i--;
+		tok->type = e_string;
+		tok->str = ft_substr(*str, 0, i);
+		*str += i;
 	}
-
-	while (++i < NUM_TOKEN_LITERALS)
-	{
-		if (!ft_strncmp(*str, ret_token_literal(i), ft_strlen(ret_token_literal(i))))
-		{
-			tok->type = i;
-			*str = *str + ft_strlen(ret_token_literal(i));
-			return (tok);
-		}
-	}
-	// (*str)++;
-	i = 0;
-	tmp = -1;
-	while ((*str)[i] && tmp == -1)
-	{
-		// ft_printf("HERE %d	", i);
-		// ft_printf("%s\n", *str + i);
-		// ft_printf("conditions %c tmp %d\n", (*str)[i], tmp);
-		tmp = check_token_literals(*str + i);
-		i++;
-	}
-	if (tmp !=  -1)
-		i--;
-	tok->type = e_string;
-	tok->str = ft_substr(*str, 0, i);
-	*str += i;
 	return (tok);
 }
 
@@ -115,10 +94,9 @@ t_token	*construct_tok_list(char *str)
 	start = NULL;
 	while (1)
 	{
-		ft_printf("\nhere! %s\n", str);
 		tmp = lexer(&str);
+		ft_printf("lexer type %s		", ret_token_literal(tmp->type));
 		ft_printf("lexer str\"%s\"\n", tmp->str);
-		ft_printf("lexer type%d\n", tmp->type);
 		if (start == NULL)
 		{
 			start = tmp;
