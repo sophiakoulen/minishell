@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:01:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 00:07:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:11:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	str = argv[1];
-	ft_printf("testing this string \"%s\"\n", str);
+	ft_printf("\ntesting this string \"%s\"\n", str);
 	tok = construct_tok_list(str);
-	printf("\n\n");
+	printf("\n");
 	print_token_list(tok);
 	return (0);
 }
