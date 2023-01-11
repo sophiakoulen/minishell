@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 14:33:45 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/11 14:37:23 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ LIB			=	$(LIB_DIR)/$(LIB_N)
 all		: $(NAME)
 
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
+	mkdir -p $(OBJS_PATH)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
 $(NAME)	: $(LIB_N) $(OBJS)
