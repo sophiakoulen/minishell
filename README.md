@@ -1,3 +1,3 @@
-#MINISHELLs
+# MINISHELL
 
 some readme
