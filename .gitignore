@@ -1,3 +1,6 @@
 .vscode
 objs
 minishell
+.DS_Store
+libft.a
+libft
