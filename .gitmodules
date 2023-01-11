@@ -1,4 +1,3 @@
 [submodule "libft"]
 	path = libft
 	url = git@github.com:znichola/libft.git
-	ignore = dirty
