@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:54:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 17:52:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:23:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 # define TOKENIZER_H
 
 # define NUM_TOKEN_LITERALS 9
-
-const char	*tok_strings[NUM_TOKEN_LITERALS] =
-{
-	"|",
-	"<<",
-	"<",
-	">",
-	">>",
-	"(",
-	")",
-	"&&",
-	"||",
-};
 
 enum e_token_type
 {

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 18:22:35 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/11 18:21:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "stdio.h"
-# include "libft.h"
-# include "tokenizer.h"
+void	*allocate(size_t size, size_t quantity)
+{
+	void	*ret;
 
-/* tokenizer.c */
-
-
-
-/* tokenizer.c */
-
-/* utils.c */
-
-void	*allocate(size_t size, size_t quantity);
-
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-
-#endif
+	ret = (void *)malloc(size * quantity);
+	if (!ret)
+	{
+		perror("failed to allocate more memory, quitting.");
+		// our clean up function! but maybe we don't need it.
+		exit(2);
+	}
+	return (ret);
+}
