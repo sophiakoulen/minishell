@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 12:51:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:44:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 int	main(int argc, char **argv)
 {
-	foo(6);
+	char	*line;
+	
+	(void)argc;
+	(void)argv;
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (line && *line)
+			add_history(line);
+		free(line);
+	}
 	return (0);
 }

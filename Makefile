@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 15:21:20 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/11 15:56:21 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,19 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-FILES		=	test main
+FILES		=	main
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
 
 # submodule
 # libft
-LIB_DIR		=	libft
-LIB_N		=	libft.a
-LIB			=	$(LIB_DIR)/$(LIB_N)
+LIBFT_DIR		=	libft
+LIBFT_N			=	libft.a
+LIBFT			=	$(LIBFT_DIR)/$(LIBFT_N)
+
+LIBS			=	-lft -lreadline
+LIBS_PATH		=	-L$(LIBFT_DIR)
 
 all		: $(NAME)
 
@@ -39,7 +42,7 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
 $(NAME)	: $(LIB_N) $(OBJS)
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -o $@ $(OBJS) -L$(LIB_DIR) -lft
+	$(CC) $(CFLAGS) -I$(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
 
 clean	:
 	$(RM) $(OBJS)
@@ -47,19 +50,16 @@ clean	:
 fclean	: clean
 	$(RM) $(NAME)
 
-#TODO: change this before handin!
 re		: fclean all
+	$(MAKE) re -C $(LIBFT_DIR)
 
-relib	: re
-	$(MAKE) -C $(LIB_DIR) fclean
-
-$(LIB_N):
-		$(MAKE) -C $(LIB_DIR) $(LIB_N)
-		cp $(LIB) $(NAME)
+$(LIBFT_N):
+		$(MAKE) -C $(LIBFT_DIR) $(LIBFT_N)
+		cp $(LIBFT) $(NAME)
 
 LIBMINISHELL	= libminishell.a
 
-$(LIBMINISHELL): $(OBJS) $(LIB)
+$(LIBMINISHELL): $(OBJS) $(LIBFT)
 	cp $(LIB) libminishell.a
 	ar rcs libminishell.a $(OBJS)
 
