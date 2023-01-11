@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 12:36:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 14:51:54 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/11 14:54:08 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/11 15:08:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
+
 #include "minishell.h"
 
-// this id detailes des
-void	foo(int n)
+enum e_token_type
 {
-	ft_printf("this is a %d\n", n);
-}
+	e_string,
+	e_symbol,
+};
+
+typedef struct s_token
+{
+	enum e_token_type	type;
+	struct s_token		*next;
+}	t_token;
+
+#endif

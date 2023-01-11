@@ -6,8 +6,18 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 14:18:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:11:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h
+#include "minishell.h"
+
+t_token	*lexer(char	**str)
+{
+	t_token	*tok;
+
+	while(ft_isspace())
+	{
+
+	}
+}
