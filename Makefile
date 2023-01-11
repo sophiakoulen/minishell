@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 18:22:55 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/11 20:23:38 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ $(LIBFT_N):
 LIBMINISHELL	= libminishell.a
 
 $(LIBMINISHELL): $(OBJS) $(LIBFT)
-	cp $(LIB) libminishell.a
+	cp $(LIBFT) libminishell.a
 	ar rcs libminishell.a $(OBJS)
 
 lib		: $(LIBMINISHELL)
