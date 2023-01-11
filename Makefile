@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 14:37:23 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/11 14:46:19 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 
 $(NAME)	: $(LIB_N) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -o $@ $(OBJS) -L$(LIB_DIR) -lft
+
+objs	: $(OBJS)
 
 clean	:
 	$(RM) $(OBJS)
