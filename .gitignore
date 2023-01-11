@@ -3,3 +3,5 @@ objs
 minishell
 .DS_Store
 libft.a
+libminishell.a
+unit-tests/test

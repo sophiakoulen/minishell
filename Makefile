@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 14:46:19 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/11 15:21:20 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,6 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 $(NAME)	: $(LIB_N) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -o $@ $(OBJS) -L$(LIB_DIR) -lft
 
-objs	: $(OBJS)
-
 clean	:
 	$(RM) $(OBJS)
 
@@ -58,5 +56,13 @@ relib	: re
 $(LIB_N):
 		$(MAKE) -C $(LIB_DIR) $(LIB_N)
 		cp $(LIB) $(NAME)
+
+LIBMINISHELL	= libminishell.a
+
+$(LIBMINISHELL): $(OBJS) $(LIB)
+	cp $(LIB) libminishell.a
+	ar rcs libminishell.a $(OBJS)
+
+lib		: $(LIBMINISHELL)
 
 .PHONY	: all clean fclean re
