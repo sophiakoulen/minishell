@@ -1,3 +1,4 @@
 .vscode
 objs
 minishell
+.DS_Store
