@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:36:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 12:38:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:28:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 // this id detailes des
 void	foo(int n)
 {
-	printf("this is a %d\n", n);
+	ft_printf("this is a %d\n", n);
 }

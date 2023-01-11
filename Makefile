@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 13:15:45 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/11 14:33:45 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ clean	:
 fclean	: clean
 	$(RM) $(NAME)
 
+#TODO: change this before handin!
 re		: fclean all
 
 relib	: re
