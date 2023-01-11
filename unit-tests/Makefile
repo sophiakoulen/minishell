@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/11 15:58:06 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/11 20:45:23 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,22 @@ SRCS	= test_1.c
 
 all: $(NAME)
 
-#need to compile with the readline lib
-$(NAME): $(SRCS)
-	$(MAKE) lib -C ..
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $(SRCS)
+.c.o :
+		$(CC) $(CFLAGS) -I../includes -c $< -o $(@)
 
-fclean:
+#need to compile with the readline lib
+$(NAME) : $(SRCS)
+	$(MAKE) lib -C ..
+#	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $(SRCS)
+
+fclean :
 	rm -f test
+
+# Individual unit tests
+
+test_tokenizer : all test_tokenizer.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $@.o
+#	./$@ "this is a test"
+
 
 re: fclean all

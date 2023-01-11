@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:54:08 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 18:23:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:36:00 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 
 enum e_token_type
 {
+	e_or,			// ||
 	e_pipe,			// |
 	e_heredoc,		// <<
 	e_in,			// <
-	e_out,			// >
 	e_out_append,	// >>
+	e_out,			// >
 	e_open_brace,	// (
 	e_close_brace,	// )
 	e_and,			// &&
-	e_or,			// ||
 	e_end,			// \n or \r\n
 	e_string,
 };

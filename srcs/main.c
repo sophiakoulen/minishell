@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 16:25:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/11 20:20:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	interactive_shell(void);
 
 int	main(int argc, char **argv)
 {
+	ft_printf("test\n");
 	check_args(argc, argv);
 	interactive_shell();
 	return (0);
@@ -38,7 +39,7 @@ static void	check_args(int argc, char **argv)
 static void	interactive_shell(void)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = readline("minishell$ ");
