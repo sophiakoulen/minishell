@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 21:27:13 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/12 21:14:07 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/12 21:28:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARASING_H
+# define PARSING_H
 
-# include "stdio.h"
-# include "libft.h"
-# include "tokenizer.h"
-# include "parsing.h"
+#include "tokenizer.h"
 
-/* tokenizer.c */
-
-const char	*ret_token_literal(enum e_token_type n);
-t_token		*construct_tok_list(char *str);
-
-/* utils.c */
-
-void	*allocate(size_t size, size_t quantity);
-
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
+typedef struct s_tree
+{
+	enum e_token_type	type;
+	char				*str;
+	struct s_tree		*left;
+	struct s_tree		*right;
+}	t_tree;
 
 #endif

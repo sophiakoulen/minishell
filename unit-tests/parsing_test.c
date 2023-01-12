@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 21:27:13 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/12 21:24:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "stdio.h"
-# include "libft.h"
-# include "tokenizer.h"
-# include "parsing.h"
+void	print_token_tree(t_token *tok)
+{
 
-/* tokenizer.c */
+}
 
-const char	*ret_token_literal(enum e_token_type n);
-t_token		*construct_tok_list(char *str);
+int	main(int argc, char **argv)
+{
+	t_token *tok;
+	char	*str;
 
-/* utils.c */
-
-void	*allocate(size_t size, size_t quantity);
-
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-
-#endif
+	if (argc != 2)
+		return (1);
+	str = argv[1];
+	tok = construct_tok_list(str);
+	print_token_tree(tok);
+	// printf("booo\n");
+	return (0);
+}
