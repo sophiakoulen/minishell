@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/11 15:58:06 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/12 20:28:39 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,32 @@ CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
 # put the unit test files here
-SRCS	= test_1.c
+FILES	= tokenizer
+
+OBJS	=	$(addsuffix _test.o, $(FILES))
 
 all: $(NAME)
 
-#need to compile with the readline lib
-$(NAME): $(SRCS)
-	$(MAKE) lib -C ..
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $(SRCS)
+.c.o :
+	$(CC) $(CFLAGS) -I../includes -c $< -o $(@)
 
-fclean:
-	rm -f test
+#need to compile with the readline lib
+$(NAME) : $(OBJS)
+	$(MAKE) lib -C ..
+
+clean :
+	$(RM) *.test
+	$(RM) $(OBJS)
+
+fclean : clean
+	$(RM) ../libminishell.a
+
+
+# Individual unit tests
+
+tokenizer : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
 
 re: fclean all
+
+.PHONY	: all clean fclean re
