@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 16:23:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:04:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,14 @@ const char	*ret_token_literal(enum e_token_type n)
 	return (tok_strings[n]);
 }
 
-int	check_token_literals(char *str)
+/**
+ * helper function for the lexer,
+ * checks if str at it's currrent point is a token from the list,
+ * returns the corresponding enum or -1
+ * TODO: maybe it's a good idea to return e_string instead of -1
+ * as that's what it really means.
+*/
+static int	check_token_literals(char *str)
 {
 	int	i;
 
@@ -52,14 +59,31 @@ int	check_token_literals(char *str)
 	return (-1);
 }
 
+static void	string_decetion(t_token *tok, char **str)
+{
+	int	i;
+
+	i = 0;
+	while ((*str)[i] && (int)tok->type == -1)
+	{
+		tok->type = check_token_literals(*str + i);
+		i++;
+	}
+	if ((int)tok->type != -1)
+		i--;
+	tok->type = e_string;
+	tok->str = ft_substr(*str, 0, i);
+	*str += i;
+}
+
 /**
+ * Returns the next token and anvances the input str past it
  * TODO: this needs to be fixed!
  * The ' " are ignored and we still parce the tokens contained within
 */
 static t_token	*lexer(char	**str)
 {
 	t_token	*tok;
-	int		i;
 
 	tok = allocate(sizeof(t_token), 1);
 	tok->next = NULL;
@@ -69,16 +93,7 @@ static t_token	*lexer(char	**str)
 	else if ((int)tok->type != -1)
 		*str = *str + ft_strlen(ret_token_literal(tok->type));
 	else
-	{
-		i = 0;
-		while ((*str)[i++] && (int)tok->type == -1)
-			tok->type = check_token_literals(*str + i);
-		if ((int)tok->type != -1)
-			i--;
-		tok->type = e_string;
-		tok->str = ft_substr(*str, 0, i);
-		*str += i;
-	}
+		string_decetion(tok, str);
 	return (tok);
 }
 
