@@ -1,0 +1,214 @@
+# vscode has an extension that does the highlighting for this!
+# source : https://flylib.com/books/en/4.108.1.100/1/
+
+#  D.2 BNF for bash
+
+# The following is the syntax of bash 2.0 in Backus-Naur Form (BNF):
+
+<letter> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|
+             A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+
+<digit> ::= 0|1|2|3|4|5|6|7|8|9
+
+<number> ::= <digit>
+           | <number> <digit>
+
+# usefull to know finally what a word actually is in shell
+# can use these rules to do the splitting of our string after tokenizing
+# maybe it's better to do this during the tokenizing?
+<word> ::= <letter>
+         | <word> <letter>
+         | <word> '_'
+
+<word_list> ::= <word>
+             |  <word_list> <word>
+
+# we don't need this right?
+# if export is handeling this and it's a function that we call
+# but then maybe a word needs to include the "=" character
+# which according to above it dosen't
+<assignment_word> ::= <word> '=' <word>
+
+# we only need a subsection of this
+# all the extra symbols we don't detect
+# and maybe this possibility to redirect to a number
+# what is that used for?
+<redirection> ::=  '>' <word>
+                |  '<' <word>
+                |  <number> '>' <word>
+                |  <number> '<' <word>
+                |  '>>' <word>
+                |  <number> '>>' <word>
+                |  '<<' <word>
+                |  <number> '<<' <word>
+                |  '<&' <number>
+                |  <number> '<&' <number>
+                |  '>&' <number>
+                |  <number> '>&' <number>
+                |  '<&' <word>
+                |  <number> '<&' <word>
+                |  '>&' <word>
+                |  <number> '>&' <word>
+                |  '<<-' <word>
+                |  <number> '<<-' <word>
+                |  '>&' '-'
+                |  <number> '>&' '-'
+                |  '<&' '-'
+                |  <number> '<&' '-'
+                |  '&>' <word>
+                |  <number> '<>' <word>
+                |  '<>' <word>
+                |  '>|' <word>
+                |  <number> '>|' <word>
+
+# not exactly sure what is is?
+<simple_command> ::=  (<simple_command_element>)*
+
+<simple_command_element> ::= <word>
+                          |  <assignment_word>
+                          |  <redirection>
+
+# chaining redirections, notice the recursive element with the reference to it's selfe
+<redirection_list> ::= <redirection>
+                    |  <redirection_list> <redirection>
+
+# really need to figure out why there is command and simple command
+<command> ::=  <simple_command>
+            |  <shell_command>
+            |  <shell_command> <redirection_list>
+
+# and what the heck is a shell command now?
+<shell_command> ::=  <for_command>
+                  |  <case_command>
+                  |  while <compound_list> do <compound_list> done
+                  |  until <compound_list> do <compound_list> done
+                  |  <select_command>
+                  |  <if_command>
+                  |  <subshell>
+                  |  <group_command>
+                  |  <function_def>
+
+
+# to ignore - pretty sure
+<for_command> ::=  for <word> <newline_list> do <compound_list> done
+            |  for <word> <newline_list> '{' <compound_list> '}'
+            |  for <word> ';' <newline_list> do <compound_list> done
+            |  for <word> ';' <newline_list> '{' <compound_list> '}'
+            |  for <word> <newline_list> in <word_list> <list_terminator>
+                   <newline_list> do <compound_list> done
+            |  for <word> <newline_list> in <word_list> <list_terminator>
+                   <newline_list> '{' <compound_list> '}'
+
+<select_command> ::=  select <word> <newline_list> do <list> done
+                   |  select <word> <newline_list> '{' <list> '}'
+                   |  select <word> ';' <newline_list> do <list> done
+                   |  select <word> ';' <newline_list> '{' list '}'
+                   |  select <word> <newline_list> in <word_list>
+                           <list_terminator> <newline_list> do <list> done
+                   |  select <word> <newline_list> in <word_list>
+                           <list_terminator> <newline_list> '{' <list> '}'
+
+# not sure what it's for
+<case_command> ::=  case <word> <newline_list> in <newline_list> esac
+                 |  case <word> <newline_list> in <case_clause_sequence>
+                         <newline_list> esac
+                 |  case <word> <newline_list> in <case_clause> esac
+
+# is this how parenthesies are handeled?
+# no definatly not is it what detects a function?
+<function_def> ::=  <word> '(' ')' <newline_list> <group_command>
+                 |  function <word> '(' ')' <newline_list> <group_command>
+                 |  function <word> <newline_list> <group_command>
+
+# not we call a new shell to exicute the command right?
+<subshell> ::=  '(' <compound_list> ')'
+
+# ignore
+<if_command> ::= if <compound_list> then <compound_list> fi
+          | if <compound_list> then <compound_list> else <compound_list> fi
+          | if <compound_list> then <compound_list> <elif_clause> fi
+
+<group_command> ::=  '{' <list> '}'
+
+<elif_clause> ::= elif <compound_list> then <compound_list>
+           | elif <compound_list> then <compound_list> else <compound_list>
+           | elif <compound_list> then <compound_list> <elif_clause>
+
+<case_clause> ::=  <pattern_list>
+                |  <case_clause_sequence> <pattern_list>
+
+# parens for priority?
+<pattern_list> ::=  <newline_list> <pattern> ')' <compound_list>
+                 |  <newline_list> <pattern> ')' <newline_list>
+                 |  <newline_list> '(' <pattern> ')' <compound_list>
+                 |  <newline_list> '(' <pattern> ')' <newline_list>
+
+<case_clause_sequence> ::=  <pattern_list> ';;'
+                         |  <case_clause_sequence> <pattern_list> ';;'
+
+# recoursor to pipes?
+# no it seems not, but what is a patter used for?
+<pattern> ::=  <word>
+            |  <pattern> '|' <word>
+
+# ignore ! because we ignore newline_list and list0
+<list> ::=   <newline_list> <list0>
+
+<compound_list> ::=  <list>
+                  |  <newline_list> <list1>
+
+# ignore !
+<list0> ::=   <list1> '\n' <newline_list>
+           |  <list1> '&' <newline_list>
+           |  <list1> ';' <newline_list>
+
+# this is a key rule to make our command tree from
+# it's recursive!
+# need to modify so we have no newline_list in there !
+<list1> ::=   <list1> '&&' <newline_list> <list1>
+           |  <list1> '||' <newline_list> <list1>
+           |  <list1> '&' <newline_list> <list1>
+           |  <list1> ';' <newline_list> <list1>
+           |  <list1> '\n' <newline_list> <list1>
+           |  <pipeline_command>
+
+# ignore!
+<list_terminator> ::= '\n'
+                   |  ';'
+
+# ignore !
+<newline_list> ::=
+                  |  <newline_list> '\n'
+
+# ignore ! we don't care about the two symbols so we're only left with the simple_list1
+<simple_list> ::=  <simple_list1>
+                |  <simple_list1> '&'
+                |  <simple_list1> ';'
+
+# why another type of list!
+# i don't understand
+<simple_list1> ::=  <simple_list1> '&&' <newline_list> <simple_list1>
+                 |  <simple_list1> '||' <newline_list> <simple_list1>
+                 |  <simple_list1> '&' <simple_list1>
+                 |  <simple_list1> ';' <simple_list1>
+                 |  <pipeline_command>
+
+# I think we ignore as we don't care about this "!" symble
+<pipeline_command> ::= <pipeline>
+                    |  '!' <pipeline>
+                    |  <timespec> <pipeline>
+                    |  <timespec> '!' <pipeline>
+                    |  '!' <timespec> <pipeline>
+
+# pipes finally!
+<pipeline> ::=
+          <pipeline> '|' <newline_list> <pipeline>
+       |  <command>
+
+<time_opt> ::= '-p'
+
+<timespec> ::=  time
+             |  time <time_opt>
+
+.XE "BNF (Backus-Naur Form)"
+.XE "bash" "syntax, BNF form of"
