@@ -15,7 +15,7 @@ what the heck!
 
 ### Current dev goal
 
-```bnf
+```ebnf
 <commandline> ::= <pipeline> <end>
 
 <pipeline> ::=  <string>
@@ -26,7 +26,7 @@ what the heck!
 
 ### Final gramar is something like this
 
-```bnf
+```ebnf
 
 <commandline> ::= <conditional> <end>
                 | <end>
