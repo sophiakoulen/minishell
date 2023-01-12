@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 12:36:49 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 14:51:54 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/11 18:21:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// this id detailes des
-void	foo(int n)
+void	*allocate(size_t size, size_t quantity)
 {
-	ft_printf("this is a %d\n", n);
+	void	*ret;
+
+	ret = (void *)malloc(size * quantity);
+	if (!ret)
+	{
+		perror("failed to allocate more memory, quitting.");
+		// our clean up function! but maybe we don't need it.
+		exit(2);
+	}
+	return (ret);
 }
