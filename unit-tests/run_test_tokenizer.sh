@@ -2,6 +2,7 @@
 # Tokenizer unit test
 
 RESET="\033[0m"
+GERY="\033[90m"
 BLACK="\033[30m"
 RED="\033[31m"
 GREEN="\033[32m"
@@ -14,7 +15,7 @@ ITALIC="\033[3m"
 
 function exec_test()
 {
-	local RES=$(./test_tokenizer $2)
+	local RES=$(./tokenizer.test $2)
 	# local DIFF_RES=$(diff <(echo "$2") <(echo "$RES"))
 	# cat -e <(echo $DIFF_RES)
 	if [[ $RES == $3 ]]; then
@@ -27,7 +28,7 @@ function exec_test()
 }
 
 
-make test_tokenizer
+make tokenizer
 echo "\n${ITALIC}${YELLOW}Testing the tokenizer${RESET}"
 
 # these tests where written by me, they are not infallable

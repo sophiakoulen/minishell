@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/12 00:09:05 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/12 20:28:39 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,32 @@ CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
 # put the unit test files here
-SRCS	= test_1.c
+FILES	= tokenizer
+
+OBJS	=	$(addsuffix _test.o, $(FILES))
 
 all: $(NAME)
 
 .c.o :
-		$(CC) $(CFLAGS) -I../includes -c $< -o $(@)
+	$(CC) $(CFLAGS) -I../includes -c $< -o $(@)
 
 #need to compile with the readline lib
-$(NAME) : $(SRCS)
+$(NAME) : $(OBJS)
 	$(MAKE) lib -C ..
-#	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $(SRCS)
 
-fclean :
-	rm -f test
+clean :
+	$(RM) *.test
+	$(RM) $(OBJS)
+
+fclean : clean
+	$(RM) ../libminishell.a
+
 
 # Individual unit tests
 
-test_tokenizer : all test_tokenizer.o
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@ $@.o
-#	./$@ "this is a test"
-# make test_tokenizer && ./test_tokenizer "&&||< >>>| some_test && more  ||  make test_tokenizer"
+tokenizer : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
 
 re: fclean all
+
+.PHONY	: all clean fclean re
