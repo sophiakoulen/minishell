@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 19:49:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:22:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 # include "stdio.h"
 # include "libft.h"
 # include "tokenizer.h"
-
-/* tokenizer.c */
-
-
 
 /* tokenizer.c */
 

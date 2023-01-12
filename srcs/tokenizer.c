@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 00:10:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:23:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static t_token	*lexer(char	**str)
 		*str = *str + ft_strlen(ret_token_literal(tok->type));
 	else
 	{
-		i = -1;
+		i = 0;
 		while ((*str)[i++] && (int)tok->type == -1)
 			tok->type = check_token_literals(*str + i);
 		if ((int)tok->type != -1)
@@ -95,7 +95,7 @@ t_token	*construct_tok_list(char *str)
 	while (1)
 	{
 		tmp = lexer(&str);
-		// ft_printf("lexer type %s		", ret_token_literal(tmp->type));
+		// ft_printf("lexer type %d %s		", tmp->type, ret_token_literal(tmp->type));
 		// ft_printf("lexer str\"%s\"\n", tmp->str);
 		if (start == NULL)
 		{
