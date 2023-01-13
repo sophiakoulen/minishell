@@ -12,7 +12,6 @@ what the heck!
 
 ## Grammar
 
-
 ### Current dev goal
 
 ```ebnf
@@ -21,6 +20,16 @@ what the heck!
 
 <pipeline> ::=  <string>
              |  <pipeline> "|" <string>
+
+<string> ::= "any combination of characters really"
+```
+
+### Current dev goal rewrite
+
+```ebnf
+<commandline> ::= {<pipeline>} <end>
+
+<pipeline> ::=  <string> {"|" <string>}
 
 <string> ::= "any combination of characters really"
 ```

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:13:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:32:16 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ t_tree	*tree_factory(t_tree *blueprint)
 	}
 	else
 	{
-		ft_printf("\nthe blue-print at the factory is: ");
-		print_token_tree(blueprint);
-		ft_printf("\n");
+		// ft_printf("\nthe blue-print at the factory is: ");
+		// print_token_tree(blueprint);
+		// ft_printf("\n");
 		ret->type = blueprint->type;
 		ret->str = blueprint->str;
 		ret->left = blueprint->left;
 		ret->right = blueprint->right;
-		ft_printf("the ret at the factory is: ");
+		// ft_printf("the ret at the factory is: ");
 		print_token_tree(ret);
 		ft_printf("\n\n");
 	}
