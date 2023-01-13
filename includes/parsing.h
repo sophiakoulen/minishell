@@ -6,11 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:14:07 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 21:28:27 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/12 22:24:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARASING_H
+#ifndef PARSING_H
 # define PARSING_H
 
 #include "tokenizer.h"
