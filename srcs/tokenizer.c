@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 22:28:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:21:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,25 @@ static void	string_decetion(t_token *tok, char **str)
 {
 	int	i;
 	int	backwards;
+	int	single_q;
+	int	double_q;
 
+	single_q = 0;
+	double_q = 0;
 	i = 0;
 	while ((*str)[i] && (int)tok->type == -1)
 	{
-		tok->type = check_token_literals(*str + i);
+		if ((*str)[i] == 34)
+			double_q ^= 1U;
+		if ((*str)[i] == 39)
+			single_q ^= 1U;
+		if (!single_q)
+			if (!double_q)
+				tok->type = check_token_literals(*str + i);
 		i++;
 	}
+	if (single_q || double_q)
+		perror("closing quotes error");
 	if ((int)tok->type != -1)
 		i--;
 	backwards = i - 1;
