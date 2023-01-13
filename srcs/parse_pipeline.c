@@ -6,11 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 10:03:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 11:26:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// only for dev and debugging
+void	print_token_tree(t_tree *tree);
 
 int	parse_pipeline(t_tree **tree, t_token **tok)
 {
@@ -27,6 +30,12 @@ int	parse_pipeline(t_tree **tree, t_token **tok)
 		(*tree)->right = tree_factory(NULL);
 		tok = &(*tok)->next;
 		*tree = (*tree)->right;
+
+		ft_printf("sdfsd\n");
+		ft_printf("adress of leaf %p\n", *tree);
+		// print_token_tree((*tree)->left);
+		ft_printf("sdfsd\n");
+
 		return (SUCCESS);
 	}
 	return (SUCCESS);

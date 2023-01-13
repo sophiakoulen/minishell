@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 10:22:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 11:24:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ void	print_token_list_minimal(t_token *tok)
 
 void	print_token_tree(t_tree *tree)
 {
+	if (tree == NULL)
+		return ;
 	if (tree->type == e_string)
 	{
-		ft_printf("{%s}", tree->str);
+		ft_printf("string {%s}", tree->str);
 	}
 	else
 	{
 		if (tree->type == e_end)
 			ft_printf("end");
 		else
-			ft_printf("%s ", ret_token_literal(tree->type));
+			ft_printf("token %s ", ret_token_literal(tree->type));
 	}
 	if (tree->left)
 		print_token_tree(tree->left);
@@ -64,6 +66,7 @@ int	main(int argc, char **argv)
 
 	printf("\n    ~-~-~-~-~\n");
 	ft_printf("\nprinted tree\n");
+
 	print_token_tree(tree);
 
 	printf("\n");
