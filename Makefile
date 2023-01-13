@@ -6,11 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2023/01/13 10:01:49 by znichola         ###   ########.fr        #
-=======
-#    Updated: 2023/01/13 10:04:48 by skoulen          ###   ########.fr        #
->>>>>>> added function for single heredoc
+#    Updated: 2023/01/13 11:44:47 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +21,8 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-<<<<<<< HEAD
-FILES		=	main tokenizer utils parse_commandline parse_pipeline
-=======
 EXECUTION	=	$(addprefix execution/, heredoc)
 FILES		=	main tokenizer utils $(EXECUTION)
->>>>>>> added function for single heredoc
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
