@@ -22,6 +22,7 @@ function exec_test()
 		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$2"
 	else
 		printf "${BLUE}%2s ${BOLD}${RED}KO${RESET}\n" "$2"
+		echo "   ${BOLD}${RED}:${RESET}  Inputted '$3'"
 		echo "   ${BOLD}${RED}:${RESET}  Expected '$4'"
 		echo "   ${BOLD}${RED}:${RESET}  Received '$RES'"
 	fi

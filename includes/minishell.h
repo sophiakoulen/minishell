@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 16:17:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 21:35:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	parse_command(t_tree **tree, t_token **tok);
 /* utils.c */
 
 void	*x_malloc(size_t size, size_t quantity);
+int		ft_isspace(int c);
 
 # include <stdio.h>
 # include <readline/readline.h>

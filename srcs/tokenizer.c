@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 22:28:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	check_token_literals(char *str)
 static void	string_decetion(t_token *tok, char **str)
 {
 	int	i;
+	int	backwards;
 
 	i = 0;
 	while ((*str)[i] && (int)tok->type == -1)
@@ -71,8 +72,11 @@ static void	string_decetion(t_token *tok, char **str)
 	}
 	if ((int)tok->type != -1)
 		i--;
+	backwards = i - 1;
+	while (ft_isspace((*str)[backwards]))
+		backwards--;
 	tok->type = e_string;
-	tok->str = ft_substr(*str, 0, i);
+	tok->str = ft_substr(*str, 0, backwards + 1);
 	*str += i;
 }
 
@@ -85,6 +89,8 @@ static t_token	*lexer(char	**str)
 {
 	t_token	*tok;
 
+	while (ft_isspace(**str))
+		(*str)++;
 	tok = x_malloc(sizeof(t_token), 1);
 	tok->next = NULL;
 	tok->type = check_token_literals(*str);
