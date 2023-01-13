@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/12 22:19:08 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/13 11:31:00 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= test
+NAME	=test
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
