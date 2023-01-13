@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 17:32:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:55:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_token_tree(t_tree *tree);
 
 int	parse_pipeline(t_tree **tree, t_token **tok)
 {
-	ft_printf("got to the pipeline!!\n");
 	if ((*tok)->type == e_end)
 	{
 		*tree = NULL;
@@ -30,12 +29,6 @@ int	parse_pipeline(t_tree **tree, t_token **tok)
 		parse_command(&left, tok);
 		*tok = (*tok)->next;
 		parse_pipeline(&right, tok);
-		ft_printf("left: ");
-		print_token_tree(left);
-		ft_printf("\nright: ");
-		print_token_tree(right);
-		ft_printf("\n");
-
 		*tree = tree_factory(&(t_tree){e_pipe, NULL, left, right});
 
 		return (SUCCESS);
