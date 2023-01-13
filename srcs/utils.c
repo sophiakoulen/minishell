@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 21:34:45 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,14 @@ void	*x_malloc(size_t size, size_t quantity)
 		exit(2);
 	}
 	return (ret);
+}
+
+int	ft_isspace(int c)
+{
+	return (c == '\t'
+		|| c == '\n'
+		|| c == '\v'
+		|| c == '\f'
+		|| c == '\r'
+		|| c == ' ');
 }
