@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 11:24:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:32:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,29 @@ void	print_token_tree(t_tree *tree)
 {
 	if (tree == NULL)
 		return ;
+	if (tree->left)
+	{
+		ft_printf("{");
+		print_token_tree(tree->left);
+		ft_printf("}");
+	}
 	if (tree->type == e_string)
 	{
-		ft_printf("string {%s}", tree->str);
+		ft_printf("%s", tree->str);
 	}
 	else
 	{
 		if (tree->type == e_end)
 			ft_printf("end");
 		else
-			ft_printf("token %s ", ret_token_literal(tree->type));
+			ft_printf(" %s ", ret_token_literal(tree->type));
 	}
-	if (tree->left)
-		print_token_tree(tree->left);
-	else if (tree->right)
+	if (tree->right)
+	{
+		ft_printf("{");
 		print_token_tree(tree->right);
+		ft_printf("}");
+	}
 }
 
 int	main(int argc, char **argv)
@@ -58,14 +66,14 @@ int	main(int argc, char **argv)
 	str = argv[1];
 	tok = construct_tok_list(str);
 
-	printf("\n\nlist of found tokens \n");
-	print_token_list_minimal(tok);
-	printf("\n\n\n    ~-~-~-~-~\n\n");
+	// printf("\n\nlist of found tokens \n");
+	// print_token_list_minimal(tok);
+	// printf("\n\n\n    ~-~-~-~-~\n\n");
 
 	parse_commandline(&tree, tok);
 
-	printf("\n    ~-~-~-~-~\n");
-	ft_printf("\nprinted tree\n");
+	// printf("\n    ~-~-~-~-~\n");
+	// ft_printf("\nprinted tree\n");
 
 	print_token_tree(tree);
 

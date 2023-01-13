@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/13 12:37:40 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/13 14:22:23 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 EXECUTION	=	$(addprefix execution/, heredoc)
-FILES		=	main tokenizer utils parse_commandline parse_pipeline $(EXECUTION)
+FILES		=	main tokenizer utils parse_commandline parse_pipeline parse_command $(EXECUTION)
 
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
