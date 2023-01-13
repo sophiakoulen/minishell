@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 18:19:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/13 18:24:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,21 @@ static void	add_line(char **buffer, char *line)
 	*buffer = tmp;
 }
 
-/*
-void	do_all_heredoc(int n, char **delims, int *fds)
+
+void	do_all_heredocs(t_pipeline *p, int **hd_pipes)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (i < p->n_cmds)
 	{
-		do_1heredoc(delims[i], fds[i]);
+		if (p->cmds[i]->in->type == IS_HEREDOC)
+		{
+			do_single_heredoc(p->cmds[i]->in->str, hd_pipes[i][1]);
+		}
 		i++;
 	}
 }
-*/
 
 /*
 int	count_heredoc(t_pipeline *pipeline)
