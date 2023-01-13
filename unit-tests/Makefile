@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/12 22:19:08 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/13 11:33:24 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= test
+NAME	=test
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
 # put the unit test files here
-FILES	= tokenizer parsing
+FILES	= tokenizer parsing heredoc
 
 OBJS	=	$(addsuffix _test.o, $(FILES))
 
@@ -44,6 +44,9 @@ tokenizer : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
 
 parsing : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
+
+heredoc : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
 
 re: fclean all
