@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 15:25:43 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 16:54:34 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ UTILS_FILES		:=	$(addprefix utils/, $(UTILS_FILES))
 BUILTINS		:=	$(addprefix builtins/, $(BUILTINS))
 
 FILES		=	main $(PARSING_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES) $(BUILTINS)
-
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
