@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/13 10:01:49 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/13 12:37:40 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 EXECUTION	=	$(addprefix execution/, heredoc)
-FILES		=	main tokenizer utils $(EXECUTION)
+FILES		=	main tokenizer utils parse_commandline parse_pipeline $(EXECUTION)
 
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))

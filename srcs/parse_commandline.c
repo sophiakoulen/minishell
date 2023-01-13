@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:13:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 11:11:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*token_factory(t_token *next, char *str, enum e_token_type type)
 {
 	t_token	*ret;
 
-	ret = (t_token *)allocate(sizeof(t_token), 1);
+	ret = (t_token *)x_malloc(sizeof(t_token), 1);
 	ret->next = next;
 	ret->str = str;
 	ret->type = type;
@@ -35,7 +35,7 @@ t_tree	*tree_factory(t_tree *blueprint)
 {
 	t_tree	*ret;
 
-	ret = (t_tree *)allocate(sizeof(t_tree), 1);
+	ret = (t_tree *)x_malloc(sizeof(t_tree), 1);
 	if (blueprint == NULL)
 	{
 		ret->type = -1;

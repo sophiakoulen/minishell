@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/12 18:04:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_token	*lexer(char	**str)
 {
 	t_token	*tok;
 
-	tok = allocate(sizeof(t_token), 1);
+	tok = x_malloc(sizeof(t_token), 1);
 	tok->next = NULL;
 	tok->type = check_token_literals(*str);
 	if (tok->type == e_end)

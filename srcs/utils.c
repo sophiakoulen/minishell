@@ -6,13 +6,13 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/11 18:21:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*allocate(size_t size, size_t quantity)
+void	*x_malloc(size_t size, size_t quantity)
 {
 	void	*ret;
 

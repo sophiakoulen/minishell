@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 11:31:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/13 12:38:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse_pipeline(t_tree **tree, t_token **tok);
 
 /* utils.c */
 
-void	*allocate(size_t size, size_t quantity);
+void	*x_malloc(size_t size, size_t quantity);
 
 # include <stdio.h>
 # include <readline/readline.h>
