@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 17:32:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:38:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ int	main(int argc, char **argv)
 
 	print_token_tree(tree);
 
-	printf("\n");
+	// printf("\n");
 	return (0);
 }

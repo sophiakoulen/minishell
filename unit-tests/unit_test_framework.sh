@@ -15,14 +15,14 @@ ITALIC="\033[3m"
 
 function exec_test()
 {
-	local RES=$(./tokenizer.test $2)
+	local RES=$(./$1.test $3)
 	# local DIFF_RES=$(diff <(echo "$2") <(echo "$RES"))
 	# cat -e <(echo $DIFF_RES)
-	if [[ $RES == $3 ]]; then
-		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$1"
+	if [[ $RES == $4 ]]; then
+		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$2"
 	else
-		printf "${BLUE}%2s ${BOLD}${RED}KO${RESET}\n" "$1"
-		echo "   ${BOLD}${RED}:${RESET}  Expected '$3'"
+		printf "${BLUE}%2s ${BOLD}${RED}KO${RESET}\n" "$2"
+		echo "   ${BOLD}${RED}:${RESET}  Expected '$4'"
 		echo "   ${BOLD}${RED}:${RESET}  Received '$RES'"
 	fi
 }
