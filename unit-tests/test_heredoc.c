@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 10:06:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 10:22:59 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/13 11:12:34 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main()
 		perror("execution failed\n");
 	}
 	close(hd_pipe[0]);
-	do_1heredoc(delim, hd_pipe[1]);
+	do_single_heredoc(delim, hd_pipe[1]);
 	waitpid(pid, 0, 0);
 	return (0);
 }
