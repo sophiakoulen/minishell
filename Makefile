@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/11 20:23:38 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/13 10:01:49 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-FILES		=	main tokenizer utils
+FILES		=	main tokenizer utils parse_commandline parse_pipeline
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))

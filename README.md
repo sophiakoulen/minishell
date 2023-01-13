@@ -17,6 +17,7 @@ what the heck!
 
 ```ebnf
 <commandline> ::= <pipeline> <end>
+                | <end>
 
 <pipeline> ::=  <string>
              |  <pipeline> "|" <string>

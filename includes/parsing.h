@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_1.c                                           :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 15:33:16 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:17 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/12 21:14:07 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/12 22:24:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-/*
-	Do some unit testing here
-*/
+#include "tokenizer.h"
 
-int main()
+typedef struct s_tree
 {
-	ft_printf("test 1\n");
-	return (0);
-}
+	enum e_token_type	type;
+	char				*str;
+	struct s_tree		*left;
+	struct s_tree		*right;
+}	t_tree;
+
+#endif

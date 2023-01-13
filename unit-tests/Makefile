@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/12 20:28:39 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/12 22:19:08 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
 # put the unit test files here
-FILES	= tokenizer
+FILES	= tokenizer parsing
 
 OBJS	=	$(addsuffix _test.o, $(FILES))
 
@@ -41,6 +41,9 @@ fclean : clean
 # Individual unit tests
 
 tokenizer : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
+
+parsing : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
 
 re: fclean all

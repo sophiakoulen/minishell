@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   unit_tests.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:33:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/13 08:21:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 # define UNIT_TESTS_H
 
 # include "minishell.h"
+
+/* tokenizer tests */
+
+void	print_token_list_minimal(t_token *tok);
 
 #endif
