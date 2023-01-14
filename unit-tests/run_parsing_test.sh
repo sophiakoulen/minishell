@@ -10,7 +10,7 @@ echo "\n${ITALIC}${YELLOW}Testing the parser${RESET}"
 
 # these tests where written by me, they are not infallable
 
-exec_test $N 0 'echo hello | cat -e | new_test' '{echo hello } | {{ cat -e } | { new_test}}'
+exec_test $N 0 'echo hello | cat -e | new_test' '{echo hello} | {{cat -e} | {new_test}}'
 
 
 # ./parsing.test 'echo hello | cat -e | new_test'
