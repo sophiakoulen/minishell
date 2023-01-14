@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/13 11:33:24 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/14 09:28:48 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,10 @@ $(NAME) : $(OBJS)
 	$(MAKE) lib -C ..
 
 clean :
-	$(RM) *.test
 	$(RM) $(OBJS)
 
 fclean : clean
-	$(RM) ../libminishell.a
-
+	$(RM) *.test
 
 # Individual unit tests
 

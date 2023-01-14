@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/13 14:22:23 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/14 09:28:04 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,17 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-EXECUTION	=	$(addprefix execution/, heredoc)
-FILES		=	main tokenizer utils parse_commandline parse_pipeline parse_command $(EXECUTION)
+PARSING_FILES	=	prs_commandline prs_pipeline prs_command
+EXECUTION_FILES	=	heredoc
+TOKENIZER_FILES	=	tokenizer
+UTILS_FILES		=	utils_1
+
+PARSING_FILES	:=	$(addprefix parsing/, $(PARSING_FILES))
+EXECUTION_FILES	:=	$(addprefix execution/, $(EXECUTION_FILES))
+TOKENIZER_FILES	:=	$(addprefix tokenizer/, $(TOKENIZER_FILES))
+UTILS_FILES		:=	$(addprefix utils/, $(UTILS_FILES))
+
+FILES		=	main $(PARSING_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES)
 
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
@@ -40,26 +49,17 @@ LIBS_PATH		=	-L$(LIBFT_DIR)
 all		: $(NAME)
 
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
-	mkdir -p $(OBJS_PATH)
-	mkdir -p $(OBJS_PATH)/execution
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
 $(NAME)	: $(LIB_N) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
 
-clean	:
-	$(RM) $(OBJS)
-
-fclean	: clean
-	$(RM) $(NAME)
-
-re		: fclean all
-	$(MAKE) re -C $(LIBFT_DIR)
-
 $(LIBFT_N):
 		$(MAKE) -C $(LIBFT_DIR) $(LIBFT_N)
 		cp $(LIBFT) $(NAME)
 
+# minishell library for unit tests
 LIBMINISHELL	= libminishell.a
 
 $(LIBMINISHELL): $(OBJS) $(LIBFT)
@@ -67,5 +67,17 @@ $(LIBMINISHELL): $(OBJS) $(LIBFT)
 	ar rcs libminishell.a $(OBJS)
 
 lib		: $(LIBMINISHELL)
+
+# end minshell library
+
+clean	:
+	$(RM) $(OBJS)
+
+fclean	: clean
+	$(RM) $(NAME) $(LIBMINISHELL)
+	$(MAKE) fclean -C unit-tests
+
+re		: fclean all
+	$(MAKE) re -C $(LIBFT_DIR)
 
 .PHONY	: all clean fclean re
