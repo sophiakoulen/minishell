@@ -6,24 +6,31 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/14 09:28:48 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/14 09:48:11 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=test
+NAME	= test
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
-# put the unit test files here
-FILES	= tokenizer parsing heredoc
+TEST_NAMES	= tokenizer parsing heredoc
 
-OBJS	=	$(addsuffix _test.o, $(FILES))
+# put the unit test files here
+# have one file that's the same as the test name
+FILES		:= $(TEST_NAMES)
+
+OBJS_PATH	=	objs/
+
+OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
+
 
 all: $(NAME)
 
-.c.o :
+$(OBJS_PATH)%.o : %.c
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I../includes -c $< -o $(@)
 
 #need to compile with the readline lib
@@ -34,18 +41,18 @@ clean :
 	$(RM) $(OBJS)
 
 fclean : clean
-	$(RM) *.test
+	$(RM) $(addsuffix .test, $(TEST_NAMES))
 
 # Individual unit tests
 
 tokenizer : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 parsing : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 heredoc : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $@_test.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all
 
