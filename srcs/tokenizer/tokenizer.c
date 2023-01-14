@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 23:21:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:04:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	check_token_literals(char *str)
 	int	i;
 
 	i = -1;
+	if (ft_isspace(*str))
+		return (100);
 	if (*str == '\0' || *str == '\n' || (*str == '\r' && *str + 1 == '\n'))
 		return (e_end);
 	while (++i < NUM_TOKEN_LITERALS)
