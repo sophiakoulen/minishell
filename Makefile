@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/14 09:28:04 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 08:38:21 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJS_PATH	=	objs/
 PARSING_FILES	=	prs_commandline prs_pipeline prs_command
 EXECUTION_FILES	=	heredoc
 TOKENIZER_FILES	=	tokenizer
-UTILS_FILES		=	utils_1
+UTILS_FILES		=	utils_1 tree_ops
 
 PARSING_FILES	:=	$(addprefix parsing/, $(PARSING_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/, $(EXECUTION_FILES))

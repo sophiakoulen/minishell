@@ -6,11 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/13 22:23:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 08:41:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
+#include "unit_tests.h"
 
 void	print_token_list_minimal(t_token *tok)
 {
@@ -75,7 +76,8 @@ int	main(int argc, char **argv)
 	// printf("\n    ~-~-~-~-~\n");
 	// ft_printf("\nprinted tree\n");
 
-	print_token_tree(tree);
+	// print_token_tree(tree);
+	auto_print_tree(tree);
 
 	// printf("\n");
 	return (0);
