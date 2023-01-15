@@ -13,6 +13,8 @@ YELLOW="\033[33m"
 BOLD="\033[1m"
 ITALIC="\033[3m"
 
+# exec_test <test exicutable> <test number> <expected result> <arg1> <arg2> <..>
+
 function exec_test()
 {
 	FUNC=$1
