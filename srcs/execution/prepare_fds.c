@@ -6,30 +6,35 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 14:57:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 15:15:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_fds	*prepare_fds(t_pipeline *p)
+static int	**get_pipes(int n);
+static int	**cleanup_pipes(int **pipes, int n);
+static int	*prepare_all_input(int n);
+static int	*prepare_all_output(int n);
+
+t_fds	*prepare_fds(int n)
 {
 	t_fds	*fds;
 
-	fds = xmalloc(sizeof(*fds));
-	fds->input_fds = prepare_all_input(p);
-	fds->output_fds = prepare_all_output(p);
-	fds->pipes = get_pipes(p->n_cmds - 1);
-	fds->hd_pipes = get_pipes(p->n_cmds);
+	fds = x_malloc(sizeof(*fds), 1);
+	fds->infile_fds = prepare_all_input(n);
+	fds->outfile_fds = prepare_all_output(n);
+	fds->pipes = get_pipes(n - 1);
+	fds->hd_pipes = get_pipes(n);
 	return (fds);
 }
 
 void	cleanup_fds(t_fds *fds, int n_cmds)
 {
 	cleanup_pipes(fds->pipes, n_cmds - 1);
-	cleanup_pipes(fds->pipes, n_cmds);
-	free(fds->input_fds);
-	free(fds->output_fds);
+	cleanup_pipes(fds->hd_pipes, n_cmds);
+	free(fds->infile_fds);
+	free(fds->outfile_fds);
 	free(fds);
 }
 
@@ -38,12 +43,12 @@ static int	**get_pipes(int n)
 	int	**pipes;
 	int	i;
 
-	pipes = xmalloc(n * sizeof(*pipes));
+	pipes = x_malloc(sizeof(*pipes), n);
 	i = 0;
 	while (i < n)
 	{
-		pipes[i] = xmalloc(2 * sizeof(int));
-		if (open(pipes[i]) != 0)
+		pipes[i] = x_malloc(sizeof(int), 2);
+		if (pipe(pipes[i]) != 0)
 		{
 			perror("failed to open pipe");
 			exit(3);
@@ -64,38 +69,40 @@ static int	**cleanup_pipes(int **pipes, int n)
 		i++;
 	}
 	free(pipes);
+	return (0);
 }
 
-static int	prepare_all_input(t_pipeline *p)
+static int	*prepare_all_input(int n)
 {
 	int	*input_fds;
 	int	i;
 
-	input_fds = xmalloc(p->n_cmds * sizeof(int));
+	input_fds = x_malloc(sizeof(int), n);
 	i = 0;
-	while (i < p->n_cmds)
+	while (i < n)
 	{
-		input_fds[i] = get_single_input(p->cmds[i]);
+		input_fds[i] = -1;
 		i++;
 	}
 	return (input_fds);
 }
 
-static int	prepare_all_output(t_pipeline *p)
+static int	*prepare_all_output(int n)
 {
 	int	*output_fds;
 	int	i;
 
-	output_fds = xmalloc(p->n_cmds * sizeof(int));
+	output_fds = x_malloc(sizeof(int), n);
 	i = 0;
-	while (i < p->n_cmds)
+	while (i < n)
 	{
-		output_fds[i] = get_single_output(p->cmds[i]);
+		output_fds[i] = -1;
 		i++;
 	}
 	return (output_fds);
 }
 
+/*
 static	int get_single_input(t_cmd cmd)
 {
 	int	fd;
@@ -137,3 +144,4 @@ static int	get_single_output(t_cmd cmd)
 	}
 	return (fd);
 }
+*/

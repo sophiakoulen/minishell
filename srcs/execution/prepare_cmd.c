@@ -6,25 +6,29 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 12:56:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 15:12:35 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd_info	*prepare_all_cmds(t_pipeline *p, t_fds *fds)
+static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i);
+static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
+static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info);
+
+t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n)
 {
-	t_cmd_info	*cmd_infos;
+	t_cmd_info	*infos;
 	int			i;
 
-	cmd_infos = xmalloc(p->n_cmds * sizeof(*cmd_infos));
+	infos = x_malloc(n, sizeof(*infos));
 	i = 0;
-	while (i < p->n_cmds)
+	while (i < n)
 	{
-		prepare_cmd(p->cmd[i], cmd_infos[i], fds, i, p->n_cmds);
+		prepare_cmd(&cmds[i], &infos[i], fds, i, n);
 		i++;
 	}
-	return (cmd_infos);
+	return (infos);
 }
 
 void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
@@ -42,56 +46,63 @@ void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 
 static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i)
 {
+	int	fd;
+
 	if (!cmd->in) //get input from pipe or stdin
 	{
 		if (i == 0)
-			info->i_fd = STDIN_FILENO;
+			fd = STDIN_FILENO;
 		else
-			info->i_fd = fds->pipes[i - 1][0];
+			fd = fds->pipes[i - 1][0];
 	}
 	else if(cmd->in->type == INFILE) //get input from file
 	{
-		info->i_fd = open(cmd->in->str, O_RDONLY);
-		if (info->i_fd < 0)
+		fd = open(cmd->in->str, O_RDONLY);
+		if (fd < 0)
 		{ 
 			perror(cmd->in->str); //later error printing needs to be done in child
 			info->status = 1;
 		}
+		fds->infile_fds[i] = fd;
 	}
 	else //get input from heredoc
 	{
-		info->i_fd = fds->hd_pipes[i][0];
+		fd = fds->hd_pipes[i][0];
 	}
+	info->i_fd = fd;
 }
 
 static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 {
 	int	flags;
+	int	fd;
 
 	if (!cmd->out) //get output to pipe (or stdin)
 	{
 		if (i == n - 1)
-			info->o_fd = STDOUT_FILENO;
+			fd = STDOUT_FILENO;
 		else
-			info->o_fd = fds->pipes[i][1];
+			fd = fds->pipes[i][1];
 	}
 	else //get output to file
 	{
 		flags = O_WRONLY | O_TRUNC | O_CREAT;
-		if (cmd->out->type == IS_APPEND)
+		if (cmd->out->type == APPEND)
 			flags |= O_APPEND;
-		info->o_fd = open(cmd->out->str, flags, 0644);
-		if (info->o_fd < 0)
+		fd = open(cmd->out->str, flags, 0644);
+		if (fd < 0)
 		{
 			perror(cmd->out->str);
 			info->status = 1;
 		}
+		fds->outfile_fds[i] = fd;
 	}
+	info->o_fd = fd;
 }
 
 static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 {
-	char	**path = {"/bin", "/usr/bin", 0};
+	char	*path[] = {"/bin", "/usr/bin", 0};
 
 	if (cmd->args)
 	{

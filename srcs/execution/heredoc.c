@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 18:24:43 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 13:02:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	do_all_heredocs(t_pipeline *p, int **hd_pipes)
 	i = 0;
 	while (i < p->n_cmds)
 	{
-		if (p->cmds[i]->in->type == IS_HEREDOC)
+		if (p->cmds[i].in->type == HEREDOC)
 		{
-			do_single_heredoc(p->cmds[i]->in->str, hd_pipes[i][1]);
+			do_single_heredoc(p->cmds[i].in->str, hd_pipes[i][1]);
 		}
 		i++;
 	}

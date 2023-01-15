@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 15:05:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 14:52:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 
 	Return value corresponds to the last command.
 */
-int	multiple_commands(t_pipeline *p, t_env *environment, t_fds *fds)
+int	multiple_commands(t_pipeline *p, t_fds *fds)
 {
-	int	*pids;
-	int	ret;
+	int			*pids;
+	t_cmd_info	*infos;
+	int			ret;
 
-	//prepare commands (path finding etc)
+	infos = prepare_all_cmds
 	pids = launch_all(p, environment, fds);
 	do_all_heredocs(p, fds->hd_pipes);
 	close_unused_fds(fds);
@@ -33,7 +34,7 @@ int	multiple_commands(t_pipeline *p, t_env *environment, t_fds *fds)
 	return (compute_return_value(ret));
 }
 
-int	*launch_all(t_pipeline *p, t_env *environment, t_fds *fds)
+int	*launch_all(t_pipeline *p, t_fds *fds)
 {
 	int	*pids;
 	int	i;
@@ -61,7 +62,7 @@ int	wait_all(int n, int *pids)
 	return (status);
 }
 
-int	launch_child(t_cmd *cmd, t_cmd_info *info, t_env *environment)
+int	launch_child(t_cmd *cmd, t_cmd_info *info)
 {
 	int	pid;
 
@@ -90,5 +91,3 @@ int	launch_child(t_cmd *cmd, t_cmd_info *info, t_env *environment)
 	}
 	return (pid);
 }
-
-

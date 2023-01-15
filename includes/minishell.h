@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 16:54:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:56:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	pwd(void);
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <sys/errno.h>
 
 
 #endif
