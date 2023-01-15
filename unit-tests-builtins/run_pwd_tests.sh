@@ -6,7 +6,7 @@ source ../unit-tests/unit_test_framework.sh
 N=pwd
 
 make $N
-echo "\n${ITALIC}${YELLOW}Testing pwd builtin${RESET}"
+echo "\n${ITALIC}${YELLOW}Testing $N builtin${RESET}"
 
 # these tests where written by me, they are not infallable
 EXE_PATH=$(pwd | cut -c 2-)

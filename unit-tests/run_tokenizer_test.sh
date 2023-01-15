@@ -6,7 +6,7 @@ source unit_test_framework.sh
 N=tokenizer
 
 make $N
-echo "\n${ITALIC}${YELLOW}Testing the tokenizer${RESET}"
+echo "\n${ITALIC}${YELLOW}Testing the $N${RESET}"
 
 # these tests where written by me, they are not infallable
 # exec_test <test exicutable> <test number> <expected result> <arg1> <arg2> <..>

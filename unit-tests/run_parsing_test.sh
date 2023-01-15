@@ -6,7 +6,7 @@ source unit_test_framework.sh
 N=parsing
 
 make $N
-echo "\n${ITALIC}${YELLOW}Testing the parser${RESET}"
+echo "\n${ITALIC}${YELLOW}Testing the $N${RESET}"
 
 # these tests where written by me, they are not infallable
 
