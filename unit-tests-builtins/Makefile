@@ -5,22 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/15 13:19:29 by znichola         ###   ########.fr        #
+#    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
+#    Updated: 2023/01/15 13:19:42 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= test
+NAME	= builtins
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
-TEST_NAMES	= tokenizer parsing heredoc parse_item
+TEST_NAMES	= echo
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES) print_tree
+FILES		:= $(TEST_NAMES)
 
 OBJS_PATH	=	objs/
 
@@ -45,18 +45,8 @@ fclean : clean
 
 # Individual unit tests
 
-tokenizer : all
+echo : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
-
-parsing : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
-
-heredoc : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
-
-parse_item : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
-
 
 re: fclean all
 
