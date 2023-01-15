@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 10:57:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 13:27:03 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int		ft_isspace(int c);
 int	get_tree_width(t_tree *tree, int level);
 int	get_tree_height(t_tree *tree);
 int	get_tree_max_width(t_tree *tree);
+
+/* BUILTINS */
+
+int	echo(char **args);
+
 
 
 # include <stdio.h>
