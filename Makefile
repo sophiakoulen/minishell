@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 13:22:43 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 15:25:43 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARSING_FILES	=	prs_commandline prs_pipeline prs_command prs_item
 EXECUTION_FILES	=	heredoc
 TOKENIZER_FILES	=	tokenizer
 UTILS_FILES		=	utils_1 tree_ops
-BUILTINS		=	echo
+BUILTINS		=	echo pwd
 
 PARSING_FILES	:=	$(addprefix parsing/, $(PARSING_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/, $(EXECUTION_FILES))
