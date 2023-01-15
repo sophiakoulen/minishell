@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:19:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 10:24:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 11:25:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,15 @@ int	parse_command(t_tree **tree, t_token **tok)
 	parse_command(&((*tree)->right), tok);
 	return (SUCCESS);
 }
+
+
+// int	parse_command(t_tree **tree, t_token **tok)
+// {
+// 	if ((*tok)->type == e_end)
+// 		return (-2);
+// 	if (parse_item(tree, &tok) != SUCCESS)
+// 		return (-2);
+// 	*tree = tree_factory(&(t_tree){(*tok)->type, (*tok)->str, NULL, NULL});
+// 	parse_command(&((*tree)->right), tok);
+// 	return (SUCCESS);
+// }

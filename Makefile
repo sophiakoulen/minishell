@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 08:38:21 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 11:01:38 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-PARSING_FILES	=	prs_commandline prs_pipeline prs_command
+PARSING_FILES	=	prs_commandline prs_pipeline prs_command prs_item
 EXECUTION_FILES	=	heredoc
 TOKENIZER_FILES	=	tokenizer
 UTILS_FILES		=	utils_1 tree_ops

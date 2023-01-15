@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 08:39:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 10:57:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	parse_commandline(t_tree **tree, t_token *tok);
 int	parse_pipeline(t_tree **tree, t_token **tok);
 
 int	parse_command(t_tree **tree, t_token **tok);
+
+int	parse_item(t_tree **tree, t_token **tok);
 
 /* utils.c */
 

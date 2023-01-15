@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/15 08:44:28 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 10:56:36 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra
 CFLAGS += -Werror
 
-TEST_NAMES	= tokenizer parsing heredoc
+TEST_NAMES	= tokenizer parsing heredoc parse_item
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -53,6 +53,10 @@ parsing : all
 
 heredoc : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+
+parse_item : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
+	
 
 re: fclean all
 
