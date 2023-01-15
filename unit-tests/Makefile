@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/14 09:48:11 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/15 08:44:28 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ TEST_NAMES	= tokenizer parsing heredoc
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES)
+FILES		:= $(TEST_NAMES) print_tree
 
 OBJS_PATH	=	objs/
 
@@ -49,7 +49,7 @@ tokenizer : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 parsing : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
 
 heredoc : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
