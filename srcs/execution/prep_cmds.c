@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_cmd.c                                      :+:      :+:    :+:   */
+/*   prep_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 16:28:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:52:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int
 
 static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 {
+	//environment variables not handled yet so a default path is used!
 	char	*path[] = {"/bin", "/usr/bin", 0};
 
 	if (cmd->args)

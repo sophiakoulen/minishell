@@ -6,12 +6,15 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 17:43:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:51:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	DOESNT COMPILE YET
+*/
 /*
 	Execute pipeline and return exit status of last command.
 
@@ -35,12 +38,4 @@ int	exec_pipeline(t_pipeline *p, t_env *environment)
 	}
 	cleanup_fds(fds);
 	return (ret);
-}
-
-int	simple_command(t_cmd *cmd, t_env *environment)
-{
-	//redirect input and output
-	//is it a builtin? then exec builtin
-	//else exec command
-	//undo redirect input and output!!
 }
