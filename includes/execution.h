@@ -3,20 +3,29 @@
 
 # include "cmd.h"
 
-typedef	struct s_pipeline
-{
-	int		n_cmds;
-	t_cmd	*cmds;
-}	t_pipeline;
+/*
+	info we need during the execution phase.
 
+	- input and output file descriptors we'll need to redirect to
+	- full path of the command if it is found in PATH or already a path
+	- status of the command. 0 means we can execute.
+*/
 typedef struct s_cmd_info
 {
 	int		i_fd;
 	int		o_fd;
-	int		status;
 	char	*full_path;
+	int		status;
 }	t_cmd_info;
 
+/*
+	file descriptors we need during execution phase.
+
+	- pipes : pipes to redirect a cmd's output into another cmd's input
+	- hd_pipes : pipes to execute heredocs
+	- infile_fds : file descriptors corresponding to input files
+	- outfile_fds : file descriptors corresponding to output files.
+*/
 typedef struct s_fds
 {
 	int	**pipes;
@@ -27,7 +36,7 @@ typedef struct s_fds
 
 /* heredoc */
 
-void	do_single_heredoc(const char *delim, int fd);
+void	do_all_heredocs(t_cmd *cmds, int **hd_pipes, int n);
 
 /* find_cmd utils */
 
@@ -43,11 +52,21 @@ int		find_cmd(char **path, char *filename, char **res);
 /* prepare cmd */
 
 t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n);
-void		prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
+void		cleanup_all_info(t_cmd_info *infos, int n);
 
 /* prepare fds */
 
 t_fds	*prepare_fds(int n);
 void	cleanup_fds(t_fds *fds, int n_cmds);
+
+/* exec_utils */
+
+int		compute_return_value(int status);
+int		redirect(int input_fd, int output_fd);
+void	close_fds(t_fds *fds, int n);
+
+/* multiple commands */
+
+int	multiple_commands(t_cmd *cmds, t_fds *fds, int n);
 
 #endif

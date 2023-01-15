@@ -6,11 +6,16 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 14:52:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:27:37 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n);
+static int	wait_all(int n, int *pids);
+static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n);
+static int	exec_cmd(t_cmd *cmd, t_cmd_info *info);
 
 /*
 	Execute a pipeline containing multiple commands.
@@ -19,41 +24,46 @@
 
 	Return value corresponds to the last command.
 */
-int	multiple_commands(t_pipeline *p, t_fds *fds)
+int	multiple_commands(t_cmd *cmds, t_fds *fds, int n)
 {
 	int			*pids;
 	t_cmd_info	*infos;
 	int			ret;
 
-	infos = prepare_all_cmds
-	pids = launch_all(p, environment, fds);
-	do_all_heredocs(p, fds->hd_pipes);
-	close_unused_fds(fds);
-	ret = wait_all(pids);
+	infos = prepare_all_cmds(cmds, fds, n);
+	pids = launch_all(cmds, infos, fds, n);
+	cleanup_all_info(infos, n);
+
+	do_all_heredocs(cmds, fds->hd_pipes, n);
+	
+	close_fds(fds, n);
+	
+	ret = wait_all(n, pids);
 	free(pids);
 	return (compute_return_value(ret));
 }
 
-int	*launch_all(t_pipeline *p, t_fds *fds)
+static int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n)
 {
 	int	*pids;
 	int	i;
 
-	pids = xmalloc(p->n_cmds * sizeof(int));
+	pids = x_malloc(sizeof(*pids), n);
 	i = 0;
-	while (i < p->n_cmds)
+	while (i < n)
 	{
-		pids[i] = launch_child();
+		pids[i] = launch_child(&cmds[i], &infos[i], fds, n);
 		i++;
 	}
 	return (pids);
 }
 
-int	wait_all(int n, int *pids)
+static int	wait_all(int n, int *pids)
 {
-	int	exit_status;
+	int	status;
 	int	i;
 
+	i = 0;
 	while (i < n)
 	{
 		waitpid(pids[i], &status, 0);
@@ -62,7 +72,7 @@ int	wait_all(int n, int *pids)
 	return (status);
 }
 
-int	launch_child(t_cmd *cmd, t_cmd_info *info)
+static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n)
 {
 	int	pid;
 
@@ -75,19 +85,25 @@ int	launch_child(t_cmd *cmd, t_cmd_info *info)
 	if (pid == 0)
 	{
 		redirect(info->i_fd, info->o_fd);
-		close_unused_fd();
+		close_fds(fds, n);
 		
-		if (is_builtin(cmd))
-		{
-			exec_builtin(cmd, environment);
-		}
-		else
-		{
-			exec_cmd(cmd, info, environment);
-		}
+		exec_cmd(cmd, info);
+
 		close(0);
 		close(1);
-		exit(1);
+
+		exit(info->status);
 	}
 	return (pid);
+}
+
+static int	exec_cmd(t_cmd *cmd, t_cmd_info *info)
+{
+	if (info->status == 0)
+	{
+		execve(info->full_path, cmd->args, 0);
+		perror("execution of command failed");
+		info->status = 1;
+	}
+	return (0);
 }

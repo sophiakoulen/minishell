@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_cmd_test.c                                 :+:      :+:    :+:   */
+/*   mult_cmd_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 15:50:48 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/15 16:07:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,32 @@ int main()
 {
 	t_fds	*fds = prepare_fds(2);
 	
-	char	*args1[] = {"hello", "-la", 0};
-	char	*args2[] = {"ls", "-la", "*/*", 0};
-	//char	*args3[] = {"echo", "hello", "world", "this", "is", "test", 0};
+	char	*args1[] = {"cat", 0};
+	char	*args2[] = {"grep", "hello", 0};
+	//char	*args3[] = {"existepas", "hello", "world", "this", "is", "test", 0};
 
-	t_redir	in1 = {.type = INFILE, .str = "input1.txt"};
-	t_redir	out1 = {.type = OUTFILE, .str = "output1.txt"};
+	t_redir	in1 = {.type = HEREDOC, .str = "EOF"};
+	//t_redir	out1 = {.type = OUTFILE, .str = "output1.txt"};
 
 	//t_redir	in2 = {.type = INFILE, .str = "input2.txt"};
-	t_redir	out2 = {.type = OUTFILE, .str = "output2.txt"};
+	//t_redir	out2 = {.type = OUTFILE, .str = "output2.txt"};
 	
 	//t_redir	in3 = {.type = INFILE, .str = "input3.txt"};
 	//t_redir	out3 = {.type = OUTFILE, .str = "output3.txt"};
 
-	t_cmd cmd1 = {.args = args1, .in = &in1, .out = &out1};
-	t_cmd cmd2 = {.args = args2, .in = 0, .out = &out2};
-	//t_cmd cmd3 = {.args = args3, .in = &in3, .out = &out3};
+	t_cmd cmd1 = {.args = args1, .in = &in1, .out = 0};
+	t_cmd cmd2 = {.args = args2, .in = 0, .out = 0};
+	//t_cmd cmd3 = {.args = args3, .in = 0, .out = 0};
 
 	t_cmd cmds[] = {cmd1, cmd2}; 
 
-	t_cmd_info *infos;
-	
-	infos = prepare_all_cmds(cmds, fds, 2);
-	
-	print_fds(fds, 2);
+	int ret;
 
-	print_infos(infos, 2);
+	ret = multiple_commands(cmds, fds, 2);
+	
+	printf("return value:%d\n", ret);
+	
+	//print_fds(fds, 2);
 	
 	cleanup_fds(fds, 2);
 

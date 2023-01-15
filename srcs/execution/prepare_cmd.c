@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 15:12:35 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:28:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i);
 static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
 static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info);
+static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
 
 t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n)
 {
@@ -31,7 +32,20 @@ t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n)
 	return (infos);
 }
 
-void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
+void	cleanup_all_info(t_cmd_info *infos, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		free(infos[i].full_path);
+		i++;
+	}
+	free(infos);
+}
+
+static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 {
 	info->status = 0;
 	info->i_fd = -1;

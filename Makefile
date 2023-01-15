@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 16:56:01 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/15 16:57:13 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 PARSING_FILES	=	prs_commandline prs_pipeline prs_command prs_item
-EXECUTION_FILES	=	heredoc find_cmd find_cmd_utils prepare_cmd prepare_fds
+EXECUTION_FILES	=	heredoc find_cmd find_cmd_utils prepare_cmd prepare_fds exec_utils mult_cmds
 TOKENIZER_FILES	=	tokenizer
 UTILS_FILES		=	utils_1 tree_ops
 BUILTINS		=	echo pwd
