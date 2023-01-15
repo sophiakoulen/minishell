@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 17:59:21 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 12:40:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	print_error(int errno_value, char *str)
 {
 	if (errno_value == ENOENT && !has_slashes(str))
 	{
-		ft_dprintf(2, "%s: command not found\n", str);
+		ft_putstr_fd(str, 2);
+		write(2, ": command not found\n", 20);
 	}
 	else if (errno_value != 0)
 	{
