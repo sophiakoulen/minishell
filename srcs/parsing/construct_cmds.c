@@ -6,11 +6,34 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:55:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 21:05:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 21:53:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * word_lst_factory(&(t_redir){str, next})
+ * call with blueprint or NULL
+ * Don't forget to free it after!
+*/
+t_word_lst	*word_lst_factory(t_word_lst *blueprint)
+{
+	t_word_lst	*ret;
+
+	ret = (t_word_lst *)x_malloc(sizeof(t_word_lst), 1);
+	if (blueprint == NULL)
+	{
+		ret->str = NULL;
+		ret->next = NULL;
+	}
+	else
+	{
+		ret->str = blueprint->str;
+		ret->next = blueprint->next;
+	}
+	return (ret);
+}
 
 /**
  * redir_factory(&(t_redir){type, str})
@@ -61,18 +84,29 @@ t_cmd	*cmd_factory(t_cmd *blueprint)
 }
 
 
-int	construct_cmd(t_token **tok, t_cmd *cmd)
+int	construct_cmd(t_token **tok, t_cmd **cmd)
 {
-	t_redir	*tmp;
+	t_redir		*item;
+	int			pret;
+	t_word_lst	*words;
 
-	cmd = cmd_factory(NULL);
-	while (1)
+	words = NULL;
+	*cmd = cmd_factory(NULL);
+	pret = 1;
+	while (pret != -1 && pret != -2)
 	{
-		parse_item(&tmp, tok);
-
+		pret = parse_item(&item, tok);
+		if (item->type == e_in)
+			(*cmd)->in = item;
+		else if (item->type == e_out)
+			(*cmd)->out = item;
+		else if (item->type = e_string)
+		{
+			ft_lstadd_back(&words, word_lst_factory(&(t_word_lst){item->str, }));
+			// free(item);
+		}
 	}
 	*tok = (*tok)->next;
-
 }
 
 int	constuct_cmds(t_token **tok,  t_cmd **cmds, int *n_cmds)

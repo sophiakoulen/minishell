@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 21:05:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 21:25:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			parse_item(t_redir **redir, t_token **tok);
 /* construct cmds */
 t_redir		*redir_factory(t_redir *blueprint);
 t_cmd		*cmd_factory(t_cmd *blueprint);
-int			construct_cmd(t_token **tok, t_cmd *cmd);
+int			construct_cmd(t_token **tok, t_cmd **cmd);
 int			constuct_cmds(t_token **tok, t_cmd **cmds, int *n_cmds);
 
 /*
