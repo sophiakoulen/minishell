@@ -24,6 +24,11 @@
 		out.type to know whether append mode or not.
 */
 
+#define INFILE 0
+#define HEREDOC 1
+#define OUTFILE 2
+#define APPEND 3
+
 typedef	struct s_redir
 {
 	char	*str;

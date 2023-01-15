@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/13 11:12:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:26:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,31 @@
 
 static int	is_delim(char *line, const char *delim);
 static void	add_line(char **buffer, char *line);
+static void	do_single_heredoc(const char *delim, int fd);
+
+/*
+	For each command, write heredoc to corresponding pipe
+	if needed.
+
+	Function should be called in the parent process.
+
+	hd_pipes is an array of pipes the parent process
+	should write to.
+*/
+void	do_all_heredocs(t_cmd *cmds, int **hd_pipes, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (cmds[i].in && cmds[i].in->type == HEREDOC)
+		{
+			do_single_heredoc(cmds[i].in->str, hd_pipes[i][1]);
+		}
+		i++;
+	}
+}
 
 /*
 	Writes input from stdin to a file descriptor,
@@ -26,7 +51,7 @@ static void	add_line(char **buffer, char *line);
 	The fd should be the write end of a pipe, and a child
 	process should read at the read end of that pipe.
 */
-void	do_single_heredoc(const char *delim, int fd)
+static void	do_single_heredoc(const char *delim, int fd)
 {
 	char	*buffer;
 	char	*line;
@@ -47,6 +72,9 @@ void	do_single_heredoc(const char *delim, int fd)
 	close(fd);
 }
 
+/*
+	check if line is equal to the delimiter
+*/
 static int	is_delim(char *line, const char *delim)
 {
 	int	len;
@@ -62,6 +90,10 @@ static int	is_delim(char *line, const char *delim)
 	}
 }
 
+/*
+	Add a line to buffer and a newline.
+	line is then freed.
+*/
 static void	add_line(char **buffer, char *line)
 {
 	char	*tmp;
@@ -70,12 +102,7 @@ static void	add_line(char **buffer, char *line)
 	size = ft_strlen(line) + 2;
 	if (*buffer)
 		size += ft_strlen(*buffer);
-	tmp = malloc(size * sizeof(*tmp));
-	if (!tmp)
-	{
-		perror(0);
-		exit(2);
-	}
+	tmp = x_malloc(sizeof(*tmp), size);
 	if (*buffer)
 	{
 		ft_strlcpy(tmp, *buffer, size);
@@ -90,37 +117,3 @@ static void	add_line(char **buffer, char *line)
 	free(line);
 	*buffer = tmp;
 }
-
-/*
-void	do_all_heredoc(int n, char **delims, int *fds)
-{
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		do_1heredoc(delims[i], fds[i]);
-		i++;
-	}
-}
-*/
-
-/*
-int	count_heredoc(t_pipeline *pipeline)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (i < pipeline->n_cmds)
-	{
-		if (pipeline->cmds[i]->in->type == IS_HEREDOC)
-		{
-			count++;
-		}
-		i++;
-	}
-	return (count);
-}
-*/

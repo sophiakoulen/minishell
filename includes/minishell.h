@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 15:26:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:56:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "parsing.h"
 # include "execution.h"
 #include <limits.h>
-
 
 /* tokenizer.c */
 
@@ -60,7 +59,7 @@ int	pwd(void);
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <sys/errno.h>
 
 
 #endif
