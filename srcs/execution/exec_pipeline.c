@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 16:51:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:38:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@
 
 	If there is only one command, we don't fork.
 */
-int	exec_pipeline(t_pipeline *p, t_env *environment)
+int	exec_pipeline(t_cmd *cmds, int n_cmds)
 {
 	t_fds	*fds;
 	int		ret;
 
-	fds = prepare_fds(p);
-	if (p->n_cmds < 2)
+	fds = prepare_fds(cmds);
+	if (n_cmds < 2)
 	{
-		ret = simple_command(p->cmds[0], environment);
+		; //ret = simple_command(cmds->cmds[0], environment);
 	}
 	else
 	{
-		ret = multiple_commands(p, environment);
+		ret = multiple_commands(cmds, fds, n_cmds);
 	}
-	cleanup_fds(fds);
+	cleanup_fds(fds, n_cmds);
 	return (ret);
 }

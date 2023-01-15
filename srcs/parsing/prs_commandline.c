@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:13:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/14 09:04:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/15 20:24:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_token	*token_factory(t_token *next, char *str, enum e_token_type type)
 }
 
 /**
- * A factory to make new nodes for the tree
- * call with blueprint as NULL or
  * tree_factory(&(t_tree){e_string, tok->str, NULL, NULL})
+ * call with blueprint or NULL
+ * Don't forget to free it after!
 */
 t_tree	*tree_factory(t_tree *blueprint)
 {

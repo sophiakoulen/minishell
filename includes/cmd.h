@@ -16,7 +16,7 @@
 		`< WORD` or `<< WORD`.
 		in.str is the corresponding WORD.
 		in.type to know whether input from file or heredoc
-	
+
 	cmd.out is info about the output redirection:
 		The output redirection is the last item in the form
 		`> WORD` or `>> WORD`.
@@ -31,8 +31,8 @@
 
 typedef	struct s_redir
 {
-	char	*str;
 	int		type; //change this to enum later to avoid mistakes
+	char	*str;
 }	t_redir;
 
 typedef struct s_cmd

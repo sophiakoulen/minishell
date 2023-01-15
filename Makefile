@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 16:57:38 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/15 18:11:39 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,19 +21,23 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-PARSING_FILES	=	prs_commandline prs_pipeline prs_command prs_item
-EXECUTION_FILES	=	heredoc find_cmd find_cmd_utils prep_cmds prep_fds exec_utils mult_cmds
+BUILTINS		=	echo            pwd
+EXPANSION_FILES	=	var_exp         wild_exp
+PARSING_FILES	=	prs_commandline prs_pipeline    prs_command               \
+					prs_item        construct_cmds
+EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
+					prep_fds        exec_utils      mult_cmds
 TOKENIZER_FILES	=	tokenizer
-UTILS_FILES		=	utils_1 tree_ops
-BUILTINS		=	echo pwd
+UTILS_FILES		=	utils_1         tree_ops
 
+BUILTINS		:=	$(addprefix builtins/, $(BUILTINS))
+EXPANSION_FILES	:=	$(addprefix parsing/, $(EXPANSION_FILES))
 PARSING_FILES	:=	$(addprefix parsing/, $(PARSING_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/, $(EXECUTION_FILES))
 TOKENIZER_FILES	:=	$(addprefix tokenizer/, $(TOKENIZER_FILES))
 UTILS_FILES		:=	$(addprefix utils/, $(UTILS_FILES))
-BUILTINS		:=	$(addprefix builtins/, $(BUILTINS))
 
-FILES		=	main $(PARSING_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES) $(BUILTINS)
+FILES		=	main $(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
