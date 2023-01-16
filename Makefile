@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/16 14:09:05 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/16 15:58:41 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME	=	minishell
 CC		=	gcc
 # CFLAGS	=	-Wall -Werror -Wextra
 CFLAGS	=	-Wall -Wextra
+CFLAGS += -g3 -fsanitize=address
 RM		=	rm -rf
 
 INCS_PATH	=	includes/
@@ -23,10 +24,11 @@ OBJS_PATH	=	objs/
 
 BUILTINS		=	echo            pwd
 EXPANSION_FILES	=	var_exp         wild_exp
-PARSING_FILES	=	prs_commandline prs_pipeline    prs_command               \
-					prs_item        construct_cmds
+PARSING_FILES	=	prs_commandline prs_pipeline    prs_cmd               \
+					prs_item
 STRUCT_FILES	=	t_token         t_tree          t_word_lst     t_cmd      \
-					t_redir         t_cmd_info      t_tree_print   t_fds
+					t_redir         t_cmd_info      t_tree_print   t_fds \
+					t_item
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
 					prep_fds        exec_utils      mult_cmds
 TOKENIZER_FILES	=	tokenizer

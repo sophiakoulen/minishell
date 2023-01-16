@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   construct_cmd_test.c                               :+:      :+:    :+:   */
+/*   prs_cmd_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:39:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 14:19:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:55:54 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_args(char **args)
-{
-	int	count;
-
-	count = 0;
-	while(*args)
-	{
-		ft_printf("%2d. %s\n", count, *args);
-		args++;
-		count++;
-	}
-}
 
 int	main(int argc, char **argv)
 {
@@ -39,18 +26,14 @@ int	main(int argc, char **argv)
 	printf("\n");
 
 	t_cmd *cmd;
-	construct_cmd(&tok, &cmd);
+	parse_cmd(&tok, &cmd);
 
-	ft_printf("cmd ..................\n in: ");
-	print_redir(cmd->in);
-	ft_printf("\nout: ");
-	print_redir(cmd->out);
-	ft_printf("\n");
-	print_args(cmd->args);
+	print_cmd(cmd);
 
 	ft_printf("\n after list  of tokens: ", str);
 	print_token_list_minimal(tok);
 	printf("\n");
+
 	exit(0);
 	return (0);
 }

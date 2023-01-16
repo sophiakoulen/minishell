@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_item.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:41:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/16 11:02:03 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:05:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,53 @@
 	<item> := ['<' | '<<' | '>>' | '>' ] <string>
 */
 
-int	parse_item(t_redir **redir, t_token **tok)
+static int is_redir_token(t_token *tok)
 {
-	int	type;
+	return (tok->type == e_heredoc || tok->type == e_infile || tok->type == e_append || tok->type == e_outfile);
+}
+
+static int get_modifier(t_token *tok)
+{
+	if (is_redir_token(tok))
+		return (tok->type);
+	else
+		return (NO_MODIFIER);
+}
+
+int	parse_item(t_item **item, t_token **tok)
+{
+	int		modifier;
+	char	*word;
 
 	if ((*tok)->type == e_end)
 	{
-		// maybe redundent it might be easier to do this before the function is called.
-		redir = NULL;
-		return (-2);
+		*item = NULL;
+		return (STOP);
 	}
-	if ((*tok)->type == e_heredoc || (*tok)->type == e_in
-		|| (*tok)->type == e_out_append || (*tok)->type == e_out)
+	if (is_redir_token(*tok))
 	{
-		type = (*tok)->type;
+		modifier = get_modifier(*tok);
 		*tok = (*tok)->next;
 		if ((*tok)->type != e_string)
 		{
 			ft_printf("Syntax error near unexpected token %s\n", ret_token_literal((*tok)->type));
-			return (-1);
+			return (SYNTAX_ERROR);
 		}
-		*redir = redir_factory(&(t_redir){type, (*tok)->str});
+		word = (*tok)->str;
+		*item = item_factory(&(t_item){.word=word, .modifier=modifier});
+		*tok = (*tok)->next;
 	}
 	else if ((*tok)->type == e_string)
 	{
-		*redir = redir_factory(&(t_redir){(*tok)->type, (*tok)->str});
+		word = (*tok)->str;
+		modifier = NO_MODIFIER;
+		*item = item_factory(&(t_item){.word=word, .modifier=modifier});
+		*tok = (*tok)->next;
 	}
 	else
 	{
-		ft_printf("i got here\n");
-		return (-2);
+		return (STOP);
 	}
-	*tok = (*tok)->next;
 	return (SUCCESS);
 }
 
@@ -61,8 +76,8 @@ int	parse_item(t_tree **tree, t_token **tok)
 		*tree = NULL;
 		return (-2);
 	}
-	if ((*tok)->type == e_heredoc || (*tok)->type == e_in
-		|| (*tok)->type == e_out_append || (*tok)->type == e_out)
+	if ((*tok)->type == e_heredoc || (*tok)->type == e_infile
+		|| (*tok)->type == e_append || (*tok)->type == e_out)
 	{
 		tmp = tree_factory(&(t_tree){(*tok)->type, NULL, NULL, NULL});
 		*tok = (*tok)->next;

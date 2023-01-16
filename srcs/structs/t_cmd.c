@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 13:38:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:10:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_args(char **args);
 
 /**
  * cmd_factory(&(t_tree){args, in, out})
@@ -35,4 +37,40 @@ t_cmd	*cmd_factory(t_cmd *blueprint)
 		ret->out = blueprint->out;
 	}
 	return (ret);
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	ft_printf("cmd ..................\n");
+	if (!cmd)
+	{
+		ft_printf("\t(NULL)\n");
+	}
+	else
+	{
+		ft_printf("\t in: ");
+		print_redir(cmd->in);
+		ft_printf("\n\tout: ");
+		print_redir(cmd->out);
+		ft_printf("\n");
+		print_args(cmd->args);
+	}
+}
+
+static void	print_args(char **args)
+{
+	int	count;
+
+	if (!args)
+	{
+		ft_printf("\t(NULL)\n");
+		return ;
+	}
+	count = 0;
+	while(*args)
+	{
+		ft_printf("%2d. %s\n", count, *args);
+		args++;
+		count++;
+	}
 }

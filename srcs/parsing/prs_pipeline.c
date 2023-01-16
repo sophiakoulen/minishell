@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 13:39:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:44:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@
 */
 int	parse_pipeline(t_tree **tree, t_token **tok)
 {
+	(void)tree;
+	(void)tok;
+	/*
+	t_cmd	*cmd;
+	int		ret;
+
 	if ((*tok)->type == e_end)
 	{
 		*tree = NULL;
-		return (-1);
+		return (STOP);
 	}
+	ret = parse_cmd(tree, tok);
 	if ((*tok)->type == e_string)
 	{
-		parse_command(tree, tok);
 	}
-	// if ((*tok)->type == e_string && (*tok)->next && (*tok)->next->type == e_pipe)
 	if ((*tok)->type == e_pipe)
 	{
 		t_tree	*right = 0;
@@ -37,5 +42,6 @@ int	parse_pipeline(t_tree **tree, t_token **tok)
 		parse_pipeline(&right, tok);
 		*tree = tree_factory(&(t_tree){e_pipe, NULL, *tree, right});
 	}
+	*/
 	return (SUCCESS);
 }
