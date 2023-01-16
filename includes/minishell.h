@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 14:20:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:55:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ int			parse_pipeline(t_tree **tree, t_token **tok);
 
 /* prs command */
 
-int			parse_command(t_tree **tree, t_token **tok);
+int			parse_cmd(t_token **tok, t_cmd **cmd);
 
 /* prs item */
 
 // int			parse_item(t_tree **tree, t_token **tok);
-int			parse_item(t_redir **redir, t_token **tok);
+int			parse_item(t_item **item, t_token **tok);
 
 /* construct cmds */
 t_redir		*redir_factory(t_redir *blueprint);
@@ -147,6 +147,7 @@ int			get_tree_max_width(t_tree *tree);
 /* t_cmd.c */
 
 t_cmd		*cmd_factory(t_cmd *blueprint);
+void		print_cmd(t_cmd *cmd);
 
 /* t_fds.c */
 
@@ -176,5 +177,10 @@ void		print_tree(t_pos p, t_tree *tree);
 
 t_word_lst	*word_lst_factory(t_word_lst *blueprint);
 t_list		*list_factory(t_list *blueprint);
+
+/* t_item.c */
+
+t_item		*item_factory(t_item *blueprint);
+void		item_cleanup(t_item *item);
 
 #endif

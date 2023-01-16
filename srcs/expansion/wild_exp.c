@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wild_exp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:56:43 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 17:56:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:33:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*wildcard_expansion(char *str)
 {
 	char	*ret;
 
-
+	ret = 0;
+	(void)str;
 	return (ret);
 }

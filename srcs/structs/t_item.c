@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_exp.c                                          :+:      :+:    :+:   */
+/*   t_item.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 17:48:12 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 15:35:30 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/16 14:29:46 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/16 15:41:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**variable_expansion(char *str)
+t_item	*item_factory(t_item *blueprint)
 {
-	char	**ret;
+	t_item	*item;
 
-	// used somewhere wildcard_expansion()
-	ret = 0;
-	(void)str;
-	return (ret);
+	item  = x_malloc(sizeof(*item), 1);
+	if (blueprint)
+	{
+		item->modifier = blueprint->modifier;
+		item->word = blueprint->word;
+	}
+	else
+	{
+		item->modifier = NO_MODIFIER;
+		item->word = 0;
+	}
+	return (item);
+}
+
+void	item_cleanup(t_item *item)
+{
+	free(item);
 }
