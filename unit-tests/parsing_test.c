@@ -3,58 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:15 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 10:32:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:18:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "minishell.h"
 #include "unit_tests.h"
-
-void	print_token_list_minimal(t_token *tok)
-{
-	if (!tok)
-		return ;
-	if (tok->type == e_end)
-		ft_printf("end");
-	else if (tok->type == e_string)
-		ft_printf("{%s} ", tok->str);
-	else
-		ft_printf("%s ", ret_token_literal(tok->type));
-	if (tok->next)
-		print_token_list_minimal(tok->next);
-}
-
-void	print_token_tree(t_tree *tree)
-{
-	if (tree == NULL)
-		return ;
-	if (tree->left)
-	{
-		ft_printf("{");
-		print_token_tree(tree->left);
-		ft_printf("}");
-	}
-	if (tree->type == e_string)
-	{
-		ft_printf("%s", tree->str);
-	}
-	else
-	{
-		if (tree->type == e_end)
-			ft_printf("end");
-		else
-			ft_printf(" %s ", ret_token_literal(tree->type));
-	}
-	if (tree->right)
-	{
-		ft_printf("{");
-		print_token_tree(tree->right);
-		ft_printf("}");
-	}
-}
 
 int	main(int argc, char **argv)
 {

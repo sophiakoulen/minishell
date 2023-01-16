@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit_tests.h                                       :+:      :+:    :+:   */
+/*   t_fds.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 15:33:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/16 14:06:52 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/16 12:29:23 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/16 13:40:26 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UNIT_TESTS_H
-# define UNIT_TESTS_H
+#include "minishell.h"
 
-# include "minishell.h"
+void	close_fds(t_fds *fds, int n)
+{
+	int i;
 
-
-#endif
+	i = 0;
+	while (i < n)
+	{
+		close(fds->hd_pipes[i][0]);
+		close(fds->hd_pipes[i][1]);
+		close(fds->infile_fds[i]);
+		close(fds->outfile_fds[i]);
+		if (i == n - 1)
+			break ;
+		close(fds->pipes[i][0]);
+		close(fds->pipes[i][1]);
+		i++;
+	}
+}

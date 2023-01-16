@@ -6,34 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/14 10:04:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:54:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * Returns the corresponding string for the token type,
- * or NULL if not in list.
-*/
-const char	*ret_token_literal(enum e_token_type n)
-{
-	static const char	*tok_strings[NUM_TOKEN_LITERALS] = {
-		"||",
-		"|",
-		"<<",
-		"<",
-		">>",
-		">",
-		"(",
-		")",
-		"&&",
-	};
-
-	if (n > NUM_TOKEN_LITERALS || n < 0)
-		return (NULL);
-	return (tok_strings[n]);
-}
 
 /**
  * helper function for the lexer,

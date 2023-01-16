@@ -3,24 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 10:32:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/16 13:39:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// only for dev and debugging
-void	print_token_tree(t_tree *tree);
 
 /**
  * this need to be inverted, a piple line is either:
  * <pipeline> ::= <command>
  *              | <command> "|" <pipeline>
 */
-
 int	parse_pipeline(t_tree **tree, t_token **tok)
 {
 	if ((*tok)->type == e_end)
