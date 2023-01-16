@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 18:12:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:53:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	interactive_shell(void)
 	char	*line;
 	t_tree	*tree;
 	t_token	*tok_list;
-	t_cmd	*cmds;
-	int		n_cmds;
+	// t_cmd	*cmds;
+	// int		n_cmds;
 
 	while (1)
 	{
@@ -53,9 +53,9 @@ static void	interactive_shell(void)
 
 		parse_commandline(&tree, tok_list);
 
-		constuct_cmds(tree, &cmds, &n_cmds);
+		// constuct_cmds(tree, &cmds, &n_cmds);
 
-		exec_pipeline(cmds, n_cmds);
+		// exec_pipeline(cmds, n_cmds);
 
 		// free cmds
 		// free tree

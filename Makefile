@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 18:11:39 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/16 09:54:54 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,15 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
 TOKENIZER_FILES	=	tokenizer
 UTILS_FILES		=	utils_1         tree_ops
 
-BUILTINS		:=	$(addprefix builtins/, $(BUILTINS))
-EXPANSION_FILES	:=	$(addprefix parsing/, $(EXPANSION_FILES))
-PARSING_FILES	:=	$(addprefix parsing/, $(PARSING_FILES))
-EXECUTION_FILES	:=	$(addprefix execution/, $(EXECUTION_FILES))
-TOKENIZER_FILES	:=	$(addprefix tokenizer/, $(TOKENIZER_FILES))
-UTILS_FILES		:=	$(addprefix utils/, $(UTILS_FILES))
+BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
+EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
+PARSING_FILES	:=	$(addprefix parsing/, 	$(PARSING_FILES))
+EXECUTION_FILES	:=	$(addprefix execution/,	$(EXECUTION_FILES))
+TOKENIZER_FILES	:=	$(addprefix tokenizer/,	$(TOKENIZER_FILES))
+UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
 
-FILES		=	main $(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES)
+FILES		=	main	$(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
+						$(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
@@ -72,7 +73,6 @@ $(LIBMINISHELL): $(OBJS) $(LIBFT)
 	ar rcs libminishell.a $(OBJS)
 
 lib		: $(LIBMINISHELL)
-
 # end minshell library
 
 clean	:

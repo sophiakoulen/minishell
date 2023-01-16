@@ -1,0 +1,53 @@
+
+"echo hello world | cat -e >> here"
+{
+	"type": "Script",
+	"commands": [
+		{
+			"type": "Pipeline",
+			"commands": [
+				{
+					"type": "Command",
+					"name": {
+						"text": "echo",
+						"type": "Word"
+					},
+					"suffix": [
+						{
+							"text": "hello",
+							"type": "Word"
+						},
+						{
+							"text": "world",
+							"type": "Word"
+						}
+					]
+				},
+				{
+					"type": "Command",
+					"name": {
+						"text": "cat",
+						"type": "Word"
+					},
+					"suffix": [
+						{
+							"text": "-e",
+							"type": "Word"
+						},
+						{
+							"type": "Redirect",
+							"op": {
+								"text": ">>",
+								"type": "dgreat"
+							},
+							"file": {
+								"text": "here",
+								"type": "Word"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
