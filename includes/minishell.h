@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 12:43:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:20:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@
 // # include "execution.h"
 // # include "cmd.h"
 
-/*
-    ~~~ BUILTINS ~~~
-*/
+/* ************************************************************************** */
+/*   builtins                                                                 */
+/* ************************************************************************** */
 
 int			echo(char **args);
 int			pwd(void);
 
-/*
-    ~~~ EXICUTION ~~~
-*/
+/* ************************************************************************** */
+/*   exicution                                                                */
+/* ************************************************************************** */
 
 /* heredoc */
 
@@ -68,15 +68,14 @@ void		cleanup_fds(t_fds *fds, int n_cmds);
 
 int			compute_return_value(int status);
 int			redirect(int input_fd, int output_fd);
-void		close_fds(t_fds *fds, int n);
 
 /* multiple commands */
 
 int			multiple_commands(t_cmd *cmds, t_fds *fds, int n);
 
-/*
-    ~~~ EXPANSION ~~~
-*/
+/* ************************************************************************** */
+/*   expansion                                                                */
+/* ************************************************************************** */
 
 /* var_exp */
 
@@ -86,13 +85,12 @@ char		**variable_expansion(char *str);
 
 char		*wildcard_expansion(char *str);
 
-/*
-    ~~~ PARSING ~~~
-*/
+/* ************************************************************************** */
+/*   parsing                                                                  */
+/* ************************************************************************** */
 
 /* prs_pipline */
 
-t_tree		*tree_factory(t_tree *blueprint);
 
 /* prs comandline */
 
@@ -117,19 +115,17 @@ t_cmd		*cmd_factory(t_cmd *blueprint);
 int			construct_cmd(t_token **tok, t_cmd **cmd);
 int			constuct_cmds(t_token **tok, t_cmd **cmds, int *n_cmds);
 
-/*
-    ~~~ TOKENIZER ~~~
-*/
+/* ************************************************************************** */
+/*   tokenizer                                                                */
+/* ************************************************************************** */
 
 /* tokenizer */
 
-const char	*ret_token_literal(enum e_token_type n);
 t_token		*construct_tok_list(char *str);
-t_token		*token_factory(t_token *next, char *str, enum e_token_type type);
 
-/*
-    ~~~ UTILS ~~~
-*/
+/* ************************************************************************** */
+/*   utils                                                                    */
+/* ************************************************************************** */
 
 void		*x_malloc(size_t size, size_t quantity);
 int			ft_isspace(int c);
@@ -139,5 +135,46 @@ int			ft_isspace(int c);
 int			get_tree_width(t_tree *tree, int level);
 int			get_tree_height(t_tree *tree);
 int			get_tree_max_width(t_tree *tree);
+
+/* ************************************************************************** */
+/*   structs                                                                  */
+/* ************************************************************************** */
+
+/* t_cmd_info.c */
+
+// nothing yet
+
+/* t_cmd.c */
+
+t_cmd		*cmd_factory(t_cmd *blueprint);
+
+/* t_fds.c */
+
+void		close_fds(t_fds *fds, int n);
+
+/* t_redir.c */
+
+t_redir		*redir_factory(t_redir *blueprint);
+void		print_redir(t_redir *r);
+
+/* t_token.c */
+
+t_token		*token_factory(t_token *next, char *str, enum e_token_type type);
+const char	*ret_token_literal(enum e_token_type n);
+void		print_token_list_minimal(t_token *tok);
+
+/* t_tree.c */
+
+t_tree		*tree_factory(t_tree *blueprint);
+
+/* t_tree_print.c */
+
+void		auto_print_tree(t_tree *tree);
+void		print_tree(t_pos p, t_tree *tree);
+
+/* t_word_lst.c */
+
+t_word_lst	*word_lst_factory(t_word_lst *blueprint);
+t_list		*list_factory(t_list *blueprint);
 
 #endif

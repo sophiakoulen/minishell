@@ -6,7 +6,8 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 12:29:14 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:55:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"

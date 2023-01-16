@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_item_test.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:53:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 11:18:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:18:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unit_tests.h"
-
-void	print_token_tree(t_tree *tree)
-{
-	if (tree == NULL)
-		return ;
-	if (tree->left)
-	{
-		ft_printf("{");
-		print_token_tree(tree->left);
-		ft_printf("}");
-	}
-	if (tree->type == e_string)
-	{
-		ft_printf("%s", tree->str);
-	}
-	else
-	{
-		if (tree->type == e_end)
-			ft_printf("end");
-		else
-			ft_printf(" %s ", ret_token_literal(tree->type));
-	}
-	if (tree->right)
-	{
-		ft_printf("{");
-		print_token_tree(tree->right);
-		ft_printf("}");
-	}
-}
 
 int	main(int argc, char **argv)
 {
@@ -58,14 +29,14 @@ int	main(int argc, char **argv)
 
 	while (tok && tok->type != e_end)
 	{
-		if (parse_item(&tree, &tok) != SUCCESS)
-			break ;
+		// if (parse_item(&tree, &tok) != SUCCESS)
+			// break ;
 		// ft_printf("tok %s\n", ret_token_literal(tok->type));
 	}
 	// printf("\n    ~-~-~-~-~\n");
 	// ft_printf("\nprinted tree\n");
 
-	print_token_tree(tree);
+	// print_token_tree(tree);
 	// auto_print_tree(tree);
 
 	// printf("\n");

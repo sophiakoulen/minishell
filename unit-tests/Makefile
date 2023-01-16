@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/16 09:59:26 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/16 14:15:43 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ TEST_NAMES	= tokenizer parsing heredoc parse_item prepare_cmd mult_cmd construct
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES) print_tree
+FILES		:= $(TEST_NAMES)
 
 OBJS_PATH	=	objs/
 
@@ -50,14 +50,13 @@ tokenizer : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 parsing : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 heredoc : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 parse_item : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o $(OBJS_PATH)print_tree_test.o
-
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 prepare_cmd : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 

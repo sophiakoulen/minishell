@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 12:42:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:55:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define OUTFILE 2
 #define APPEND 3
 
-/* Possible token types corresponding strings defines in TODO: add_filename */
+/* Possible token types corresponding strings defined in structs/t_token.c */
 # define NUM_TOKEN_LITERALS 9
 
 enum e_token_type

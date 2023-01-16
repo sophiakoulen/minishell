@@ -6,25 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:39:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 10:54:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:19:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_token_list_minimal(t_token *tok)
-{
-	if (!tok)
-		return ;
-	if (tok->type == e_end)
-		ft_printf("end");
-	else if (tok->type == e_string)
-		ft_printf("{%s} ", tok->str);
-	else
-		ft_printf("%s ", ret_token_literal(tok->type));
-	if (tok->next)
-		print_token_list_minimal(tok->next);
-}
 
 void	print_args(char **args)
 {
@@ -37,12 +23,6 @@ void	print_args(char **args)
 		args++;
 		count++;
 	}
-}
-
-void	print_redir(t_redir *r)
-{
-	if (r)
-		ft_printf("%2s %-10s", ret_token_literal(r->type), r->str);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 12:47:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:21:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 # define STRUCTS_H
 
 # include "defines.h"
+
+/* **************************************************************************
+
+	sructs/t_struct.c -- expected structure
+
+	t_struct	*struct_factory(t_struct *blueprint);
+
+	t_struct	*struct_print(t_struct);
+
+	t_struct	*struct_cleanup(t_struct);
+
+   ************************************************************************** */
 
 /*
 	basic token linked list
@@ -113,5 +125,15 @@ typedef struct s_cmd
 	t_redir	*in;
 	t_redir	*out;
 }	t_cmd;
+
+/**
+ * Screen posiiton struct.
+ * used in print tree and TODO: for cool intro animations
+ */
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
 
 #endif

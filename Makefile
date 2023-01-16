@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/16 09:54:54 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/16 14:09:05 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ BUILTINS		=	echo            pwd
 EXPANSION_FILES	=	var_exp         wild_exp
 PARSING_FILES	=	prs_commandline prs_pipeline    prs_command               \
 					prs_item        construct_cmds
+STRUCT_FILES	=	t_token         t_tree          t_word_lst     t_cmd      \
+					t_redir         t_cmd_info      t_tree_print   t_fds
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
 					prep_fds        exec_utils      mult_cmds
 TOKENIZER_FILES	=	tokenizer
@@ -33,12 +35,14 @@ UTILS_FILES		=	utils_1         tree_ops
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
 EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
 PARSING_FILES	:=	$(addprefix parsing/, 	$(PARSING_FILES))
+STRUCT_FILES	:=	$(addprefix structs/, 	$(STRUCT_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/,	$(EXECUTION_FILES))
 TOKENIZER_FILES	:=	$(addprefix tokenizer/,	$(TOKENIZER_FILES))
 UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
 
 FILES		=	main	$(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
-						$(EXECUTION_FILES) $(TOKENIZER_FILES) $(UTILS_FILES)
+						$(STRUCT_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) \
+						$(UTILS_FILES)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
