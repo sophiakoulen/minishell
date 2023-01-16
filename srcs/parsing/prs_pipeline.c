@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 15:44:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/16 16:55:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,37 @@
  * <pipeline> ::= <command>
  *              | <command> "|" <pipeline>
 */
-int	parse_pipeline(t_tree **tree, t_token **tok)
+int	parse_pipeline(t_list *cmd_list, t_token **tok)
 {
-	(void)tree;
-	(void)tok;
-	/*
+	//t_list	*cmd_list;
 	t_cmd	*cmd;
 	int		ret;
+	int		i;
 
+	cmd_list = NULL;
 	if ((*tok)->type == e_end)
 	{
-		*tree = NULL;
 		return (STOP);
 	}
-	ret = parse_cmd(tree, tok);
-	if ((*tok)->type == e_string)
+	i = 0;
+	while (1)
 	{
+		ret = parse_cmd(&cmd, tok);
+		if (ret != 0)
+			break ;
+		ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
+		i++;
 	}
-	if ((*tok)->type == e_pipe)
+	if (i == 0)
 	{
-		t_tree	*right = 0;
-		//t_tree	*left = 0;
-		*tok = (*tok)->next;
-		parse_pipeline(&right, tok);
-		*tree = tree_factory(&(t_tree){e_pipe, NULL, *tree, right});
+		//cleanup pipeline
+		//produce syntax error unexpected token.
+		return (SYNTAX_ERROR);
 	}
-	*/
+	if (ret == SYNTAX_ERROR)
+	{
+		//cleanup pipeline
+		return (SYNTAX_ERROR);
+	}
 	return (SUCCESS);
 }
