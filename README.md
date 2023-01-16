@@ -20,7 +20,7 @@ Example 2: `sleep 10 | echo test` will print "test" immediately, since both comm
 
 Example 3: `cat "file.txt" | grep hello | grep world` will filter the text and print only lines containing both "hello" and "world".
 
-## About file redirections
+### About file redirections
 
 Like bash, we can tell a command to take input or output from a file.
 
