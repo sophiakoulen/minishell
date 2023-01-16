@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 21:25:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:43:31 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@
 # include <sys/errno.h>
 
 # include "libft.h"
-# include "tokenizer.h"
-# include "parsing.h"
-# include "execution.h"
-# include "cmd.h"
+# include "defines.h"
+# include "structs.h"
+
+// # include "tokenizer.h"
+// # include "parsing.h"
+// # include "execution.h"
+// # include "cmd.h"
 
 /*
     ~~~ BUILTINS ~~~
