@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:10:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:37:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 	lst = cmd->redirs;
 	while (lst)
 	{
-		ft_printf("lst:%p\n", lst);
 		redir = lst->content;
 		if (redir->modifier == e_infile)
 		{
