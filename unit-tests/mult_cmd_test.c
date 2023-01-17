@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 10:40:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:15:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	print_infos(t_cmd_info *infos, int n)
 
 int main()
 {
+	/*
 	t_fds	*fds = prepare_fds(2);
 	
 	char	*args1[] = {"cat", 0};
@@ -83,6 +84,7 @@ int main()
 	//print_fds(fds, 2);
 	
 	cleanup_fds(fds, 2);
+	*/
 
 	return (0);
 }

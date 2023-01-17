@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 11:55:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:05:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static void	print_infos(t_cmd_info *infos, int n)
 
 int main()
 {
-	t_fds	*fds = prepare_fds(2);
-
+	/*t_fds	*fds = prepare_fds(2);
+	
 	char	*args1[] = {"hello", "-la", 0};
-	char	*args2[] = {"ls", "-la", "*/*", 0};
+	char	*args2[] = {"ls", "-la", "*", 0};
 	//char	*args3[] = {"echo", "hello", "world", "this", "is", "test", 0};
 
 	t_redir	in1 = {.type = e_infile, .str = "input1.txt"};
@@ -82,6 +82,6 @@ int main()
 	print_infos(infos, 2);
 
 	cleanup_fds(fds, 2);
-
+	*/
 	return (0);
 }

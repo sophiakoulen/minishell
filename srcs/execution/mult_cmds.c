@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 12:00:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:10:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	exec_cmd(t_cmd *cmd, t_cmd_info *info)
 {
 	if (info->status == 0 && info->full_path)
 	{
-		execve(info->full_path, cmd->args, 0);
+		execve(info->full_path, cmd->args_array, 0);
 		perror("execution of command failed");
 		info->status = 1;
 	}

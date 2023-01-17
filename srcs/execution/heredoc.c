@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 11:52:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:04:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	do_all_heredocs(t_cmd *cmds, int **hd_pipes, int n)
 	i = 0;
 	while (i < n)
 	{
-		if (cmds[i].in && cmds[i].in->type == e_heredoc)
+		if (cmds[i].has_heredoc)
 		{
-			do_single_heredoc(cmds[i].in->str, hd_pipes[i][1]);
+			do_single_heredoc(cmds[i].heredoc_delim, hd_pipes[i][1]);
 		}
 		i++;
 	}

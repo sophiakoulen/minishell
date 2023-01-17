@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:52:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:04:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_cmd_info
 	int		o_fd;
 	char	*full_path;
 	int		status;
+	int		has_heredoc;
+	char	*heredoc_delim;
 }	t_cmd_info;
 
 /*
@@ -113,18 +115,25 @@ typedef struct s_fds
 		out.type to know whether append mode or not.
 */
 
-typedef	struct s_redir
-{
-	int		type; //change this to enum later to avoid mistakes
-	char	*str;
-}	t_redir;
-
+/*
+	The definitive command structure we'll send to execution.
+	Will be produced by expansion stage.
+*/
 typedef struct s_cmd
 {
 	char	**args;
-	t_redir	*in;
-	t_redir	*out;
+	t_list	*redirs;
 }	t_cmd;
+
+/*
+	The intermediate structure that is produced by parsing stage.
+	Will be sent to expansion.
+*/
+typedef struct s_parsed_cmd
+{
+	t_list *args;
+	t_list *redirs;
+}	t_parsed_cmd;
 
 /**
  * Screen posiiton struct.

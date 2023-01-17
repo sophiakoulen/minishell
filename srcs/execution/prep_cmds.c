@@ -6,14 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:00:05 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:05:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i);
-static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
+static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
 static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info);
 static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
 
@@ -51,67 +50,77 @@ static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 	info->i_fd = -1;
 	info->o_fd = -1;
 	info->full_path = 0;
-	prepare_cmd_in(cmd, info, fds, i);
-	if (!info->status)
-		prepare_cmd_out(cmd, info, fds, i, n);
+	prepare_redirs(cmd, info, fds, i, n);
 	if (!info->status)
 		prepare_cmd_path(cmd, info);
 }
 
-static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i)
+static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 {
-	int	fd;
+	int		fdin;
+	int		fdout;
+	t_list	*lst;
+	t_item	*redir;
+	int		flags;
 
-	if (!cmd->in) //get input from pipe or stdin
+	/* default input */
+	if (i == 0)
+		fdin = STDIN_FILENO;
+	else
+		fdin = fds->pipes[i - 1][0];
+	
+	if (i == n - 1)
+		fdout = STDOUT_FILENO;
+	else
+		fdout = fds->pipes[i][1];
+
+	/* iterate over args list */
+	lst = cmd->redirs;
+	while (lst)
 	{
-		if (i == 0)
-			fd = STDIN_FILENO;
-		else
-			fd = fds->pipes[i - 1][0];
-	}
-	else if(cmd->in->type == e_infile) //get input from file
-	{
-		fd = open(cmd->in->str, O_RDONLY);
-		if (fd < 0)
+		redir = lst->content;
+		if (redir->modifier == e_infile)
 		{
-			perror(cmd->in->str); //later error printing needs to be done in child
-			info->status = 1;
+			fdin = open(redir->word, O_RDONLY);
+			if (fdin < 0)
+			{ 
+				perror(redir->word); //later error printing needs to be done in child
+				info->status = 1;
+			}
+			fds->infile_fds[i] = fdin;
 		}
-		fds->infile_fds[i] = fd;
-	}
-	else //get input from heredoc
-	{
-		fd = fds->hd_pipes[i][0];
-	}
-	info->i_fd = fd;
-}
-
-static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
-{
-	int	flags;
-	int	fd;
-
-	if (!cmd->out) //get output to pipe (or stdin)
-	{
-		if (i == n - 1)
-			fd = STDOUT_FILENO;
-		else
-			fd = fds->pipes[i][1];
-	}
-	else //get output to file
-	{
-		flags = O_WRONLY | O_TRUNC | O_CREAT;
-		if (cmd->out->type == e_append)
-			flags |= O_APPEND;
-		fd = open(cmd->out->str, flags, 0644);
-		if (fd < 0)
+		else if (redir->modifier == e_outfile)
 		{
-			perror(cmd->out->str);
-			info->status = 1;
+			flags = O_WRONLY | O_TRUNC | O_CREAT;
+			fdout = open(redir->word, flags, 0644);
+			if (fdout < 0)
+			{
+				perror(redir->word);
+				info->status = 1;
+			}
+			fds->outfile_fds[i] = fdout;
 		}
-		fds->outfile_fds[i] = fd;
+		else if (redir->modifier == e_append)
+		{
+			flags = O_WRONLY | O_TRUNC | O_CREAT | O_APPEND;
+			fdout = open(redir->word, flags, 0644);
+			if (fdout < 0)
+			{
+				perror(redir->word);
+				info->status = 1;
+			}
+			fds->outfile_fds[i] = fdout;
+		}
+		else
+		{
+			cmd->has_heredoc = 1;
+			cmd->heredoc_delim = redir->word;
+			fdin = fds->hd_pipes[i][0];
+		}
+		lst = lst->next;
 	}
-	info->o_fd = fd;
+	info->o_fd = fdout;
+	info->i_fd = fdin;
 }
 
 static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
@@ -119,8 +128,8 @@ static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 	//environment variables not handled yet so a default path is used!
 	char	*path[] = {"/bin", "/usr/bin", 0};
 
-	if (cmd->args[0])
+	if (cmd->args_array[0])
 	{
-		info->status = find_cmd(path, cmd->args[0], &(info->full_path));
+		info->status = find_cmd(path, cmd->args_array[0], &(info->full_path));
 	}
 }

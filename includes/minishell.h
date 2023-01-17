@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 17:23:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:03:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ int			multiple_commands(t_cmd *cmds, t_fds *fds, int n);
 /*   expansion                                                                */
 /* ************************************************************************** */
 
+/* expansion */
+void		expand_pipeline(t_pipeline *p);
+void		expand_cmd(t_cmd *cmd);
+
 /* var_exp */
 
 char		**variable_expansion(char *str);
@@ -107,7 +111,7 @@ int			parse_pipeline(t_pipeline *pipeline, t_token **tok);
 
 /* prs command */
 
-int			parse_cmd(t_cmd **cmd, t_token **tok);
+int			parse_cmd(t_parsed_cmd **cmd, t_token **tok);
 
 /* prs item */
 
@@ -117,8 +121,7 @@ int			parse_item(t_item **item, t_token **tok);
 int			unexpected_token(t_token *tok);
 int			assert_token(t_token *tok, enum e_token_type expected);
 
-/* construct cmds */
-t_redir		*redir_factory(t_redir *blueprint);
+
 t_cmd		*cmd_factory(t_cmd *blueprint);
 
 /* ************************************************************************** */
@@ -158,6 +161,12 @@ void		pipeline_cleanup(t_pipeline *p);
 
 // nothing yet
 
+/* t_parsed_cmd.c */
+
+t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
+void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
+void			print_parsed_cmd(t_parsed_cmd *cmd);
+
 /* t_cmd.c */
 
 t_cmd		*cmd_factory(t_cmd *blueprint);
@@ -167,11 +176,6 @@ void		cmd_cleanup(t_cmd *cmd);
 /* t_fds.c */
 
 void		close_fds(t_fds *fds, int n);
-
-/* t_redir.c */
-
-t_redir		*redir_factory(t_redir *blueprint);
-void		print_redir(t_redir *r);
 
 /* t_token.c */
 
@@ -197,6 +201,8 @@ t_list		*list_factory(t_list *blueprint);
 
 t_item		*item_factory(t_item *blueprint);
 void		item_cleanup(t_item *item);
+void		item_cleanup_deep(t_item *item);
+void		print_item(t_item *item);
 
 /* t_env.c */
 

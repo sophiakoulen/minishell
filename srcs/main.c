@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 17:22:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:03:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	interactive_shell(t_env *env)
 			p = x_malloc(sizeof(*p), 1);
 
 			parse_pipeline(p, &tok_list);
+		
+			expand_pipeline(p);
 
 			exec_pipeline(p);
 

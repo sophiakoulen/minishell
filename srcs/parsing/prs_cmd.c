@@ -6,12 +6,28 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:55:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:37:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 16:39:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	is_input(t_item *item)
+{
+	return (item->modifier == e_infile || item->modifier == e_heredoc);
+}
+
+static int	is_output(t_item *item)
+{
+	return (item->modifier == e_outfile || item->modifier == e_append);
+}
+
+static int	is_redirection(t_item *item)
+{
+	return (item->modifier != NO_MODIFIER);
+}
+
+/*
 char	**list_to_args(t_list *lst)
 {
 	char	**ret;
@@ -30,6 +46,7 @@ char	**list_to_args(t_list *lst)
 	ret[i] = 0;
 	return (ret);
 }
+*/
 
 /* 
 	Parse a command.
@@ -38,30 +55,31 @@ char	**list_to_args(t_list *lst)
 	We need to check that there is at least 1 item,
 	else syntax error.
 */
-int	parse_cmd(t_cmd **cmd, t_token **tok)
+int	parse_cmd(t_parsed_cmd **cmd, t_token **tok)
 {
 	t_item		*item;
+	t_item		*copy;
+
 	t_list		*words;
+	t_list		*redirs;
+
 	int			i;
 	int			ret;
 
 	words = NULL;
-	*cmd = cmd_factory(NULL);
+	redirs = NULL;
 	i = 0;
 	ret = parse_item(&item, tok);
 	while (ret == 0)
 	{
-		if (item->modifier == e_infile || item->modifier == e_heredoc)
+		if (is_redirection(item))
 		{
-			(*cmd)->in = redir_factory(&(t_redir){.type=item->modifier, .str=item->word});
-		}
-		else if (item->modifier == e_outfile || item->modifier == e_append)
-		{
-			(*cmd)->out = redir_factory(&(t_redir){.type=item->modifier, .str=item->word});
+			copy = item_factory(item);
+			ft_lstadd_back(&redirs, list_factory(&(t_list){.content=copy, .next=NULL}));	
 		}
 		else
 		{
-			ft_lstadd_back(&words, list_factory(&(t_list){item->word, NULL}));
+			ft_lstadd_back(&words, list_factory(&(t_list){.content=item->word, .next=NULL}));
 		}
 		item_cleanup(item);
 		ret = parse_item(&item, tok);
@@ -70,6 +88,7 @@ int	parse_cmd(t_cmd **cmd, t_token **tok)
 	if (ret == SYNTAX_ERROR)
 	{
 		ft_lstclear(&words, free);
+		ft_lstclear(&redirs, item_cleanup);
 		*cmd = 0;
 		return (ret);
 	}
@@ -78,7 +97,8 @@ int	parse_cmd(t_cmd **cmd, t_token **tok)
 		*cmd = 0;
 		return (unexpected_token(*tok));
 	}
-	(*cmd)->args = list_to_args(words);
-	ft_lstclear(&words, do_nothing);
+	*cmd = parsed_cmd_factory(NULL);
+	(*cmd)->args = words;
+	(*cmd)->redirs = redirs;
 	return (0);
 }

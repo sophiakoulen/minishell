@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/17 14:32:37 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/17 19:05:37 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra
 #CFLAGS += -Werror
 CFLAGS += -g3 -fsanitize=address
-# CFLAGS += -g3
 
 TEST_NAMES	= tokenizer parsing heredoc parse_item prepare_cmd mult_cmd prs_cmd prs_pipeline
 
