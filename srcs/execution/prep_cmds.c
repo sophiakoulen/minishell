@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 11:53:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:59:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 	//environment variables not handled yet so a default path is used!
 	char	*path[] = {"/bin", "/usr/bin", 0};
 
-	if (cmd->args)
+	if (cmd->args[0])
 	{
 		info->status = find_cmd(path, cmd->args[0], &(info->full_path));
 	}
