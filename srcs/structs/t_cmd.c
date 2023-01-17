@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 18:19:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:19:34 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	cleanup_strs(char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		free(strs);
+		free(strs[i]);
 		i++;
 	}
 	free(strs);
