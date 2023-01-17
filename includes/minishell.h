@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:10:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:23:17 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 int			echo(char **args);
 int			pwd(void);
 
-void		env(t_env *env);
+void		exec_env(t_env *env);
 t_env		*init_env(char **envp);
 char		**env_to_strarr(t_env *env);
 char		*ret_env_key(t_env *env, char *key);

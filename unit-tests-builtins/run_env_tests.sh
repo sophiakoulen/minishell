@@ -10,8 +10,13 @@ echo "\n${ITALIC}${YELLOW}Testing $N builtin${RESET}"
 
 # these tests where written by me, they are not infallable
 
-exec_test $N 0 'env' '$(env)'
-# ./parsing.test 'echo hello | cat -e | new_test'
+exec_test $N 0 "$(env | grep -v _=/)
+_=/Users/znichola/Documents/minishell/unit-tests-builtins/./env.test" ''
 
+export USER="custom variable"
+exec_test $N 1 "$(env | grep -v _=/)
+_=/Users/znichola/Documents/minishell/unit-tests-builtins/./env.test" ''
 
-# exec_test 0 'echo hello | cat -e' '{echo hello  |  cat -e}'
+# "$(env)"
+
+# ./$N.test ''w

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:47:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:10:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:24:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,14 @@ char	*ret_env_key(t_env *env, char *key)
 			return (ft_strdup(env->value));
 		env = env->next;
 	}
+	return (NULL);
 }
 
 /*
 	env builtin, prints directly to screen
 	and cleans up after it's self
  */
-void	env(t_env *env)
+void	exec_env(t_env *env)
 {
 	char	**sa;
 

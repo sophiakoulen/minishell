@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/15 15:32:38 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/17 17:25:13 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME	= builtins
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
-CFLAGS += -Werror
+#CFLAGS += -Werror
+CFLAGS += -g3 -fsanitize=address
 
-TEST_NAMES	= echo pwd
+TEST_NAMES	= echo pwd env
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -49,6 +50,9 @@ echo : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 pwd : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+
+env : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all
