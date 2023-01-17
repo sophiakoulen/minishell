@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 18:56:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:35:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
 
 	p = x_malloc(sizeof(*p), 1);
 	p->n_cmds = intermediate->n_cmds;
-	p->cmds = x_malloc(sizeof(*(p->cmds)), 1);
+	p->cmds = x_malloc(sizeof(*(p->cmds)), p->n_cmds);
 	i = 0;
 	while (i < p->n_cmds)
 	{
@@ -43,7 +43,8 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
 
 	/* copy the argument list into array */
 	len = ft_lstsize(intermediate->args);
-	definitive->args = x_malloc(sizeof(*(definitive->args)), len + 1);
+	definitive->args = x_malloc(sizeof(char *), len + 1);
+	// definitive->args = x_malloc(sizeof(*(definitive->args)), len + 1);
 	i = 0;
 	current = intermediate->args;
 	while (i < len)
