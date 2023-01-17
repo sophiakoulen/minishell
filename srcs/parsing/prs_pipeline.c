@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 10:57:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:38:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ static t_cmd *list_to_array(t_list *lst)
 		i++;
 	}
 	return (array);
-}
-
-static void	do_nothing(void *thing)
-{
-	(void)thing;
-	return ;
 }
 
 /**

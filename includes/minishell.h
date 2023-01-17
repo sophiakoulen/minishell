@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:24:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:38:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int			pwd(void);
 /* ************************************************************************** */
 /*   exicution                                                                */
 /* ************************************************************************** */
+
+/* exec pipeline */
+int			exec_pipeline(t_pipeline *p);
 
 /* heredoc */
 
@@ -130,6 +133,7 @@ void		tok_list_cleanup(t_token *lst);
 
 void		*x_malloc(size_t size, size_t quantity);
 int			ft_isspace(int c);
+void		do_nothing(void *thing);
 
 /* tree_ops */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 09:53:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:39:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	interactive_shell(void);
 
 int	main(int argc, char **argv)
 {
-	ft_printf("test\n");
 	check_args(argc, argv);
 	interactive_shell();
 	return (0);
@@ -39,27 +38,28 @@ static void	check_args(int argc, char **argv)
 static void	interactive_shell(void)
 {
 	char	*line;
-	t_tree	*tree;
 	t_token	*tok_list;
-	// t_cmd	*cmds;
-	// int		n_cmds;
 
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (line && *line)
 			add_history(line);
+		
 		tok_list = construct_tok_list(line);
+		t_token *start = tok_list;
 
-		parse_commandline(&tree, tok_list);
+		t_pipeline *p = x_malloc(sizeof(*p), 1);
 
-		// constuct_cmds(tree, &cmds, &n_cmds);
+		parse_pipeline(p, &tok_list);
+		
+		exec_pipeline(p);
 
-		// exec_pipeline(cmds, n_cmds);
+		pipeline_cleanup(p);
+		free(p);
 
-		// free cmds
-		// free tree
-		// free tok_list
+		tok_list_cleanup(start);
+
 		free(line);
 	}
 }

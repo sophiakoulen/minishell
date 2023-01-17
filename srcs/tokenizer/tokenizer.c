@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:25:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:42:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static t_token	*lexer(char	**str)
 		(*str)++;
 	tok = x_malloc(sizeof(t_token), 1);
 	tok->next = NULL;
+	tok->str = NULL;
 	tok->type = check_token_literals(*str);
 	if (tok->type == e_end)
 		;
@@ -131,7 +132,8 @@ void	tok_list_cleanup(t_token *lst)
 	previous = 0;
 	while (lst)
 	{
-		free(previous->str);
+		if (previous)
+			free(previous->str);
 		free(previous);
 		previous = lst;
 		lst = lst->next;

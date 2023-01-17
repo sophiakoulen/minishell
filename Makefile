@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 11:07:42 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/17 11:34:55 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	minishell
 CC		=	gcc
 # CFLAGS	=	-Wall -Werror -Wextra
 CFLAGS	=	-Wall -Wextra
-#CFLAGS += -g3 -fsanitize=address
+CFLAGS += -g3 -fsanitize=address
 RM		=	rm -rf
 
 INCS_PATH	=	includes/
@@ -30,7 +30,7 @@ STRUCT_FILES	=	t_token         t_tree          t_word_lst     t_cmd      \
 					t_redir         t_cmd_info      t_tree_print   t_fds \
 					t_item			t_pipeline
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
-					prep_fds        exec_utils      mult_cmds
+					prep_fds        exec_utils      mult_cmds		exec_pipeline
 TOKENIZER_FILES	=	tokenizer
 UTILS_FILES		=	utils_1         tree_ops
 

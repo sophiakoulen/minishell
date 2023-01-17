@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/14 09:05:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:38:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ int	ft_isspace(int c)
 		|| c == '\f'
 		|| c == '\r'
 		|| c == ' ');
+}
+
+void	do_nothing(void *thing)
+{
+	(void)thing;
+	return ;
 }
