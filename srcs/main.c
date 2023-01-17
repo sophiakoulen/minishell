@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:39:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:53:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,20 @@
 static void	check_args(int argc, char **argv);
 static void	interactive_shell(void);
 
-int	main(int argc, char **argv)
+/*
+	alternative method to find the env variable
+	can also use this way
+	extern char	**environ;
+ */
+
+// int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
+	t_env *env = init_env(envp);
+	print_env(env, NULL);
+	env_to_strarr(env);
 	check_args(argc, argv);
+
 	interactive_shell();
 	return (0);
 }
@@ -45,14 +56,14 @@ static void	interactive_shell(void)
 		line = readline("minishell$ ");
 		if (line && *line)
 			add_history(line);
-		
+
 		tok_list = construct_tok_list(line);
 		t_token *start = tok_list;
 
 		t_pipeline *p = x_malloc(sizeof(*p), 1);
 
 		parse_pipeline(p, &tok_list);
-		
+
 		exec_pipeline(p);
 
 		pipeline_cleanup(p);

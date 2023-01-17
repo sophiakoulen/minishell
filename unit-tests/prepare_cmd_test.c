@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 10:40:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:55:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	print_infos(t_cmd_info *infos, int n)
 int main()
 {
 	t_fds	*fds = prepare_fds(2);
-	
+
 	char	*args1[] = {"hello", "-la", 0};
 	char	*args2[] = {"ls", "-la", "*/*", 0};
 	//char	*args3[] = {"echo", "hello", "world", "this", "is", "test", 0};
@@ -64,7 +64,6 @@ int main()
 
 	//t_redir	in2 = {.type = INFILE, .str = "input2.txt"};
 	t_redir	out2 = {.type = e_outfile, .str = "output2.txt"};
-	
 	//t_redir	in3 = {.type = INFILE, .str = "input3.txt"};
 	//t_redir	out3 = {.type = OUTFILE, .str = "output3.txt"};
 
@@ -72,16 +71,16 @@ int main()
 	t_cmd cmd2 = {.args = args2, .in = 0, .out = &out2};
 	//t_cmd cmd3 = {.args = args3, .in = &in3, .out = &out3};
 
-	t_cmd cmds[] = {cmd1, cmd2}; 
+	t_cmd cmds[] = {cmd1, cmd2};
 
 	t_cmd_info *infos;
-	
+
 	infos = prepare_all_cmds(cmds, fds, 2);
-	
+
 	print_fds(fds, 2);
 
 	print_infos(infos, 2);
-	
+
 	cleanup_fds(fds, 2);
 
 	return (0);

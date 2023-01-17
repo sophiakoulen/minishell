@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:38:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:52:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 
 int			echo(char **args);
 int			pwd(void);
+
+t_env		*init_env(char **envp);
+void		print_env(t_env *env, char *how);
+char		**env_to_strarr(t_env *env);
 
 /* ************************************************************************** */
 /*   exicution                                                                */
@@ -192,5 +196,13 @@ t_list		*list_factory(t_list *blueprint);
 
 t_item		*item_factory(t_item *blueprint);
 void		item_cleanup(t_item *item);
+
+/* t_env.c */
+
+t_env		*env_factory(t_env *blueprint);
+char		*ret_env_key(t_env *env, char *key);
+char		**ret_env_strs(t_env *env);
+void		env_cleanup(t_env *env);
+size_t		size_env(t_env *env);
 
 #endif

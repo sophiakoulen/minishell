@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 10:42:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:53:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i)
 	{
 		fd = open(cmd->in->str, O_RDONLY);
 		if (fd < 0)
-		{ 
+		{
 			perror(cmd->in->str); //later error printing needs to be done in child
 			info->status = 1;
 		}

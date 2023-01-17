@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 11:34:55 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/17 11:55:17 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-BUILTINS		=	echo            pwd
+BUILTINS		=	echo            pwd             env
 EXPANSION_FILES	=	var_exp         wild_exp
-PARSING_FILES	=	prs_commandline prs_pipeline    prs_cmd               \
-					prs_item		parse_errors
+PARSING_FILES	=	prs_commandline prs_pipeline    prs_cmd                   \
+					prs_item        parse_errors
 STRUCT_FILES	=	t_token         t_tree          t_word_lst     t_cmd      \
-					t_redir         t_cmd_info      t_tree_print   t_fds \
-					t_item			t_pipeline
+					t_redir         t_cmd_info      t_tree_print   t_fds      \
+					t_item          t_env           t_pipeline
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils prep_cmds  \
 					prep_fds        exec_utils      mult_cmds		exec_pipeline
 TOKENIZER_FILES	=	tokenizer
