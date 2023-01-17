@@ -6,14 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:13:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:19:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	check_args(int argc, char **argv);
-static void	interactive_shell(void);
+static void	interactive_shell(t_env *env);
 
 /*
 	alternative method to find the env variable
