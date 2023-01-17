@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:55:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 16:08:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:18:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**list_to_args(t_list *lst)
 	We need to check that there is at least 1 item,
 	else syntax error.
 */
-int	parse_cmd(t_token **tok, t_cmd **cmd)
+int	parse_cmd(t_cmd **cmd, t_token **tok)
 {
 	t_item		*item;
 	t_list		*words;
@@ -69,28 +69,16 @@ int	parse_cmd(t_token **tok, t_cmd **cmd)
 	}
 	if (ret == SYNTAX_ERROR)
 	{
-		//cleanup command
+		ft_lstclear(&words, free);
 		*cmd = 0;
 		return (ret);
 	}
 	if (i == 0)
 	{
-		//syntax error near unexpected token tok.
-		//cleanup command
 		*cmd = 0;
-		return (SYNTAX_ERROR);
+		return (unexpected_token(*tok));
 	}
 	(*cmd)->args = list_to_args(words);
 	ft_lstclear(&words, free);
 	return (0);
 }
-
-/*int	constuct_cmds(t_token **tok,  t_cmd **cmds, int *n_cmds)
-{
-	if ((*tok)->type != e_string)
-		return (-1);
-
-	*tok = (*tok)->next;
-	// parse_command(&((*tree)->right), tok);
-	return (SUCCESS);
-}*/

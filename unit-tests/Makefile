@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/16 15:48:05 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/17 10:55:20 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME	= test
 CC		= gcc
 CFLAGS	= -Wall -Wextra
 #CFLAGS += -Werror
-CFLAGS += -g3 -fsanitize=address
+#CFLAGS += -g3 -fsanitize=address
 
-TEST_NAMES	= tokenizer parsing heredoc parse_item prepare_cmd mult_cmd prs_cmd
+TEST_NAMES	= tokenizer parsing heredoc parse_item prepare_cmd mult_cmd prs_cmd prs_pipeline
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -64,6 +64,9 @@ mult_cmd : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 prs_cmd : all
+	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+
+prs_pipeline : all
 	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all

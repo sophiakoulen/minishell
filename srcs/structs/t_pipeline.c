@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_cmd_test.c                                     :+:      :+:    :+:   */
+/*   t_pipeline.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 09:39:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 09:53:36 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/17 11:04:23 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/17 11:24:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+void	print_pipeline(t_pipeline *p)
 {
-	t_token *tok;
-	char	*str;
+	int	i;
 
-	if (argc == 1)
-		return (1);
-	str = argv[1];
-	ft_printf("\n list of tokens: ", str);
-	tok = construct_tok_list(str);
-	print_token_list_minimal(tok);
-	printf("\n");
+	i = 0;
+	while (i < p->n_cmds)
+	{
+		print_cmd(&p->cmds[i]);
+		i++;
+	}
+}
 
-	t_cmd *cmd;
-	parse_cmd(&cmd, &tok);
+void	pipeline_cleanup(t_pipeline *p)
+{
+	int	i;
 
-	print_cmd(cmd);
-
-	ft_printf("\n after list  of tokens: ", str);
-	print_token_list_minimal(tok);
-	printf("\n");
-
-	exit(0);
-	return (0);
+	i = 0;
+	while (i < p->n_cmds)
+	{
+		cmd_cleanup(&p->cmds[i]);
+		i++;
+	}
+	free(p->cmds);
 }

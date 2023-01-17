@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 16:10:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:21:42 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,25 @@ t_cmd	*cmd_factory(t_cmd *blueprint)
 		ret->out = blueprint->out;
 	}
 	return (ret);
+}
+
+void	cmd_cleanup(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd->args)
+	{
+		while (cmd->args[i])
+		{
+			free(cmd->args[i]);
+			i++;
+		}
+	}
+	free(cmd->args);
+	free(cmd->in);
+	free(cmd->out);
+	//free(cmd);
 }
 
 void	print_cmd(t_cmd *cmd)

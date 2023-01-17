@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 15:55:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 11:24:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,25 @@ char		*wildcard_expansion(char *str);
 /*   parsing                                                                  */
 /* ************************************************************************** */
 
-/* prs_pipline */
-
-
 /* prs comandline */
 
 int			parse_commandline(t_tree **tree, t_token *tok);
 
 /* prs pipeline */
 
-int			parse_pipeline(t_tree **tree, t_token **tok);
+int			parse_pipeline(t_pipeline *pipeline, t_token **tok);
 
 /* prs command */
 
-int			parse_cmd(t_token **tok, t_cmd **cmd);
+int			parse_cmd(t_cmd **cmd, t_token **tok);
 
 /* prs item */
 
-// int			parse_item(t_tree **tree, t_token **tok);
 int			parse_item(t_item **item, t_token **tok);
+
+/* parse errors */
+int			unexpected_token(t_token *tok);
+int			assert_token(t_token *tok, enum e_token_type expected);
 
 /* construct cmds */
 t_redir		*redir_factory(t_redir *blueprint);
@@ -122,6 +122,7 @@ int			constuct_cmds(t_token **tok, t_cmd **cmds, int *n_cmds);
 /* tokenizer */
 
 t_token		*construct_tok_list(char *str);
+void		tok_list_cleanup(t_token *lst);
 
 /* ************************************************************************** */
 /*   utils                                                                    */
@@ -140,6 +141,10 @@ int			get_tree_max_width(t_tree *tree);
 /*   structs                                                                  */
 /* ************************************************************************** */
 
+/* t_pipeline */
+void		print_pipeline(t_pipeline *p);
+void		pipeline_cleanup(t_pipeline *p);
+
 /* t_cmd_info.c */
 
 // nothing yet
@@ -148,6 +153,7 @@ int			get_tree_max_width(t_tree *tree);
 
 t_cmd		*cmd_factory(t_cmd *blueprint);
 void		print_cmd(t_cmd *cmd);
+void		cmd_cleanup(t_cmd *cmd);
 
 /* t_fds.c */
 

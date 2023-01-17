@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 14:31:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 10:39:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,11 @@ typedef struct s_item
 	char	*word;
 	int		modifier;
 }	t_item;
+
+typedef struct s_pipeline
+{
+	int		n_cmds;
+	t_cmd	*cmds;
+}	t_pipeline;
 
 #endif

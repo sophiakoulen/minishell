@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 16:52:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 10:42:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	prepare_cmd_in(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i)
 		else
 			fd = fds->pipes[i - 1][0];
 	}
-	else if(cmd->in->type == INFILE) //get input from file
+	else if(cmd->in->type == e_infile) //get input from file
 	{
 		fd = open(cmd->in->str, O_RDONLY);
 		if (fd < 0)
@@ -101,7 +101,7 @@ static void	prepare_cmd_out(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int
 	else //get output to file
 	{
 		flags = O_WRONLY | O_TRUNC | O_CREAT;
-		if (cmd->out->type == APPEND)
+		if (cmd->out->type == e_append)
 			flags |= O_APPEND;
 		fd = open(cmd->out->str, flags, 0644);
 		if (fd < 0)

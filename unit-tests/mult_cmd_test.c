@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 16:07:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 10:40:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int main()
 	char	*args2[] = {"grep", "hello", 0};
 	//char	*args3[] = {"existepas", "hello", "world", "this", "is", "test", 0};
 
-	t_redir	in1 = {.type = HEREDOC, .str = "EOF"};
+	t_redir	in1 = {.type = e_heredoc, .str = "EOF"};
 	//t_redir	out1 = {.type = OUTFILE, .str = "output1.txt"};
 
 	//t_redir	in2 = {.type = INFILE, .str = "input2.txt"};

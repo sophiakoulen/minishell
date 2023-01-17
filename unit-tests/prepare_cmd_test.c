@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 15:50:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 10:40:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int main()
 	char	*args2[] = {"ls", "-la", "*/*", 0};
 	//char	*args3[] = {"echo", "hello", "world", "this", "is", "test", 0};
 
-	t_redir	in1 = {.type = INFILE, .str = "input1.txt"};
-	t_redir	out1 = {.type = OUTFILE, .str = "output1.txt"};
+	t_redir	in1 = {.type = e_infile, .str = "input1.txt"};
+	t_redir	out1 = {.type = e_outfile, .str = "output1.txt"};
 
 	//t_redir	in2 = {.type = INFILE, .str = "input2.txt"};
-	t_redir	out2 = {.type = OUTFILE, .str = "output2.txt"};
+	t_redir	out2 = {.type = e_outfile, .str = "output2.txt"};
 	
 	//t_redir	in3 = {.type = INFILE, .str = "input3.txt"};
 	//t_redir	out3 = {.type = OUTFILE, .str = "output3.txt"};

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 12:54:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:25:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,19 @@ t_token	*construct_tok_list(char *str)
 		}
 		if (tmp->type == e_end)
 			return (start);
+	}
+}
+
+void	tok_list_cleanup(t_token *lst)
+{
+	t_token *previous;
+
+	previous = 0;
+	while (lst)
+	{
+		free(previous->str);
+		free(previous);
+		previous = lst;
+		lst = lst->next;
 	}
 }

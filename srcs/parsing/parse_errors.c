@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_cmd_test.c                                     :+:      :+:    :+:   */
+/*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 09:39:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 09:53:36 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/17 10:45:29 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/17 10:50:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	unexpected_token(t_token *tok)
 {
-	t_token *tok;
-	char	*str;
+	ft_printf("Syntax error near unexpected token %s\n", ret_token_literal(tok->type));
+	return (SYNTAX_ERROR);
+}
 
-	if (argc == 1)
-		return (1);
-	str = argv[1];
-	ft_printf("\n list of tokens: ", str);
-	tok = construct_tok_list(str);
-	print_token_list_minimal(tok);
-	printf("\n");
-
-	t_cmd *cmd;
-	parse_cmd(&cmd, &tok);
-
-	print_cmd(cmd);
-
-	ft_printf("\n after list  of tokens: ", str);
-	print_token_list_minimal(tok);
-	printf("\n");
-
-	exit(0);
-	return (0);
+int	assert_token(t_token *tok, enum e_token_type expected)
+{
+	if (tok->type != expected)
+	{
+		return (unexpected_token(tok));
+	}
+	return (SUCCESS);
 }
