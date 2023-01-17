@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:10:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:44:42 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static void	add_line(char **buffer, char *line)
 		ft_strlcpy(tmp, line, size);
 	}
 	tmp[size - 2] = '\n';
+	tmp[size - 1] = '\0';
 	free(*buffer);
 	free(line);
 	*buffer = tmp;
