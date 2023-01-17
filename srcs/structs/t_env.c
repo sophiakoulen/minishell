@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:17:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:09:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:11:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ size_t	size_env(t_env *env)
 void	env_append(t_env **env, t_env *new)
 {
 	(void)env;
+	(void)new;
 }
 
 void	env_pop(t_env **env, t_env *new)
 {
 	(void)env;
+	(void)new;
 }
 
 void	env_cleanup(t_env *env)
