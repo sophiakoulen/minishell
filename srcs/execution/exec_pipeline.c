@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 11:30:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:01:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int	exec_pipeline(t_pipeline *p)
 	fds = prepare_fds(p->n_cmds);
 	ret = multiple_commands(p->cmds, fds, p->n_cmds);
 	cleanup_fds(fds, p->n_cmds);
+	//ft_printf("return value:%d\n", ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 18:59:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:00:05 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,5 @@ static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 	if (cmd->args[0])
 	{
 		info->status = find_cmd(path, cmd->args[0], &(info->full_path));
-	}
-	else
-	{
-		info->status = 1;
 	}
 }

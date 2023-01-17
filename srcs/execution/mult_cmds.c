@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multiple_commands.c                                :+:      :+:    :+:   */
+/*   mult_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 16:27:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:00:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n)
 
 static int	exec_cmd(t_cmd *cmd, t_cmd_info *info)
 {
-	if (info->status == 0)
+	if (info->status == 0 && info->full_path)
 	{
 		execve(info->full_path, cmd->args, 0);
 		perror("execution of command failed");
