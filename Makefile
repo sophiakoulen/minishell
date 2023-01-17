@@ -6,17 +6,16 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 19:01:48 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/17 19:06:58 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 
 CC		=	gcc
-# CFLAGS	=	-Wall -Werror -Wextra
 CFLAGS	=	-Wall -Wextra
-CFLAGS += -g3 -fsanitize=address
-# CFLAGS += -g3
+CFLAGS	+=	-Werror
+CFLAGS	+=	-g3 -fsanitize=address
 RM		=	rm -rf
 
 INCS_PATH	=	includes/

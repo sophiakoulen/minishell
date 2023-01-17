@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:04:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:07:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,11 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+
+typedef struct s_parsed_pipeline
+{
+	int				n_cmds;
+	t_parsed_cmd	*cmds;
+}	t_parsed_pipeline;
 
 #endif

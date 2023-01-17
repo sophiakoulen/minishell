@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:03:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:07:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			exec_pipeline(t_pipeline *p);
 
 /* heredoc */
 
-void		do_all_heredocs(t_cmd *cmds, int **hd_pipes, int n);
+void		do_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n);
 
 /* find_cmd utils */
 
@@ -86,8 +86,8 @@ int			multiple_commands(t_cmd *cmds, t_fds *fds, int n);
 /* ************************************************************************** */
 
 /* expansion */
-void		expand_pipeline(t_pipeline *p);
-void		expand_cmd(t_cmd *cmd);
+t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate);
+void		expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate);
 
 /* var_exp */
 
@@ -107,7 +107,7 @@ int			parse_commandline(t_tree **tree, t_token *tok);
 
 /* prs pipeline */
 
-int			parse_pipeline(t_pipeline *pipeline, t_token **tok);
+int			parse_pipeline(t_parsed_pipeline *pipeline, t_token **tok);
 
 /* prs command */
 

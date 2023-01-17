@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:04:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:10:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static void	do_single_heredoc(const char *delim, int fd);
 	hd_pipes is an array of pipes the parent process
 	should write to.
 */
-void	do_all_heredocs(t_cmd *cmds, int **hd_pipes, int n)
+void	do_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
 {
 	int	i;
 
 	i = 0;
 	while (i < n)
 	{
-		if (cmds[i].has_heredoc)
+		if (infos[i].has_heredoc)
 		{
-			do_single_heredoc(cmds[i].heredoc_delim, hd_pipes[i][1]);
+			do_single_heredoc(infos[i].heredoc_delim, hd_pipes[i][1]);
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_commandline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:13:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 13:32:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:16:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 */
 int	parse_commandline(t_tree **tree, t_token *tok)
 {
+	(void)tree;
+	(void)tok;
+	/*
 	t_tree	*root;
 
 	root = tree_factory(NULL);
@@ -28,5 +31,6 @@ int	parse_commandline(t_tree **tree, t_token *tok)
 	}
 	parse_pipeline(&root, &tok);
 	*tree = root;
+	*/
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:05:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:10:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 	info->i_fd = -1;
 	info->o_fd = -1;
 	info->full_path = 0;
+	info->has_heredoc = 0;
+	info->heredoc_delim = 0;
 	prepare_redirs(cmd, info, fds, i, n);
 	if (!info->status)
 		prepare_cmd_path(cmd, info);
@@ -78,6 +80,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 	lst = cmd->redirs;
 	while (lst)
 	{
+		ft_printf("lst:%p\n", lst);
 		redir = lst->content;
 		if (redir->modifier == e_infile)
 		{
@@ -113,8 +116,8 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 		}
 		else
 		{
-			cmd->has_heredoc = 1;
-			cmd->heredoc_delim = redir->word;
+			info->has_heredoc = 1;
+			info->heredoc_delim = redir->word;
 			fdin = fds->hd_pipes[i][0];
 		}
 		lst = lst->next;
@@ -128,8 +131,8 @@ static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 	//environment variables not handled yet so a default path is used!
 	char	*path[] = {"/bin", "/usr/bin", 0};
 
-	if (cmd->args_array[0])
+	if (cmd->args[0])
 	{
-		info->status = find_cmd(path, cmd->args_array[0], &(info->full_path));
+		info->status = find_cmd(path, cmd->args[0], &(info->full_path));
 	}
 }

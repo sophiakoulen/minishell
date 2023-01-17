@@ -6,42 +6,64 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 15:12:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:56:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	expand_pipeline(t_pipeline *p)
-{
-	int	i;
+static t_item	*copy_item_deep(t_item *item);
 
+t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
+{
+	t_pipeline	*p;
+	int			i;
+
+	p = x_malloc(sizeof(*p), 1);
+	p->n_cmds = intermediate->n_cmds;
+	p->cmds = x_malloc(sizeof(*(p->cmds)), 1);
 	i = 0;
 	while (i < p->n_cmds)
 	{
-		expand_cmd(&p->cmds[i]);
+		expand_cmd(&p->cmds[i], &intermediate->cmds[i]);
 		i++;
 	}
+	return (p);
 }
 
 /*
 	Currently doesn't do any expansion,
 	just translate from one form into the other.
 */
-void	expand_cmd(t_cmd *cmd)
+void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
 {
-	t_list	*iter;
+	t_list	*current;
 	int		i;
 	int		len;
 
-	len = ft_lstsize(cmd->args_list);
-	cmd->args_array = x_malloc(sizeof(*(cmd->args_array)), len + 1);
+	/* copy the argument list into array */
+	len = ft_lstsize(intermediate->args);
+	definitive->args = x_malloc(sizeof(*(definitive->args)), len + 1);
 	i = 0;
-	iter = cmd->args_list;
+	current = intermediate->args;
 	while (i < len)
 	{
-		cmd->args_array[i] = ft_strdup(iter->content); //MALLOC PROTECTION
-		iter = iter->next;
+		definitive->args[i] = ft_strdup(current->content); //TO DO: MALLOC PROTECTION
+		current = current->next;
+		i++;
 	}
-	cmd->args_array[i] = 0;
+	definitive->args[i] = 0;
+
+	/* copy the redirections list */
+	definitive->redirs = ft_lstmap(intermediate->redirs, (void *(*)(void *))copy_item_deep, (void (*)(void *))item_cleanup_deep);
+}
+
+static t_item	*copy_item_deep(t_item *item)
+{
+	t_item	*new_item;
+
+	new_item = x_malloc(sizeof(*new_item), 1);
+	new_item->modifier = item->modifier;
+	new_item->word = ft_strdup(item->word);
+	return (new_item);
 }

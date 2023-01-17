@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 15:10:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:00:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n)
 	int			ret;
 
 	infos = prepare_all_cmds(cmds, fds, n);
+	
 	pids = launch_all(cmds, infos, fds, n);
+
+	do_all_heredocs(infos, fds->hd_pipes, n);
+
 	cleanup_all_info(infos, n);
 
-	do_all_heredocs(cmds, fds->hd_pipes, n);
-	
 	close_fds(fds, n);
 	
 	ret = wait_all(n, pids);
@@ -101,7 +103,7 @@ static int	exec_cmd(t_cmd *cmd, t_cmd_info *info)
 {
 	if (info->status == 0 && info->full_path)
 	{
-		execve(info->full_path, cmd->args_array, 0);
+		execve(info->full_path, cmd->args, 0);
 		perror("execution of command failed");
 		info->status = 1;
 	}

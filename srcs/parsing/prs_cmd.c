@@ -6,12 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:55:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 16:39:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:19:32 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 static int	is_input(t_item *item)
 {
 	return (item->modifier == e_infile || item->modifier == e_heredoc);
@@ -21,6 +22,7 @@ static int	is_output(t_item *item)
 {
 	return (item->modifier == e_outfile || item->modifier == e_append);
 }
+*/
 
 static int	is_redirection(t_item *item)
 {
@@ -88,7 +90,7 @@ int	parse_cmd(t_parsed_cmd **cmd, t_token **tok)
 	if (ret == SYNTAX_ERROR)
 	{
 		ft_lstclear(&words, free);
-		ft_lstclear(&redirs, item_cleanup);
+		ft_lstclear(&redirs, (void(*)(void *))item_cleanup);
 		*cmd = 0;
 		return (ret);
 	}

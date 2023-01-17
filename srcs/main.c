@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:03:47 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:09:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static void	check_args(int argc, char **argv)
 
 static void	interactive_shell(t_env *env)
 {
-	char		*line;
-	t_token		*tok_list;
-	t_token		*start;
-	t_pipeline	*p;
+	char				*line;
+	t_token				*tok_list;
+	t_token				*start;
+	t_parsed_pipeline	*intermediate;
+	t_pipeline			*p;
 
 	(void)env;
 	while (1)
@@ -67,11 +68,11 @@ static void	interactive_shell(t_env *env)
 
 		if (start->type != e_end)
 		{
-			p = x_malloc(sizeof(*p), 1);
+			intermediate = x_malloc(sizeof(*intermediate), 1);
 
-			parse_pipeline(p, &tok_list);
+			parse_pipeline(intermediate, &tok_list);
 		
-			expand_pipeline(p);
+			p = expand_pipeline(intermediate);
 
 			exec_pipeline(p);
 

@@ -6,24 +6,24 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:38:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:15:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_cmd *list_to_array(t_list *lst)
+static t_parsed_cmd *list_to_array(t_list *lst)
 {
-	t_cmd	*array;
-	int		size;
-	int		i;
+	t_parsed_cmd	*array;
+	int				size;
+	int				i;
 
 	size = ft_lstsize(lst);
 	array = x_malloc(sizeof(*array), size);
 	i = 0;
 	while (lst)
 	{
-		array[i] = *(t_cmd *)lst->content;
+		array[i] = *(t_parsed_cmd *)lst->content;
 		lst = lst->next;
 		i++;
 	}
@@ -35,10 +35,10 @@ static t_cmd *list_to_array(t_list *lst)
  * <pipeline> ::= <command>
  *              | <command> "|" <pipeline>
 */
-int	parse_pipeline(t_pipeline *pipeline, t_token **tok)
+int	parse_pipeline(t_parsed_pipeline *pipeline, t_token **tok)
 {
-	t_list	*lst;
-	t_cmd	*cmd;
+	t_list			*lst;
+	t_parsed_cmd	*cmd;
 	int		ret;
 	int		i;
 
