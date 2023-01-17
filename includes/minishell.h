@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:52:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:10:50 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@
 int			echo(char **args);
 int			pwd(void);
 
+void		env(t_env *env);
 t_env		*init_env(char **envp);
-void		print_env(t_env *env, char *how);
 char		**env_to_strarr(t_env *env);
+char		*ret_env_key(t_env *env, char *key);
 
 /* ************************************************************************** */
 /*   exicution                                                                */
@@ -119,8 +120,6 @@ int			assert_token(t_token *tok, enum e_token_type expected);
 /* construct cmds */
 t_redir		*redir_factory(t_redir *blueprint);
 t_cmd		*cmd_factory(t_cmd *blueprint);
-int			construct_cmd(t_token **tok, t_cmd **cmd);
-int			constuct_cmds(t_token **tok, t_cmd **cmds, int *n_cmds);
 
 /* ************************************************************************** */
 /*   tokenizer                                                                */
@@ -138,6 +137,8 @@ void		tok_list_cleanup(t_token *lst);
 void		*x_malloc(size_t size, size_t quantity);
 int			ft_isspace(int c);
 void		do_nothing(void *thing);
+void		strarr_cleanup(char **s);
+void		strarr_print(char **s);
 
 /* tree_ops */
 
@@ -200,9 +201,7 @@ void		item_cleanup(t_item *item);
 /* t_env.c */
 
 t_env		*env_factory(t_env *blueprint);
-char		*ret_env_key(t_env *env, char *key);
-char		**ret_env_strs(t_env *env);
-void		env_cleanup(t_env *env);
 size_t		size_env(t_env *env);
+void		env_cleanup(t_env *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:53:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:01:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,28 @@ void	do_nothing(void *thing)
 {
 	(void)thing;
 	return ;
+}
+
+void	strarr_cleanup(char **s)
+{
+	int	i;
+
+	i = 0;
+	while(s[i])
+		i++;
+	while (i >= 0)
+	{
+		free(s[i]);
+		i--;
+	}
+	free(s);
+}
+
+void	strarr_print(char **s)
+{
+	while (*s)
+	{
+		ft_printf("%s\n", *s);
+		s++;
+	}
 }

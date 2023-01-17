@@ -6,14 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:47:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:48:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:10:30 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-	returns allocated linked list of env variables
+	returns allocated linked list of env structs
  */
 t_env	*init_env(char **envp)
 {
@@ -44,40 +44,72 @@ t_env	*init_env(char **envp)
 	return (start);
 }
 
-void	print_env(t_env *env, char *how)
-{
-	if (env == NULL)
-		return ;
-	if (ft_strncmp(how, "centered", 9) == 0)
-		ft_printf("%29s = %s\n", env->key, env->value);
-	else
-		ft_printf("%s=%s\n", env->key, env->value);
-
-	print_env(env->next, how);
-}
-
-
+/*
+	return malloced strarr of env
+	remember to free it!
+ */
 char	**env_to_strarr(t_env *env)
 {
 	char	**ret;
+	char	*tmp;
 	int		size;
 	int		i;
 
-	size = size_env(env) + 1;
-	// ft_printf("size:%d\n", size);
-	ret = x_malloc(sizeof(*ret), size);
+	size = size_env(env);
+	ret = x_malloc(sizeof(*ret), size + 1);
 	i = 0;
-	while (i < size - 1)
+	while (i < size)
 	{
-		// ret[i] = ft_strdup((char *)lst->content); //careful, args list is malloced!
-		// lst = lst->next;
+		tmp = ft_strjoin(env->key, "=");
+		ret[i] = ft_strjoin(tmp, env->value);
+		free(tmp);
+		env = env->next;
 		i++;
 	}
 	ret[i] = 0;
 	return (ret);
 }
 
+/*
+	returns the value associated with key
+	this is pointer to string in env, don't free it!
+	NULL if not found
+*/
+char	*ret_env_key(t_env *env, char *key)
+{
+	size_t	l;
+
+	while (env)
+	{
+		l = ft_strlen(key);
+		if (l < ft_strlen(env->key))
+			l = ft_strlen(env->key);
+		if (ft_strncmp(env->key, key, l))
+			return (ft_strdup(env->value));
+		env = env->next;
+	}
+}
+
+/*
+	env builtin, prints directly to screen
+	and cleans up after it's self
+ */
 void	env(t_env *env)
 {
-	print_env(env, NULL);
+	char	**sa;
+
+	sa = env_to_strarr(env);
+	strarr_print(sa);
+	strarr_cleanup(sa);
 }
+
+
+// void	print_env(t_env *env)
+// {
+// 	if (env == NULL)
+// 		return ;
+// 	// ft_printf("%29s = %s\n", env->key, env->value);
+// 	ft_printf("%s=%s\n", env->key, env->value);
+
+// 	print_env(env->next);
+// }

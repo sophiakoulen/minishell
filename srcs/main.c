@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 12:29:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:13:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static void	interactive_shell(void);
 // int	main(int argc, char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
-	t_env *env = init_env(envp);
-	// print_env(env, NULL);
-	// env_to_strarr(env);
+	t_env *env;
+
+	env = init_env(envp);
+
 	check_args(argc, argv);
 
-	interactive_shell();
+	interactive_shell(env);
 	return (0);
 }
 
@@ -46,7 +47,7 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
-static void	interactive_shell(void)
+static void	interactive_shell(t_env *env)
 {
 	char	*line;
 	t_token	*tok_list;
