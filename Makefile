@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 11:55:17 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/17 14:33:23 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC		=	gcc
 # CFLAGS	=	-Wall -Werror -Wextra
 CFLAGS	=	-Wall -Wextra
 CFLAGS += -g3 -fsanitize=address
+# CFLAGS += -g3
 RM		=	rm -rf
 
 INCS_PATH	=	includes/

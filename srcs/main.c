@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:19:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:05:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ static void	check_args(int argc, char **argv)
 
 static void	interactive_shell(t_env *env)
 {
-	char	*line;
-	t_token	*tok_list;
+	char		*line;
+	t_token		*tok_list;
+	t_token		*start;
+	t_pipeline	*p;
 
+	(void)env;
 	while (1)
 	{
 		line = readline("minishell\033[38:5:117m$ \033[0m");
@@ -60,16 +63,19 @@ static void	interactive_shell(t_env *env)
 			add_history(line);
 
 		tok_list = construct_tok_list(line);
-		t_token *start = tok_list;
+		start = tok_list;
 
-		t_pipeline *p = x_malloc(sizeof(*p), 1);
+		if (start->type != e_end)
+		{
+			p = x_malloc(sizeof(*p), 1);
 
-		parse_pipeline(p, &tok_list);
+			parse_pipeline(p, &tok_list);
 
-		exec_pipeline(p);
+			exec_pipeline(p);
 
-		pipeline_cleanup(p);
-		free(p);
+			pipeline_cleanup(p);
+			free(p);
+		}
 
 		tok_list_cleanup(start);
 

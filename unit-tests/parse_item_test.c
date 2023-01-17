@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:53:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/16 14:18:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:23:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_token	*tok;
-	t_tree	*tree;
+	// t_tree	*tree;
 	char	*str;
 
 	if (argc != 2)
