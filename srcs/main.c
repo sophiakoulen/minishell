@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 11:53:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:29:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	interactive_shell(void);
 int	main(int argc, char **argv, char **envp)
 {
 	t_env *env = init_env(envp);
-	print_env(env, NULL);
-	env_to_strarr(env);
+	// print_env(env, NULL);
+	// env_to_strarr(env);
 	check_args(argc, argv);
 
 	interactive_shell();
@@ -53,7 +53,8 @@ static void	interactive_shell(void)
 
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline("minishell\033[38:5:117m$ \033[0m");
+		// line = readline("minishell$ ");
 		if (line && *line)
 			add_history(line);
 
