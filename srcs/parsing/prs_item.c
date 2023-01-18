@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:41:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 10:53:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 10:41:38 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	parse_item(t_item **item, t_token **tok)
 	int		modifier;
 	char	*word;
 
+	*item = NULL;
 	if ((*tok)->type == e_end)
 	{
-		*item = NULL;
 		return (STOP);
 	}
 	if (is_redir_token(*tok))
