@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 13:23:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:55:41 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			exec_echo(char **args);
 int			exec_pwd(char **args);
 int			exec_exit(char **args);
 
-void		exec_env(t_env *env);
+int			exec_env(char **args);
 t_env		*init_env(char **envp);
 char		**env_to_strarr(t_env *env);
 char		*ret_env_key(t_env *env, char *key);
@@ -78,9 +78,10 @@ void		cleanup_fds(t_fds *fds, int n_cmds);
 int			compute_return_value(int status);
 int			redirect(int input_fd, int output_fd);
 
-/* multiple commands */
+/* multi_cmds.c */
 
 int			multiple_commands(t_cmd *cmds, t_fds *fds, int n);
+int			*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n);
 
 /* simple_cmd_exec.c */
 
@@ -88,7 +89,7 @@ int			simple_cmd_exec(t_cmd *cmds, t_fds *fds);
 
 /* exec_builtin.c */
 
-int			ret_builtin_enum(t_cmd *cmds);
+int			ret_builtin_enum(char *str);
 const char	*ret_builtin_literal(enum e_builtin n);
 int			exec_builtin(enum e_builtin n, char **args);
 

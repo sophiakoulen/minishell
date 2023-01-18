@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:18:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 17:23:31 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:06:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env *env;
+	t_env	*env;
+	int		ret;
 
 	(void)argc;
 	(void)argv;
 	env = init_env(envp);
-	exec_env(env);
-	return (0);
+	ret = exec_env(env_to_strarr(env));
+	env_cleanup(env);
+	return (ret);
 }

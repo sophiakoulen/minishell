@@ -6,13 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 11:03:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:55:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n);
 static int	wait_all(int n, int *pids);
 static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n);
 static int	exec_cmd(t_cmd *cmd, t_cmd_info *info);
@@ -45,7 +44,7 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n)
 	return (compute_return_value(ret));
 }
 
-static int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n)
+int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n)
 {
 	int	*pids;
 	int	i;

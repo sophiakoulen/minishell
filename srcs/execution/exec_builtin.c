@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 13:49:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:44:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ const char	*ret_builtin_literal(enum e_builtin n)
 	return (tok_strings[n]);
 }
 
+static int	builtin_passthrough(char **args)
+{
+	// (void)args;
+	ft_printf("don't support %s builtin yet\n", *args);
+	return (0);
+}
 
 /**
  * executed the builtin using args as it's argument,
@@ -56,12 +62,12 @@ const char	*ret_builtin_literal(enum e_builtin n)
 */
 int	exec_builtin(enum e_builtin n, char **args)
 {
-	static const int	(*builtin_arr[NUM_BUILTINS])(char **) = {
+	static int	(*builtin_arr[NUM_BUILTINS])(char **) = {
 		exec_echo,
-		do_nothing, // cd
+		builtin_passthrough, // cd
 		exec_pwd,
-		do_nothing, // export
-		do_nothing, // unset
+		builtin_passthrough, // export
+		builtin_passthrough, // unset
 		exec_env,
 		exec_exit,
 	};

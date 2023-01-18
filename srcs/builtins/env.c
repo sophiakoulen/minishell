@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:47:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 17:24:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:53:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,10 @@ char	*ret_env_key(t_env *env, char *key)
 	env builtin, prints directly to screen
 	and cleans up after it's self
  */
-void	exec_env(t_env *env)
+int	exec_env(char **args)
 {
-	char	**sa;
-
-	sa = env_to_strarr(env);
-	strarr_print(sa);
-	strarr_cleanup(sa);
+	strarr_print(args);
+	return (0);
 }
 
 

@@ -6,20 +6,21 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 13:51:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:58:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	*launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds);
+static int	launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds);
 
 int	simple_cmd_exec(t_cmd *cmds, t_fds *fds)
 {
-	int			pid;
+	int			*pid;
 	t_cmd_info	*infos;
 	int			ret;
 
+	pid = NULL;
 	infos = prepare_all_cmds(cmds, fds, 1);
 
 	if (ret_builtin_enum(*cmds->args) != -1)
@@ -34,12 +35,12 @@ int	simple_cmd_exec(t_cmd *cmds, t_fds *fds)
 	close_fds(fds, 1);
 
 	if (ret_builtin_enum(*cmds->args) != -1)
-		waitpid(pid, &ret, 0);
+		waitpid(*pid, &ret, 0);
 	free(pid);
 	return (compute_return_value(ret));
 }
 
-static int	*launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds)
+static int	launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds)
 {
 	// launch child
 	redirect(infos->i_fd, infos->o_fd);
