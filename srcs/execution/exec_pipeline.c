@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 13:06:24 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:54:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exec_pipeline(t_pipeline *p)
 
 	fds = prepare_fds(p->n_cmds);
 	if (p->n_cmds == 1)
-		ret = simple_cmd_exec(p->cmds, fds);
+		ret = simple_command(p->cmds, fds);
 	else
 		ret = multiple_commands(p->cmds, fds, p->n_cmds);
 	cleanup_fds(fds, p->n_cmds);

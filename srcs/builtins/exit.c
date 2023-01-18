@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 12:49:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:29:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	exec_exit(char **args)
 {
 	(void)args;
 	// cleanup functions? idk really.
-	// return the correct exit code, from the last run command
+	// TODO: return the correct exit code, from the last run command
 	exit(0);
 }

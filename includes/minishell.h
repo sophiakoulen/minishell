@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 14:55:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:54:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n);
 
 /* simple_cmd_exec.c */
 
-int			simple_cmd_exec(t_cmd *cmds, t_fds *fds);
+int			simple_command(t_cmd *cmds, t_fds *fds);
 
 /* exec_builtin.c */
 

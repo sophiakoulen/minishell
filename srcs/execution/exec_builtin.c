@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 14:44:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:28:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ret_builtin_enum(char *str)
 	{
 		if (!ft_strncmp(str,
 				ret_builtin_literal(i),
-				ft_strlen(ret_token_literal(i))))
+				ft_strlen(ret_builtin_literal(i))))
 			return (i);
 	}
 	return (-1);
@@ -71,8 +71,7 @@ int	exec_builtin(enum e_builtin n, char **args)
 		exec_env,
 		exec_exit,
 	};
-
 	if (n > NUM_BUILTINS || n < 0)
-		return (0);
+		return (builtin_passthrough(args));
 	return ((builtin_arr)[n]((char **)args));
 }

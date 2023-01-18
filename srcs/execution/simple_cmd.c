@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_cmd_exec.c                                  :+:      :+:    :+:   */
+/*   simple_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 14:58:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:39:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,28 @@
 
 static int	launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds);
 
-int	simple_cmd_exec(t_cmd *cmds, t_fds *fds)
+int	simple_command(t_cmd *cmds, t_fds *fds)
 {
-	int			*pid;
+	int			*pids;
 	t_cmd_info	*infos;
 	int			ret;
 
-	pid = NULL;
+	pids = NULL;
 	infos = prepare_all_cmds(cmds, fds, 1);
 
-	if (ret_builtin_enum(*cmds->args) != -1)
+	if (infos[0].builtin != -1)
 		ret = launch_builtin(cmds, infos, fds);
 	else
-		pid = launch_all(cmds, infos, fds, 1);
+		pids = launch_all(cmds, infos, fds, 1);
 
 	do_all_heredocs(infos, fds->hd_pipes, 1);
 
-	cleanup_all_info(infos, 1);
-
 	close_fds(fds, 1);
 
-	if (ret_builtin_enum(*cmds->args) != -1)
-		waitpid(*pid, &ret, 0);
-	free(pid);
+	if (infos[0].builtin == -1)
+		waitpid(*pids, &ret, 0);
+	free(pids);
+	cleanup_all_info(infos, 1);
 	return (compute_return_value(ret));
 }
 
@@ -46,11 +45,12 @@ static int	launch_builtin(t_cmd *cmds, t_cmd_info *infos, t_fds *fds)
 	redirect(infos->i_fd, infos->o_fd);
 	close_fds(fds, 1);
 
-	exec_builtin(ret_builtin_enum(*cmds->args), cmds->args + 1);
+	// ft_printf("trying to launch builtin %s\n", ret_builtin_literal(infos[0].builtin));
+	infos->status = exec_builtin(infos[0].builtin, cmds->args + 1);
 
-	close(0);
-	close(1);
+	// close(0);
+	// close(1);
 
-	exit(infos->status);
+	return (infos->status);
 	// launch child
 }

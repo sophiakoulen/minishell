@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:37:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:21:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	cleanup_all_info(t_cmd_info *infos, int n)
 static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 {
 	info->status = 0;
+	info->builtin = -1;
 	info->i_fd = -1;
 	info->o_fd = -1;
 	info->full_path = 0;
@@ -70,7 +71,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 		fdin = STDIN_FILENO;
 	else
 		fdin = fds->pipes[i - 1][0];
-	
+
 	if (i == n - 1)
 		fdout = STDOUT_FILENO;
 	else
@@ -85,7 +86,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 		{
 			fdin = open(redir->word, O_RDONLY);
 			if (fdin < 0)
-			{ 
+			{
 				perror(redir->word); //later error printing needs to be done in child
 				info->status = 1;
 			}
@@ -132,6 +133,9 @@ static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
 
 	if (cmd->args[0])
 	{
-		info->status = find_cmd(path, cmd->args[0], &(info->full_path));
+		if (ret_builtin_enum(cmd->args[0]) != -1)
+			info->builtin = ret_builtin_enum(cmd->args[0]);
+		else
+			info->status = find_cmd(path, cmd->args[0], &(info->full_path));
 	}
 }
