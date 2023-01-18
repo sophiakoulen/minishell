@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 16:03:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:43:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ typedef struct s_env
 typedef struct s_parsed_pipeline
 {
 	int				n_cmds;
-	t_parsed_cmd	*cmds;
+	t_parsed_cmd	**cmds;
 }	t_parsed_pipeline;
 
 #endif

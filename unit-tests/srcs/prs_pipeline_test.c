@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:47:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 08:57:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:27:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,23 @@ int	main(int argc, char **argv)
 	t_token *start;
 	char	*str;
 
-	if (argc == 1)
-		return (1);
-	str = argv[1];
-
-	ft_printf("\n list of tokens: ", str);
+	if (argc < 2)
+	{
+		str = "";
+	}
+	else
+	{
+		str = argv[1];
+	}
 	tok = construct_tok_list(str);
 	start = tok;
-	print_token_list_minimal(tok);
-	printf("\n");
 
-	t_pipeline *p = x_malloc(sizeof(*p), 1);
+	t_parsed_pipeline *p = x_malloc(sizeof(*p), 1);
 	parse_pipeline(p, &tok);
 
-	print_pipeline(p);
-	pipeline_cleanup(p);
-	free(p);
+	print_parsed_pipeline(p);
 
-	ft_printf("\n after list  of tokens: ", str);
-	print_token_list_minimal(tok);
-	printf("\n");
+	parsed_pipeline_cleanup(p);
 
 	tok_list_cleanup(start);
 

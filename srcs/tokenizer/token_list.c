@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_commandline.c                                  :+:      :+:    :+:   */
+/*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 21:13:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 18:16:40 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/18 10:43:21 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/18 11:06:05 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * The root of the grammar and the tree comes from this
-*/
-int	parse_commandline(t_tree **tree, t_token *tok)
+void	next_token(t_token **list)
 {
-	(void)tree;
-	(void)tok;
-	/*
-	t_tree	*root;
-
-	root = tree_factory(NULL);
-	if (tok->type == e_end)
-	{
-		root->type = e_end;
-		*tree = root;
-		return (SUCCESS);
-	}
-	parse_pipeline(&root, &tok);
-	*tree = root;
-	*/
-	return (SUCCESS);
+	*list = (*list)->next;
 }

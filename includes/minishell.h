@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 15:54:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:43:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ t_cmd		*cmd_factory(t_cmd *blueprint);
 /*   tokenizer                                                                */
 /* ************************************************************************** */
 
+/* token_list.c */
+void		next_token(t_token **list);
+
 /* tokenizer */
 
 t_token		*construct_tok_list(char *str);
@@ -169,6 +172,11 @@ int			get_tree_max_width(t_tree *tree);
 void		print_pipeline(t_pipeline *p);
 void		pipeline_cleanup(t_pipeline *p);
 
+/* t_parsed_pipeline */
+t_parsed_pipeline	*parsed_pipeline_factory(t_parsed_pipeline *blueprint);
+void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
+void				print_parsed_pipeline(t_parsed_pipeline *p);
+
 /* t_cmd_info.c */
 
 // nothing yet
@@ -176,8 +184,9 @@ void		pipeline_cleanup(t_pipeline *p);
 /* t_parsed_cmd.c */
 
 t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
-void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
+void			parsed_cmd_cleanup(t_parsed_cmd **cmd);
 void			print_parsed_cmd(t_parsed_cmd *cmd);
+void			print_parsed_cmd2(t_parsed_cmd *cmd);
 
 /* t_cmd.c */
 

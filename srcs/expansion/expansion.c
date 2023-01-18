@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:35:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 12:20:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
 	i = 0;
 	while (i < p->n_cmds)
 	{
-		expand_cmd(&p->cmds[i], &intermediate->cmds[i]);
+		expand_cmd(&p->cmds[i], intermediate->cmds[i]);
 		i++;
 	}
 	return (p);
