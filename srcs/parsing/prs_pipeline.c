@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 18:15:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 11:54:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	parse_pipeline(t_parsed_pipeline *pipeline, t_token **tok)
 	int		ret;
 	int		i;
 
+	pipeline->n_cmds = 0;
+	pipeline->cmds = 0;
 	cmd = 0;
 	lst = NULL;
 	if ((*tok)->type == e_end)
 	{
-		pipeline->n_cmds = 0;
-		pipeline->cmds = 0;
 		return (STOP);
 	}
 	ret = parse_cmd(&cmd, tok);

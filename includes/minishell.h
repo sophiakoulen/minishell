@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 11:08:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 11:50:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void		pipeline_cleanup(t_pipeline *p);
 /* t_parsed_cmd.c */
 
 t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
-void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
+void			parsed_cmd_cleanup(t_parsed_cmd **cmd);
 void			print_parsed_cmd(t_parsed_cmd *cmd);
 
 /* t_cmd.c */
