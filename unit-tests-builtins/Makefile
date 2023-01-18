@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/18 10:27:15 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 13:07:12 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 
 #need to compile with the readline lib
 $(NAME) : $(OBJS)
-	$(MAKE) lib -C ..
+	@$(MAKE) lib -C ..
 
 run-tests : re
 	@echo "\033[33m\n----------------------------\n Running builtin unit-tests\n----------------------------\n\033[0m"

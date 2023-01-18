@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:07:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 13:23:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 /*   builtins                                                                 */
 /* ************************************************************************** */
 
-int			echo(char **args);
-int			pwd(void);
+int			exec_echo(char **args);
+int			exec_pwd(char **args);
+int			exec_exit(char **args);
 
 void		exec_env(t_env *env);
 t_env		*init_env(char **envp);
@@ -80,6 +81,16 @@ int			redirect(int input_fd, int output_fd);
 /* multiple commands */
 
 int			multiple_commands(t_cmd *cmds, t_fds *fds, int n);
+
+/* simple_cmd_exec.c */
+
+int			simple_cmd_exec(t_cmd *cmds, t_fds *fds);
+
+/* exec_builtin.c */
+
+int			ret_builtin_enum(t_cmd *cmds);
+const char	*ret_builtin_literal(enum e_builtin n);
+int			exec_builtin(enum e_builtin n, char **args);
 
 /* ************************************************************************** */
 /*   expansion                                                                */

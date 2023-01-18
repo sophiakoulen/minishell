@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 16:04:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 12:21:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,17 @@ enum e_token_type
 	e_string,
 };
 
+# define NUM_BUILTINS 7
+
+enum e_builtin
+{
+	e_echo,
+	e_cd,
+	e_pwd,
+	e_export,
+	e_unset,
+	e_env,
+	e_exit,
+};
 
 #endif

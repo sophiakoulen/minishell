@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:28:02 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 15:28:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:06:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	pwd();
+	exec_pwd(argv);
 	return (0);
 }
