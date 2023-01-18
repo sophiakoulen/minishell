@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:09:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:23:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@ static void	interactive_shell(t_env *env)
 		{
 			intermediate = x_malloc(sizeof(*intermediate), 1);
 
-			parse_pipeline(intermediate, &tok_list);
-		
-			p = expand_pipeline(intermediate);
+			if (parse_pipeline(intermediate, &tok_list) == SUCCESS)
+			{
+				p = expand_pipeline(intermediate);
 
-			exec_pipeline(p);
+				exec_pipeline(p);
 
-			pipeline_cleanup(p);
-			free(p);
+				pipeline_cleanup(p);
+				free(p);
+			}
 		}
 
 		tok_list_cleanup(start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_token.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 13:39:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:27:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ const char	*ret_token_literal(enum e_token_type n)
 		")",
 		"&&",
 	};
-
+	if (n == e_end)
+		return ("newline");
 	if (n > NUM_TOKEN_LITERALS || n < 0)
 		return (NULL);
 	return (tok_strings[n]);
