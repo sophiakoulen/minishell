@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/18 09:03:40 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 09:47:14 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,18 +31,21 @@ BIN_PATH	=	bin/
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
-
+TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
 all: $(NAME)
+	@mkdir -p bin
 
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
-	@mkdir -p bin
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
 #need to compile with the readline lib
 $(NAME) : $(OBJS)
 	$(MAKE) lib -C ..
+
+run_tests :
+	@for i in $(TST_SCRIPTS); do "./$$i"; done
 
 clean :
 	$(RM) $(OBJS)
@@ -56,24 +59,24 @@ tokenizer : all
 	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 parsing : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 heredoc : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 parse_item : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 prepare_cmd : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 mult_cmd : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 prs_cmd : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 prs_pipeline : all
-	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I../../includes -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all
 
