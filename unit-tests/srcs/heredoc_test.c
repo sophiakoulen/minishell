@@ -6,11 +6,12 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 10:06:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/16 09:56:43 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:56:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_tests.h"
+// #include "unit_tests.h"
+#include "minishell.h"
 
 int	main()
 {

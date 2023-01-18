@@ -23,7 +23,7 @@ function exec_test()
 	shift	# moved past the function
 	shift	# moved past the number
 	shift	# moved past the expected
-	local RES=$(./$FUNC.test $@)
+	local RES=$(bin/$FUNC.test $@)
 	if [[ $RES == $EXPCTED ]]; then
 		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$NUM"
 	else

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 19:06:58 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/17 20:51:14 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	minishell
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra
 CFLAGS	+=	-Werror
-CFLAGS	+=	-g3 -fsanitize=address
+# CFLAGS	+=	-g3 -fsanitize=address
 RM		=	rm -rf
 
 INCS_PATH	=	includes/

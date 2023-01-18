@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_cmd_test.c                                 :+:      :+:    :+:   */
+/*   mult_cmd_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:05:58 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/18 08:57:41 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_tests.h"
+// #include "unit_tests.h"
+#include "minishell.h"
 
 static void print_fds(t_fds *fds, int n)
 {
@@ -53,35 +54,38 @@ static void	print_infos(t_cmd_info *infos, int n)
 
 int main()
 {
-	/*t_fds	*fds = prepare_fds(2);
-	
-	char	*args1[] = {"hello", "-la", 0};
-	char	*args2[] = {"ls", "-la", "*", 0};
-	//char	*args3[] = {"echo", "hello", "world", "this", "is", "test", 0};
+	/*
+	t_fds	*fds = prepare_fds(2);
 
-	t_redir	in1 = {.type = e_infile, .str = "input1.txt"};
-	t_redir	out1 = {.type = e_outfile, .str = "output1.txt"};
+	char	*args1[] = {"cat", 0};
+	char	*args2[] = {"grep", "hello", 0};
+	//char	*args3[] = {"existepas", "hello", "world", "this", "is", "test", 0};
+
+	t_redir	in1 = {.type = e_heredoc, .str = "EOF"};
+	//t_redir	out1 = {.type = OUTFILE, .str = "output1.txt"};
 
 	//t_redir	in2 = {.type = INFILE, .str = "input2.txt"};
-	t_redir	out2 = {.type = e_outfile, .str = "output2.txt"};
+	//t_redir	out2 = {.type = OUTFILE, .str = "output2.txt"};
+
 	//t_redir	in3 = {.type = INFILE, .str = "input3.txt"};
 	//t_redir	out3 = {.type = OUTFILE, .str = "output3.txt"};
 
-	t_cmd cmd1 = {.args = args1, .in = &in1, .out = &out1};
-	t_cmd cmd2 = {.args = args2, .in = 0, .out = &out2};
-	//t_cmd cmd3 = {.args = args3, .in = &in3, .out = &out3};
+	t_cmd cmd1 = {.args = args1, .in = &in1, .out = 0};
+	t_cmd cmd2 = {.args = args2, .in = 0, .out = 0};
+	//t_cmd cmd3 = {.args = args3, .in = 0, .out = 0};
 
 	t_cmd cmds[] = {cmd1, cmd2};
 
-	t_cmd_info *infos;
+	int ret;
 
-	infos = prepare_all_cmds(cmds, fds, 2);
+	ret = multiple_commands(cmds, fds, 2);
 
-	print_fds(fds, 2);
+	printf("return value:%d\n", ret);
 
-	print_infos(infos, 2);
+	//print_fds(fds, 2);
 
 	cleanup_fds(fds, 2);
 	*/
+
 	return (0);
 }

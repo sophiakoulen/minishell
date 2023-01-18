@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:01:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 14:31:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 08:59:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 	tok = construct_tok_list(str);
 	print_token_list_minimal(tok);
 
-	ft_printf("\ntok clean up attempt\n");
+	// ft_printf("\ntok clean up attempt\n");
 	tok_list_cleanup(tok);
 	// printf("booo\n");
 	return (0);

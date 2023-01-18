@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:47:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 11:15:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/18 08:57:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unit_tests.h"
+// #include "unit_tests.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv)
 {
