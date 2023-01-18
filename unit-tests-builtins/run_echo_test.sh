@@ -19,6 +19,11 @@ exec_test $N 5 'no_new_line' '-n' 'no_new_line'
 exec_test $N 6 '' '-n'
 exec_test $N 7 '-n   word' '-n  ' 'word'
 exec_test $N 8 'word' '-n' 'word'
+exec_test $N 9 'word' '-n' 'word'
+exec_test $N 10 'word' '-nnnnnn' 'word'
+exec_test $N 11 '-nnnnnn1 word' '-nnnnnn1' 'word'
+exec_test $N 12 '-nnn1nnn word' '-nnn1nnn' 'word'
+exec_test $N 13 '' '-nnn'
 # ./parsing.test 'echo hello | cat -e | new_test'
 
 

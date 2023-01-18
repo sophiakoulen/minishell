@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 16:11:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:38:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@ int	exec_echo(char **args)
 {
 	char	*line;
 	int		no_newline;
+	int		i;
 
 	if (!args || !*args)
 		return (0);
-	if (ft_strlen(args[0]) == 2 && (args[0][0] == '-' && args[0][1] == 'n'))
+	no_newline = 0;
+	if (args[0][0] == '-' && args[0][1] == 'n')
 	{
-		no_newline = 1;
-		args++;
+		i = 2;
+		while (args[0][i] == 'n')
+			i++;
+		if (args[0][i] == '\0')
+		{
+			no_newline = 1;
+			args++;
+		}
 	}
-	else
-		no_newline = 0;
 	while (*args)
 	{
 		line = *args;
