@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/18 18:48:30 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 22:41:10 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 BUILTINS		=	echo            pwd             env             exit
-EXPANSION_FILES	=	var_exp         wild_exp        expansion
+EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
+					str_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
 STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
