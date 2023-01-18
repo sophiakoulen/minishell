@@ -11,11 +11,11 @@ echo "\n${ITALIC}${YELLOW}Testing $N builtin${RESET}"
 # these tests where written by me, they are not infallable
 
 exec_test $N 0 "$(env | grep -v _=/)
-_=/Users/znichola/Documents/minishell/unit-tests-builtins/bin/env.test" ''
+_=$(pwd)/bin/env.test" ''
 
 export USER="custom variable"
 exec_test $N 1 "$(env | grep -v _=/)
-_=/Users/znichola/Documents/minishell/unit-tests-builtins/bin/env.test" ''
+_=$(pwd)/bin/env.test" ''
 
 # "$(env)"
 
