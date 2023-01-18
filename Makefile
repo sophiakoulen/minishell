@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/17 20:51:14 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 10:39:54 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,9 @@ $(LIBMINISHELL): $(OBJS) $(LIBFT)
 
 lib		: $(LIBMINISHELL)
 # end minshell library
+
+run-tests :
+	@make run-tests -C unit-tests ; make run-tests -C unit-tests-builtins
 
 clean	:
 	$(RM) $(OBJS)

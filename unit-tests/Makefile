@@ -6,11 +6,11 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/18 10:08:50 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 10:15:45 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= test
+NAME	= unit-tests
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
@@ -44,8 +44,8 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 $(NAME) : $(OBJS)
 	@$(MAKE) lib -C ..
 
-run_tests : re
-	@echo "\033[33m\n--------------------\n Running unit tests\n--------------------\n\033[0m"
+run-tests : re
+	@echo "\033[33m\n--------------------\n Running unit-tests\n--------------------\n\033[0m"
 	@for i in $(TST_SCRIPTS); do echo;"./$$i"; done
 
 clean :

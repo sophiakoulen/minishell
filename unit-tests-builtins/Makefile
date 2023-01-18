@@ -6,11 +6,11 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/18 09:49:55 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/18 10:27:15 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= builtins
+NAME	= builtin-tests
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
@@ -28,7 +28,7 @@ OBJS_PATH	=	objs/
 SRCS_PATH	=	srcs/
 BIN_PATH	=	bin/
 
-OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
+SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.o, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
 TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
@@ -43,6 +43,10 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 $(NAME) : $(OBJS)
 	$(MAKE) lib -C ..
 
+run-tests : re
+	@echo "\033[33m\n----------------------------\n Running builtin unit-tests\n----------------------------\n\033[0m"
+	@for i in $(TST_SCRIPTS); do echo;"./$$i"; done
+
 clean :
 	$(RM) $(OBJS)
 
@@ -52,13 +56,13 @@ fclean : clean
 # Individual unit tests
 
 echo : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 pwd : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 env : all
-	$(CC) $(CFLAGS) -I../includes -lreadline -lminishell -L.. -o $@.test $(OBJS_PATH)$@_test.o
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all
 
