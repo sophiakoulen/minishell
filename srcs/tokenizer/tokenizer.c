@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 16:34:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:39:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ t_token	*construct_tok_list(char *str)
 	while (1)
 	{
 		tmp = lexer(&str);
-		// ft_printf("lexer type %d %s		", tmp->type, ret_token_literal(tmp->type));
-		// ft_printf("lexer str\"%s\"\n", tmp->str);
 		if (start == NULL)
 		{
 			start = tmp;
