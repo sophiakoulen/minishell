@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 16:43:21 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:37:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ typedef struct s_cmd_info
 	int		has_heredoc;
 	char	*heredoc_delim;
 	int		builtin;
+	//maybe simpler to add all this to the struct?
+	char	**args;
+	t_list	*redirs;
+	int		i;
+	int		n;
 }	t_cmd_info;
 
 /*

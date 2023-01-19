@@ -6,15 +6,16 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 13:09:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:08:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
-static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info, char **path);
-static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n, char **path);
+static void	prepare_redirs(t_cmd_info *cmd, t_fds *fds);
+static int	update_fd_in(t_cmd_info *cmd, t_item *redir, t_fds *fds);
+static int	update_fd_out(t_cmd_info *cmd, t_item *redir, t_fds *fds);
+static void	prepare_cmd_path(t_cmd_info *cmd, char **path);
 
 t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n, t_env *env)
 {
@@ -25,123 +26,107 @@ t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n, t_env *env)
 
 	env_array = env_to_strarr(env);
 	path = extract_path(env_array);
-	//cleanup env_array
+	strarr_cleanup(env_array);
 	infos = x_malloc(n, sizeof(*infos));
 	i = 0;
 	while (i < n)
 	{
-		prepare_cmd(&cmds[i], &infos[i], fds, i, n, path);
+		init_info(&infos[i], &cmds[i], i, n);
+		prepare_redirs(&infos[i], fds);
+		if (infos[i].status == 0)
+			prepare_cmd_path(&infos[i], path);
 		i++;
 	}
-	//cleanup path
+	strarr_cleanup(path);
 	return (infos);
 }
 
-void	cleanup_all_info(t_cmd_info *infos, int n)
+static void	prepare_redirs(t_cmd_info *cmd, t_fds *fds)
 {
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		free(infos[i].full_path);
-		i++;
-	}
-	free(infos);
-}
-
-static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n, char **path)
-{
-	info->status = 0;
-	info->builtin = -1;
-	info->i_fd = -1;
-	info->o_fd = -1;
-	info->full_path = 0;
-	info->has_heredoc = 0;
-	info->heredoc_delim = 0;
-	prepare_redirs(cmd, info, fds, i, n);
-	if (!info->status)
-		prepare_cmd_path(cmd, info, path);
-}
-
-static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
-{
-	int		fdin;
-	int		fdout;
 	t_list	*lst;
 	t_item	*redir;
-	int		flags;
 
-	/* default input */
-	if (i == 0)
-		fdin = STDIN_FILENO;
+	if (cmd->i == 0)
+		cmd->i_fd = STDIN_FILENO;
 	else
-		fdin = fds->pipes[i - 1][0];
-
-	if (i == n - 1)
-		fdout = STDOUT_FILENO;
+		cmd->i_fd = fds->pipes[cmd->i - 1][0];
+	if (cmd->i == cmd->n - 1)
+		cmd->o_fd = STDOUT_FILENO;
 	else
-		fdout = fds->pipes[i][1];
-
-	/* iterate over args list */
+		cmd->o_fd = fds->pipes[cmd->i][1];
 	lst = cmd->redirs;
 	while (lst)
 	{
 		redir = lst->content;
-		if (redir->modifier == e_infile)
-		{
-			fdin = open(redir->word, O_RDONLY);
-			if (fdin < 0)
-			{
-				perror(redir->word); //later error printing needs to be done in child
-				info->status = 1;
-				break ;
-			}
-			fds->infile_fds[i] = fdin;
-		}
-		else if (redir->modifier == e_outfile)
-		{
-			flags = O_WRONLY | O_TRUNC | O_CREAT;
-			fdout = open(redir->word, flags, 0644);
-			if (fdout < 0)
-			{
-				perror(redir->word);
-				info->status = 1;
-				break ;
-			}
-			fds->outfile_fds[i] = fdout;
-		}
-		else if (redir->modifier == e_append)
-		{
-			flags = O_WRONLY | O_TRUNC | O_CREAT | O_APPEND;
-			fdout = open(redir->word, flags, 0644);
-			if (fdout < 0)
-			{
-				perror(redir->word);
-				info->status = 1;
-				break ;
-			}
-			fds->outfile_fds[i] = fdout;
-		}
-		else
-		{
-			info->has_heredoc = 1;
-			info->heredoc_delim = redir->word;
-			fdin = fds->hd_pipes[i][0];
-		}
+		if (update_fd_in(cmd, redir, fds) == -1)
+			break ;
+		if (update_fd_out(cmd, redir, fds) == -1)
+			break ;
 		lst = lst->next;
 	}
-	info->o_fd = fdout;
-	info->i_fd = fdin;
 }
 
-static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info, char **path)
+/*
+	TO DO: "minishel: " should be prepended to error msg
+
+	Question: Should errors be printed in child?
+*/
+static int	update_fd_in(t_cmd_info *cmd, t_item *redir, t_fds *fds)
+{
+	if (redir->modifier == e_infile)
+	{
+		cmd->i_fd = open(redir->word, O_RDONLY);
+		if (cmd->i_fd < 0)
+		{
+			perror(redir->word);
+			cmd->status = 1;
+			return (-1);
+		}
+		fds->infile_fds[cmd->i] = cmd->i_fd;
+	}
+	else if (redir->modifier == e_heredoc)
+	{
+		cmd->has_heredoc = 1;
+		cmd->heredoc_delim = redir->word;
+		cmd->i_fd = fds->hd_pipes[cmd->i][0];
+	}
+	return (0);
+}
+
+/*
+	TO DO: "minishel: " should be prepended to error msg
+*/
+static int	update_fd_out(t_cmd_info *cmd, t_item *redir, t_fds *fds)
+{
+	int	flags;
+
+	if (redir->modifier != e_outfile && redir->modifier != e_append)
+	{
+		return (0);
+	}
+	flags = O_WRONLY | O_TRUNC | O_CREAT;
+	if (redir->modifier == e_append)
+	{
+		flags |= O_APPEND;
+	}
+	cmd->o_fd = open(redir->word, flags, 0644);
+	if (cmd->o_fd < 0)
+	{
+		perror(redir->word);
+		cmd->status = 1;
+		return (-1);
+	}
+	fds->outfile_fds[cmd->i] = cmd->o_fd;
+	return (0);
+}
+
+static void	prepare_cmd_path(t_cmd_info *cmd, char **path)
 {
 	if (cmd->args[0])
 	{
 		if (ret_builtin_enum(cmd->args[0]) != -1)
-			info->builtin = ret_builtin_enum(cmd->args[0]);
+			cmd->builtin = ret_builtin_enum(cmd->args[0]);
 		else
-			info->status = find_cmd(path, cmd->args[0], &(info->full_path));
+			cmd->status = find_cmd(path, cmd->args[0], &(cmd->full_path));
 	}
 }

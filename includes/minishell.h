@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 13:06:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:01:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			find_cmd(char **path, char *filename, char **res);
 /* prepare cmd */
 
 t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n, t_env *env);
-void		cleanup_all_info(t_cmd_info *infos, int n);
 
 /* prepare fds */
 
@@ -188,8 +187,8 @@ void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
 void				print_parsed_pipeline(t_parsed_pipeline *p);
 
 /* t_cmd_info.c */
-
-// nothing yet
+void				cleanup_all_info(t_cmd_info *infos, int n);
+void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
 
 /* t_parsed_cmd.c */
 

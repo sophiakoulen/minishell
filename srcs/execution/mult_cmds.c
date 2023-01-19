@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 13:05:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:10:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env)
 	{
 		env_array = env_to_strarr(env);
 		execve(info->full_path, cmd->args, env_array);
-		//cleanup env_array
+		strarr_cleanup(env_array);
 		perror("execve failed");
 		info->status = 1;
 	}
