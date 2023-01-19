@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:10 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 13:18:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 13:09:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	If the PATH variable isn't set (not the same as empty),
 	a default value for the path is used.
 */
-/*char	**extract_path(char **envp)
+char	**extract_path(char **envp)
 {
 	int		i;
 	char	**default_path;
@@ -40,7 +40,7 @@
 	}
 	default_path = ft_split(DEFAULT_PATH, ':');
 	return (default_path);
-}*/
+}
 
 /*
 	returns true if a filename is actually a path,

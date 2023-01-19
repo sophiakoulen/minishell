@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   launch_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:23:40 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 12:25:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:57:35 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds)
+int	launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env)
 {
 	int	stdin_clone;
 	int	stdout_clone;
 
+	(void)env;
 	stdin_clone = dup(STDIN_FILENO);
 	stdout_clone = dup(STDOUT_FILENO);
 	dup2(info->i_fd, STDIN_FILENO);

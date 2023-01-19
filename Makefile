@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/19 12:26:50 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/19 12:49:28 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 					launch_builtin
 TOKENIZER_FILES	=	tokenizer       token_list
 UTILS_FILES		=	utils_1         tree_ops
+ENVIRONMENT		=   environment
 
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
 EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
@@ -44,10 +45,11 @@ STRUCT_FILES	:=	$(addprefix structs/, 	$(STRUCT_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/,	$(EXECUTION_FILES))
 TOKENIZER_FILES	:=	$(addprefix tokenizer/,	$(TOKENIZER_FILES))
 UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
+ENVIRONMENT		:=	$(addprefix environment/, $(ENVIRONMENT))
 
 FILES		=	main	$(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
 						$(STRUCT_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) \
-						$(UTILS_FILES)
+						$(UTILS_FILES) $(ENVIRONMENT)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))

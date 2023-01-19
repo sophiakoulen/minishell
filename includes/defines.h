@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 12:21:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:10:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 /* Possible token types corresponding strings defined in structs/t_token.c */
 # define NUM_TOKEN_LITERALS 9
+
+/* used for finding commands */
+# define DEFAULT_PATH "/usr/bin:/bin"
 
 enum e_token_type
 {

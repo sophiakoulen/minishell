@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 11:30:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 12:53:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 static void	check_args(int argc, char **argv);
 static void	interactive_shell(t_env *env);
-static int	exec_line(char *line);
-
-/*
-	alternative method to find the env variable
-	can also use this way
-	extern char	**environ;
- */
+static int	exec_line(char *line, t_env *env);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -52,7 +46,6 @@ static void	interactive_shell(t_env *env)
 {
 	char	*line;
 
-	(void)env;
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -60,12 +53,12 @@ static void	interactive_shell(t_env *env)
 			break ;
 		if (*line)
 			add_history(line);
-		exec_line(line);
+		exec_line(line, env);
 		free(line);
 	}
 }
 
-static int	exec_line(char *line)
+static int	exec_line(char *line, t_env *env)
 {
 	int					ret;
 	t_token				*tok_list;
@@ -82,7 +75,7 @@ static int	exec_line(char *line)
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
 			pipeline = expand_pipeline(parsed);
-			ret = exec_pipeline(pipeline);
+			ret = exec_pipeline(pipeline, env);
 			pipeline_cleanup(pipeline);
 			free(pipeline);
 		}

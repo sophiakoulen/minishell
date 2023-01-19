@@ -6,28 +6,34 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 12:02:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 13:09:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
-static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info);
-static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n);
+static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info, char **path);
+static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n, char **path);
 
-t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n)
+t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n, t_env *env)
 {
 	t_cmd_info	*infos;
 	int			i;
+	char		**path;
+	char		**env_array;
 
+	env_array = env_to_strarr(env);
+	path = extract_path(env_array);
+	//cleanup env_array
 	infos = x_malloc(n, sizeof(*infos));
 	i = 0;
 	while (i < n)
 	{
-		prepare_cmd(&cmds[i], &infos[i], fds, i, n);
+		prepare_cmd(&cmds[i], &infos[i], fds, i, n, path);
 		i++;
 	}
+	//cleanup path
 	return (infos);
 }
 
@@ -44,7 +50,7 @@ void	cleanup_all_info(t_cmd_info *infos, int n)
 	free(infos);
 }
 
-static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
+static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n, char **path)
 {
 	info->status = 0;
 	info->builtin = -1;
@@ -55,7 +61,7 @@ static void	prepare_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
 	info->heredoc_delim = 0;
 	prepare_redirs(cmd, info, fds, i, n);
 	if (!info->status)
-		prepare_cmd_path(cmd, info);
+		prepare_cmd_path(cmd, info, path);
 }
 
 static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int n)
@@ -129,11 +135,8 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 	info->i_fd = fdin;
 }
 
-static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info)
+static void prepare_cmd_path(t_cmd *cmd, t_cmd_info *info, char **path)
 {
-	//environment variables not handled yet so a default path is used!
-	char	*path[] = {"/bin", "/usr/bin", 0};
-
 	if (cmd->args[0])
 	{
 		if (ret_builtin_enum(cmd->args[0]) != -1)
