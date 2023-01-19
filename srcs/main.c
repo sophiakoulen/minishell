@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 18:24:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:07:32 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,13 @@ static void	interactive_shell(t_env *env)
 	(void)env;
 	while (1)
 	{
-		// line = readline("minishell\033[38:5:117m$\033[0m ");
-		ft_printf("minishell\033[38:5:117m$\033[0m");
-		line = readline(" \033[5:4m\033[0m");
+		line = readline("minishell$ ");
 		if (line && *line)
 			add_history(line);
 
 		tok_list = construct_tok_list(line);
 		start = tok_list;
-		// ft_printf("\033[38:5:117m>\033[0m ");
+
 		if (start->type != e_end)
 		{
 			intermediate = x_malloc(sizeof(*intermediate), 1);
