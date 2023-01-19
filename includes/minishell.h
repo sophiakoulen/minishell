@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 16:43:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:25:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ int			simple_command(t_cmd *cmds, t_fds *fds);
 int			ret_builtin_enum(char *str);
 const char	*ret_builtin_literal(enum e_builtin n);
 int			exec_builtin(enum e_builtin n, char **args);
+
+/* launch_builtin.c */
+int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds);
 
 /* ************************************************************************** */
 /*   expansion                                                                */

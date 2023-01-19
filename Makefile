@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/18 18:48:30 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/19 12:26:50 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
 					t_parsed_pipeline
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 					prep_fds        exec_utils      mult_cmds                 \
-					exec_builtin    exec_pipeline   simple_cmd
+					exec_builtin    exec_pipeline   simple_cmd                \
+					launch_builtin
 TOKENIZER_FILES	=	tokenizer       token_list
 UTILS_FILES		=	utils_1         tree_ops
 

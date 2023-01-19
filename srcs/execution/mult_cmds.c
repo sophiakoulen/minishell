@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mult_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 14:55:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:30:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	wait_all(int n, int *pids);
 static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n);
-static int	exec_cmd(t_cmd *cmd, t_cmd_info *info);
+static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds);
 
 /*
 	Execute a pipeline containing multiple commands.
@@ -30,15 +30,10 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n)
 	int			ret;
 
 	infos = prepare_all_cmds(cmds, fds, n);
-
 	pids = launch_all(cmds, infos, fds, n);
-
 	do_all_heredocs(infos, fds->hd_pipes, n);
-
 	cleanup_all_info(infos, n);
-
 	close_fds(fds, n);
-
 	ret = wait_all(n, pids);
 	free(pids);
 	return (compute_return_value(ret));
@@ -87,24 +82,28 @@ static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n)
 	{
 		redirect(info->i_fd, info->o_fd);
 		close_fds(fds, n);
-
-		exec_cmd(cmd, info);
-
+		exec_cmd(cmd, info, fds);
 		close(0);
 		close(1);
-
 		exit(info->status);
 	}
 	return (pid);
 }
 
-static int	exec_cmd(t_cmd *cmd, t_cmd_info *info)
+static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds)
 {
-	if (info->status == 0 && info->full_path)
+	if (info->status != 0)
+	{
+		return ;
+	}
+	if (info->builtin != -1)
+	{
+		info->status = launch_builtin(cmd, info, fds);
+	} 
+	else if (info->full_path)
 	{
 		execve(info->full_path, cmd->args, 0);
 		perror("execve failed");
 		info->status = 1;
 	}
-	return (0);
 }
