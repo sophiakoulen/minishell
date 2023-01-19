@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 22:35:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:13:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int			exec_pwd(char **args);
 int			exec_exit(char **args);
 
 int			exec_env(char **args);
+
+/* custom */
+int			exec_shout(char **args);
 
 /* ************************************************************************** */
 /*   environment                                                              */

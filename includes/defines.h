@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 22:35:25 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:15:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # define SUCCESS 0
 # define STOP -1
 # define SYNTAX_ERROR -2
+
+/* colours, used in shout builtin */
+
+# define T_BLUE "\033[38:5:117m"
+# define T_RED "\033[38:5:197m"
+# define T_RESET "\033[0m"
 
 /* Possible token types corresponding strings defined in structs/t_token.c */
 # define NUM_TOKEN_LITERALS 9
@@ -50,7 +56,7 @@ enum e_token_type
 	e_string,
 };
 
-# define NUM_BUILTINS 7
+# define NUM_BUILTINS 8
 
 enum e_builtin
 {
@@ -61,6 +67,7 @@ enum e_builtin
 	e_unset,
 	e_env,
 	e_exit,
+	e_shout,
 };
 
 #endif
