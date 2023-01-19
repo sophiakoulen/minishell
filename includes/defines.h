@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 22:24:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 08:54:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 /* Possible token types corresponding strings defined in structs/t_token.c */
 # define NUM_TOKEN_LITERALS 9
 
-# define DOUBLE_QUOTE
-# define SINGLE_QUOTE
+# define DOUBLE_QUOTE 34
+# define SINGLE_QUOTE 39
 
 enum e_token_type
 {
