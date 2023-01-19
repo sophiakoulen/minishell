@@ -6,20 +6,20 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 00:27:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:35:37 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static void	str_cap(char *str)
-// {
-// 	while(*str)
-// 	{
-// 		*str = ft_toupper(*str);
-// 		str++;
-// 	}
-// }
+static void	str_cap(char *str)
+{
+	while(*str)
+	{
+		*str = ft_toupper(*str);
+		str++;
+	}
+}
 
 int	exec_shout(char **args)
 {
@@ -34,7 +34,7 @@ int	exec_shout(char **args)
 	while (*args)
 	{
 		line = *args;
-		// str_cap(line);
+		str_cap(line);
 		ft_printf("%s%s%s", T_RED, line, T_RESET);
 		if (!no_newline && args[1] == NULL)
 			ft_printf("\n");
