@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 12:20:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 22:32:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
 /*
 	Currently doesn't do any expansion,
 	just translate from one form into the other.
+
+	added in quotes removal with the str_expansion before
+	the dupe
 */
 void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
 {
@@ -49,7 +52,7 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
 	current = intermediate->args;
 	while (i < len)
 	{
-		definitive->args[i] = ft_strdup(current->content); //TO DO: MALLOC PROTECTION
+		definitive->args[i] = ft_strdup(str_expansion(current->content)); //TO DO: MALLOC PROTECTION
 		current = current->next;
 		i++;
 	}

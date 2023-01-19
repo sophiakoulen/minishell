@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 13:10:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 22:35:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 
 /* used for finding commands */
 # define DEFAULT_PATH "/usr/bin:/bin"
+
+/* used for expansion */
+# define DOUBLE_QUOTE 34
+# define SINGLE_QUOTE 39
 
 enum e_token_type
 {

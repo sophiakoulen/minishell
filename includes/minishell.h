@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 16:01:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 22:35:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,11 @@ char		**variable_expansion(char *str);
 /* wild_exp */
 
 char		*wildcard_expansion(char *str);
+
+/* str_expansion.c */
+
+char		*str_expansion(char *str);
+void		words_print(t_list *word);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */

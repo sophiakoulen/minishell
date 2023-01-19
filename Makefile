@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/19 17:51:27 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/19 22:36:04 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	=	minishell
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra
 CFLAGS	+=	-Werror
-CFLAGS	+=	-g3 -fsanitize=address
+# CFLAGS	+=	-g3 -fsanitize=address
 RM		=	rm -rf
 
 INCS_PATH	=	includes/
@@ -23,7 +23,8 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 BUILTINS		=	echo            pwd             env             exit
-EXPANSION_FILES	=	var_exp         wild_exp        expansion
+EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
+					str_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
 STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
