@@ -3,5 +3,5 @@
 MINISHELL= ../minishell
 
 $MINISHELL >out <<END
-echo hello
+hello
 END
