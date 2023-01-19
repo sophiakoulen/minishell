@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 16:21:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:02:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 			{
 				perror(redir->word); //later error printing needs to be done in child
 				info->status = 1;
+				break ;
 			}
 			fds->infile_fds[i] = fdin;
 		}
@@ -100,6 +101,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 			{
 				perror(redir->word);
 				info->status = 1;
+				break ;
 			}
 			fds->outfile_fds[i] = fdout;
 		}
@@ -111,6 +113,7 @@ static void	prepare_redirs(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int i, int 
 			{
 				perror(redir->word);
 				info->status = 1;
+				break ;
 			}
 			fds->outfile_fds[i] = fdout;
 		}

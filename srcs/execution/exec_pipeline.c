@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 15:54:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:48:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int	exec_pipeline(t_pipeline *p)
 	else
 		ret = multiple_commands(p->cmds, fds, p->n_cmds);
 	cleanup_fds(fds, p->n_cmds);
-	//ft_printf("return value:%d\n", ret);
 	return (ret);
 }
