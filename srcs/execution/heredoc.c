@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/17 19:44:42 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:28:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	do_single_heredoc(const char *delim, int fd)
 	}
 	if (buffer)
 		ft_putstr_fd(buffer, fd);
+	free(buffer);
 	close(fd);
 }
 
