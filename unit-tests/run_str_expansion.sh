@@ -28,5 +28,20 @@ exec_test $N 13 '{incomplete}' "incomplete'"
 exec_test $N 14 '{start}' "'start"
 exec_test $N 15 '{start}' "'start"
 
+# double quotes
+exec_test $N 16 '{qq}' '"qq"'
+exec_test $N 17 '{}' '""'
+exec_test $N 18 '{qqbb}' 'qq"bb"'
+exec_test $N 19 '{bbqq}' '"bb"qq'
+exec_test $N 20 '{}' '""""'
 
-exec_test $N 99 '{$USR} {-la}' '$USR -la'
+# mix
+exec_test $N 21 '{ssqq}' "'ss'\"qq\""
+exec_test $N 22 '{}' "''\"\""
+exec_test $N 23 '{bb}' "\"bb\"''"
+exec_test $N 24 '{asd}' "''\"asd\""
+exec_test $N 25 '{thisasd}' "this\"asd\""
+exec_test $N 26 '{  " inside  "  }' "'  \" inside  \"  '"
+exec_test $N 26 "{  ' inside '  q}" "\"  ' inside '  q\""
+
+# exec_test $N 99 '{$USR} {-la}' '$USR -la'

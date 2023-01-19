@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 18:26:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/19 22:03:21 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*get_bare_word(char **str)
 	char	*ret;
 
 	i = 0;
-	while ((*str)[i] && (*str)[i] != SINGLE_QUOTE)
+	while ((*str)[i] && (*str)[i] != SINGLE_QUOTE && (*str)[i] != DOUBLE_QUOTE)
 		i++;
 
 	ret = ft_substr(*str, 0, i);
@@ -83,16 +83,62 @@ static char	*get_single_q_word(char **str)
 	return (ret);
 }
 
+static char	*get_double_q_word(char **str)
+{
+	int		i;
+	char	*ret;
+
+	i = 1;
+	if ((*str)[0] == '\0')
+		return (ft_substr(*str, 0, 0));
+	while ((*str)[i])
+	{
+		if ((*str)[i] == DOUBLE_QUOTE)
+		{
+			ret = ft_substr(*str, 1, i  - 1);
+			*str += i + 1;
+			return (ret);
+		}
+		i++;
+	}
+	ret = ft_substr(*str, 1, i);
+	*str += i;
+	return (ret);
+}
+
+// static char	*get_env_variable(char **str)
+// {
+// 	int		i;
+// 	char	*ret;
+
+// 	i = 1;
+// 	if ((*str)[0] == '\0')
+// 		return (ft_substr(*str, 0, 0));
+// 	while ((*str)[i])
+// 	{
+// 		if ((*str)[i] == DOUBLE_QUOTE)
+// 		{
+// 			ret = ft_substr(*str, 1, i  - 1);
+// 			*str += i + 1;
+// 			return (ret);
+// 		}
+// 		i++;
+// 	}
+// 	ret = ft_substr(*str, 1, i);
+// 	*str += i;
+// 	return (ret);
+// }
+
 static void	next_word(t_list *word, char **str)
 {
 	char	*s1;
 	char	*s2;
 
 	s1 = get_bare_word(str);
-	s2 = get_single_q_word(str);
-
-	// ft_printf("\nbare word:%s\n", s1);
-	// ft_printf("single word:%s\n", s2);
+	if (**str == SINGLE_QUOTE || **str == '\0')
+		s2 = get_single_q_word(str);
+	else
+		s2 = get_double_q_word(str);
 	word->content = (char *)ft_strjoin(s1, s2);
 	free(s1);
 	free(s2);
