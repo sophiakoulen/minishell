@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 00:15:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:33:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define SUCCESS 0
 # define STOP -1
 # define SYNTAX_ERROR -2
+
+# define T_IFS " 	\n"
 
 /* colours, used in shout builtin */
 

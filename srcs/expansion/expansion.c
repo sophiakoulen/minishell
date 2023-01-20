@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 10:15:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:32:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env)
 	Currently doesn't do any expansion,
 	just translate from one form into the other.
 
-	added in quotes removal with the str_expansion before
+	added in quotes removal with the quote_removal before
 	the dupe
 */
 void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
@@ -43,6 +43,8 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
 	t_list	*current;
 	int		i;
 	int		len;
+
+	(void)env;
 
 	/* copy the argument list into array */
 	len = ft_lstsize(intermediate->args);
@@ -52,7 +54,7 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
 	current = intermediate->args;
 	while (i < len)
 	{
-		definitive->args[i] = ft_strdup(str_expansion(current->content, env)); //TO DO: MALLOC PROTECTION
+		definitive->args[i] = ft_strdup(quote_removal(current->content)); //TO DO: MALLOC PROTECTION
 		current = current->next;
 		i++;
 	}

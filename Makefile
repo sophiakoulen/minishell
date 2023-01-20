@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/20 12:11:39 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/20 14:13:21 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS_PATH	=	objs/
 BUILTINS		=	echo            pwd             env             exit      \
 					shout
 EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
-					str_expansion
+					quote_removal   param_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
 STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
@@ -39,7 +39,7 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 					exec_builtin    exec_pipeline   simple_cmd                \
 					launch_builtin
 TOKENIZER_FILES	=	tokenizer       token_list
-UTILS_FILES		=	utils_1         tree_ops
+UTILS_FILES		=	utils_1         utils_2         tree_ops
 ENVIRONMENT		=   environment
 
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
