@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 22:35:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:01:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
 /* t_parsed_cmd.c */
 
 t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
-void			parsed_cmd_cleanup(t_parsed_cmd **cmd);
+void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
 void			print_parsed_cmd(t_parsed_cmd *cmd);
 void			print_parsed_cmd2(t_parsed_cmd *cmd);
 

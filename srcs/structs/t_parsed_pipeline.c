@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:04:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 12:37:05 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 11:50:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parsed_pipeline_cleanup(t_parsed_pipeline *p)
 	i = 0;
 	while (i < p->n_cmds)
 	{
-		parsed_cmd_cleanup(&(p->cmds[i]));
+		parsed_cmd_cleanup(p->cmds[i]);
 		i++;
 	}
 	free(p->cmds);
