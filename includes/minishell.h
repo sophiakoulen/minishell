@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:16:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 18:51:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int			exec_shout(char **args, t_env *env);
 t_env		*init_env(char **envp);
 char		**env_to_strarr(t_env *env);
 char		*ret_env_key(t_env *env, char *key);
+
+/* env_utils.c */
+size_t		size_env(t_env *env);
+void		env_add(t_env **env, char *key, char *value);
+void		env_remove(t_env **env, char *key);
 
 /* ************************************************************************** */
 /*   exicution                                                                */
@@ -244,7 +249,6 @@ void		print_item(t_item *item);
 /* t_env.c */
 
 t_env		*env_factory(t_env *blueprint);
-size_t		size_env(t_env *env);
 void		env_cleanup(t_env *env);
 
 #endif

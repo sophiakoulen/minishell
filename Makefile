@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/20 12:11:39 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/20 18:52:08 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 					launch_builtin
 TOKENIZER_FILES	=	tokenizer       token_list
 UTILS_FILES		=	utils_1         tree_ops
-ENVIRONMENT		=   environment
+ENVIRONMENT		=   environment		env_utils
 
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
 EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
