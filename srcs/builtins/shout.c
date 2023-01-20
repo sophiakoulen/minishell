@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 00:35:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:46:46 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static void	str_cap(char *str)
 	}
 }
 
+/*
+	shout builtin (custom): like echo but all caps.
+*/
 int	exec_shout(char **args)
 {
 	char	*line;
