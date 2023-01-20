@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:17:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:11:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 17:40:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ t_env	*env_factory(t_env *blueprint)
 	return (ret);
 }
 
+void	env_cleanup(t_env *env)
+{
+	(void)env;
+}
+
 /*
 	returns the number of elements in env
  */
@@ -63,9 +68,4 @@ void	env_pop(t_env **env, t_env *new)
 {
 	(void)env;
 	(void)new;
-}
-
-void	env_cleanup(t_env *env)
-{
-	(void)env;
 }
