@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 00:13:25 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:14:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+/*
+	If the string corresponds to the name of a builtin, return
+	the corresponding enum.
+	Else, return -1.
+*/
 int	ret_builtin_enum(char *str)
 {
 	int		i;
@@ -28,9 +32,9 @@ int	ret_builtin_enum(char *str)
 	return (-1);
 }
 
-/**
- * Returns the corresponding string for the builtin,
- * or NULL if not in list.
+/*
+	Returns the corresponding string for the builtin,
+	or NULL if not in list.
 */
 const char	*ret_builtin_literal(enum e_builtin n)
 {
@@ -50,10 +54,14 @@ const char	*ret_builtin_literal(enum e_builtin n)
 	return (tok_strings[n]);
 }
 
-static int	builtin_passthrough(char **args)
+/*
+	Just say we don't support this builtin.
+*/
+static int	builtin_passthrough(char **args, t_env *env)
 {
-	// (void)args;
-	ft_printf("don't support %s builtin yet\n", *args);
+	(void)args;
+	(void)env;
+	ft_printf("don't support this builtin yet\n");
 	return (0);
 }
 
@@ -61,9 +69,9 @@ static int	builtin_passthrough(char **args)
  * executed the builtin using args as it's argument,
  * or NULL if not in list.
 */
-int	exec_builtin(enum e_builtin n, char **args)
+int	exec_builtin(enum e_builtin n, char **args, t_env *env)
 {
-	static int	(*builtin_arr[NUM_BUILTINS])(char **) = {
+	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env *) = {
 		exec_echo,
 		builtin_passthrough, // cd
 		exec_pwd,
@@ -74,6 +82,6 @@ int	exec_builtin(enum e_builtin n, char **args)
 		exec_shout,
 	};
 	if (n > NUM_BUILTINS || n < 0)
-		return (builtin_passthrough(args));
-	return ((builtin_arr)[n]((char **)args));
+		return (builtin_passthrough(args, env));
+	return ((builtin_arr)[n](args, env));
 }

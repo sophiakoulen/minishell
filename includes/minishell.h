@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 12:11:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:16:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@
 /*   builtins                                                                 */
 /* ************************************************************************** */
 
-int			exec_echo(char **args);
-int			exec_pwd(char **args);
-int			exec_exit(char **args);
-
-int			exec_env(char **args);
+int			exec_echo(char **args, t_env *env);
+int			exec_pwd(char **args, t_env *env);
+int			exec_exit(char **args, t_env *env);
+int			exec_env(char **args, t_env *env);
 
 /* custom */
-int			exec_shout(char **args);
+int			exec_shout(char **args, t_env *env);
 
 /* ************************************************************************** */
 /*   environment                                                              */
@@ -100,7 +99,7 @@ int			simple_command(t_cmd *cmds, t_fds *fds, t_env *env);
 
 int			ret_builtin_enum(char *str);
 const char	*ret_builtin_literal(enum e_builtin n);
-int			exec_builtin(enum e_builtin n, char **args);
+int			exec_builtin(enum e_builtin n, char **args, t_env *env);
 
 /* launch_builtin.c */
 int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env);

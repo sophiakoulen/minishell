@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:47:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 15:50:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 17:15:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 	There is no defined order that the variables have to be printed in.
 */
-int	exec_env(char **args)
+int	exec_env(char **args, t_env *env)
 {
+	(void)env;
 	strarr_print(args);
 	return (0);
 }
