@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 22:03:21 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:57:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 //l$USR"a"
 
 char		*list_to_str(t_list *word);
-static void	next_word(t_list *word, char **str);
+static void	next_word(t_list *word, char **str, t_env *env);
+static char	*get_bare_word(char **str);
+static char	*get_single_q_word(char **str);
+static char	*get_double_q_word(char **str, t_env *env);
+static char	*get_env_variable(char **str, t_env *env);
 
 /*
 	- string expansion steps -
@@ -28,7 +32,7 @@ static void	next_word(t_list *word, char **str);
 /*
 	remove extra single_quotes quotes from a string
  */
-char	*str_expansion(char *str)
+char	*str_expansion(char *str, t_env *env)
 {
 	t_list	*words;
 	t_list	*tmp;
@@ -38,13 +42,33 @@ char	*str_expansion(char *str)
 	while (str && *str)
 	{
 		tmp = ft_lstnew(NULL);
-		next_word(tmp, &str);
+		next_word(tmp, &str, env);
 		ft_lstadd_back(&words, tmp);
 	}
 	ret = list_to_str(words);
 	ft_lstclear(&words, free);
 	return (ret);
 }
+
+/*
+	removes the quotes around words and returns the resulting strings
+	also expands $variables inside the quotes.
+ */
+static void	next_word(t_list *word, char **str, t_env *env)
+{
+	char	*s1;
+	char	*s2;
+
+	s1 = get_bare_word(str);
+	if (**str == SINGLE_QUOTE || **str == '\0')
+		s2 = get_single_q_word(str);
+	else
+		s2 = get_double_q_word(str, env);
+	word->content = (char *)ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+}
+
 
 static char	*get_bare_word(char **str)
 {
@@ -83,10 +107,17 @@ static char	*get_single_q_word(char **str)
 	return (ret);
 }
 
-static char	*get_double_q_word(char **str)
+/*
+	This stage we remove the double quotes and then,
+	preform the variable expansion.
+	Variables in double quotes don't produce two words!
+ */
+static char	*get_double_q_word(char **str, t_env *env)
 {
 	int		i;
 	char	*ret;
+	char	*s1;
+	char	*s2;
 
 	i = 1;
 	if ((*str)[0] == '\0')
@@ -99,6 +130,16 @@ static char	*get_double_q_word(char **str)
 			*str += i + 1;
 			return (ret);
 		}
+		if ((*str)[i] == '$')
+		{
+			s1 = ft_substr(*str, 1, i  - 1);
+			*str += i;
+			s2 = get_env_variable(str, env);
+			ret =ft_strjoin(s1, s2);
+			free(s1);
+			free(s2);
+			return (ret);
+		}
 		i++;
 	}
 	ret = ft_substr(*str, 1, i);
@@ -106,44 +147,27 @@ static char	*get_double_q_word(char **str)
 	return (ret);
 }
 
-// static char	*get_env_variable(char **str)
-// {
-// 	int		i;
-// 	char	*ret;
-
-// 	i = 1;
-// 	if ((*str)[0] == '\0')
-// 		return (ft_substr(*str, 0, 0));
-// 	while ((*str)[i])
-// 	{
-// 		if ((*str)[i] == DOUBLE_QUOTE)
-// 		{
-// 			ret = ft_substr(*str, 1, i  - 1);
-// 			*str += i + 1;
-// 			return (ret);
-// 		}
-// 		i++;
-// 	}
-// 	ret = ft_substr(*str, 1, i);
-// 	*str += i;
-// 	return (ret);
-// }
-
-static void	next_word(t_list *word, char **str)
+static char	*get_env_variable(char **str, t_env *env)
 {
-	char	*s1;
-	char	*s2;
+	int		i;
+	char	*key;
+	char	*value;
 
-	s1 = get_bare_word(str);
-	if (**str == SINGLE_QUOTE || **str == '\0')
-		s2 = get_single_q_word(str);
-	else
-		s2 = get_double_q_word(str);
-	word->content = (char *)ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
+	if ((*str)[0] == '\0' || (*str)[0] != '$')
+		return (ft_substr(*str, 0, 0));
+	i = 1;
+	while (ft_strchr("\'\"$", (*str)[i]) == NULL)
+		i++;
+	key = ft_substr(*str, 1, i - 1);
+	value = ret_env_key(env, key);
+	if (value == NULL)
+		value = ft_strchr(key, '\0');
+	free(key);
+	*str += i;
+	// ft_printf("key is:%s\n", key);
+	// ft_printf("value is:%s\n", value);
+	return (ft_strdup(value));
 }
-
 
 void	words_print(t_list *word)
 {
@@ -179,4 +203,5 @@ char	*list_to_str(t_list *word)
 	}
 	// ft_printf("<%s>\n", ret);
 	return (ret);
+
 }
