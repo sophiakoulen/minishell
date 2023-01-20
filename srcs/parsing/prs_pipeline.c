@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 12:00:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 12:36:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static int	create_parsed_cmd_list(t_list **lst, t_token **tok)
 		next_token(tok);
 		ret = parse_cmd(&cmd, tok);
 	}
-	if (!*lst)
-		return (unexpected_token(*tok));
 	if (ret == SYNTAX_ERROR)
 	{
 		ft_lstclear(lst, (void (*)(void *))parsed_cmd_cleanup);
 		return (SYNTAX_ERROR);
 	}
+	if (!*lst)
+		return (unexpected_token(*tok));
 	return (SUCCESS);
 }
 

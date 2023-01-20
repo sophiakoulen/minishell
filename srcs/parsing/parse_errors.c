@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:45:29 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 15:29:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 12:31:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	unexpected_token(t_token *tok)
 	ft_strlcpy(buffer, prefix, len);
 	ft_strlcat(buffer, tok_str, len);
 	ft_strlcat(buffer, suffix, len);
-	write(2, buffer, len);
+	write(2, buffer, len - 1);
 	free(buffer);
 	return (SYNTAX_ERROR);
 }
