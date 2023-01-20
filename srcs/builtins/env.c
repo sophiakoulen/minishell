@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:47:55 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:15:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 17:22:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 */
 int	exec_env(char **args, t_env *env)
 {
-	(void)env;
-	strarr_print(args);
+	char	**strs;
+
+	(void)args;
+	strs = env_to_strarr(env);
+	strarr_print(strs);
+	strarr_cleanup(strs);
 	return (0);
 }
