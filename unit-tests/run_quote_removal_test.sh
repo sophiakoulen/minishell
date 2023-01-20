@@ -3,7 +3,7 @@
 
 source unit_test_framework.sh
 
-N=str_expansion
+N=quote_removal
 
 make $N
 echo "\n${ITALIC}${YELLOW}Testing the $N${RESET}"
@@ -44,12 +44,12 @@ exec_test $N 25 '{thisasd}' "this\"asd\""
 exec_test $N 26 '{  " inside  "  }' "'  \" inside  \"  '"
 exec_test $N 27 "{  ' inside '  q}" "\"  ' inside '  q\""
 
-# variable expansion in double quotes
-exec_test $N 28 "{$LOGNAME}" '"$LOGNAME"'
-exec_test $N 29 "{$PATH}" '"$PATH"'
-exec_test $N 30 "{what$SHLVL}" '"what$SHLVL"'
-exec_test $N 30 "{this'$SHLVL'}" "this'$SHLVL'"
-exec_test $N 31 "{$USER$SHELL}" '"$USER$SHELL"'
+# # variable expansion in double quotes
+# exec_test $N 28 "{$LOGNAME}" '"$LOGNAME"'
+# exec_test $N 29 "{$PATH}" '"$PATH"'
+# exec_test $N 30 "{what$SHLVL}" '"what$SHLVL"'
+# exec_test $N 30 "{this'$SHLVL'}" "\"this'$SHLVL'\""
+# exec_test $N 31 "{$USER$SHELL}" '"$USER$SHELL"'
 
 
 # exec_test $N 99 '{$USR} {-la}' '$USR -la'

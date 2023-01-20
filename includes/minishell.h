@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 18:51:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 19:37:31 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ const char	*ret_builtin_literal(enum e_builtin n);
 int			exec_builtin(enum e_builtin n, char **args, t_env *env);
 
 /* launch_builtin.c */
+
 int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env);
 
 /* ************************************************************************** */
@@ -114,6 +115,7 @@ int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env);
 /* ************************************************************************** */
 
 /* expansion */
+
 t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env);
 void		expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env);
 
@@ -125,18 +127,17 @@ char		**variable_expansion(char *str);
 
 char		*wildcard_expansion(char *str);
 
-/* str_expansion.c */
+/* quote_removal.c */
 
-char	*str_expansion(char *str, t_env *env);
-void		words_print(t_list *word);
+char		*quote_removal(char *str);
+
+/* param_expansion */
+
+char		*param_expansion(char *str, t_env *env, int retn);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
 /* ************************************************************************** */
-
-/* prs comandline */
-
-int			parse_commandline(t_tree **tree, t_token *tok);
 
 /* prs pipeline */
 
@@ -151,6 +152,7 @@ int			parse_cmd(t_parsed_cmd **cmd, t_token **tok);
 int			parse_item(t_item **item, t_token **tok);
 
 /* parse errors */
+
 int			unexpected_token(t_token *tok);
 int			assert_token(t_token *tok, enum e_token_type expected);
 
@@ -162,6 +164,7 @@ t_cmd		*cmd_factory(t_cmd *blueprint);
 /* ************************************************************************** */
 
 /* token_list.c */
+
 void		next_token(t_token **list);
 
 /* tokenizer */
@@ -179,6 +182,9 @@ void		do_nothing(void *thing);
 void		strarr_cleanup(char **s);
 void		strarr_print(char **s);
 
+char		*list_to_str(t_list *word);
+void		words_print(t_list *word);
+
 /* tree_ops */
 
 int			get_tree_width(t_tree *tree, int level);
@@ -190,15 +196,18 @@ int			get_tree_max_width(t_tree *tree);
 /* ************************************************************************** */
 
 /* t_pipeline */
+
 void		print_pipeline(t_pipeline *p);
 void		pipeline_cleanup(t_pipeline *p);
 
 /* t_parsed_pipeline */
+
 t_parsed_pipeline	*parsed_pipeline_factory(t_parsed_pipeline *blueprint);
 void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
 void				print_parsed_pipeline(t_parsed_pipeline *p);
 
 /* t_cmd_info.c */
+
 void				cleanup_all_info(t_cmd_info *infos, int n);
 void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
 

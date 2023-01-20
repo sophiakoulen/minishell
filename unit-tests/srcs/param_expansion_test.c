@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_expansion_test.c                               :+:      :+:    :+:   */
+/*   param_expansion_test.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 22:54:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 10:43:38 by znichola         ###   ########.fr       */
+/*   Created: 2023/01/20 14:05:35 by znichola          #+#    #+#             */
+/*   Updated: 2023/01/20 15:50:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env;
+	int		retn;
 
+	retn = 42;
 	env = init_env(envp);
 	// strarr_print(env_to_strarr(env));
 	if (argc != 2)
 		return (0);
-	char * str = str_expansion(argv[1], env);
+	char * str = param_expansion(argv[1], env, retn);
 	ft_printf("{%s}", str);
 	ft_printf("\n");
 	free(str);

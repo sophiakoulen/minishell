@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/20 12:04:59 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/20 14:10:52 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ CFLAGS	= -Wall -Wextra
 ifdef DEBUG
 	CFLAGS += -g3 -fsanitize=address
 endif
-TEST_NAMES	=	tokenizer    parsing      heredoc      parse_item   prepare_cmd \
-				mult_cmd     prs_cmd      prs_pipeline    str_expansion
+TEST_NAMES	=	tokenizer       heredoc         parse_item      prepare_cmd    \
+				mult_cmd        prs_cmd         quote_removal   prs_pipeline   \
+				param_expansion
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -59,9 +60,6 @@ fclean : clean
 tokenizer : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
-parsing : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
-
 heredoc : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
@@ -80,7 +78,10 @@ prs_cmd : all
 prs_pipeline : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
-str_expansion : all
+quote_removal : all
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+
+param_expansion : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all

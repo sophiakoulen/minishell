@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_expansion.c                                    :+:      :+:    :+:   */
+/*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 10:57:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:23:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 //l$USR"a"
 
-char		*list_to_str(t_list *word);
-static void	next_word(t_list *word, char **str, t_env *env);
+static void	next_word(t_list *word, char **str);
 static char	*get_bare_word(char **str);
 static char	*get_single_q_word(char **str);
-static char	*get_double_q_word(char **str, t_env *env);
-static char	*get_env_variable(char **str, t_env *env);
+static char	*get_double_q_word(char **str);
 
 /*
 	- string expansion steps -
@@ -32,7 +30,7 @@ static char	*get_env_variable(char **str, t_env *env);
 /*
 	remove extra single_quotes quotes from a string
  */
-char	*str_expansion(char *str, t_env *env)
+char	*quote_removal(char *str)
 {
 	t_list	*words;
 	t_list	*tmp;
@@ -42,7 +40,7 @@ char	*str_expansion(char *str, t_env *env)
 	while (str && *str)
 	{
 		tmp = ft_lstnew(NULL);
-		next_word(tmp, &str, env);
+		next_word(tmp, &str);
 		ft_lstadd_back(&words, tmp);
 	}
 	ret = list_to_str(words);
@@ -54,7 +52,7 @@ char	*str_expansion(char *str, t_env *env)
 	removes the quotes around words and returns the resulting strings
 	also expands $variables inside the quotes.
  */
-static void	next_word(t_list *word, char **str, t_env *env)
+static void	next_word(t_list *word, char **str)
 {
 	char	*s1;
 	char	*s2;
@@ -63,7 +61,7 @@ static void	next_word(t_list *word, char **str, t_env *env)
 	if (**str == SINGLE_QUOTE || **str == '\0')
 		s2 = get_single_q_word(str);
 	else
-		s2 = get_double_q_word(str, env);
+		s2 = get_double_q_word(str);
 	word->content = (char *)ft_strjoin(s1, s2);
 	free(s1);
 	free(s2);
@@ -112,17 +110,17 @@ static char	*get_single_q_word(char **str)
 	preform the variable expansion.
 	Variables in double quotes don't produce two words!
  */
-static char	*get_double_q_word(char **str, t_env *env)
+static char	*get_double_q_word(char **str)
 {
 	int		i;
 	char	*ret;
-	char	*s1;
-	char	*s2;
+	// char	*s1;
+	// char	*s2;
 
 	i = 1;
 	if ((*str)[0] == '\0')
 		return (ft_substr(*str, 0, 0));
-	while ((*str)[i])
+	while ((*str)[i] && (*str)[i] != '$')
 	{
 		if ((*str)[i] == DOUBLE_QUOTE)
 		{
@@ -130,78 +128,19 @@ static char	*get_double_q_word(char **str, t_env *env)
 			*str += i + 1;
 			return (ret);
 		}
-		if ((*str)[i] == '$')
-		{
-			s1 = ft_substr(*str, 1, i  - 1);
-			*str += i;
-			s2 = get_env_variable(str, env);
-			ret =ft_strjoin(s1, s2);
-			free(s1);
-			free(s2);
-			return (ret);
-		}
+		// if ((*str)[i] == '$')
+		// {
+		// 	s1 = ft_substr(*str, 1, i  - 1);
+		// 	*str += i;
+		// 	s2 = get_env_variable(str, env);
+		// 	ret =ft_strjoin(s1, s2);
+		// 	free(s1);
+		// 	free(s2);
+		// 	return (ret);
+		// }
 		i++;
 	}
 	ret = ft_substr(*str, 1, i);
 	*str += i;
 	return (ret);
-}
-
-static char	*get_env_variable(char **str, t_env *env)
-{
-	int		i;
-	char	*key;
-	char	*value;
-
-	if ((*str)[0] == '\0' || (*str)[0] != '$')
-		return (ft_substr(*str, 0, 0));
-	i = 1;
-	while (ft_strchr("\'\"$", (*str)[i]) == NULL)
-		i++;
-	key = ft_substr(*str, 1, i - 1);
-	value = ret_env_key(env, key);
-	if (value == NULL)
-		value = ft_strchr(key, '\0');
-	free(key);
-	*str += i;
-	// ft_printf("key is:%s\n", key);
-	// ft_printf("value is:%s\n", value);
-	return (ft_strdup(value));
-}
-
-void	words_print(t_list *word)
-{
-	if (word == NULL)
-		return ;
-	ft_printf("{%s}", (char *)word->content);
-	words_print(word->next);
-}
-
-static void	lst_words_len(t_list *word, size_t *len)
-{
-	if (!word)
-		return ;
-	*len += ft_strlen((char *)word->content);
-	lst_words_len(word->next, len);
-}
-
-char	*list_to_str(t_list *word)
-{
-	char	*ret;
-	size_t	size;
-
-	size = 1;
-	lst_words_len(word, &size);
-	ret = (char *)x_malloc(sizeof(char), size + 1);
-	ret[0] = '\0';
-	// ft_printf("size%d\n", size);
-	while (word)
-	{
-		// ft_printf("-%s-\n", word->content);
-		ft_strlcat(ret, word->content, size);
-		word = word->next;
-	}
-	// ft_printf("<%s>\n", ret);
-	return (ret);
-
 }
