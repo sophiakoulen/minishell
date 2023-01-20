@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 16:28:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:13:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ const char	*ret_builtin_literal(enum e_builtin n)
 		"unset",
 		"env",
 		"exit",
+		"shout"
 	};
 
 	if (n > NUM_BUILTINS || n < 0)
@@ -70,6 +71,7 @@ int	exec_builtin(enum e_builtin n, char **args)
 		builtin_passthrough, // unset
 		exec_env,
 		exec_exit,
+		exec_shout,
 	};
 	if (n > NUM_BUILTINS || n < 0)
 		return (builtin_passthrough(args));

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/20 12:01:42 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/20 12:11:39 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ INCS_PATH	=	includes/
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
-BUILTINS		=	echo            pwd             env             exit
+BUILTINS		=	echo            pwd             env             exit      \
+					shout
 EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
 					str_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
