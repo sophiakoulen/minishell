@@ -6,11 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 16:18:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 16:52:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_numeric(char *str);
 
 /*
 	exit builtin: exit the shell
