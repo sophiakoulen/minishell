@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 12:01:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 12:07:41 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env);
 /* ************************************************************************** */
 
 /* expansion */
-t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate);
-void		expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate);
+t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env);
+void		expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env);
 
 /* var_exp */
 
@@ -120,7 +120,7 @@ char		*wildcard_expansion(char *str);
 
 /* str_expansion.c */
 
-char		*str_expansion(char *str);
+char	*str_expansion(char *str, t_env *env);
 void		words_print(t_list *word);
 
 /* ************************************************************************** */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 12:45:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/20 10:57:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ char	**env_to_strarr(t_env *env)
 }
 
 /*
-	returns the value associated with key
-	this is pointer to string in env, don't free it!
+	returns the value string associated with key
+	this points to env string, don't free it!
 	NULL if not found
 */
 char	*ret_env_key(t_env *env, char *key)
@@ -84,8 +84,11 @@ char	*ret_env_key(t_env *env, char *key)
 		l = ft_strlen(key);
 		if (l < ft_strlen(env->key))
 			l = ft_strlen(env->key);
-		if (ft_strncmp(env->key, key, l))
+		if (ft_strncmp(env->key, key, l) == 0)
+		{
+			// ft_printf("l:%d k:%s kk:%s  kv:%s\n", l, key, env->key, env->value);
 			return (ft_strdup(env->value));
+		}
 		env = env->next;
 	}
 	return (NULL);

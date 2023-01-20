@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 22:35:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:14:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	exec_line(char *line, t_env *env)
 		parsed = x_malloc(sizeof(*parsed), 1);
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
-			pipeline = expand_pipeline(parsed);
+			pipeline = expand_pipeline(parsed, env);
 			ret = exec_pipeline(pipeline, env);
 			pipeline_cleanup(pipeline);
 			free(pipeline);

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 22:32:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:15:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_item	*copy_item_deep(t_item *item);
 
-t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
+t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env)
 {
 	t_pipeline	*p;
 	int			i;
@@ -25,7 +25,7 @@ t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
 	i = 0;
 	while (i < p->n_cmds)
 	{
-		expand_cmd(&p->cmds[i], intermediate->cmds[i]);
+		expand_cmd(&p->cmds[i], intermediate->cmds[i], env);
 		i++;
 	}
 	return (p);
@@ -38,7 +38,7 @@ t_pipeline *expand_pipeline(t_parsed_pipeline *intermediate)
 	added in quotes removal with the str_expansion before
 	the dupe
 */
-void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
+void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
 {
 	t_list	*current;
 	int		i;
@@ -52,7 +52,7 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate)
 	current = intermediate->args;
 	while (i < len)
 	{
-		definitive->args[i] = ft_strdup(str_expansion(current->content)); //TO DO: MALLOC PROTECTION
+		definitive->args[i] = ft_strdup(str_expansion(current->content, env)); //TO DO: MALLOC PROTECTION
 		current = current->next;
 		i++;
 	}
