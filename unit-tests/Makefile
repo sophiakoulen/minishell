@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/19 22:04:42 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/20 12:04:59 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME	= unit-tests
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra
-# CFLAGS += -Werror
-# CFLAGS += -g3 -fsanitize=address
-
+ifdef DEBUG
+	CFLAGS += -g3 -fsanitize=address
+endif
 TEST_NAMES	=	tokenizer    parsing      heredoc      parse_item   prepare_cmd \
 				mult_cmd     prs_cmd      prs_pipeline    str_expansion
 
