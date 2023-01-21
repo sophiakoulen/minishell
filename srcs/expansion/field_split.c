@@ -6,40 +6,42 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/21 01:13:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/21 10:45:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-
-	t_list				*inter_pipe_lst;
+	SO I propose using a new variable to make the connection between parsing and expansion.
+	these are my notes to get a handle on the structure used int t_parsed_pipeline
+	t_list                *inter_pipe_lst;
 
 	this is an inter_pipe_lst I'm pretty sure
 
-	t_parsed_pipeline	*parsed;
-	change to a t_list
+	t_parsed_pipeline    *parsed;
+	change to a
+	t_list.              *inter_pipe_lst
 
 	t_list inter_pipe_lst
 		 -> t_parsed_cmd *cmd
 				-> t_list *args
 					-> content
 						t_item *item
-							char	*word;
-							int		modifier;
+							char    *word;
+							int        modifier;
 					-> next
 				-> t_list *redirs
 					-> content
 						t_item *item
-							char	*word;
-							int		modifier;
+							char    *word;
+							int        modifier;
 					-> next
 		-> next
 */
 
 /*
-	The great word expansion order
+	Word expansion order of operations
 
 	1. expand parameter, $VAR, $?
 		param_expansion();
@@ -47,7 +49,18 @@
 		field_split();
 	3. remove quotes
 		quote_removal();
+ */
+*/
 
+/*
+	Word expansion order of operations
+
+	1. expand parameter, $VAR, $?
+		param_expansion();
+	2. field splitting around T_IFS characters
+		field_split();
+	3. remove quotes
+		quote_removal();
  */
 
 t_list	*field_split(char *str)
