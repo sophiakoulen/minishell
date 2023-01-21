@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 21:57:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:33:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ static char	*get_single_q_word(char **str)
 }
 
 /*
-	This stage we remove the double quotes and then,
-	preform the variable expansion.
+	This stage we remove the double quotes
 	Variables in double quotes don't produce two words!
  */
 static char	*get_double_q_word(char **str)
