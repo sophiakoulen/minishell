@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 13:32:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/21 01:30:44 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
 	current = intermediate->args;
 	while (i < len)
 	{
-		definitive->args[i] = ft_strdup(quote_removal(current->content)); //TO DO: MALLOC PROTECTION
+		definitive->args[i] = quote_removal(current->content); //TO DO: MALLOC PROTECTION
 		current = current->next;
 		i++;
 	}
@@ -70,6 +70,6 @@ static t_item	*copy_item_deep(t_item *item)
 
 	new_item = x_malloc(sizeof(*new_item), 1);
 	new_item->modifier = item->modifier;
-	new_item->word = ft_strdup(item->word);
+	new_item->word = quote_removal(item->word);
 	return (new_item);
 }
