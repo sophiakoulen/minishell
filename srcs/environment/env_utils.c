@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 16:32:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:36:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ size_t	size_env(t_env *env)
 	return (len);
 }
 
+/*
+	Add a key-value pair to the environment.
+	If the key already exists, its value will be overwritten.
+*/
 void	env_add(t_env **env, char *key, char *value)
 {
 	t_env	*current;
@@ -53,6 +57,9 @@ void	env_add(t_env **env, char *key, char *value)
 	}
 }
 
+/*
+	Remove a key from the environment.
+*/
 void	env_remove(t_env **env, char *key)
 {
 	t_env	*current;

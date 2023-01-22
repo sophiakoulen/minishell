@@ -6,13 +6,14 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 11:21:59 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:56:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_numeric(char *str);
+static int	is_numeric(char *str);
+static void	print_arg_error(char *str);
 
 /*
 	exit builtin: exit the shell
@@ -34,12 +35,12 @@ int	exec_exit(char **args, t_env **env)
 	{
 		if (i > 0)
 		{
-			ft_printf("minishell: exit: too many arguments\n"); //error should be printed to stderr
+			write(2, "minishell: exit: too many arguments\n", 37);
 			return (1);
 		}
 		if (!is_numeric(*args))
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n", *args); //on STDERR!!
+			print_arg_error(*args);
 			exit(255);
 		}
 		ret_code = ft_atoi(*args);
@@ -51,11 +52,33 @@ int	exec_exit(char **args, t_env **env)
 	return (0);
 }
 
-int	is_numeric(char *str)
+static int	is_numeric(char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;
 	while (ft_isdigit(*str))
 		str++;
 	return (*str == '\0');
+}
+
+/*
+	Print error on stderr:
+		minishell: exit: {arg}: numeric argument required
+*/
+static void	print_arg_error(char *str)
+{
+	char	*prefix;
+	char	*suffix;
+	char	*buffer;
+	int		len;
+
+	prefix = "minishell: exit: ";
+	suffix = ": numeric argument required\n";
+	len = ft_strlen(str) + 17 + 28 + 1;
+	buffer = x_malloc(1, len);
+	ft_strlcpy(buffer, prefix, len);
+	ft_strlcat(buffer, str, len);
+	ft_strlcat(buffer, suffix, len);
+	write(2, buffer, len);
+	free(buffer);	
 }
