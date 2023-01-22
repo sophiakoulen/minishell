@@ -6,13 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 12:40:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:52:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_error(int errno_value, char *str);
+static void	print_err_cmd_find(int errno_value, char *str);
 static int	search_path(char **path, const char *filename, char **res);
 static int	compute_status(int errno_value);
 
@@ -50,20 +50,19 @@ int	find_cmd(char **path, char *filename, char **res)
 			errno_value = search_path(path, filename, res);
 		}
 	}
-	print_error(errno_value, filename);
+	print_err_cmd_find(errno_value, filename);
 	return (compute_status(errno_value));
 }
 
-static void	print_error(int errno_value, char *str)
+static void	print_err_cmd_find(int errno_value, char *str)
 {
 	if (errno_value == ENOENT && !has_slashes(str))
 	{
-		ft_putstr_fd(str, 2);
-		write(2, ": command not found\n", 20);
+		print_error(0, str, "command not found");
 	}
 	else if (errno_value != 0)
 	{
-		perror(str);
+		print_error(0, str, strerror(errno));
 	}
 }
 
