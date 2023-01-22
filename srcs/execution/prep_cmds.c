@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 16:08:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:53:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	update_fd_in(t_cmd_info *cmd, t_item *redir, t_fds *fds)
 		cmd->i_fd = open(redir->word, O_RDONLY);
 		if (cmd->i_fd < 0)
 		{
-			perror(redir->word);
+			print_error(0, redir->word, strerror(errno));
 			cmd->status = 1;
 			return (-1);
 		}
@@ -112,7 +112,7 @@ static int	update_fd_out(t_cmd_info *cmd, t_item *redir, t_fds *fds)
 	cmd->o_fd = open(redir->word, flags, 0644);
 	if (cmd->o_fd < 0)
 	{
-		perror(redir->word);
+		print_error(0, redir->word, strerror(errno));
 		cmd->status = 1;
 		return (-1);
 	}
