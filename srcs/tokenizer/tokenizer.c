@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 16:39:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:57:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static int	check_token_literals(char *str)
 	return (-1);
 }
 
+/*
+	To do: when encountering closing quote, an error status should be returned.
+	Important!!
+*/
 static void	string_decetion(t_token *tok, char **str)
 {
 	int	i;
@@ -60,7 +64,7 @@ static void	string_decetion(t_token *tok, char **str)
 		i++;
 	}
 	if (single_q || double_q)
-		perror("closing quotes error");
+		print_error(0, 0, "expected closing quote");
 	if ((int)tok->type != -1)
 		i--;
 	backwards = i - 1;
