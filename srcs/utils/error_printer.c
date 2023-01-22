@@ -6,12 +6,23 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:08:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:16:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:29:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	calc_len(char *prefix, char *program, char *arg, char *msg);
+
+/*
+	Print error on stderr.
+
+	Error has the form:
+		minishell: {program}: {arg}: {msg}
+	
+	program and arg can be null, then they won't be printed
+	and neither will the corresponding colon and space. 
+*/
 void	print_error(char *program, char *arg, char *msg)
 {
 	int		len;
@@ -19,18 +30,9 @@ void	print_error(char *program, char *arg, char *msg)
 	char	*buffer;
 
 	prefix = "minishell: ";
-	len = 11;
-	if (program)
-	{
-		len += ft_strlen(program) + 2;
-	}
-	if (arg)
-	{
-		len += ft_strlen(arg) + 2;
-	}
-	len += ft_strlen(msg) + 2;
+	len = calc_len(prefix, program, arg, msg);
 	buffer = x_malloc(1, len);
-	strlcpy(buffer, prefix, len);
+	ft_strlcpy(buffer, prefix, len);
 	if (program)
 	{
 		ft_strlcat(buffer, program, len);
@@ -45,4 +47,19 @@ void	print_error(char *program, char *arg, char *msg)
 	ft_strlcat(buffer, "\n", len);
 	write(2, buffer, len);
 	free(buffer);
+}
+
+/*
+	Compute length of error message.
+*/
+static int	calc_len(char *prefix, char *program, char *arg, char *msg)
+{
+	int	len;
+
+	len = ft_strlen(prefix) + 2 + ft_strlen(msg) + 2;
+	if (program)
+		len += ft_strlen(program) + 2;
+	if (arg)
+		len += ft_strlen(arg);
+	return (len);
 }
