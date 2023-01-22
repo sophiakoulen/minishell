@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:08:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:29:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:45:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ void	print_error(char *program, char *arg, char *msg)
 	ft_strlcat(buffer, "\n", len);
 	write(2, buffer, len);
 	free(buffer);
+}
+
+/*
+	Return a copy of the string, but quoted,
+	like this: `string'.
+
+	This is used for example in export and unset, when
+	printing the error message for invalid identifiers.
+*/
+char	*in_quotes(char *str)
+{
+	int		len;
+	char	*res;
+
+	len = ft_strlen(str) + 3;
+	res = x_malloc(1, len);
+	res[0] = '`';
+	ft_strlcpy(res + 1, str, len - 1);
+	res[len - 2] = '\'';
+	res[len - 1] = 0;
+	return (res);
 }
 
 /*

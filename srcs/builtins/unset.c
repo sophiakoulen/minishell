@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:26:42 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 13:22:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:43:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 */
 int	exec_unset(char **args, t_env **env)
 {
-	int	ret;
+	int		ret;
+	char	*quoted_id;
 
 	ret = 0;
 	while (*args)
 	{
 		if (!is_valid_identifier(*args))
 		{
-			ft_printf("minishell: unset: `%s': not a valid identifier\n", *args); //on STDERR!!!!!!
+			quoted_id = in_quotes(*args);
+			print_error("unset", quoted_id, "not a valid identifier");
+			free(quoted_id);
 			ret = 1;
 		}
 		else

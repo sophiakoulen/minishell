@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:18:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:46:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ int			get_tree_max_width(t_tree *tree);
 /* error_printer.c */
 
 void		print_error(char *program, char *arg, char *msg);
+char		*in_quotes(char *str);
 
 /* ************************************************************************** */
 /*   structs                                                                  */

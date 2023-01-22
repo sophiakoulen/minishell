@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 16:28:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:42:35 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	exec_export(char **args, t_env **env)
 	int		ret;
 	char	*identifier;
 	char	*value;
+	char	*quoted_id;
 
 	ret = 0;
 	if (!*args)
@@ -52,7 +53,9 @@ int	exec_export(char **args, t_env **env)
 		split_equal(*args, &identifier, &value);
 		if (!is_valid_identifier(identifier))
 		{
-			ft_printf("minishell: export: `%s': not a valid identifier\n", identifier); //on STDERR!!!!!!
+			quoted_id = in_quotes(identifier);
+			print_error("export", quoted_id, "not a valid identifier");
+			free(quoted_id);
 			ret = 1;
 		}
 		else
