@@ -6,14 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 16:56:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:33:12 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	is_numeric(char *str);
-static void	print_arg_error(char *str);
 
 /*
 	exit builtin: exit the shell
@@ -35,12 +34,12 @@ int	exec_exit(char **args, t_env **env)
 	{
 		if (i > 0)
 		{
-			write(2, "minishell: exit: too many arguments\n", 37);
+			print_error("exit", 0, "too many arguments");
 			return (1);
 		}
 		if (!is_numeric(*args))
 		{
-			print_arg_error(*args);
+			print_error("exit", *args, "numeric argument required");
 			exit(255);
 		}
 		ret_code = ft_atoi(*args);
@@ -59,26 +58,4 @@ static int	is_numeric(char *str)
 	while (ft_isdigit(*str))
 		str++;
 	return (*str == '\0');
-}
-
-/*
-	Print error on stderr:
-		minishell: exit: {arg}: numeric argument required
-*/
-static void	print_arg_error(char *str)
-{
-	char	*prefix;
-	char	*suffix;
-	char	*buffer;
-	int		len;
-
-	prefix = "minishell: exit: ";
-	suffix = ": numeric argument required\n";
-	len = ft_strlen(str) + 17 + 28 + 1;
-	buffer = x_malloc(1, len);
-	ft_strlcpy(buffer, prefix, len);
-	ft_strlcat(buffer, str, len);
-	ft_strlcat(buffer, suffix, len);
-	write(2, buffer, len);
-	free(buffer);	
 }
