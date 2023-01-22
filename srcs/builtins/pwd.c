@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:13:18 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 11:22:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:35:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_pwd(char **args, t_env **env)
 	}
 	else
 	{
-		perror("minishell: pwd");
+		print_error("pwd", 0, strerror(errno));
 		return (1);
 	}
 	return (0);
