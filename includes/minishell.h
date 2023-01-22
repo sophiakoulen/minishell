@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 16:06:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 17:18:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,10 @@ void		words_print(t_list *word);
 int			get_tree_width(t_tree *tree, int level);
 int			get_tree_height(t_tree *tree);
 int			get_tree_max_width(t_tree *tree);
+
+/* error_printer.c */
+
+void		print_error(char *program, char *arg, char *msg);
 
 /* ************************************************************************** */
 /*   structs                                                                  */

@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/22 16:06:14 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/22 17:16:55 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 					exec_builtin    exec_pipeline   simple_cmd                \
 					launch_builtin
 TOKENIZER_FILES	=	tokenizer       token_list
-UTILS_FILES		=	utils_1         utils_2         tree_ops
+UTILS_FILES		=	utils_1         utils_2         tree_ops         error_printer
 ENVIRONMENT		=   environment		env_utils       env_sort
 
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
