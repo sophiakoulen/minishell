@@ -69,6 +69,11 @@
 	- error when identifier contains invalid characters
 - env:
 	- env prints the variables environment variable and their values (no specific order)
+- cd:
+	- error handling
+- exit:
+	- exit cleanly the shell
+	- work with and without arguments
 
 ## leaks
 - check leaks during execution and at exit using Leaks
