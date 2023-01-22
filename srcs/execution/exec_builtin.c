@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 13:24:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:05:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	exec_builtin(enum e_builtin n, char **args, t_env **env)
 {
 	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env **) = {
 		exec_echo,
-		builtin_passthrough, // cd
+		exec_cd,
 		exec_pwd,
 		exec_export,
 		exec_unset,
