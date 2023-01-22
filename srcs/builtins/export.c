@@ -6,14 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 13:13:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 13:23:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	split_equal(char *str, char **identifier, char **value);
-static int	is_valid_identifier(char *str);
 static void	print_export(t_env *env);
 static char	*escape_dquotes(char *str);
 
@@ -91,21 +90,6 @@ static int	split_equal(char *str, char **identifier, char **value)
 	if (str[i] == '=')
 		*value = ft_strdup(str + i + 1);
 	return (0);
-}
-
-/*
-	Checks if a string is a valid identifier for export.
-
-	Valid identifiers may only contain letters, digits and
-	underscores, and must not start with a digit.
-*/
-static int	is_valid_identifier(char *str)
-{
-	if (ft_isdigit(*str))
-		return (0);
-	while (ft_isalnum(*str) || *str == '_')
-		str++;
-	return (*str == '\0');
 }
 
 /*

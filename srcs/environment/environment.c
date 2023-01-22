@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 10:57:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:22:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,19 @@ char	*ret_env_key(t_env *env, char *key)
 		env = env->next;
 	}
 	return (NULL);
+}
+
+/*
+	Checks if a string is a valid identifier for export.
+
+	Valid identifiers may only contain letters, digits and
+	underscores, and must not start with a digit.
+*/
+int	is_valid_identifier(char *str)
+{
+	if (ft_isdigit(*str))
+		return (0);
+	while (ft_isalnum(*str) || *str == '_')
+		str++;
+	return (*str == '\0');
 }

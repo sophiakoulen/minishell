@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 15:51:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 15:52:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			exec_pwd(char **args, t_env **env);
 int			exec_exit(char **args, t_env **env);
 int			exec_env(char **args, t_env **env);
 int			exec_export(char **args, t_env **env);
+int			exec_unset(char **args, t_env **env);
 
 /* custom */
 int			exec_shout(char **args, t_env **env);
@@ -50,6 +51,7 @@ int			exec_shout(char **args, t_env **env);
 t_env		*init_env(char **envp);
 char		**env_to_strarr(t_env *env);
 char		*ret_env_key(t_env *env, char *key);
+int			is_valid_identifier(char *str);
 
 /* env_utils.c */
 size_t		size_env(t_env *env);
