@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:29:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 16:07:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:10:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /*
 	cd builtin: Change working directory.
+
+	TO DO: Update $PWD and $OLDPWD variables.
 */
 int	exec_cd(char **args, t_env **env)
 {

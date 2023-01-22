@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:17:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:49:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:32:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ t_env	*env_factory(t_env *blueprint)
 
 void	env_cleanup(t_env *env)
 {
-	(void)env;
+	free(env->key);
+	free(env->value);
+	free(env);
 }

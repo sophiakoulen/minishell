@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 11:51:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:32:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 	returns the number of elements in env
- */
+*/
 size_t	size_env(t_env *env)
 {
 	size_t	len;
@@ -31,19 +31,10 @@ size_t	size_env(t_env *env)
 void	env_add(t_env **env, char *key, char *value)
 {
 	t_env	*current;
-	t_env	*new_node;
+	t_env	*node;
 
 	if (!*key)
 		return ;
-	new_node = x_malloc(sizeof(*new_node), 1);
-	new_node->key = ft_strdup(key);
-	new_node->value = ft_strdup(value);
-	new_node->next = NULL;
-	if (*env == NULL)
-	{
-		*env = new_node;
-		return ;
-	}
 	current = *env;
 	while (current)
 	{
@@ -51,17 +42,14 @@ void	env_add(t_env **env, char *key, char *value)
 		{
 			free(current->value);
 			current->value = ft_strdup(value);
-			free(new_node->key);
-			free(new_node->value);
-			free(new_node);
 			break ;
 		}
 		current = current->next;
 	}
 	if (current == NULL)
 	{
-		new_node->next = *env;
-		*env = new_node;
+		node = env_factory(&(t_env){ft_strdup(key), ft_strdup(value), *env});
+		*env = node;
 	}
 }
 
@@ -82,7 +70,7 @@ void	env_remove(t_env **env, char *key)
 				previous->next = next;
 			else
 				*env = next;
-			free(current);
+			env_cleanup(current);
 			break ;
 		}
 		previous = current; 

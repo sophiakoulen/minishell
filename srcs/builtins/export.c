@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 13:23:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 16:28:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	exec_export(char **args, t_env **env)
 			if (value)
 				env_add(env, identifier, value);
 		}
+		free(identifier);
+		free(value);
 		args++;
 	}
 	return (ret);
