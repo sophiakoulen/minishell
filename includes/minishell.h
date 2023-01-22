@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 15:49:05 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 15:51:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ char		*ret_env_key(t_env *env, char *key);
 size_t		size_env(t_env *env);
 void		env_add(t_env **env, char *key, char *value);
 void		env_remove(t_env **env, char *key);
+
+/* env_sort.c */
+void		sort_env(t_env **env);
 
 /* ************************************************************************** */
 /*   exicution                                                                */

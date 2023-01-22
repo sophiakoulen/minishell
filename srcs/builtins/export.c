@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 12:09:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 13:13:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	split_equal(char *str, char **identifier, char **value);
 static int	is_valid_identifier(char *str);
+static void	print_export(t_env *env);
+static char	*escape_dquotes(char *str);
 
 /*
 	export builtin: set environment variables.
@@ -44,6 +46,8 @@ int	exec_export(char **args, t_env **env)
 	char	*value;
 
 	ret = 0;
+	if (!*args)
+		print_export(*env);
 	while (*args)
 	{
 		split_equal(*args, &identifier, &value);
@@ -55,15 +59,24 @@ int	exec_export(char **args, t_env **env)
 		else
 		{
 			if (value)
-			{
 				env_add(env, identifier, value);
-			}
 		}
 		args++;
 	}
 	return (ret);
 }
 
+/*
+	Split a string into an identifier and a value,
+	at the first "=" sign.
+
+	Note that if the first character of the string is "=",
+	it is not taken into account as the delimiter.
+
+	If there is no "=" sign, value is set to NULL.
+	If the first "=" sign is the last character,
+	value is set to the empty string. 
+*/
 static int	split_equal(char *str, char **identifier, char **value)
 {
 	int	i;
@@ -80,6 +93,12 @@ static int	split_equal(char *str, char **identifier, char **value)
 	return (0);
 }
 
+/*
+	Checks if a string is a valid identifier for export.
+
+	Valid identifiers may only contain letters, digits and
+	underscores, and must not start with a digit.
+*/
 static int	is_valid_identifier(char *str)
 {
 	if (ft_isdigit(*str))
@@ -87,4 +106,60 @@ static int	is_valid_identifier(char *str)
 	while (ft_isalnum(*str) || *str == '_')
 		str++;
 	return (*str == '\0');
+}
+
+/*
+	Print environment variables, sorted alphabetically.
+
+	Each variable is printed in the format:
+		declare -x {id}="{val}"
+	where {id} is the identifier and {val} the value.
+
+	Attention: Note that {val} is printed with double-quotes
+	and dollar-signs escaped using backslashes.
+
+	Example: a variable that has identifier var and value hello"$ will
+	be printed as follows:
+		declare -x var="hello\"\$"
+*/
+static void	print_export(t_env *env)
+{
+	t_env	*current;
+	char	*escaped;
+
+	sort_env(&env);
+	current = env;
+	while (current)
+	{
+		escaped = escape_dquotes(current->value);
+		ft_printf("declare -x %s=\"%s\"\n", current->key, escaped);
+		free(escaped);
+		current = current->next;
+	}	
+}
+
+/*
+	Escape double-quotes and dollar-signs.
+	A backslash is placed before each of these characters.
+*/
+static char	*escape_dquotes(char *str)
+{
+	int		i;
+	char	*res;
+
+	res = x_malloc(1, 2 * ft_strlen(str) + 1);
+	i = 0;
+	while (*str)
+	{
+		if (*str == '"' || *str == '$')
+		{
+			res[i] = '\\';
+			i++;
+		}
+		res[i] = *str;
+		i++;
+		str++;
+	}
+	res[i] = 0;
+	return (res);
 }
