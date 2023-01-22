@@ -6,13 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:23:40 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 17:03:42 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:25:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env)
+int	launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env **env)
 {
 	int	stdin_clone;
 	int	stdout_clone;

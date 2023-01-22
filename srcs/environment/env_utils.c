@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 18:48:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:51:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	env_add(t_env **env, char *key, char *value)
 	t_env	*current;
 	t_env	*new_node;
 
+	if (!*key)
+		return ;
 	new_node = x_malloc(sizeof(*new_node), 1);
 	new_node->key = ft_strdup(key);
 	new_node->value = ft_strdup(value);
@@ -43,7 +45,7 @@ void	env_add(t_env **env, char *key, char *value)
 		return ;
 	}
 	current = *env;
-	while (current->next)
+	while (current)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
 		{

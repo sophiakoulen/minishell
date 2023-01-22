@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 16:10:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:28:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env)
 	}
 	if (info->builtin != -1)
 	{
-		info->status = launch_builtin(cmd, info, fds, env);
+		info->status = launch_builtin(cmd, info, fds, &env);
 	} 
 	else if (info->full_path)
 	{

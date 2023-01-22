@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/20 19:37:17 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/22 15:49:23 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 BUILTINS		=	echo            pwd             env             exit      \
-					shout
+					shout			export
 EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
 					quote_removal   param_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/21 01:30:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:48:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	check_args(int argc, char **argv);
 static void	interactive_shell(t_env *env);
-static int	exec_line(char *line, t_env *env);
+static int	exec_line(char *line, t_env **env);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -53,12 +53,12 @@ static void	interactive_shell(t_env *env)
 			break ;
 		if (*line)
 			add_history(line);
-		exec_line(line, env);
+		exec_line(line, &env);
 		free(line);
 	}
 }
 
-static int	exec_line(char *line, t_env *env)
+static int	exec_line(char *line, t_env **env)
 {
 	int					ret;
 	t_token				*tok_list;
@@ -74,7 +74,7 @@ static int	exec_line(char *line, t_env *env)
 		parsed = x_malloc(sizeof(*parsed), 1);
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
-			pipeline = expand_pipeline(parsed, env);
+			pipeline = expand_pipeline(parsed, *env);
 			ret = exec_pipeline(pipeline, env);
 			pipeline_cleanup(pipeline);
 			free(pipeline);

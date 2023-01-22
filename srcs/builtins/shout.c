@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:16:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:22:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	str_cap(char *str)
 /*
 	shout builtin (custom): like echo but all caps.
 */
-int	exec_shout(char **args, t_env *env)
+int	exec_shout(char **args, t_env **env)
 {
 	char	*line;
 	int		no_newline;

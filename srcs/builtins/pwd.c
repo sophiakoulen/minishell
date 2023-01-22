@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:13:18 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:16:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:22:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 	Should we print errors if options are supplied?
 */
-int	exec_pwd(char **args, t_env *env)
+int	exec_pwd(char **args, t_env **env)
 {
 	char	cwd[PATH_MAX + 1];
 

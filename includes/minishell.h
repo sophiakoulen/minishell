@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 19:37:31 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 15:49:05 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@
 /*   builtins                                                                 */
 /* ************************************************************************** */
 
-int			exec_echo(char **args, t_env *env);
-int			exec_pwd(char **args, t_env *env);
-int			exec_exit(char **args, t_env *env);
-int			exec_env(char **args, t_env *env);
+int			exec_echo(char **args, t_env **env);
+int			exec_pwd(char **args, t_env **env);
+int			exec_exit(char **args, t_env **env);
+int			exec_env(char **args, t_env **env);
+int			exec_export(char **args, t_env **env);
 
 /* custom */
-int			exec_shout(char **args, t_env *env);
+int			exec_shout(char **args, t_env **env);
 
 /* ************************************************************************** */
 /*   environment                                                              */
@@ -60,7 +61,7 @@ void		env_remove(t_env **env, char *key);
 /* ************************************************************************** */
 
 /* exec pipeline */
-int			exec_pipeline(t_pipeline *p, t_env *env);
+int			exec_pipeline(t_pipeline *p, t_env **env);
 
 /* heredoc */
 
@@ -98,17 +99,16 @@ int			*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n, t_env *env)
 
 /* simple_cmd_exec.c */
 
-int			simple_command(t_cmd *cmds, t_fds *fds, t_env *env);
+int			simple_command(t_cmd *cmds, t_fds *fds, t_env **env);
 
 /* exec_builtin.c */
 
 int			ret_builtin_enum(char *str);
 const char	*ret_builtin_literal(enum e_builtin n);
-int			exec_builtin(enum e_builtin n, char **args, t_env *env);
+int			exec_builtin(enum e_builtin n, char **args, t_env **env);
 
 /* launch_builtin.c */
-
-int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env);
+int			launch_builtin(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env **env);
 
 /* ************************************************************************** */
 /*   expansion                                                                */

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:14:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:24:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ const char	*ret_builtin_literal(enum e_builtin n)
 /*
 	Just say we don't support this builtin.
 */
-static int	builtin_passthrough(char **args, t_env *env)
+static int	builtin_passthrough(char **args, t_env **env)
 {
 	(void)args;
 	(void)env;
@@ -69,13 +69,13 @@ static int	builtin_passthrough(char **args, t_env *env)
  * executed the builtin using args as it's argument,
  * or NULL if not in list.
 */
-int	exec_builtin(enum e_builtin n, char **args, t_env *env)
+int	exec_builtin(enum e_builtin n, char **args, t_env **env)
 {
-	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env *) = {
+	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env **) = {
 		exec_echo,
 		builtin_passthrough, // cd
 		exec_pwd,
-		builtin_passthrough, // export
+		exec_export, // export
 		builtin_passthrough, // unset
 		exec_env,
 		exec_exit,

@@ -6,13 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:26:42 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/20 17:27:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:22:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_unset(char **args, t_env *env)
+int	exec_unset(char **args, t_env **env)
 {
 	(void)args;
 	(void)env;

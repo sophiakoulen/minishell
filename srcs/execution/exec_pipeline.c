@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 13:11:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/22 11:28:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 	If there is only one command, we don't fork.
 */
-int	exec_pipeline(t_pipeline *p, t_env *env)
+int	exec_pipeline(t_pipeline *p, t_env **env)
 {
 	t_fds	*fds;
 	int		ret;
@@ -28,7 +28,7 @@ int	exec_pipeline(t_pipeline *p, t_env *env)
 	if (p->n_cmds == 1)
 		ret = simple_command(p->cmds, fds, env);
 	else
-		ret = multiple_commands(p->cmds, fds, p->n_cmds, env);
+		ret = multiple_commands(p->cmds, fds, p->n_cmds, *env);
 	cleanup_fds(fds, p->n_cmds);
 	return (ret);
 }
