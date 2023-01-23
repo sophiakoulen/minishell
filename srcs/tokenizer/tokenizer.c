@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 12:42:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 14:54:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static int	string_detection(t_token *tok, char **str)
 	i = 0;
 	while (!end_of_string((*str)[i], single_q, double_q) && (int)tok->type == -1)
 	{
-		if ((*str)[i] == 34)
+		if ((*str)[i] == 34 && !single_q)
 			double_q ^= 1U;
-		if ((*str)[i] == 39)
+		if ((*str)[i] == 39 && !double_q)
 			single_q ^= 1U;
 		if (!single_q && !double_q)
 			tok->type = check_token_literals(*str + i);
@@ -82,7 +82,7 @@ static int	string_detection(t_token *tok, char **str)
 	}
 	if (single_q || double_q)
 	{
-		print_error(0, 0, "expected closing quote");
+		print_error(0, 0, "expecting closing quote");
 		return (-1);
 	}
 	if ((int)tok->type != -1)
