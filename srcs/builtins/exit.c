@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:34:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:58:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	exec_exit(char **args, t_env **env, int prev)
 			print_error("exit", *args, "numeric argument required");
 			exit(255);
 		}
-		ret_code = prev;
+		ret_code = ft_atoi(*args);
 		args++;
 		i++;
 	}
