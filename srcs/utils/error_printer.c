@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:08:26 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:45:43 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 14:47:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void	print_error(char *program, char *arg, char *msg)
 	char	*prefix;
 	char	*buffer;
 
-	prefix = "minishell: ";
+	prefix = "minishell";
 	len = calc_len(prefix, program, arg, msg);
 	buffer = x_malloc(1, len);
 	ft_strlcpy(buffer, prefix, len);
+	ft_strlcat(buffer, ": ", len);
 	if (program)
 	{
 		ft_strlcat(buffer, program, len);
@@ -45,7 +46,7 @@ void	print_error(char *program, char *arg, char *msg)
 	}
 	ft_strlcat(buffer, msg, len);
 	ft_strlcat(buffer, "\n", len);
-	write(2, buffer, len);
+	write(2, buffer, len - 1);
 	free(buffer);
 }
 
@@ -81,6 +82,6 @@ static int	calc_len(char *prefix, char *program, char *arg, char *msg)
 	if (program)
 		len += ft_strlen(program) + 2;
 	if (arg)
-		len += ft_strlen(arg);
+		len += ft_strlen(arg) + 2;
 	return (len);
 }

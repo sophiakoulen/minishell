@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/22 17:16:55 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/23 14:42:43 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
-$(NAME)	: $(LIB_N) $(OBJS)
+$(NAME)	: $(LIBFT_N) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
 
 $(LIBFT_N):
@@ -95,12 +95,13 @@ run-tests : re
 
 clean	:
 	$(RM) $(OBJS)
+	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean	: clean
 	$(RM) $(NAME) $(LIBMINISHELL)
 	$(MAKE) fclean -C unit-tests
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re		: fclean all
-	$(MAKE) re -C $(LIBFT_DIR)
 
 .PHONY	: all clean fclean re
