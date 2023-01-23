@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:57:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:13:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	string_decetion(t_token *tok, char **str)
  * TODO: this needs to be fixed!
  * The ' " are ignored and we still parce the tokens contained within
 */
-static t_token	*lexer(char	**str)
+t_token	*lexer(char	**str)
 {
 	t_token	*tok;
 
@@ -97,50 +97,4 @@ static t_token	*lexer(char	**str)
 	else
 		string_decetion(tok, str);
 	return (tok);
-}
-
-/**
- * This will make a new linked list of the found tokens.
- */
-t_token	*construct_tok_list(char *str)
-{
-	t_token	*start;
-	t_token	*end;
-	t_token	*tmp;
-
-	start = NULL;
-	while (1)
-	{
-		tmp = lexer(&str);
-		if (start == NULL)
-		{
-			start = tmp;
-			end = start;
-		}
-		else
-		{
-			end->next = tmp;
-			end = end->next;
-		}
-		if (tmp->type == e_end)
-			return (start);
-	}
-}
-
-void	tok_list_cleanup(t_token *lst)
-{
-	t_token *previous;
-
-	previous = 0;
-	while (lst)
-	{
-		if (previous)
-			free(previous->str);
-		free(previous);
-		previous = lst;
-		lst = lst->next;
-	}
-	if (previous)
-		free(previous->str);
-	free(previous);
 }

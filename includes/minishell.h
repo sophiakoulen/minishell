@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:46:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:13:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,11 @@ t_cmd		*cmd_factory(t_cmd *blueprint);
 /* token_list.c */
 
 void		next_token(t_token **list);
-
-/* tokenizer */
-
 t_token		*construct_tok_list(char *str);
 void		tok_list_cleanup(t_token *lst);
+
+/* tokenizer */
+t_token		*lexer(char	**str);
 
 /* ************************************************************************** */
 /*   utils                                                                    */
