@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:43:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 11:13:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:10:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,24 @@
 /**
  * This will make a new linked list of the found tokens.
  */
-t_token	*construct_tok_list(char *str)
+int	construct_tok_list(t_token **lst, char *str)
 {
-	t_token	*start;
 	t_token	*end;
 	t_token	*tmp;
 
-	start = NULL;
+	*lst = NULL;
 	while (1)
 	{
-		tmp = lexer(&str);
-		if (start == NULL)
+		if (lexer(&tmp, &str) != 0)
 		{
-			start = tmp;
-			end = start;
+			token_cleanup(tmp);
+			tok_list_cleanup(*lst);
+			return (-1);
+		}
+		if (*lst == NULL)
+		{
+			*lst = tmp;
+			end = *lst;
 		}
 		else
 		{
@@ -36,7 +40,7 @@ t_token	*construct_tok_list(char *str)
 			end = end->next;
 		}
 		if (tmp->type == e_end)
-			return (start);
+			return (0);
 	}
 }
 
@@ -47,15 +51,11 @@ void	tok_list_cleanup(t_token *lst)
 	previous = 0;
 	while (lst)
 	{
-		if (previous)
-			free(previous->str);
-		free(previous);
+		token_cleanup(previous);
 		previous = lst;
 		lst = lst->next;
 	}
-	if (previous)
-		free(previous->str);
-	free(previous);
+	token_cleanup(previous);
 }
 
 

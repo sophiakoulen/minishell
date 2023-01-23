@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 11:41:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:50:38 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_token_literals(char *str)
 	To do: when encountering closing quote, an error status should be returned.
 	Important!!
 */
-static void	string_detection(t_token *tok, char **str)
+static int	string_detection(t_token *tok, char **str)
 {
 	int	i;
 	int	single_q;
@@ -72,27 +72,32 @@ static void	string_detection(t_token *tok, char **str)
 		i++;
 	}
 	if (single_q || double_q)
+	{
 		print_error(0, 0, "expected closing quote");
+		return (-1);
+	}
 	tok->type = e_string;
 	tok->str = ft_substr(*str, 0, i);
 	*str += i;
+	return (0);
 }
 
 /*
 	Returns the next token and advances the input str past it
 */
-t_token	*lexer(char	**str)
+int	lexer(t_token **tok, char **str)
 {
-	t_token	*tok;
+	int	ret;
 
+	ret = 0;
 	while (ft_isspace(**str))
 		(*str)++;
-	tok = token_factory(NULL, NULL, check_token_literals(*str));
-	if (tok->type == e_end)
+	*tok = token_factory(NULL, NULL, check_token_literals(*str));
+	if ((*tok)->type == e_end)
 		;
-	else if ((int)tok->type != -1)
-		*str = *str + ft_strlen(ret_token_literal(tok->type));
+	else if ((int)(*tok)->type != -1)
+		*str = *str + ft_strlen(ret_token_literal((*tok)->type));
 	else
-		string_detection(tok, str);
-	return (tok);
+		ret = string_detection((*tok), str);
+	return (ret);
 }

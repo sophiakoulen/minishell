@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 15:27:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:58:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ t_token	*token_factory(t_token *next, char *str, enum e_token_type type)
 	ret->str = str;
 	ret->type = type;
 	return (ret);
+}
+
+void	token_cleanup(t_token *tok)
+{
+	if (tok)
+		free(tok->str);
+	free(tok);
 }
 
 /**
