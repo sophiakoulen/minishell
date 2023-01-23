@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 11:50:38 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:34:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ static int	check_token_literals(char *str)
 	return (-1);
 }
 
+static int	end_of_string(char c, int sq, int dq)
+{
+	if (!c)
+		return (1);
+	if (!sq && !dq && ft_isspace(c))
+		return (1);
+	return (0);
+}
+
 /*
 	Feed the incoming string to the token and advance the input pointer.
 
@@ -61,7 +70,7 @@ static int	string_detection(t_token *tok, char **str)
 	single_q = 0;
 	double_q = 0;
 	i = 0;
-	while ((*str)[i] && (int)tok->type == -1)
+	while (!end_of_string((*str)[i], single_q, double_q) && (int)tok->type == -1)
 	{
 		if ((*str)[i] == 34)
 			double_q ^= 1U;
