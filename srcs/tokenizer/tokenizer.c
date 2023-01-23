@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 11:16:18 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:38:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,21 @@ static int	check_token_literals(char *str)
 }
 
 /*
+	Feed the incoming string to the token and advance the input pointer.
+
+	How it works: while another token type is not detected, we increment i.
+	If we're then still in a quoted state, we have a syntax error.
+
+	Then, when we've computed the length of the string, we can substr it.
+
+	Finally, we increment the pointer by the length of the string.
+
 	To do: when encountering closing quote, an error status should be returned.
 	Important!!
 */
 static void	string_detection(t_token *tok, char **str)
 {
 	int	i;
-	int	backwards;
 	int	single_q;
 	int	double_q;
 
@@ -58,20 +66,14 @@ static void	string_detection(t_token *tok, char **str)
 			double_q ^= 1U;
 		if ((*str)[i] == 39)
 			single_q ^= 1U;
-		if (!single_q)
-			if (!double_q)
-				tok->type = check_token_literals(*str + i);
+		if (!single_q && !double_q)
+			tok->type = check_token_literals(*str + i);
 		i++;
 	}
 	if (single_q || double_q)
 		print_error(0, 0, "expected closing quote");
-	if ((int)tok->type != -1)
-		i--;
-	backwards = i - 1;
-	while (ft_isspace((*str)[backwards]))
-		backwards--;
 	tok->type = e_string;
-	tok->str = ft_substr(*str, 0, backwards + 1);
+	tok->str = ft_substr(*str, 0, i);
 	*str += i;
 }
 
@@ -86,10 +88,7 @@ t_token	*lexer(char	**str)
 
 	while (ft_isspace(**str))
 		(*str)++;
-	tok = x_malloc(sizeof(t_token), 1);
-	tok->next = NULL;
-	tok->str = NULL;
-	tok->type = check_token_literals(*str);
+	tok = token_factory(NULL, NULL, check_token_literals(*str));
 	if (tok->type == e_end)
 		;
 	else if ((int)tok->type != -1)
