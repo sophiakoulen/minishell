@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 13:23:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:57:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static char	*get_double_q_word(char **str)
 	i = 1;
 	if ((*str)[0] == '\0')
 		return (ft_substr(*str, 0, 0));
-	while ((*str)[i] && (*str)[i] != '$')
+	while ((*str)[i])
 	{
 		if ((*str)[i] == DOUBLE_QUOTE)
 		{
