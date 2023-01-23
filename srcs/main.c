@@ -6,24 +6,25 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 21:46:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 22:16:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	check_args(int argc, char **argv);
-static void	interactive_shell(t_env *env);
-static int	exec_line(char *line, t_env **env);
+static void	interactive_shell(t_env *env, int *retn);
+static int	exec_line(char *line, t_env **env, int *retn);
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env	*env;
+	t_env		*env;
+	static int	retn;
 
 	setup_sigaction();
 	env = init_env(envp);
 	check_args(argc, argv);
-	interactive_shell(env);
+	interactive_shell(env, &retn);
 	return (0);
 }
 
@@ -43,7 +44,7 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
-static void	interactive_shell(t_env *env)
+static void	interactive_shell(t_env *env, int *retn)
 {
 	char	*line;
 
@@ -51,17 +52,20 @@ static void	interactive_shell(t_env *env)
 	{
 		line = readline("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
 		if (!line)
+		{
+			exec_exit(NULL, &env, *retn);
 			break ;
+		}
 		if (*line)
 			add_history(line);
-		exec_line(line, &env);
+		exec_line(line, &env, retn);
 		free(line);
 	}
 }
 
-static int	exec_line(char *line, t_env **env)
+static int	exec_line(char *line, t_env **env, int *retn)
 {
-	static int			ret = 0;
+	// static int			ret = 0;
 	t_token				*tok_list;
 	t_token				*start;
 	t_parsed_pipeline	*parsed;
@@ -69,8 +73,8 @@ static int	exec_line(char *line, t_env **env)
 
 	if (construct_tok_list(&tok_list, line) != 0)
 	{
-		ret = 258;
-		return (ret);
+		*retn = 258;
+		return (*retn);
 	}
 	start = tok_list;
 	if (start->type != e_end)
@@ -79,14 +83,14 @@ static int	exec_line(char *line, t_env **env)
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
 			pipeline = expand_pipeline(parsed, *env);
-			ret = exec_pipeline(pipeline, env, ret);
+			*retn = exec_pipeline(pipeline, env, *retn);
 			pipeline_cleanup(pipeline);
 			free(pipeline);
 		}
 		else
-			ret = 258;
+			*retn = 258;
 		parsed_pipeline_cleanup(parsed);
 	}
 	tok_list_cleanup(start);
-	return (ret);
+	return (*retn);
 }

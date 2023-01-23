@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:58:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 22:18:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	exec_exit(char **args, t_env **env, int prev)
 		i++;
 	}
 	// cleanup functions?
+	write(1, &"exit\n", 6);
 	exit(ret_code);
 	return (0);
 }
