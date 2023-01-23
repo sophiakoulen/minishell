@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:42:35 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:06:14 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ static char	*escape_dquotes(char *str)
 	i = 0;
 	while (*str)
 	{
-		if (*str == '"' || *str == '$')
+		if (*str == '"' || *str == '$' || *str == '\\')
 		{
 			res[i] = '\\';
 			i++;
