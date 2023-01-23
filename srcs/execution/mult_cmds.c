@@ -6,15 +6,15 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 16:26:46 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 17:07:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	wait_all(int n, int *pids);
-static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n, t_env *env, int prev);
-static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env, int prev);
+static int	launch_child(t_cmd_info *cmd, t_fds *fds, int n, t_env *env, int prev);
+static void	exec_cmd(t_cmd_info *cmd, t_fds *fds, t_env *env, int prev);
 
 /*
 	Execute a pipeline containing multiple commands.
@@ -30,7 +30,7 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n, t_env *env, int prev)
 	int			ret;
 
 	infos = prepare_all_cmds(cmds, fds, n, env);
-	pids = launch_all(cmds, infos, fds, n, env, prev);
+	pids = launch_all(infos, fds, n, env, prev);
 	do_all_heredocs(infos, fds->hd_pipes, n);
 	cleanup_all_info(infos, n);
 	close_fds(fds, n);
@@ -39,7 +39,7 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n, t_env *env, int prev)
 	return (compute_return_value(ret));
 }
 
-int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n, t_env *env, int prev)
+int	*launch_all(t_cmd_info *cmds, t_fds *fds, int n, t_env *env, int prev)
 {
 	int	*pids;
 	int	i;
@@ -48,7 +48,7 @@ int	*launch_all(t_cmd *cmds, t_cmd_info *infos, t_fds *fds, int n, t_env *env, i
 	i = 0;
 	while (i < n)
 	{
-		pids[i] = launch_child(&cmds[i], &infos[i], fds, n, env, prev);
+		pids[i] = launch_child(&cmds[i], fds, n, env, prev);
 		i++;
 	}
 	return (pids);
@@ -68,7 +68,7 @@ static int	wait_all(int n, int *pids)
 	return (status);
 }
 
-static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n, t_env *env, int prev)
+static int	launch_child(t_cmd_info *cmd, t_fds *fds, int n, t_env *env, int prev)
 {
 	int	pid;
 
@@ -80,34 +80,34 @@ static int	launch_child(t_cmd *cmd, t_cmd_info *info, t_fds *fds, int n, t_env *
 	}
 	if (pid == 0)
 	{
-		redirect(info->i_fd, info->o_fd);
+		redirect(cmd->i_fd, cmd->o_fd);
 		close_fds(fds, n);
-		exec_cmd(cmd, info, fds, env, prev);
+		exec_cmd(cmd, fds, env, prev);
 		close(0);
 		close(1);
-		exit(info->status);
+		exit(cmd->status);
 	}
 	return (pid);
 }
 
-static void	exec_cmd(t_cmd *cmd, t_cmd_info *info, t_fds *fds, t_env *env, int prev)
+static void	exec_cmd(t_cmd_info *cmd, t_fds *fds, t_env *env, int prev)
 {
 	char	**env_array;
 
-	if (info->status != 0)
+	if (cmd->status != 0)
 	{
 		return ;
 	}
-	if (info->builtin != -1)
+	if (cmd->builtin != -1)
 	{
-		info->status = launch_builtin(cmd, info, fds, &env, prev);
+		cmd->status = launch_builtin(cmd, fds, &env, prev);
 	} 
-	else if (info->full_path)
+	else if (cmd->full_path)
 	{
 		env_array = env_to_strarr(env);
-		execve(info->full_path, cmd->args, env_array);
+		execve(cmd->full_path, cmd->args, env_array);
 		strarr_cleanup(env_array);
 		perror("execve failed");
-		info->status = 1;
+		cmd->status = 1;
 	}
 }
