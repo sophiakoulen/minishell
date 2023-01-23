@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/23 17:53:33 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/23 18:35:25 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
 					quote_removal   param_expansion
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
+SIGNALS_FILES	=	signals
 STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
 					t_cmd_info      t_tree_print    t_fds           t_item    \
 					t_env           t_pipeline      t_parsed_cmd              \
@@ -48,15 +49,17 @@ ENVIRONMENT		=   environment		env_utils       env_sort
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
 EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
 PARSING_FILES	:=	$(addprefix parsing/, 	$(PARSING_FILES))
+SIGNALS_FILES	:=	$(addprefix signals/, 	$(SIGNALS_FILES))
 STRUCT_FILES	:=	$(addprefix structs/, 	$(STRUCT_FILES))
 EXECUTION_FILES	:=	$(addprefix execution/,	$(EXECUTION_FILES))
 TOKENIZER_FILES	:=	$(addprefix tokenizer/,	$(TOKENIZER_FILES))
 UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
 ENVIRONMENT		:=	$(addprefix environment/, $(ENVIRONMENT))
 
+
 FILES		=	main	$(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
 						$(STRUCT_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) \
-						$(UTILS_FILES) $(ENVIRONMENT)
+						$(UTILS_FILES) $(ENVIRONMENT) $(SIGNALS_FILES)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))

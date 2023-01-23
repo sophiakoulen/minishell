@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 17:14:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 18:35:40 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "stdio.h"
+# include <signal.h>
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -201,6 +202,15 @@ int			get_tree_max_width(t_tree *tree);
 
 void		print_error(char *program, char *arg, char *msg);
 char		*in_quotes(char *str);
+
+/* ************************************************************************** */
+/*   utils                                                                    */
+/* ************************************************************************** */
+
+/* signals.c */
+
+void	handler(int sig);
+void	setup_sigaction(void);
 
 /* ************************************************************************** */
 /*   structs                                                                  */
