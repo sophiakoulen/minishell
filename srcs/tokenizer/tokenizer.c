@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 11:38:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:41:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
  * helper function for the lexer,
  * checks if str at it's currrent point is a token from the list,
  * returns the corresponding enum or -1
+
  * TODO: maybe it's a good idea to return e_string instead of -1
  * as that's what it really means.
 */
@@ -77,10 +78,8 @@ static void	string_detection(t_token *tok, char **str)
 	*str += i;
 }
 
-/**
- * Returns the next token and anvances the input str past it
- * TODO: this needs to be fixed!
- * The ' " are ignored and we still parce the tokens contained within
+/*
+	Returns the next token and advances the input str past it
 */
 t_token	*lexer(char	**str)
 {
