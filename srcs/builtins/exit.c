@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:33:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:34:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static int	is_numeric(char *str);
 		If it isn't numeric, an error is printed and the exit status is 255.
 	If no argument is supplied, the exit code is that of the last command.
 */
-int	exec_exit(char **args, t_env **env)
+int	exec_exit(char **args, t_env **env, int prev)
 {
 	int	ret_code;
 	int	i;
 
 	(void)env;
 	i = 0;
-	ret_code = 0; //fetch exit code from last command here!!
+	ret_code = prev;
 	while (args && *args)
 	{
 		if (i > 0)
@@ -42,7 +42,7 @@ int	exec_exit(char **args, t_env **env)
 			print_error("exit", *args, "numeric argument required");
 			exit(255);
 		}
-		ret_code = ft_atoi(*args);
+		ret_code = prev;
 		args++;
 		i++;
 	}

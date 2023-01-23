@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 11:58:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:33:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ static void	interactive_shell(t_env *env)
 
 static int	exec_line(char *line, t_env **env)
 {
-	int					ret;
+	static int			ret = 0;
 	t_token				*tok_list;
 	t_token				*start;
 	t_parsed_pipeline	*parsed;
 	t_pipeline			*pipeline;
 
-	ret = 0;
 	if (construct_tok_list(&tok_list, line) != 0)
-		return (258);
+	{
+		ret = 258;
+		return (ret);
+	}
 	start = tok_list;
 	if (start->type != e_end)
 	{
@@ -76,7 +78,7 @@ static int	exec_line(char *line, t_env **env)
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
 			pipeline = expand_pipeline(parsed, *env);
-			ret = exec_pipeline(pipeline, env);
+			ret = exec_pipeline(pipeline, env, ret);
 			pipeline_cleanup(pipeline);
 			free(pipeline);
 		}

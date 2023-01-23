@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 11:21:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:27:38 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static int	is_valid_option(char *arg);
 	Arguments are separated by spaces and followed by a newline.
 	If option "-n" is specified, the newline is ommited.
 */
-int	exec_echo(char **args, t_env **env)
+int	exec_echo(char **args, t_env **env, int prev)
 {
 	char	*line;
 	int		options;
 
 	(void)env;
+	(void)prev;
 	if (!args)
 		return (2);
 	options = parse_options(&args);

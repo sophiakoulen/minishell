@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 16:05:47 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:25:15 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ const char	*ret_builtin_literal(enum e_builtin n)
 /*
 	Just say we don't support this builtin.
 */
-static int	builtin_passthrough(char **args, t_env **env)
+static int	builtin_passthrough(char **args, t_env **env, int prev)
 {
 	(void)args;
 	(void)env;
+	(void)prev;
 	ft_printf("don't support this builtin yet\n");
 	return (0);
 }
@@ -69,9 +70,9 @@ static int	builtin_passthrough(char **args, t_env **env)
  * executed the builtin using args as it's argument,
  * or NULL if not in list.
 */
-int	exec_builtin(enum e_builtin n, char **args, t_env **env)
+int	exec_builtin(enum e_builtin n, char **args, t_env **env, int prev)
 {
-	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env **) = {
+	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env **, int) = {
 		exec_echo,
 		exec_cd,
 		exec_pwd,
@@ -82,6 +83,6 @@ int	exec_builtin(enum e_builtin n, char **args, t_env **env)
 		exec_shout,
 	};
 	if (n > NUM_BUILTINS || n < 0)
-		return (builtin_passthrough(args, env));
-	return ((builtin_arr)[n](args, env));
+		return (builtin_passthrough(args, env, prev));
+	return ((builtin_arr)[n](args, env, prev));
 }

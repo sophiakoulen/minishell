@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:26:42 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:43:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:29:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 /*
 	unset builtin: unset environment variables.
 */
-int	exec_unset(char **args, t_env **env)
+int	exec_unset(char **args, t_env **env, int prev)
 {
 	int		ret;
 	char	*quoted_id;
 
+	(void)prev;
 	ret = 0;
 	while (*args)
 	{

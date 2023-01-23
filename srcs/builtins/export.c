@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 16:06:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 16:28:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ static char	*escape_dquotes(char *str);
 	- contain only digits, letters, underscores
 	- cannot start with a digit
 */
-int	exec_export(char **args, t_env **env)
+int	exec_export(char **args, t_env **env, int prev)
 {
 	int		ret;
 	char	*identifier;
 	char	*value;
 	char	*quoted_id;
 
+	(void)prev;
 	ret = 0;
 	if (!*args)
 		print_export(*env);
