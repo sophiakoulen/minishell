@@ -8,6 +8,19 @@
 In this project, we need to build a simplified version of Bash.
 We need to handle pipelines, input and output file redirections and variable expansion.
 
+
+## Getting Started
+
+- First you need to install readline, you can use the version of brew found here: [42homebrew](git@github.com:kube/42homebrew.git).
+- `brew install readline` to install readline
+- add readline to your enviroment under `READLINE` eg:
+-
+```bash
+vim .zshrc
+# add line
+export READLINE=/Users/znichola/.brew/Cellar/readline/8.2.1
+```
+
 ### About pipelines
 
 The `|` pipe operator allows to send to output of a command to the input of another command.
@@ -24,7 +37,7 @@ Example 3: `cat "file.txt" | grep hello | grep world` will filter the text and p
 
 Like bash, we can tell a command to take input or output from a file.
 
-`>` will write output to a file. 
+`>` will write output to a file.
 
 Example 1: `echo hello >outfile.txt` will print "hello" in outfile.txt.
 

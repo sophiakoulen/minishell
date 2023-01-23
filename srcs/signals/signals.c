@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:58:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 17:54:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:59:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handler(int sig)
 	{
 		write(1, &"\n", 1);
 		rl_on_new_line();
-		// rl_replace_line("\0", 0);
+		rl_replace_line("\0", 0);
 		rl_redisplay();
 	}
 }

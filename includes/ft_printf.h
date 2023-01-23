@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:08 by znichola          #+#    #+#             */
-/*   Updated: 2022/10/19 09:05:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:16:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 // apostrof, not manditory but cool, seperates nums into groups of 3
 // MANDETORY optional decimal number for minimum field width etc
 // # define PERIOD	(1U << 5)
-		// a period followed by optional digic string for min 
+		// a period followed by optional digic string for min
 		// number of digits to appear or max character printed
 // optional length modifier l ll etc.
 ////// END with a character that spesifies the converion type
@@ -58,12 +58,12 @@
 
 // # define FLAG_MASK (SPACE | HASH | PLUS | MINUS | ZERO)
 
-# define SPACE 1U
-# define HASH 8U
-# define PLUS 2048U
-# define MINUS 8192U
-# define PERIOD 16384U
-# define ZERO 65536U
+# define FT_SPACE 1U
+# define FT_HASH 8U
+# define FT_PLUS 2048U
+# define FT_MINUS 8192U
+# define FT_PERIOD 16384U
+# define FT_ZERO 65536U
 # define FLAG_MASK 92169U
 
 // # define CHR (1UL << ('c' - 'X'))
@@ -78,7 +78,7 @@
 // # define CHR (1U << 1) // 0000 0000 0000 0000  0000 0000 0000 0010
 // # define STR (1U << 2) // 0000 0000 0000 0000  0000 0000 0000 0100
 // # define PRT (1U << 3) // 0000 0000 0000 0000  0000 0000 0000 1000
-// # define DEC (1U << 4) // 0000 0000 0000 0000  0000 0000 0001 0000 
+// # define DEC (1U << 4) // 0000 0000 0000 0000  0000 0000 0001 0000
 // # define INT (1U << 5) // 0000 0000 0000 0000  0000 0000 0010 0000
 // # define USI (1U << 6) // 0000 0000 0000 0000  0000 0000 0100 0000
 // # define HES (1U << 7) // 0000 0000 0000 0000  0000 0000 1000 0000
@@ -143,7 +143,6 @@ int		ft_p_w_str(t_arg *arg);
 int		ft_p_w_int(t_arg *arg);
 int		ft_p_w_ptr(t_arg *arg);
 int		ft_p_w_uin(t_arg *arg);
-int		ft_p_w_bin(t_arg *arg);
 
 int		ft_count_lldigits(unsigned int base, long long n);
 int		ft_count_ulldigits(unsigned int base, unsigned long long n);
@@ -152,8 +151,8 @@ int		ft_p_ltoa_base_write(t_arg *arg, long long n, char *bstr);
 int		ft_p_str_chunk(int fd, const char **fmt);
 int		ft_p_formatted_chunk(int fd, const char **fmt, va_list *ap);
 int		ft_printf(const char *format, ...);
-
-char	*ft_itoa_base(int n, char *bstr);
+int		ft_printfd(int fd, const char *format, ...);
+int		ft_debug_printf(int fd, const char *format, ...);
 
 // LIBFT
 int		ft_p_isin(char c, char *s);
