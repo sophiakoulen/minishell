@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 16:28:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 22:36:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	do_single_heredoc(const char *delim, int fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (is_delim(line, delim))
+		if (line == NULL || is_delim(line, delim))
 		{
 			free(line);
 			break ;
