@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:39:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 16:31:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:20:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 		return (1);
 	str = argv[1];
-	tok = construct_tok_list(str);
+	construct_tok_list(&tok, str);
 	parse_cmd(&cmd, &tok);
 	print_parsed_cmd(cmd);
 	return (0);

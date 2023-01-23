@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:57:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 14:54:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
  * helper function for the lexer,
  * checks if str at it's currrent point is a token from the list,
  * returns the corresponding enum or -1
+
  * TODO: maybe it's a good idea to return e_string instead of -1
  * as that's what it really means.
 */
@@ -38,109 +39,76 @@ static int	check_token_literals(char *str)
 	return (-1);
 }
 
+static int	end_of_string(char c, int sq, int dq)
+{
+	if (!c)
+		return (1);
+	if (!sq && !dq && ft_isspace(c))
+		return (1);
+	return (0);
+}
+
 /*
+	Feed the incoming string to the token and advance the input pointer.
+
+	How it works: while another token type is not detected, we increment i.
+	If we're then still in a quoted state, we have a syntax error.
+
+	Then, when we've computed the length of the string, we can substr it.
+
+	Finally, we increment the pointer by the length of the string.
+
 	To do: when encountering closing quote, an error status should be returned.
 	Important!!
 */
-static void	string_decetion(t_token *tok, char **str)
+static int	string_detection(t_token *tok, char **str)
 {
 	int	i;
-	int	backwards;
 	int	single_q;
 	int	double_q;
 
 	single_q = 0;
 	double_q = 0;
 	i = 0;
-	while ((*str)[i] && (int)tok->type == -1)
+	while (!end_of_string((*str)[i], single_q, double_q) && (int)tok->type == -1)
 	{
-		if ((*str)[i] == 34)
+		if ((*str)[i] == 34 && !single_q)
 			double_q ^= 1U;
-		if ((*str)[i] == 39)
+		if ((*str)[i] == 39 && !double_q)
 			single_q ^= 1U;
-		if (!single_q)
-			if (!double_q)
-				tok->type = check_token_literals(*str + i);
+		if (!single_q && !double_q)
+			tok->type = check_token_literals(*str + i);
 		i++;
 	}
 	if (single_q || double_q)
-		print_error(0, 0, "expected closing quote");
+	{
+		print_error(0, 0, "expecting closing quote");
+		return (-1);
+	}
 	if ((int)tok->type != -1)
 		i--;
-	backwards = i - 1;
-	while (ft_isspace((*str)[backwards]))
-		backwards--;
 	tok->type = e_string;
-	tok->str = ft_substr(*str, 0, backwards + 1);
+	tok->str = ft_substr(*str, 0, i);
 	*str += i;
+	return (0);
 }
 
-/**
- * Returns the next token and anvances the input str past it
- * TODO: this needs to be fixed!
- * The ' " are ignored and we still parce the tokens contained within
+/*
+	Returns the next token and advances the input str past it
 */
-static t_token	*lexer(char	**str)
+int	lexer(t_token **tok, char **str)
 {
-	t_token	*tok;
+	int	ret;
 
+	ret = 0;
 	while (ft_isspace(**str))
 		(*str)++;
-	tok = x_malloc(sizeof(t_token), 1);
-	tok->next = NULL;
-	tok->str = NULL;
-	tok->type = check_token_literals(*str);
-	if (tok->type == e_end)
+	*tok = token_factory(NULL, NULL, check_token_literals(*str));
+	if ((*tok)->type == e_end)
 		;
-	else if ((int)tok->type != -1)
-		*str = *str + ft_strlen(ret_token_literal(tok->type));
+	else if ((int)(*tok)->type != -1)
+		*str = *str + ft_strlen(ret_token_literal((*tok)->type));
 	else
-		string_decetion(tok, str);
-	return (tok);
-}
-
-/**
- * This will make a new linked list of the found tokens.
- */
-t_token	*construct_tok_list(char *str)
-{
-	t_token	*start;
-	t_token	*end;
-	t_token	*tmp;
-
-	start = NULL;
-	while (1)
-	{
-		tmp = lexer(&str);
-		if (start == NULL)
-		{
-			start = tmp;
-			end = start;
-		}
-		else
-		{
-			end->next = tmp;
-			end = end->next;
-		}
-		if (tmp->type == e_end)
-			return (start);
-	}
-}
-
-void	tok_list_cleanup(t_token *lst)
-{
-	t_token *previous;
-
-	previous = 0;
-	while (lst)
-	{
-		if (previous)
-			free(previous->str);
-		free(previous);
-		previous = lst;
-		lst = lst->next;
-	}
-	if (previous)
-		free(previous->str);
-	free(previous);
+		ret = string_detection((*tok), str);
+	return (ret);
 }

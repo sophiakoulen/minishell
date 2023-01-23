@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_test.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 19:01:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/18 08:59:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:19:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		return (1);
 	str = argv[1];
 	// ft_printf("\ntesting this string \"%s\"\n", str);
-	tok = construct_tok_list(str);
+	construct_tok_list(&tok, str);
 	print_token_list_minimal(tok);
 
 	// ft_printf("\ntok clean up attempt\n");

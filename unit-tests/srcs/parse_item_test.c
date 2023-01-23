@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_item_test.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:53:44 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 08:56:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:20:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	str = argv[1];
-	tok = construct_tok_list(str);
+	construct_tok_list(&tok, str);
 
 	// printf("\n\nlist of found tokens \n");
 	// print_token_list_minimal(tok);
