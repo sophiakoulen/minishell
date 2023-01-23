@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:33:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 17:45:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	interactive_shell(t_env *env)
 	while (1)
 	{
 		line = readline("minishell$ ");
+		rl_replace_line("", 0);
 		if (!line)
 			break ;
 		if (*line)

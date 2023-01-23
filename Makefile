@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/23 14:42:43 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/23 17:53:33 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ endif
 RM		=	rm -rf
 
 INCS_PATH	=	includes/
+ifdef READLINE
+	CFLAGS	+= -I$(READLINE)/include
+endif
 SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
@@ -66,6 +69,9 @@ LIBFT			=	$(LIBFT_DIR)/$(LIBFT_N)
 
 LIBS			=	-lft -lreadline
 LIBS_PATH		=	-L$(LIBFT_DIR)
+ifdef READLINE
+	LIBS_PATH += -L$(READLINE)/lib
+endif
 
 all		: $(NAME)
 
