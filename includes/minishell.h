@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/22 17:46:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:58:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,11 @@ t_cmd		*cmd_factory(t_cmd *blueprint);
 /* token_list.c */
 
 void		next_token(t_token **list);
+int			construct_tok_list(t_token **lst, char *str);
+void		tok_list_cleanup(t_token *lst);
 
 /* tokenizer */
-
-t_token		*construct_tok_list(char *str);
-void		tok_list_cleanup(t_token *lst);
+int			lexer(t_token **tok, char **str);
 
 /* ************************************************************************** */
 /*   utils                                                                    */
@@ -242,6 +242,7 @@ void		close_fds(t_fds *fds, int n);
 /* t_token.c */
 
 t_token		*token_factory(t_token *next, char *str, enum e_token_type type);
+void		token_cleanup(t_token *tok);
 const char	*ret_token_literal(enum e_token_type n);
 void		print_token_list_minimal(t_token *tok);
 
