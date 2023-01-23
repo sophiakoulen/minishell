@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 12:34:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:42:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static int	string_detection(t_token *tok, char **str)
 		print_error(0, 0, "expected closing quote");
 		return (-1);
 	}
+	if ((int)tok->type != -1)
+		i--;
 	tok->type = e_string;
 	tok->str = ft_substr(*str, 0, i);
 	*str += i;
