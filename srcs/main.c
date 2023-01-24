@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:14:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:15:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,14 @@ static int	exec_line(char *line, t_env **env, int *retn)
 		parsed = x_malloc(sizeof(*parsed), 1);
 		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
 		{
-			pipeline = expand_pipeline(parsed, *env);
-			*retn = exec_pipeline(pipeline, env, *retn);
-			pipeline_cleanup(pipeline);
-			free(pipeline);
+			if (expand_pipeline(&pipeline, parsed, *env, *retn) == 0)
+			{
+				*retn = exec_pipeline(pipeline, env, *retn);
+				pipeline_cleanup(pipeline);
+				free(pipeline);
+			}
+			else
+				*retn = 1;
 		}
 		else
 			*retn = 258;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/24 07:13:16 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/24 12:04:35 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJS_PATH	=	objs/
 BUILTINS		=	echo            pwd             env             exit      \
 					shout			export			unset           cd
 EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
-					quote_removal   param_expansion
+					quote_removal   param_expansion expansion2      field_split
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
 SIGNALS_FILES	=	signals         termios

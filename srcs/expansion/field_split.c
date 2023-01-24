@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   field_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:38:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:55:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,70 @@
 		quote_removal();
  */
 
-/*
-	Word expansion order of operations
-
-	1. expand parameter, $VAR, $?
-		param_expansion();
-	2. field splitting around T_IFS characters
-		field_split();
-	3. remove quotes
-		quote_removal();
- */
+static char	*get_word(char **str);
 
 t_list	*field_split(char *str)
 {
 	t_list	*words;
+	char	*wrd;
 
-
+	words = NULL;
+	while (1)
+	{
+		wrd = get_word(&str);
+		if (!*wrd)
+		{
+			free(wrd);
+			break;
+		}
+		ft_lstadd_back(&words, ft_lstnew(wrd));
+	}
+	return (words);
 }
 
+
+static char	*get_word(char **str)
+{
+	char	*word;
+	int		dquote;
+	int		squote;
+	int		escaped;
+	int		i;
+
+	dquote = 0;
+	squote = 0;
+	escaped = 0;
+	while (ft_isspace(**str))
+		(*str)++;
+	i = 0;
+	while ((*str)[i])
+	{
+		if ((*str)[i] == '\'' && !dquote && !escaped)
+		{
+			squote = !squote;
+		}
+		if ((*str)[i] == '"' && !squote && !escaped)
+		{
+			dquote = !dquote;
+		}
+		if ((*str)[i] == '\\' && !escaped)
+		{
+			escaped = 1;
+		}
+		else
+		{
+			escaped = 0;
+		}
+		if (!dquote && !squote && !escaped && ft_isspace((*str)[i]))
+				break ;
+		i++;
+	}
+	word = ft_substr((*str), 0, i);
+	*str += i;
+	return (word);
+}
+
+/*
 static	word_expansion(t_parsed_pipeline *pp, t_env *env, int retn)
 {
 	t_list				*words;
@@ -83,3 +129,4 @@ static	word_expansion(t_parsed_pipeline *pp, t_env *env, int retn)
 		tmp = param_expansion(pp->cmds[i], env, retn);
 	}
 }
+*/

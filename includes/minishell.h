@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:13:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:10:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ int			launch_builtin(t_cmd_info *cmd, t_fds *fds, t_env **env, int prev);
 
 /* expansion */
 
-t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env);
-void		expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env);
+int			expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn);
+int			expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn);
 
 /* var_exp */
 
@@ -142,6 +142,14 @@ char		*quote_removal(char *str);
 /* param_expansion */
 
 char		*param_expansion(char *str, t_env *env, int retn);
+
+/* field split */
+t_list		*field_split(char *str);
+
+/* expansion2 */
+
+t_list		*expand_args_list(t_list *lst, t_env *env, int retn);
+int			expand_redirs(t_list *redirs, t_env *env, int retn);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
@@ -283,5 +291,6 @@ void		print_item(t_item *item);
 
 t_env		*env_factory(t_env *blueprint);
 void		env_cleanup(t_env *env);
+void		env_cleanup_all(t_env *env);
 
 #endif

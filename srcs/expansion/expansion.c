@@ -3,32 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/21 01:30:44 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:13:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_item	*copy_item_deep(t_item *item);
+static char		**list_to_array(t_list *lst);
 
-t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env)
+int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn)
 {
-	t_pipeline	*p;
 	int			i;
 
-	p = x_malloc(sizeof(*p), 1);
-	p->n_cmds = intermediate->n_cmds;
-	p->cmds = x_malloc(sizeof(*(p->cmds)), p->n_cmds);
+	*p = x_malloc(sizeof(**p), 1);
+	(*p)->n_cmds = intermediate->n_cmds;
+	(*p)->cmds = x_malloc(sizeof(*((*p)->cmds)), (*p)->n_cmds);
 	i = 0;
-	while (i < p->n_cmds)
+	while (i < (*p)->n_cmds)
 	{
-		expand_cmd(&p->cmds[i], intermediate->cmds[i], env);
+		if (expand_cmd(&(*p)->cmds[i], intermediate->cmds[i], env, retn) != 0)
+		{
+			return (-1);
+		}
 		i++;
 	}
-	return (p);
+	return (0);
 }
 
 /*
@@ -38,32 +40,24 @@ t_pipeline	*expand_pipeline(t_parsed_pipeline *intermediate, t_env *env)
 	added in quotes removal with the quote_removal before
 	the dupe
 */
-void	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env)
+int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn)
 {
-	t_list	*current;
-	int		i;
-	int		len;
+	t_list	*expanded_args;
 
-	(void)env;
-
-	/* copy the argument list into array */
-	len = ft_lstsize(intermediate->args);
-	definitive->args = x_malloc(sizeof(char *), len + 1);
-	// definitive->args = x_malloc(sizeof(*(definitive->args)), len + 1);
-	i = 0;
-	current = intermediate->args;
-	while (i < len)
+	/* expand arguments */
+	expanded_args = expand_args_list(intermediate->args, env, retn);
+	definitive->args = list_to_array(expanded_args);
+	
+	/* expand redirections */
+	if (expand_redirs(intermediate->redirs, env, retn) != 0)
 	{
-		definitive->args[i] = quote_removal(current->content); //TO DO: MALLOC PROTECTION
-		current = current->next;
-		i++;
+		return (-1);
 	}
-	definitive->args[i] = 0;
-
-	/* copy the redirections list */
-	definitive->redirs = ft_lstmap(intermediate->redirs, (void *(*)(void *))copy_item_deep, (void (*)(void *))item_cleanup_deep);
+	definitive->redirs = intermediate->redirs;
+	return (0);
 }
 
+/*
 static t_item	*copy_item_deep(t_item *item)
 {
 	t_item	*new_item;
@@ -72,4 +66,24 @@ static t_item	*copy_item_deep(t_item *item)
 	new_item->modifier = item->modifier;
 	new_item->word = quote_removal(item->word);
 	return (new_item);
+}
+*/
+
+static char	**list_to_array(t_list *lst)
+{
+	char			**array;
+	int				size;
+	int				i;
+
+	size = ft_lstsize(lst);
+	array = x_malloc(sizeof(*array), size + 1);
+	i = 0;
+	while (lst)
+	{
+		array[i] = lst->content;
+		lst = lst->next;
+		i++;
+	}
+	array[i] = 0;
+	return (array);
 }

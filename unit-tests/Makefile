@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/20 14:10:52 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/24 12:13:36 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ ifdef DEBUG
 endif
 TEST_NAMES	=	tokenizer       heredoc         parse_item      prepare_cmd    \
 				mult_cmd        prs_cmd         quote_removal   prs_pipeline   \
-				param_expansion
+				param_expansion expansion
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -82,6 +82,9 @@ quote_removal : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 param_expansion : all
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+
+expansion : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
 
 re: fclean all
