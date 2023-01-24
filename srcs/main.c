@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 15:53:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:27:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ static void	interactive_shell(t_env *env, int *retn)
 		}
 		if (*line)
 			add_history(line);
-		setup_sigaction();
 		get_set_termios(0);
 		exec_line(line, &env, retn);
+		setup_sigaction();
 		get_set_termios(1);
 		free(line);
 	}
@@ -93,6 +93,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 		{
 			if (expand_pipeline(&pipeline, parsed, *env, *retn) == 0)
 			{
+				silent_signals();
 				*retn = exec_pipeline(pipeline, env, *retn);
 				pipeline_cleanup(pipeline);
 				free(pipeline);

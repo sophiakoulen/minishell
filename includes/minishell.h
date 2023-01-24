@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 15:44:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:54:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ char		*in_quotes(char *str);
 void	sigint_handler(int sig);
 void	setup_sigaction(void);
 void	get_set_termios(int toggle);
+void	silent_signals(void);
 
 /* ************************************************************************** */
 /*   structs                                                                  */

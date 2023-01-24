@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:58:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 15:33:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:28:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	sigint_handler(int sig)
 		if (g_is_child)
 		{
 			ft_printf("\n\nin a child!\n\n");
+			return ;
 		}
 		write(1, &"\n", 1);
 		rl_on_new_line();
@@ -43,17 +44,34 @@ void	sigint_handler(int sig)
 	}
 }
 
+void	silent_sigint_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		// if (g_is_child)
+		// {
+		// 	ft_printf("\n\nin a child!\n\n");
+		// 	return ;
+		// }
+		// write(1, &"\n", 1);
+		// rl_on_new_line();
+		// rl_replace_line("\0", 0);
+		rl_redisplay();
+	}
+}
+
+
 void	sigquit_handler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		if (g_is_child)
-		{
+		// if (g_is_child)
+		// {
 			// ft_printf("\n\nin a child!\n\n");
-			write(1, &"\n", 1);
+			// write(1, &"\n", 1);
 			// rl_redisplay();
-		}
-		// write(1, &"Quit: 3\n", 10);
+		write(1, &"Quit: 3\n", 10);
+		// }
 		// rl_on_new_line();
 		// rl_replace_line("\0", 0);
 		rl_redisplay();
@@ -69,9 +87,23 @@ void	setup_sigaction(void)
 	sigemptyset(&sig_int.sa_mask);
 	sig_int.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
 	sigaction(SIGINT, &sig_int, NULL);
-	sig_quit.sa_handler = &sigquit_handler;
+
+	sig_quit.sa_handler = SIG_IGN;
 	sigemptyset(&sig_quit.sa_mask);
-	sig_quit.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
+	// sig_quit.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
+	sigaction(SIGQUIT, &sig_quit, NULL);
+}
+
+void	silent_signals(void)
+{
+	struct sigaction	sig_quit;
+	struct sigaction	sig_int;
+
+	sig_int.sa_handler = &silent_sigint_handler;
+	sigemptyset(&sig_int.sa_mask);
+	sig_int.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
+	sig_quit.sa_handler = &sigquit_handler;
+	sigaction(SIGINT, &sig_int, NULL);
 	sigaction(SIGQUIT, &sig_quit, NULL);
 }
 

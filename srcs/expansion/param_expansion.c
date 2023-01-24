@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 11:38:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:58:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	i = 1;
 	if ((*str)[1] == '?')
 	{
-		*ret = ft_strdup(ft_itoa(retn));
+		*ret = ft_itoa(retn);
 		*str+= 2;
 		return (1);
 	}
