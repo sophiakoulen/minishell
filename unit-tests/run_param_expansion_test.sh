@@ -21,13 +21,21 @@ exec_test $N 6 "{\"this ' that  ' here\"}" "\"this ' that  ' here\""
 exec_test $N 7 "{\"''\"}" "\"''\""
 exec_test $N 8 "{\"''''''\"}" "\"''''''\""
 exec_test $N 9 "{\"'\"}" "\"'\""
+exec_test $N 10 "{'a''b'}" "'a''b'"
+exec_test $N 11 "{'a'l'b'}" "'a'l'b'"
 
 # nested $ in eschaped charaters
-exec_test $N 10 "{\"$USER\"}" "\"\$USER\""
-exec_test $N 11 "{\"! $USER is awsome\"}" "\"! \$USER is awsome\""
-exec_test $N 12 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
-exec_test $N 13 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
-exec_test $N 14 "{\"hello \"}" "\"hello \$\$\$\$\""
-exec_test $N 15 "{42}" '$?'
-exec_test $N 16 "{\"42\"}" '"$?"'
-exec_test $N 17 "{\"hello \"}" "\"hello \$\$\$\$\""
+exec_test $N 12 "{\"$USER\"}" "\"\$USER\""
+exec_test $N 13 "{\"! $USER is awsome\"}" "\"! \$USER is awsome\""
+exec_test $N 14 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
+exec_test $N 15 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
+exec_test $N 16 "{\"hello \"}" "\"hello \$\$\$\$\""
+exec_test $N 17 "{42}" '$?'
+exec_test $N 18 "{\"42\"}" '"$?"'
+exec_test $N 19 "{\"$USER$HOME$LANG\"}" "\"\$USER\$HOME\$LANG\""
+
+
+
+exec_test $N 20 "{$USER'a'$LANG}" "\$USER'a'\$LANG"
+# exec_test $N 21 "{\"$USER'a'$LANG\"}" "\"\$USER'a'\$LANG\""
+# exec_test $N 22 "{\"$USER'/'$HOME$LANG\"}" "\"\$USER'/'\$HOME\$LANG\""

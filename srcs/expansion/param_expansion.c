@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:49:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 08:52:38 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,14 @@ static void	next_word(t_list *word, char **str, t_env *env, int retn)
 {
 	char	*ret;
 
-	if (get_bare_word(str, &ret))
-		;
-	else if (get_single_q_word(str, &ret))
+	if (get_single_q_word(str, &ret))
 		;
 	else if (get_double_q_word(str, &ret, env, retn))
 		;
 	else if (get_env_variable(str, &ret, env, retn))
 		;
-	// else if (get_tilde_variable(str, &ret, env))
-	// 	;
 	else
-	{
-		ft_printf("DEBUG: error detecting end of word");
-		ret = ft_substr(*str, 0, 0);
-	}
-
+		get_bare_word(str, &ret);
 	word->content = ret;
 }
 
