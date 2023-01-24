@@ -1,4 +1,1 @@
-minishell: hello: command not found
-minishell: exit: too many arguments
-minishell: unset: `hello!': not a valid identifier
-minishell: syntax error near unexpected token `newline'
+exit
