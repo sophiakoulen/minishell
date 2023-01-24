@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 22:16:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:14:18 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 	static int	retn;
 
+	get_set_termios(1);
 	setup_sigaction();
 	env = init_env(envp);
 	check_args(argc, argv);

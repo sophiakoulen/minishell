@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 22:18:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:14:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	exec_exit(char **args, t_env **env, int prev)
 	}
 	// cleanup functions?
 	write(1, &"exit\n", 6);
+	get_set_termios(0);
 	exit(ret_code);
 	return (0);
 }

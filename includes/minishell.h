@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 18:35:40 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:13:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/errno.h>
+# include <termios.h>
 
 # include "libft.h"
 # include "defines.h"
@@ -211,6 +212,7 @@ char		*in_quotes(char *str);
 
 void	handler(int sig);
 void	setup_sigaction(void);
+void	get_set_termios(int toggle);
 
 /* ************************************************************************** */
 /*   structs                                                                  */
