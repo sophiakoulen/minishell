@@ -11,10 +11,10 @@ We need to handle pipelines, input and output file redirections and variable exp
 
 ## Getting Started
 
-- First you need to install readline, you can use the version of brew found here: [42homebrew](git@github.com:kube/42homebrew.git).
+- First you need to install readline, you can use the version of brew found here: [42homebrew](https://github.com/kube/42homebrew).
 - `brew install readline` to install readline
 - add readline to your enviroment under `READLINE` eg:
--
+
 ```bash
 vim .zshrc
 # add line
