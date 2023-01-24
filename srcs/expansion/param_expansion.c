@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:33:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:49:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	get_bare_word(char **str, char **ret);
 static int	get_single_q_word(char **str, char **ret);
 static int	get_double_q_word(char **str, char **ret, t_env *env, int retn);
 static int	get_env_variable(char **str, char **ret, t_env *env, int retn);
-static int	get_tilde_variable(char **str, char **ret, t_env *env);
+// static int	get_tilde_variable(char **str, char **ret, t_env *env);
 
 /*
 	expand env parameter, replace $VAR $? $~
@@ -63,8 +63,8 @@ static void	next_word(t_list *word, char **str, t_env *env, int retn)
 		;
 	else if (get_env_variable(str, &ret, env, retn))
 		;
-	else if (get_tilde_variable(str, &ret, env))
-		;
+	// else if (get_tilde_variable(str, &ret, env))
+	// 	;
 	else
 	{
 		ft_printf("DEBUG: error detecting end of word");
@@ -159,6 +159,7 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	if ((*str)[1] == '?')
 	{
 		*ret = ft_strdup(ft_itoa(retn));
+		*str+= 2;
 		return (1);
 	}
 	while ((*str)[i] && ft_strchr("\'\"$", (*str)[i]) == NULL && ft_strchr(T_IFS, (*str)[i]) == NULL)
@@ -175,23 +176,23 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	return (1);
 }
 
-/*
-	check tilde          start ~  only do ~
-	return 1 on sucess and ret is filled with malloced string
- */
-static int	get_tilde_variable(char **str, char **ret, t_env *env)
-{
-	char	*tmp;
+// /*
+// 	check tilde          start ~  only do ~
+// 	return 1 on sucess and ret is filled with malloced string
+//  */
+// static int	get_tilde_variable(char **str, char **ret, t_env *env)
+// {
+// 	char	*tmp;
 
-	if ((*str)[0] == '\0' || (*str)[0] != '~')
-		return (0);
-	tmp = ret_env_key(env, "HOME");
-	*str += 1;
-	if (tmp == NULL)
-		return (0);
-	*ret = ft_strdup(tmp);
-	return (1);
-}
+// 	if ((*str)[0] == '\0' || (*str)[0] != '~')
+// 		return (0);
+// 	tmp = ret_env_key(env, "HOME");
+// 	*str += 1;
+// 	if (tmp == NULL)
+// 		return (0);
+// 	*ret = ft_strdup(tmp);
+// 	return (1);
+// }
 
 
 /*

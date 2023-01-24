@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/21 10:45:01 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:38:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 	3. remove quotes
 		quote_removal();
  */
-*/
 
 /*
 	Word expansion order of operations

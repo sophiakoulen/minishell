@@ -27,4 +27,7 @@ exec_test $N 10 "{\"$USER\"}" "\"\$USER\""
 exec_test $N 11 "{\"! $USER is awsome\"}" "\"! \$USER is awsome\""
 exec_test $N 12 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
 exec_test $N 13 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
-exec_test $N 13 "{\"hello \"}" "\"hello \$\$\$\$\""
+exec_test $N 14 "{\"hello \"}" "\"hello \$\$\$\$\""
+exec_test $N 15 "{42}" '$?'
+exec_test $N 16 "{\"42\"}" '"$?"'
+exec_test $N 17 "{\"hello \"}" "\"hello \$\$\$\$\""
