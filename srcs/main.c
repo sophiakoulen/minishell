@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 15:15:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:44:49 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static void	check_args(int argc, char **argv);
 static void	interactive_shell(t_env *env, int *retn);
 static int	exec_line(char *line, t_env **env, int *retn);
+
+int	g_is_child = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -59,7 +61,10 @@ static void	interactive_shell(t_env *env, int *retn)
 		}
 		if (*line)
 			add_history(line);
+		setup_sigaction();
+		get_set_termios(0);
 		exec_line(line, &env, retn);
+		get_set_termios(1);
 		free(line);
 	}
 }

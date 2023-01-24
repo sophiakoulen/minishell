@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:58:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 19:59:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:33:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@
 // 			ctrl-D	exits the shell. not a signal but readline interprets it as EOF on an empty line this will exit the shell
 // SIGQUIT	ctrl-\	does nothing
 
-void	handler(int sig)
+extern int	g_is_child;
+
+void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		if (g_is_child)
+		{
+			ft_printf("\n\nin a child!\n\n");
+		}
 		write(1, &"\n", 1);
 		rl_on_new_line();
 		rl_replace_line("\0", 0);
@@ -37,18 +43,36 @@ void	handler(int sig)
 	}
 }
 
+void	sigquit_handler(int sig)
+{
+	if (sig == SIGQUIT)
+	{
+		if (g_is_child)
+		{
+			// ft_printf("\n\nin a child!\n\n");
+			write(1, &"\n", 1);
+			// rl_redisplay();
+		}
+		// write(1, &"Quit: 3\n", 10);
+		// rl_on_new_line();
+		// rl_replace_line("\0", 0);
+		rl_redisplay();
+	}
+}
+
 void	setup_sigaction(void)
 {
-	struct sigaction	ignore;
-	struct sigaction	action;
+	struct sigaction	sig_quit;
+	struct sigaction	sig_int;
 
-	action.sa_handler = &handler;
-	ignore.sa_handler = SIG_IGN;
-	sigemptyset(&action.sa_mask);
-	sigemptyset(&ignore.sa_mask);
-	action.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &action, NULL);
-	sigaction(SIGQUIT, &ignore, NULL);
+	sig_int.sa_handler = &sigint_handler;
+	sigemptyset(&sig_int.sa_mask);
+	sig_int.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
+	sigaction(SIGINT, &sig_int, NULL);
+	sig_quit.sa_handler = &sigquit_handler;
+	sigemptyset(&sig_quit.sa_mask);
+	sig_quit.sa_flags = SA_RESTART; // | SA_NOCLDWAIT;
+	sigaction(SIGQUIT, &sig_quit, NULL);
 }
 
 // int	main(int argc, char **argv, char **envp)
