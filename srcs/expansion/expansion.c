@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/24 15:13:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:28:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int re
 	/* expand arguments */
 	expanded_args = expand_args_list(intermediate->args, env, retn);
 	definitive->args = list_to_array(expanded_args);
-	
+	ft_lstclear(&expanded_args, do_nothing);
+
 	/* expand redirections */
 	if (expand_redirs(intermediate->redirs, env, retn) != 0)
 	{
@@ -56,18 +57,6 @@ int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int re
 	definitive->redirs = intermediate->redirs;
 	return (0);
 }
-
-/*
-static t_item	*copy_item_deep(t_item *item)
-{
-	t_item	*new_item;
-
-	new_item = x_malloc(sizeof(*new_item), 1);
-	new_item->modifier = item->modifier;
-	new_item->word = quote_removal(item->word);
-	return (new_item);
-}
-*/
 
 static char	**list_to_array(t_list *lst)
 {

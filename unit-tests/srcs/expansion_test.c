@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:07:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/24 14:12:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:18:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **envp)
 		argv++;
 	}
 	env = init_env(envp);
-	expanded = expand_args_list(lst, env);
+	expanded = expand_args_list(lst, env, 42);
 	ft_lstclear(&lst, do_nothing);
 	env_cleanup_all(env);
 	print_lst(expanded);
