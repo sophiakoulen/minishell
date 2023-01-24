@@ -33,9 +33,9 @@ exec_test $N 16 "{\"hello \"}" "\"hello \$\$\$\$\""
 exec_test $N 17 "{42}" '$?'
 exec_test $N 18 "{\"42\"}" '"$?"'
 exec_test $N 19 "{\"$USER$HOME$LANG\"}" "\"\$USER\$HOME\$LANG\""
-
-
-
-exec_test $N 20 "{$USER'a'$LANG}" "\$USER'a'\$LANG"
+exec_test $N 21 "{$USER'a'$LANG}" "\$USER'a'\$LANG"
+exec_test $N 22 "{$USER 'a' $LANG}" "\$USER 'a' \$LANG"
+exec_test $N 23 "{$USER \"b\" $LANG}" '$USER "b" $LANG'
+exec_test $N 24 "{$USER\"b\"$LANG}" '$USER"b"$LANG'
 # exec_test $N 21 "{\"$USER'a'$LANG\"}" "\"\$USER'a'\$LANG\""
 # exec_test $N 22 "{\"$USER'/'$HOME$LANG\"}" "\"\$USER'/'\$HOME\$LANG\""

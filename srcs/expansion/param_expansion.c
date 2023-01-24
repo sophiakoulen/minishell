@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 08:52:38 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/24 11:38:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static int	get_single_q_word(char **str, char **ret)
 		i++;
 	if (i == 0)
 		return (0);
+	if ((*str)[i] == SINGLE_QUOTE)
+		i++;
 	*ret = ft_substr(*str, 0, i);
 	*str += i;
 	return (1);
@@ -121,13 +123,12 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 				free(tmp);
 			}
 		}
-		// ft_printf("adsad\n");
-		// much needs to happen here
-		// return (get_env_variable(str, ret, env, retn));
 		i++;
 	}
 	if (i == 0)
 		return (0);
+	if ((*str)[i] == DOUBLE_QUOTE)
+		i++;
 	*ret = ft_substr(*str, 0, i);
 	*str += i;
 	return (1);
@@ -196,7 +197,7 @@ static int	get_bare_word(char **str, char **ret)
 	int		i;
 
 	i = 0;
-	while ((*str)[i] && ft_strchr("\'\"$~", (*str)[i]) == NULL)
+	while ((*str)[i] && ft_strchr("\'\"$", (*str)[i]) == NULL)
 		i++;
 	if (i == 0)
 		return (0);
