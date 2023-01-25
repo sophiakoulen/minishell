@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:19:53 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 12:56:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:05:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,16 @@ int	expand_redirs(t_list *redirs, t_env *env, int retn)
 	while (current)
 	{
 		redir = current->content;
-		if (expand_redir(redir->word, env, retn, &tmp) != 0)
+		if (redir->modifier == e_heredoc)
 		{
-			return (-1);
+			redir->word = ft_strdup(redir->word);
 		}
-		redir->word = tmp;
+		else
+		{
+			if (expand_redir(redir->word, env, retn, &tmp) != 0)
+				return (-1);
+			redir->word = tmp;
+		}
 		current = current->next;
 	}
 	return (0);
