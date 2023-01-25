@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 17:35:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:14:57 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	get_single_q_word(char **str, char **ret)
 	i = 1;
 	if ((*str)[0] == '\0' || **str != SINGLE_QUOTE)
 		return (0);
-	while ((*str)[i] && ft_strchr("\'", (*str)[i]) == NULL)
+	while ((*str)[i] && !ft_strchr("\'", (*str)[i]))
 		i++;
 	if (i == 0)
 		return (0);
@@ -130,12 +130,12 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 		*str+= 2;
 		return (1);
 	}
-	while ((*str)[i] && ft_strchr("\'\"$", (*str)[i]) == NULL && ft_strchr(T_IFS, (*str)[i]) == NULL)
+	while ((*str)[i] && !ft_strchr("\'\"$", (*str)[i]) && !ft_strchr(T_IFS, (*str)[i]))
 		i++;
 	key = ft_substr(*str, 1, i - 1);
 	value = ret_env_key(env, key);
 	if (value == NULL)
-		value = ft_strchr(key, '\0');
+		value = ft_strdup("");
 	free(key);
 	*str += i;
 	// ft_printf("key is:%s\n", key);
@@ -172,7 +172,7 @@ static int	get_bare_word(char **str, char **ret)
 	int		i;
 
 	i = 0;
-	while ((*str)[i] && ft_strchr("\'\"$", (*str)[i]) == NULL)
+	while ((*str)[i] && !ft_strchr("\'\"$", (*str)[i]))
 		i++;
 	if (i == 0)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 17:35:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:16:23 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	**env_to_strarr(t_env *env)
 char	*ret_env_key(t_env *env, char *key)
 {
 	size_t	l;
+	static char	empty[1] = "";
 
 	while (env)
 	{
@@ -90,7 +91,7 @@ char	*ret_env_key(t_env *env, char *key)
 		}
 		env = env->next;
 	}
-	return (NULL);
+	return (empty);
 }
 
 /*

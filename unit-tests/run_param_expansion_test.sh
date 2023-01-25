@@ -37,5 +37,9 @@ exec_test $N 21 "{$USER'a'$LANG}" "\$USER'a'\$LANG"
 exec_test $N 22 "{$USER 'a' $LANG}" "\$USER 'a' \$LANG"
 exec_test $N 23 "{$USER \"b\" $LANG}" '$USER "b" $LANG'
 exec_test $N 24 "{$USER\"b\"$LANG}" '$USER"b"$LANG'
+exec_test $N 25 "{\"$USER\"'\$LANG'}" "\"\$USER\"a'\$LANG'"
+exec_test $N 26 "{\"$USER\"\'\$LANG'}" "\"\$USER\"'\$LANG'"
+exec_test $N 27 "{'\$USER'\"\$LANG\"}" "'\$USER'\"\$LANG\""
+exec_test $N 27 "{'\$USER'abc\"\$LANG\"}" "'\$USER'abc\"\$LANG\""
 # exec_test $N 21 "{\"$USER'a'$LANG\"}" "\"\$USER'a'\$LANG\""
 # exec_test $N 22 "{\"$USER'/'$HOME$LANG\"}" "\"\$USER'/'\$HOME\$LANG\""

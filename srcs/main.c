@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 17:31:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:58:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ static void	interactive_shell(t_env *env, int *retn)
 			line = readline("minishell\001\033[38:5:197m\002$\001\033[0m\002 ");
 		if (!line)
 		{
+			write(1, &"", 1);
 			exec_exit(NULL, &env, *retn);
 			break ;
 		}
 		if (*line)
 			add_history(line);
+		silent_signals();
 		get_set_termios(0);
 		exec_line(line, &env, retn);
 		get_set_termios(1);
@@ -92,7 +94,6 @@ static int	exec_line(char *line, t_env **env, int *retn)
 		{
 			if (expand_pipeline(&pipeline, parsed, *env, *retn) == 0)
 			{
-				silent_signals();
 				*retn = exec_pipeline(pipeline, env, *retn);
 				pipe_return_print(*retn);
 				pipeline_cleanup(pipeline); //need to free list of args and list of redirs
