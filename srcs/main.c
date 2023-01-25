@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 19:58:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:18:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	interactive_shell(t_env *env, int *retn)
 			line = readline("minishell\001\033[38:5:197m\002$\001\033[0m\002 ");
 		if (!line)
 		{
-			write(1, &"", 1);
+			write(1, &"\e[1A\e[11C", 10);
 			exec_exit(NULL, &env, *retn);
 			break ;
 		}

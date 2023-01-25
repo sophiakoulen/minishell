@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 19:14:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:30:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	next_word(t_list *word, char **str, t_env *env, int retn);
 static int	get_bare_word(char **str, char **ret);
 static int	get_single_q_word(char **str, char **ret);
-static int	get_double_q_word(char **str, char **ret);
+static int	get_double_q_word(char **str, char **ret, t_env *env, int retn);
 static int	get_env_variable(char **str, char **ret, t_env *env, int retn);
 // static int	get_tilde_variable(char **str, char **ret, t_env *env);
 
@@ -56,7 +56,7 @@ static void	next_word(t_list *word, char **str, t_env *env, int retn)
 
 	if (get_single_q_word(str, &ret))
 		;
-	else if (get_double_q_word(str, &ret))
+	else if (get_double_q_word(str, &ret, env, retn))
 		;
 	else if (get_env_variable(str, &ret, env, retn))
 		;
@@ -91,15 +91,47 @@ static int	get_single_q_word(char **str, char **ret)
 	check double quote   start "  stop at " \0
 	return 1 on sucess and ret is filled with malloced string
  */
-static int	get_double_q_word(char **str, char **ret)
+static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 {
 	int		i;
+	char	*s1;
+	char	*s2;
+	char	*tmp;
 
 	i = 1;
 	if ((*str)[0] == '\0' || (**str != DOUBLE_QUOTE))
 		return (0);
-	while ((*str)[i] && ft_strchr("\"$", (*str)[i]) == NULL)
+	s1 = ft_strdup("");
+	while ((*str)[i] && ft_strchr("\"", (*str)[i]) == NULL)
+	{
+		if ((*str)[i] == '$')
+		{
+			s2 = ft_substr(*str, 0, i);
+			tmp = ft_strjoin(s1, s2);
+			free(s2);
+			free(s1);
+			s1 = tmp;
+			*str += i;
+			i = 0;
+			if (get_env_variable(str, &s2, env, retn))
+			{
+				// printf("env value:%s\n", s2);
+				tmp = ft_strjoin(s1, s2);
+				free(s2);
+				free(s1);
+				s1 = tmp;
+			}
+			else
+			{
+				if (!s2)
+				{
+					ft_printf("not here\n");
+					free(s2);
+				}
+			}
+		}
 		i++;
+	}
 	if (i == 0)
 		return (0);
 	if ((*str)[i] == DOUBLE_QUOTE)
@@ -134,8 +166,8 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 		i++;
 	key = ft_substr(*str, 1, i - 1);
 	value = ret_env_key(env, key);
-	if (value == NULL)
-		value = ft_strdup("");
+	// if (value == NULL)
+	// 	value = ft_strdup("");
 	free(key);
 	*str += i;
 	// ft_printf("key is:%s\n", key);
