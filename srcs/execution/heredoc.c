@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 15:39:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:51:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,21 @@ void	write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
 		{
 			write(hd_pipes[i][1], infos[i].hd_buffer, ft_strlen(infos[i].hd_buffer));
 			close(hd_pipes[i][1]);
+			free(infos[i].hd_buffer);
 		}
 		i++;
 	}
 }
 
+/*
+	Read input from stdin into a buffer, until delim is found.
+*/
 static void	read_single_heredoc(t_cmd_info *cmd)
 {
 	char	*buffer;
 	char	*line;
 
-	buffer = 0;
+	buffer = ft_strdup("");
 	while (1)
 	{
 		line = readline("> ");
