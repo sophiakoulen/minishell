@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:19:53 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 16:05:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:49:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int	expand_redirs(t_list *redirs, t_env *env, int retn)
 		else
 		{
 			if (expand_redir(redir->word, env, retn, &tmp) != 0)
+			{
+				redir->word = tmp;
 				return (-1);
+			}
 			redir->word = tmp;
 		}
 		current = current->next;
@@ -91,10 +94,11 @@ static int	expand_redir(char *str, t_env *env, int retn, char **res)
 	step1 = param_expansion(str, env, retn);
 	step2 = field_split(step1);
 	free(step1);
-	if (step2 && step2->next)
+	if (!step2 || step2->next)
 	{
 		print_error(0, str, "ambiguous redirect");
 		ft_lstclear(&step2, free);
+		*res = ft_strdup("");
 		return (-1);
 	}
 	remove_all_quotes(step2);

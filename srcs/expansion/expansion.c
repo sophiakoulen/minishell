@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 12:46:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:41:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env,
 		if (expand_cmd(&(*p)->cmds[i], intermediate->cmds[i], env, retn) != 0)
 		{
 			pipeline_cleanup(*p);
+			*p = NULL;
 			return (-1);
 		}
 		i++;
@@ -56,6 +57,7 @@ int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int re
 	
 	if (expand_redirs(intermediate->redirs, env, retn) != 0)
 	{
+		definitive->redirs = intermediate->redirs;
 		return (-1);
 	}
 	definitive->redirs = intermediate->redirs;
