@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 15:58:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:20:21 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int			expand_redirs(t_list *redirs, t_env *env, int retn);
 
 /* prs pipeline */
 
-int			parse_pipeline(t_parsed_pipeline *pipeline, t_token **tok);
+int			parse_pipeline(t_parsed_pipeline **pipeline, t_token **tok);
 
 /* prs command */
 

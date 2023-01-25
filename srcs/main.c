@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 15:43:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:20:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	start = tok_list;
 	if (start->type != e_end)
 	{
-		parsed = x_malloc(sizeof(*parsed), 1);
-		if (parse_pipeline(parsed, &tok_list) == SUCCESS)
+		if (parse_pipeline(&parsed, &tok_list) == SUCCESS)
 		{
 			if (expand_pipeline(&pipeline, parsed, *env, *retn) == 0)
 			{

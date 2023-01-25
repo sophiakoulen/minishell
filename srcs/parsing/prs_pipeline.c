@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/21 01:13:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:21:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,23 @@ static t_parsed_cmd	**list_to_array(t_list *lst);
 	<pipeline> ::= <command>
             	| <command> '|' <pipeline>
 */
-int	parse_pipeline(t_parsed_pipeline *pipeline, t_token **tok)
+int	parse_pipeline(t_parsed_pipeline **pipeline, t_token **tok)
 {
 	t_list			*lst;
 
-	*pipeline = (t_parsed_pipeline){0, NULL};
+	*pipeline = x_malloc(sizeof(**pipeline), 1);
+	(*pipeline)->n_cmds = 0;
+	(*pipeline)->cmds = NULL;
 	if ((*tok)->type == e_end)
 		return (STOP);
 	lst = NULL;
 	if (create_parsed_cmd_list(&lst, tok) == SYNTAX_ERROR)
+	{
+		free(*pipeline);
 		return (SYNTAX_ERROR);
-	*pipeline = (t_parsed_pipeline){ft_lstsize(lst), list_to_array(lst)};
+	}
+	(*pipeline)->n_cmds = ft_lstsize(lst);
+	(*pipeline)->cmds = list_to_array(lst);
 	ft_lstclear(&lst, do_nothing);
 	return (SUCCESS);
 }
