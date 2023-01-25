@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/24 15:32:54 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:43:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	wait_all(int n, int *pids);
 static int	launch_child(t_cmd_info *cmd, t_fds *fds, int n, t_env *env, int prev);
 static void	exec_cmd(t_cmd_info *cmd, t_fds *fds, t_env *env, int prev);
 
-extern int	g_is_child;
+extern int	g_child_pid;
 
 /*
 	Execute a pipeline containing multiple commands.
@@ -82,7 +82,7 @@ static int	launch_child(t_cmd_info *cmd, t_fds *fds, int n, t_env *env, int prev
 	}
 	if (pid == 0)
 	{
-		g_is_child = pid;
+		g_child_pid = pid;
 		redirect(cmd->i_fd, cmd->o_fd);
 		close_fds(fds, n);
 		exec_cmd(cmd, fds, env, prev);
