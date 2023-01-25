@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:58:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 15:33:45 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:42:33 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	SIGQUIT	ctrl-\	does nothing
  */
 
-extern int	g_child_pid;
+extern int	g_retn;
 
 /*
 	The handeller for sig int. starts a new line leaving the old text inplace.
@@ -40,6 +40,7 @@ void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_retn = 1;
 		write(1, &"\n", 1);
 		rl_on_new_line();
 		rl_replace_line("\0", 0);

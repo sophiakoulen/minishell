@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 15:02:16 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:43:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ static void	check_args(int argc, char **argv);
 static void	interactive_shell(t_env *env, int *retn);
 static int	exec_line(char *line, t_env **env, int *retn);
 
-int	g_child_pid = 0;
+int	g_retn = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
-	static int	retn;
+	// static int	retn;
 
 	get_set_termios(1);
 	parent_signals();
 	env = init_env(envp);
 	check_args(argc, argv);
-	interactive_shell(env, &retn);
+	interactive_shell(env, &g_retn);
 	return (0);
 }
 
