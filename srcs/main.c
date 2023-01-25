@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 16:20:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:31:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static int	exec_line(char *line, t_env **env, int *retn)
 				*retn = exec_pipeline(pipeline, env, *retn);
 				pipe_return_print(*retn);
 				pipeline_cleanup(pipeline); //need to free list of args and list of redirs
-				free(pipeline);
 			}
 			else
 				*retn = 1;

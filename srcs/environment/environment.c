@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:44:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:35:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*ret_env_key(t_env *env, char *key)
 			l = ft_strlen(env->key);
 		if (ft_strncmp(env->key, key, l) == 0)
 		{
-			return (ft_strdup(env->value));
+			return (env->value);
 		}
 		env = env->next;
 	}
