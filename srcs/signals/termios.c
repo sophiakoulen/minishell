@@ -6,12 +6,20 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 06:32:12 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:13:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:27:36 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	modify the termios setting wich govern the display of ctrl caracters ^C ..
+	you can check the current settings with
+		stty -a
+	look for echoctl we toggle it to -echoctl to
+	1 save the termios defaults and set echoctrl to ignored
+	0 restor the default termios settings
+ */
 void	get_set_termios(int toggle)
 {
 	static struct termios saved_termios;

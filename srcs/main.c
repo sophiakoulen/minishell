@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 14:36:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:02:16 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 			{
 				silent_signals();
 				*retn = exec_pipeline(pipeline, env, *retn);
+				pipe_return_print(*retn);
 				pipeline_cleanup(pipeline); //need to free list of args and list of redirs
 				free(pipeline);
 			}

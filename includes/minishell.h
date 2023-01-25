@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 12:56:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:55:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ void	sigint_handler(int sig);
 void	parent_signals(void);
 void	get_set_termios(int toggle);
 void	silent_signals(void);
+void	pipe_return_print(int retn);
 
 /* ************************************************************************** */
 /*   structs                                                                  */
