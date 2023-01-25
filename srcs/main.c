@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 17:27:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:11:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,15 @@ static int	exec_line(char *line, t_env **env, int *retn)
 			{
 				silent_signals();
 				*retn = exec_pipeline(pipeline, env, *retn);
-				pipeline_cleanup(pipeline);
+				pipeline_cleanup(pipeline); //need to free list of args and list of redirs
 				free(pipeline);
 			}
 			else
 				*retn = 1;
+			parsed_pipeline_cleanup(parsed); //need to free cmd and the items
 		}
 		else
 			*retn = 258;
-		parsed_pipeline_cleanup(parsed);
 	}
 	tok_list_cleanup(start);
 	return (*retn);

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:17 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/17 19:19:34 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 13:16:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,19 @@ t_cmd	*cmd_factory(t_cmd *blueprint)
 */
 void	cmd_cleanup(t_cmd *cmd)
 {
+	t_list	*redir;
+
+	if (!cmd)
+		return ;
 	cleanup_strs(cmd->args);
 	cmd->args = 0;
-	ft_lstclear(&cmd->redirs, (void (*)(void *))item_cleanup_deep);
+	redir = cmd->redirs;
+	while (redir)
+	{
+		if (redir->content)
+			free(((t_item *)redir->content)->word);
+		redir = redir->next;
+	}
 }
 
 void	print_cmd(t_cmd *cmd)

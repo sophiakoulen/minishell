@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/24 15:28:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 12:46:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static char		**list_to_array(t_list *lst);
 
+/*
+	Transform the parsed pipeline into a definitive pipeline.
+	That means, expansion is performed on all the commands.
+*/
 int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn)
 {
 	int			i;
@@ -26,6 +30,7 @@ int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env,
 	{
 		if (expand_cmd(&(*p)->cmds[i], intermediate->cmds[i], env, retn) != 0)
 		{
+			pipeline_cleanup(*p);
 			return (-1);
 		}
 		i++;
@@ -34,11 +39,9 @@ int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env,
 }
 
 /*
-	Currently doesn't do any expansion,
-	just translate from one form into the other.
-
-	added in quotes removal with the quote_removal before
-	the dupe
+	Transform the parsed command into a definitive command.
+	That means, string expansion is performed of both the argument list
+	and the rediretion list.
 */
 int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn)
 {
@@ -50,6 +53,7 @@ int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int re
 	ft_lstclear(&expanded_args, do_nothing);
 
 	/* expand redirections */
+	
 	if (expand_redirs(intermediate->redirs, env, retn) != 0)
 	{
 		return (-1);
