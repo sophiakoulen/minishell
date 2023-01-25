@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 15:37:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/25 15:12:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_cmd_info
 	int		status;
 	int		has_heredoc;
 	char	*heredoc_delim;
+	char	*hd_buffer;
 	int		builtin;
 	//maybe simpler to add all this to the struct?
 	char	**args;

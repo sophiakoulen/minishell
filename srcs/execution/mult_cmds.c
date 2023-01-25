@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mult_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 15:42:08 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:58:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	multiple_commands(t_cmd *cmds, t_fds *fds, int n, t_env *env, int prev)
 	int			ret;
 
 	infos = prepare_all_cmds(cmds, fds, n, env);
+	read_all_heredocs(infos, n);
 	pids = launch_all(infos, fds, n, env, prev);
-	do_all_heredocs(infos, fds->hd_pipes, n);
+	write_all_heredocs(infos, fds->hd_pipes, n);
 	cleanup_all_info(infos, n);
 	close_fds(fds, n);
 	ret = wait_all(n, pids);

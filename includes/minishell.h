@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 14:55:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:58:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void		sort_env(t_env **env);
 int			exec_pipeline(t_pipeline *p, t_env **env, int prev);
 
 /* heredoc */
-
-void		do_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n);
+void		read_all_heredocs(t_cmd_info *infos, int n);
+void		write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n);
 
 /* find_cmd utils */
 

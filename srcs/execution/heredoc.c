@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 22:36:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:39:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 static int	is_delim(char *line, const char *delim);
 static void	add_line(char **buffer, char *line);
-static void	do_single_heredoc(const char *delim, int fd);
+static void	read_single_heredoc(t_cmd_info *cmd);
 
 /*
-	For each command, write heredoc to corresponding pipe
-	if needed.
-
-	Function should be called in the parent process.
-
-	hd_pipes is an array of pipes the parent process
-	should write to.
+	For each command that has a heredoc, read the heredoc
+	input into a buffer.
+	Input is read from stdin until the corresponding delimiter
+	is found.
 */
-void	do_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
+
+void	read_all_heredocs(t_cmd_info *infos, int n)
 {
 	int	i;
 
@@ -34,24 +32,33 @@ void	do_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
 	{
 		if (infos[i].has_heredoc)
 		{
-			do_single_heredoc(infos[i].heredoc_delim, hd_pipes[i][1]);
+			read_single_heredoc(&infos[i]);
 		}
 		i++;
 	}
 }
 
 /*
-	Writes input from stdin to a file descriptor,
-	until the delim string, on its own line,
-	is reached and closes the file descriptor.
-
-	This function should be called in the parent process,
-	to execute here-documents.
-
-	The fd should be the write end of a pipe, and a child
-	process should read at the read end of that pipe.
+	For each command that has a heredoc, write it's heredoc
+	input to the corresponding pipe. Then close the pipe.
 */
-static void	do_single_heredoc(const char *delim, int fd)
+void	write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (infos[i].has_heredoc)
+		{
+			write(hd_pipes[i][1], infos[i].hd_buffer, ft_strlen(infos[i].hd_buffer));
+			close(hd_pipes[i][1]);
+		}
+		i++;
+	}
+}
+
+static void	read_single_heredoc(t_cmd_info *cmd)
 {
 	char	*buffer;
 	char	*line;
@@ -60,17 +67,14 @@ static void	do_single_heredoc(const char *delim, int fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL || is_delim(line, delim))
+		if (line == NULL || is_delim(line, cmd->heredoc_delim))
 		{
 			free(line);
 			break ;
 		}
 		add_line(&buffer, line);
 	}
-	if (buffer)
-		ft_putstr_fd(buffer, fd);
-	free(buffer);
-	close(fd);
+	cmd->hd_buffer = buffer;
 }
 
 /*
