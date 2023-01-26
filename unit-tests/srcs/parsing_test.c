@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:47:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/26 11:27:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/26 12:04:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ int	main(int argc, char **argv)
 		str = argv[1];
 	construct_tok_list(&tok, str);
 	start = tok;
-	parse_pipeline(&parsed, &tok);
-	print_parsed_pipeline(parsed);
-	parsed_pipeline_cleanup(parsed);
+	if (parse_pipeline(&parsed, &tok) == SUCCESS)
+	{
+		print_parsed_pipeline(parsed);
+		parsed_pipeline_cleanup(parsed);
+	}
 	tok_list_cleanup(start);
 	return (0);
 }
