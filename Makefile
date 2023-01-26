@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/26 11:34:35 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/26 12:00:22 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,15 +86,17 @@ $(NAME)	: $(LIBFT_N) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
 
 $(LIBFT_N):
-		$(MAKE) -C $(LIBFT_DIR) $(LIBFT_N)
-		cp $(LIBFT) $(NAME)
+	@echo "...building and archiving libft..."
+	@$(MAKE) -s -C $(LIBFT_DIR) $(LIBFT_N)
+	@cp $(LIBFT) $(NAME)
 
 # minishell library for unit tests
 LIBMINISHELL	= libminishell.a
 
 $(LIBMINISHELL): $(OBJS) $(LIBFT_N)
-	cp $(LIBFT) libminishell.a
-	ar rcs libminishell.a $(OBJS)
+	@echo "...archiving libminishell..."
+	@cp $(LIBFT) libminishell.a
+	@ar rcs libminishell.a $(OBJS)
 
 lib		: $(LIBMINISHELL)
 # end minshell library

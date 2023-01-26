@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/26 11:36:20 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/26 11:54:50 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ifdef DEBUG
 	CFLAGS += -g3 -fsanitize=address
 endif
 
-TEST_NAMES	=	param_expansion prs_cmd         prs_pipeline    quote_removal  \
+TEST_NAMES	=	param_expansion prs_cmd         parsing         quote_removal  \
 				tokenizer
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
 				expansion
@@ -36,16 +36,16 @@ SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
 TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
-all: $(NAME)
-	@mkdir -p bin
+all: run-tests
+
+libminishell:
+	@$(MAKE) lib -C ..
 
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
 #need to compile with the readline lib
-$(NAME) : $(OBJS)
-	@$(MAKE) lib -C ..
 
 run-tests : re
 	@echo "\033[33m\n--------------------\n Running unit-tests\n--------------------\n\033[0m"
@@ -57,37 +57,31 @@ clean :
 fclean : clean
 	$(RM) $(addsuffix .test, $(BIN_PATH)$(TEST_NAMES))
 
+
 # Individual unit tests
+$(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
+	@mkdir -p bin
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
 
-tokenizer : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+parsing: $(BIN_PATH)parsing.test
 
-heredoc : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+tokenizer: $(BIN_PATH)tokenizer.test
 
-parse_item : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+heredoc: $(BIN_PATH)heredoc.test
 
-prepare_cmd : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+parse_item: $(BIN_PATH)parse_item.test
 
-mult_cmd : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+prepare_cmd: $(BIN_PATH)prepare_cmd.test
 
-prs_cmd : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+mult_cmd: $(BIN_PATH)mult_cmd.test
 
-parsing : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+prs_cmd: $(BIN_PATH)prs_cmd.test
 
-quote_removal : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+quote_removal: $(BIN_PATH)quote_removal.test
 
-param_expansion : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+param_expansion: $(BIN_PATH)param_expansion.test
 
-expansion : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+expansion: $(BIN_PATH)expansion.test
 
 re: fclean all
 
