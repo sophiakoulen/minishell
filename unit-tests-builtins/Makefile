@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/18 13:07:12 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/26 12:23:36 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,13 @@ CFLAGS	= -Wall -Wextra
 #CFLAGS += -Werror
 CFLAGS += -g3 -fsanitize=address
 
-TEST_NAMES	= echo pwd env
+TEST_NAMES	=	echo pwd env
+DEV_NAMES	=
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES)
+FILES		:= $(TEST_NAMES) $(DEV_NAMES)
+
 
 INCS_PATH	=	../includes/
 OBJS_PATH	=	objs/
@@ -54,6 +56,9 @@ fclean : clean
 	$(RM) $(addsuffix .test, $(TEST_NAMES))
 
 # Individual unit tests
+$(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
+	@mkdir -p bin
+	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
 
 echo : all
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
