@@ -38,11 +38,13 @@ exec_test $N 22 "{$USER 'a' $LANG}" "\$USER 'a' \$LANG"
 exec_test $N 23 "{$USER \"b\" $LANG}" '$USER "b" $LANG'
 exec_test $N 24 "{$USER\"b\"$LANG}" '$USER"b"$LANG'
 exec_test $N 25 "{\"$USER\"a'\$LANG'}" "\"\$USER\"a'\$LANG'"
-exec_test $N 26 "{\"$USER\"'\$LANG'}" "\"\$USER\"'\$LANG'"
+
+exec_test $N 26 "{\"$USER\"'\$LANG'\" $SHLVL \"}" "\"\$USER\"'\$LANG'\" \$SHLVL \""
+
 exec_test $N 27 "{'\$USER'\"$LANG\"}" "'\$USER'\"\$LANG\""
 exec_test $N 28 "{'\$USER'abc\"$LANG\"}" "'\$USER'abc\"\$LANG\""
 exec_test $N 29 "{\"$USER ' this $LANG\"}" "\"$USER ' this $LANG\""
 exec_test $N 30 "{\"$USER''' '$LANG'\"}" "\"$USER''' '$LANG'\""
 exec_test $N 31 "{\"$US'ER''' '$LANG'\"}" "\"$US'ER''' '$LANG'\""
-# exec_test $N 21 "{\"$USER'a'$LANG\"}" "\"\$USER'a'\$LANG\""
-# exec_test $N 22 "{\"$USER'/'$HOME$LANG\"}" "\"\$USER'/'\$HOME\$LANG\""
+# exec_test $N 32 "{\"$USER'a'$LANG\"}" "\"\$USER'a'\$LANG\""
+# exec_test $N 33 "{\"$USER'/'$HOME$LANG\"}" "\"\$USER'/'\$HOME\$LANG\""

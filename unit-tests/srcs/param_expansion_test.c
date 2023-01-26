@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:05:35 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 15:50:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:05:26 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 2)
 		return (0);
 	char * str = param_expansion(argv[1], env, retn);
+	env_cleanup_all(env);
 	ft_printf("{%s}", str);
 	ft_printf("\n");
 	free(str);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 22:30:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:12:07 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,30 +96,34 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 	int		i;
 	char	*s1;
 	char	*s2;
-	char	*tmp;
+	// char	*tmp;
 
 	i = 1;
 	if ((*str)[0] == '\0' || (**str != DOUBLE_QUOTE))
 		return (0);
 	s1 = ft_strdup("");
+	// printf("new day\n");
 	while ((*str)[i] && ft_strchr("\"", (*str)[i]) == NULL)
 	{
 		if ((*str)[i] == '$')
 		{
-			s2 = ft_substr(*str, 0, i);
-			tmp = ft_strjoin(s1, s2);
-			free(s2);
-			free(s1);
-			s1 = tmp;
+			// s2 = ft_substr(*str, 0, i);
+			// tmp = ft_strjoin(s1, s2);
+			s1 = ft_strmerge(s1, ft_substr(*str, 0, i));
+			// free(s2);
+			// free(s1);
+			// s1 = tmp;
 			*str += i;
 			i = 0;
 			if (get_env_variable(str, &s2, env, retn))
 			{
 				// printf("env value:%s\n", s2);
-				tmp = ft_strjoin(s1, s2);
-				free(s2);
-				free(s1);
-				s1 = tmp;
+				s1 = ft_strmerge(s1, s2);
+				// tmp = ft_strjoin(s1, s2);
+				// printf("*str:%c s1:{%s} s2:{%s}\n", **str, s1, s2);
+				// free(s2);
+				// free(s1);
+				// s1 = tmp;
 			}
 			else
 			{
@@ -130,13 +134,12 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 				}
 			}
 		}
-		i++;
+		else
+			i++;
 	}
-	if (i == 0)
-		return (0);
 	if ((*str)[i] == DOUBLE_QUOTE)
 		i++;
-	*ret = ft_substr(*str, 0, i);
+	*ret = ft_strmerge(s1, ft_substr(*str, 0, i));
 	*str += i;
 	return (1);
 }
