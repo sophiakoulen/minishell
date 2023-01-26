@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/26 12:23:36 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/26 12:32:07 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,16 +34,14 @@ SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.o, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
 TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
-all: $(NAME)
-	@mkdir -p bin
+all: run-tests
+
+libminishell:
+	@$(MAKE) lib -C ..
 
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
-
-#need to compile with the readline lib
-$(NAME) : $(OBJS)
-	@$(MAKE) lib -C ..
 
 run-tests : re
 	@echo "\033[33m\n----------------------------\n Running builtin unit-tests\n----------------------------\n\033[0m"
@@ -59,15 +57,11 @@ fclean : clean
 $(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
 	@mkdir -p bin
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
+echo: $(BIN_PATH)echo.test
 
-echo : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+pwd: $(BIN_PATH)echo.test
 
-pwd : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
-
-env : all
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $(BIN_PATH)$@.test $(OBJS_PATH)$@_test.o
+env: $(BIN_PATH)echo.test
 
 re: fclean all
 

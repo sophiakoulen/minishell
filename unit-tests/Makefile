@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/26 11:54:50 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/26 12:37:22 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ ifdef DEBUG
 	CFLAGS += -g3 -fsanitize=address
 endif
 
-TEST_NAMES	=	param_expansion prs_cmd         parsing         quote_removal  \
-				tokenizer
+TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal
+
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
-				expansion
+				expansion       prs_cmd
 
 # put the unit test files here
 # have one file that's the same as the test name
