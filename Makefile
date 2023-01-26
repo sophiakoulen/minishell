@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/24 12:04:35 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/26 11:34:35 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ $(LIBFT_N):
 # minishell library for unit tests
 LIBMINISHELL	= libminishell.a
 
-$(LIBMINISHELL): $(OBJS) $(LIBFT)
+$(LIBMINISHELL): $(OBJS) $(LIBFT_N)
 	cp $(LIBFT) libminishell.a
 	ar rcs libminishell.a $(OBJS)
 
