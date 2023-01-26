@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/26 12:32:07 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/26 13:24:38 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS	= -Wall -Wextra
 #CFLAGS += -Werror
 CFLAGS += -g3 -fsanitize=address
 
-TEST_NAMES	=	echo pwd env
+TEST_NAMES	=	echo pwd env export
 DEV_NAMES	=
 
 # put the unit test files here
@@ -34,7 +34,7 @@ SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.o, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
 TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
-all: run-tests
+all: $(OBJS)
 
 libminishell:
 	@$(MAKE) lib -C ..
@@ -51,17 +51,21 @@ clean :
 	$(RM) $(OBJS)
 
 fclean : clean
-	$(RM) $(addsuffix .test, $(TEST_NAMES))
+	$(RM) $(addprefix $(BIN_PATH), $(addsuffix .test, $(TEST_NAMES)))
 
 # Individual unit tests
 $(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
 	@mkdir -p bin
 	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
+
 echo: $(BIN_PATH)echo.test
 
-pwd: $(BIN_PATH)echo.test
+pwd: $(BIN_PATH)pwd.test
 
-env: $(BIN_PATH)echo.test
+env: $(BIN_PATH)env.test
+
+exprt: $(BIN_PATH)exprt.test
+
 
 re: fclean all
 
