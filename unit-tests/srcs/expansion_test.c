@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_test.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:07:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/24 15:18:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:37:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	print_lst(t_list *lst)
 {
 	while (lst)
 	{
-		printf("%s\n", lst->content);
+		ft_printf("{%s} ", lst->content);
 		lst = lst->next;
 	}
+	ft_printf("\n");
 }
