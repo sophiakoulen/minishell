@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/24 12:13:36 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/26 11:28:54 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,15 @@ CFLAGS	= -Wall -Wextra
 ifdef DEBUG
 	CFLAGS += -g3 -fsanitize=address
 endif
-TEST_NAMES	=	tokenizer       heredoc         parse_item      prepare_cmd    \
-				mult_cmd        prs_cmd         quote_removal   prs_pipeline   \
-				param_expansion expansion
+
+TEST_NAMES	=	param_expansion prs_cmd         prs_pipeline    quote_removal  \
+				tokenizer
+DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
+				expansion
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES)
+FILES		:= $(TEST_NAMES)  $(DEV_NAMES)
 
 INCS_PATH	=	../includes/
 OBJS_PATH	=	objs/
