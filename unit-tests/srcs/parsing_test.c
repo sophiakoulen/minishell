@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_pipeline_test.c                                :+:      :+:    :+:   */
+/*   parsing_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 09:47:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 12:20:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:27:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,20 @@
 
 int	main(int argc, char **argv)
 {
-	t_token *tok;
-	t_token *start;
-	char	*str;
+	t_token				*tok;
+	t_token				*start;
+	char				*str;
+	t_parsed_pipeline	*parsed;
 
 	if (argc < 2)
-	{
 		str = "";
-	}
 	else
-	{
 		str = argv[1];
-	}
 	construct_tok_list(&tok, str);
 	start = tok;
-
-	t_parsed_pipeline *p = x_malloc(sizeof(*p), 1);
-	parse_pipeline(p, &tok);
-
-	print_parsed_pipeline(p);
-
-	parsed_pipeline_cleanup(p);
-
+	parse_pipeline(&parsed, &tok);
+	print_parsed_pipeline(parsed);
+	parsed_pipeline_cleanup(parsed);
 	tok_list_cleanup(start);
-
 	return (0);
 }
