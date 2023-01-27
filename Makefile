@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/27 11:58:57 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/27 12:08:00 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,8 +136,8 @@ re		: fclean all
 
 # Rule to archive object files into a static library.
 # Useful for unit testing
-$(LIBMINISHELL): $(OBJS) $(LIBFT_N)
-	@echo "...archiving libminishell..."
+$(LIBMINISHELL): $(OBJS) $(LIBFT)
+	@echo "$(MAGENTA)...archiving libminishell...$(RESET)"
 	@cp $(LIBFT) $(LIBMINISHELL)
 	@ar rcs $(LIBMINISHELL) $(OBJS)
 

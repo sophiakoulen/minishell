@@ -3,12 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/26 12:37:22 by znichola         ###   ########.fr        #
+#    Updated: 2023/01/27 12:11:07 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+RESET=\033[0m
+BLUE=\033[34m
+RED=\033[31m
+GREEN=\033[32m
+MAGENTA=\033[35m
+YELLOW=\033[33m
 
 NAME	= unit-tests
 
@@ -34,6 +41,7 @@ BIN_PATH	=	bin/
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix _test.c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix _test.o, $(FILES)))
+TESTS		=	$(addprefix $(BIN_PATH), $(addsuffix .test, $(TEST_NAMES)))
 TST_SCRIPTS	=	$(addprefix run_, $(addsuffix _test.sh, $(TEST_NAMES)))
 
 all: run-tests
@@ -47,16 +55,21 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 
 #need to compile with the readline lib
 
-run-tests : re
+run-tests : $(TESTS)
 	@echo "\033[33m\n--------------------\n Running unit-tests\n--------------------\n\033[0m"
 	@for i in $(TST_SCRIPTS); do echo;"./$$i"; done
 
 clean :
-	$(RM) $(OBJS)
+	@echo "$(YELLOW)...removing object files...$(RESET)"
+	@$(RM) $(OBJS)
 
 fclean : clean
-	$(RM) $(addsuffix .test, $(BIN_PATH)$(TEST_NAMES))
+	@echo "$(YELLOW)...removing binaries...$(RESET)"
+	@$(RM) $(addsuffix .test, $(BIN_PATH)$(TEST_NAMES))
 
+re: fclean all
+
+.PHONY	: all clean fclean re
 
 # Individual unit tests
 $(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
@@ -82,7 +95,3 @@ quote_removal: $(BIN_PATH)quote_removal.test
 param_expansion: $(BIN_PATH)param_expansion.test
 
 expansion: $(BIN_PATH)expansion.test
-
-re: fclean all
-
-.PHONY	: all clean fclean re
