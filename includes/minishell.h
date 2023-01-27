@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/03 12:38:59 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 13:52:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # include "defines.h"
 # include "structs.h"
 
+
+// wsl linux
+#include <sys/types.h>
+
+// # include "tokenizer.h"
+// # include "parsing.h"
+// # include "execution.h"
+// # include "cmd.h"
 
 /* cleanup */
 
