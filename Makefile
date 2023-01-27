@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/27 15:40:21 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/27 15:58:13 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,8 @@ STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
 					t_parsed_pipeline
 
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
-					prep_fds        exec_utils      mult_cmds                 \
-					exec_builtin    exec_pipeline   simple_cmd                \
-					launch_builtin
+					prep_fds        exec_utils      mult_cmds\
+					exec_builtin    exec_pipeline   launch_builtin\
 
 TOKENIZER_FILES	=	tokenizer       token_list
 

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 15:27:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:57:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,6 @@ int			redirect(int input_fd, int output_fd);
 int			multiple_commands(t_cmd *cmds, t_fds *fds, int n, t_env *env, int prev);
 int			*launch_all(t_cmd_info *cmds, t_fds *fds, int n, t_env *env, int prev);
 
-/* simple_cmd_exec.c */
-
-int			simple_command(t_cmd *cmd, t_fds *fds, t_env **env, int prev);
 
 /* exec_builtin.c */
 
@@ -126,14 +123,6 @@ int			launch_builtin(t_cmd_info *cmd, t_fds *fds, t_env **env, int prev);
 
 int			expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn);
 int			expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn);
-
-/* var_exp */
-
-char		**variable_expansion(char *str);
-
-/* wild_exp */
-
-char		*wildcard_expansion(char *str);
 
 /* quote_removal.c */
 
