@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/26 12:00:22 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/27 11:30:49 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,10 +82,10 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -I$(INCS_PATH) -o $@ $<
 
-$(NAME)	: $(LIBFT_N) $(OBJS)
+$(NAME)	: $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
 
-$(LIBFT_N):
+$(LIBFT):
 	@echo "...building and archiving libft..."
 	@$(MAKE) -s -C $(LIBFT_DIR) $(LIBFT_N)
 	@cp $(LIBFT) $(NAME)
