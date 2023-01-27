@@ -108,7 +108,7 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 
 $(NAME)	: $(LIBFT) $(OBJS)
 	@echo "$(GREEN)...compiling minishell...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@ $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(INCS_PATH) $(LIBS_PATH) $(LIBS) -o $@
 
 $(LIBFT):
 	@echo "$(BLUE)...building and archiving libft...$(RESET)"

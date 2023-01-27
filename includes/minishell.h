@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/errno.h>
+# include <sys/wait.h>
 # include <termios.h>
 
 # include "libft.h"
