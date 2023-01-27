@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/27 12:08:00 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/27 13:54:20 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
 TOKENIZER_FILES	=	tokenizer       token_list
 
 UTILS_FILES		=	utils_1         utils_2         tree_ops                  \
-					error_printer
+					error_printer   prompt
 
 ENVIRONMENT		=	environment     env_utils       env_sort
 

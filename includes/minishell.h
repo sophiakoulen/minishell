@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/26 09:09:30 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:27:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,14 @@ int			get_tree_max_width(t_tree *tree);
 void		print_error(char *program, char *arg, char *msg);
 char		*in_quotes(char *str);
 
+/* prompt.c */
+
+void		make_red(char *prompt);
+void		make_blue(char *prompt);
+void		adjust_color(char *prompt, int retn);
+
 /* ************************************************************************** */
-/*   utils                                                                    */
+/*   signals                                                                   */
 /* ************************************************************************** */
 
 /* signals.c */
@@ -224,6 +230,7 @@ void	parent_signals(void);
 void	get_set_termios(int toggle);
 void	silent_signals(void);
 void	pipe_return_print(int retn);
+
 
 /* ************************************************************************** */
 /*   structs                                                                  */

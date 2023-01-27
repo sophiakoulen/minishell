@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 21:18:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:28:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ static void	check_args(int argc, char **argv);
 static void	interactive_shell(t_env *env, int *retn);
 static int	exec_line(char *line, t_env **env, int *retn);
 
-int	g_retn = 0;
+int		g_retn = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
-	// static int	retn;
 
 	get_set_termios(1);
 	parent_signals();
@@ -50,13 +49,13 @@ static void	check_args(int argc, char **argv)
 static void	interactive_shell(t_env *env, int *retn)
 {
 	char	*line;
+	char	*prompt;
 
+	prompt = ft_strdup("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
 	while (1)
 	{
-		if (*retn == 0)
-			line = readline("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
-		else
-			line = readline("minishell\001\033[38:5:197m\002$\001\033[0m\002 ");
+		adjust_color(prompt, *retn);
+		line = readline(prompt);
 		if (!line)
 		{
 			write(1, &"\e[1A\e[11C", 10);
@@ -76,7 +75,6 @@ static void	interactive_shell(t_env *env, int *retn)
 
 static int	exec_line(char *line, t_env **env, int *retn)
 {
-	// static int			ret = 0;
 	t_token				*tok_list;
 	t_token				*start;
 	t_parsed_pipeline	*parsed;
