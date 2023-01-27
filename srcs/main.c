@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 15:28:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:32:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	interactive_shell(t_env *env, int *retn)
 		line = readline(prompt);
 		if (!line)
 		{
-			write(1, &"\e[1A\e[11C", 10);
+			write(2, &"\e[1A\e[11C", 9);
 			exec_exit(NULL, &env, *retn);
 			break ;
 		}
