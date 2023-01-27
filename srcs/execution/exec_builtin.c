@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:25:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:50:35 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	exec_builtin(enum e_builtin n, char **args, t_env **env, int prev)
 		exec_exit,
 		exec_shout,
 	};
+
 	if (n > NUM_BUILTINS || n < 0)
 		return (builtin_passthrough(args, env, prev));
 	return ((builtin_arr)[n](args, env, prev));

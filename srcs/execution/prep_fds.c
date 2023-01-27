@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_fds.c                                      :+:      :+:    :+:   */
+/*   prep_fds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/15 15:15:02 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:47:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,47 +101,3 @@ static int	*prepare_all_output(int n)
 	}
 	return (output_fds);
 }
-
-/*
-static	int get_single_input(t_cmd cmd)
-{
-	int	fd;
-
-	if (!cmd->in)
-	{
-		return (-1);
-	}
-	if (cmd->in->type == INFILE)
-	{
-		fd = open(cmd->in->str, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(cmd->in->str);
-		}
-		return (fd);
-	}
-	return (-1);
-}
-
-static int	get_single_output(t_cmd cmd)
-{
-	int	fd;
-	int	flags;
-
-	if (!cmd->out)
-	{
-		return (-1);
-	}
-	flags = O_CREAT | O_WRONLY | O_TRUNC;
-	if (cmd->out->type == IS_APPEND)
-	{
-		flags |= O_APPEND;
-	}
-	fd = open(cmd->out->str, flags, 0644);
-	if (fd < 0)
-	{
-		perror(cmd->out->str);
-	}
-	return (fd);
-}
-*/
