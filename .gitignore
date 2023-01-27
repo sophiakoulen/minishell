@@ -6,3 +6,4 @@ libft.a
 libminishell.a
 unit-tests/test
 *.o
+*.dSYM
