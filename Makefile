@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/27 13:54:20 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/27 15:40:21 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,8 @@ OBJS_PATH	=	objs/
 BUILTINS		=	echo            pwd             env             exit      \
 					shout           export          unset           cd
 
-EXPANSION_FILES	=	var_exp         wild_exp        expansion                 \
-					quote_removal   param_expansion expansion2      field_split
+EXPANSION_FILES	=	quote_removal   param_expansion expansion2      field_split\
+					expansion
 
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
