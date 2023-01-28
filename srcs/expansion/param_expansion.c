@@ -122,7 +122,9 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 }
 
 /*
-	Perform $-sign expansion.
+	Try $-sign expansion.
+	Return 0 if string doesn't start with $-sign.
+	Return 1 if yes and perform $-sign expansion as follows:
 
 	Special parameters:
 	$? gets the return value of the last command.
@@ -134,11 +136,10 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 	of the corresponding environment variable. If no such
 	environment variable is set, the result is the empty string.
 
-	check var param      start $  stop at $ ? ~ " '
-	return 1 on sucess and ret is filled with malloced string
-
 	Advance the pointer until end of variable name.
- */
+
+	ret is filled with a heap-allocated result of the expansion.
+*/
 static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 {
 	int		i;
@@ -154,7 +155,7 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 		*str += 2;
 		return (1);
 	}
-	if (ft_isdigit((*str)[1]) || ft_strchr("!@*", (*str)[1]))
+	if (ft_isdigit((*str)[1]) || ((*str)[i] && ft_strchr("!@*", (*str)[1])))
 	{
 		*ret = ft_strdup("");
 		*str += 2;
@@ -169,7 +170,6 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	key = ft_substr(*str, 1, i - 1);
-	//printf("key:%s\n", key);
 	value = ret_env_key(env, key);
 	free(key);
 	*str += i;
