@@ -191,6 +191,7 @@ void		strarr_print(char **s);
 char		*list_to_str(t_list *word);
 void		words_print(t_list *word);
 char		*ft_strmerge(char *s1, char *s2);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /* tree_ops */
 

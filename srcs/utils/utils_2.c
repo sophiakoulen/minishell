@@ -61,3 +61,18 @@ char	*ft_strmerge(char *s1, char *s2)
 	free(s2);
 	return (ret);
 }
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	max_len;
+	size_t	len1;
+	size_t	len2;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len1 >= len2)
+		max_len = len1;
+	else
+		max_len = len2;
+	return (ft_strncmp(s1, s2, max_len));
+}
