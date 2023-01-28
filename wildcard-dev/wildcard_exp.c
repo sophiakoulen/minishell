@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 14:51:10 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:36:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 #include <dirent.h>
 
-int	match_wildcard(char *file, char *expr)
-{
-	char	**chunks;
-	char	*tmp;
-	int		i;
+/*
+	TODO:
+	- case not handled when we start or end with a wildcard
+	- when not starting with a wildcard it's imporcat to do a
+		strcmp to only match if the beginning of the word does
+	- when ending with no wildcard match needs to be found
+	- when ending with wildcard no need to keep looking for matches,
+		this is the current bihaviour
+	- should be resistant to getting a string that has no wildcard matches
+	- match while ignoring quotes!
+	- refactor the function to:
 
-	chunks = ft_split(expr, '*');
-	i = 0;
-	while (1)
-	{
-		if (chunks[i] == NULL)
-			return (1);
-		tmp = ft_strnstr(file, chunks[i], ft_strlen(file));
-		if (tmp == NULL)
-			return (0);
-		file = tmp;
-		i++;
-	}
-	ft_printf("here is an error");
-	return (-1);
-}
+	int	wildcard_exp(char **ret, char *str);
+
+	ret contains a malloced string with all the files that match the wildcard expression.
+	if no matches are found return the expression string.
+
+ */
+
+int	match_wildcard(char *file, char *expr);
 
 int	wildcard_exp(t_list **words, char *str)
 {
@@ -67,6 +66,28 @@ int	wildcard_exp(t_list **words, char *str)
 	}
 	closedir(dir);
 	return (1);
+}
+
+int	match_wildcard(char *file, char *expr)
+{
+	char	**chunks;
+	char	*tmp;
+	int		i;
+
+	chunks = ft_split(expr, '*');
+	i = 0;
+	while (1)
+	{
+		if (chunks[i] == NULL)
+			return (1);
+		tmp = ft_strnstr(file, chunks[i], ft_strlen(file));
+		if (tmp == NULL)
+			return (0);
+		file = tmp;
+		i++;
+	}
+	ft_printf("here is an error");
+	return (-1);
 }
 
 int	main(int ac, char **av)
