@@ -54,7 +54,7 @@ int	exec_export(char **args, t_env **env, int prev)
 		split_equal(*args, &identifier, &value);
 		if (!is_valid_identifier(identifier))
 		{
-			quoted_id = in_quotes(identifier);
+			quoted_id = in_quotes(*args);
 			print_error("export", quoted_id, "not a valid identifier");
 			free(quoted_id);
 			ret = 1;
