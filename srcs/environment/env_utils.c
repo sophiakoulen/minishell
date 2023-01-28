@@ -42,7 +42,7 @@ void	env_add(t_env **env, char *key, char *value)
 	current = *env;
 	while (current)
 	{
-		if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			free(current->value);
 			current->value = ft_strdup(value);
@@ -70,7 +70,7 @@ void	env_remove(t_env **env, char *key)
 	previous = 0;
 	while (current)
 	{
-		if (ft_strncmp(key, current->key, ft_strlen(key)) == 0)
+		if (ft_strcmp(key, current->key) == 0)
 		{
 			next = current->next;
 			if (previous)
