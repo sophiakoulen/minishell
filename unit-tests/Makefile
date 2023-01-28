@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/27 12:11:07 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/28 17:11:04 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal
 
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
-				expansion       prs_cmd
+				expansion       prs_cmd         wildcard_exp
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -95,3 +95,5 @@ quote_removal: $(BIN_PATH)quote_removal.test
 param_expansion: $(BIN_PATH)param_expansion.test
 
 expansion: $(BIN_PATH)expansion.test
+
+wildcard_exp: $(BIN_PATH)wildcard_exp.test

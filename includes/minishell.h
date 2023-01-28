@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 13:52:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:53:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/errno.h>
 # include <sys/wait.h>
 # include <termios.h>
+# include <dirent.h>
 
 # include "libft.h"
 # include "defines.h"
@@ -148,6 +149,9 @@ t_item		*field_split(t_item *item);
 /* expansion utils */
 int			update_state(char *c, int *state);
 char		*escape_special_chars(char *str);
+/* wildcard_exp.c */
+
+int			wildcard_exp(char **ret, char *str);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */

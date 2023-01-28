@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/03 12:39:15 by skoulen          ###   ########.fr        #
+#    Updated: 2023/02/07 13:55:06 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,26 +38,26 @@ OBJS_PATH	=	objs/
 BUILTINS		=	echo            pwd             env             exit      \
 					shout           export          unset           cd
 
-EXPANSION_FILES	=	quote_removal   param_expansion field_split\
-					expansion       expansion_utils
+EXPANSION_FILES	=	quote_removal   param_expansion field_split               \
+					expansion       expansion_utils wildcard_exp
 
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors
 
 SIGNALS_FILES	=	signals         termios
 
-STRUCT_FILES	=	t_token         t_tree          t_cmd           t_exec\
-					t_tree_print                    t_item    \
-					t_env           \
+STRUCT_FILES	=	t_token         t_tree          t_cmd           t_exec    \
+					t_tree_print                    t_item                    \
+					t_env
 
-EXECUTION_FILES	=	prep_pipeline   prep_pipeline2\
-					exec_pipeline   exec_pipeline2  exec_utils\
-					find_cmd        find_cmd_utils\
+EXECUTION_FILES	=	prep_pipeline   prep_pipeline2                           \
+					exec_pipeline   exec_pipeline2  exec_utils               \
+					find_cmd        find_cmd_utils                           \
 					builtin         heredoc
 
 TOKENIZER_FILES	=	tokenizer       token_list
 
-UTILS_FILES		=	utils_1         utils_2         tree_ops         input\
+UTILS_FILES		=	utils_1         utils_2         tree_ops         input  \
 					error_printer
 
 ENVIRONMENT		=	environment     env_utils       env_sort
@@ -73,9 +73,10 @@ UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
 ENVIRONMENT		:=	$(addprefix environment/, $(ENVIRONMENT))
 
 
-FILES		=	main	cleanup	print $(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
-						$(STRUCT_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) \
-						$(UTILS_FILES) $(ENVIRONMENT) $(SIGNALS_FILES)
+FILES		=	main	cleanup	print $(BUILTINS) $(EXPANSION_FILES)        \
+						$(PARSING_FILES) $(STRUCT_FILES) $(EXECUTION_FILES) \
+						$(TOKENIZER_FILES) $(UTILS_FILES) $(ENVIRONMENT)    \
+						$(SIGNALS_FILES)
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(addsuffix .c, $(FILES)))
 OBJS		=	$(addprefix $(OBJS_PATH), $(addsuffix .o, $(FILES)))
