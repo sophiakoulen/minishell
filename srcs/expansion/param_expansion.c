@@ -122,8 +122,22 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 }
 
 /*
+	Perform $-sign expansion.
+
+	Special parameters:
+	$? gets the return value of the last command.
+	$# gets "0".
+	$!, $@, $* get an empty string.
+
+	Variable expansion:
+	A dollar sign followed by a valid identifier gets the value
+	of the corresponding environment variable. If no such
+	environment variable is set, the result is the empty string.
+
 	check var param      start $  stop at $ ? ~ " '
 	return 1 on sucess and ret is filled with malloced string
+
+	Advance the pointer until end of variable name.
  */
 static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 {
@@ -131,27 +145,34 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	char	*key;
 	char	*value;
 
-	(void)retn;
-
-	if ((*str)[0] == '\0' || (*str)[0] != '$')
+	if ((*str)[0] != '$')
 		return (0);
 	i = 1;
 	if ((*str)[1] == '?')
 	{
 		*ret = ft_itoa(retn);
-		*str+= 2;
+		*str += 2;
 		return (1);
 	}
-	while ((*str)[i] && !ft_strchr("\'\"$", (*str)[i]) && !ft_strchr(T_IFS, (*str)[i]))
+	if (ft_isdigit((*str)[1]) || ft_strchr("!@*", (*str)[1]))
+	{
+		*ret = ft_strdup("");
+		*str += 2;
+		return (1);
+	}
+	if ((*str)[1] == '#')
+	{
+		*ret = ft_strdup("0");
+		*str += 2;
+		return (1);
+	}
+	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	key = ft_substr(*str, 1, i - 1);
+	//printf("key:%s\n", key);
 	value = ret_env_key(env, key);
-	// if (value == NULL)
-	// 	value = ft_strdup("");
 	free(key);
 	*str += i;
-	// ft_printf("key is:%s\n", key);
-	// ft_printf("value is:%s\n", value);
 	*ret = ft_strdup(value);
 	return (1);
 }
