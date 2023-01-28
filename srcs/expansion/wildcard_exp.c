@@ -6,13 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/28 17:04:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 00:15:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-#include <dirent.h>
+#include "minishell.h"
 
 /*
 	TODO:
@@ -43,6 +41,7 @@ int	wildcard_exp(char **ret, char *str)
 
 	(void)ret;
 	(void)str;
+	words = NULL;
 	if (str == NULL || *str == '\0')
 		return (0);
 	dir = opendir(".");
@@ -54,17 +53,18 @@ int	wildcard_exp(char **ret, char *str)
 	dir_entry = readdir(dir);
 	while (dir_entry != NULL)
 	{
-		ft_printf("type: %d entry: %s\n", dir_entry->d_type, dir_entry->d_name);
+		// ft_printf("type: %d entry: %s\n", dir_entry->d_type, dir_entry->d_name);
 		if (dir_entry->d_type == 8)
 		{
 			if (match_wildcard(dir_entry->d_name, str) == 1)
 			{
-				ft_printf("			match %s\n", dir_entry->d_name);
-				ft_lstadd_back(&words, ft_lstnew(ft_strdup(dir_entry->d_name)));
+				// ft_printf("			match %s\n", dir_entry->d_name);
+				ft_lstadd_back(&words, ft_lstnew((char *)ft_strjoin(dir_entry->d_name, " ")));
 			}
 		}
 		dir_entry = readdir(dir);
 	}
+	*ret = list_to_str(words);
 	ft_lstclear(&words, free);
 	closedir(dir);
 	return (1);
@@ -75,19 +75,28 @@ int	match_wildcard(char *file, char *expr)
 	char	**chunks;
 	char	*tmp;
 	int		i;
+	int		ret;
 
+	ret = -1;
 	chunks = ft_split(expr, '*');
 	i = 0;
 	while (1)
 	{
 		if (chunks[i] == NULL)
-			return (1);
+		{
+			ret = 1;
+			break ;
+		}
 		tmp = ft_strnstr(file, chunks[i], ft_strlen(file));
 		if (tmp == NULL)
-			return (0);
+		{
+			ret = 0;
+			break ;
+		}
 		file = tmp;
 		i++;
 	}
+	strarr_cleanup(chunks);
 	ft_printf("here is an error");
-	return (-1);
+	return (ret);
 }
