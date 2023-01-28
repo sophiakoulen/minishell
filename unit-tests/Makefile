@@ -74,7 +74,7 @@ re: fclean all
 # Individual unit tests
 $(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
 	@mkdir -p bin
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
+	$(CC) $(CFLAGS) $< -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@
 
 parsing: $(BIN_PATH)parsing.test
 
