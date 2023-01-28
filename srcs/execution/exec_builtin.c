@@ -24,9 +24,7 @@ int	ret_builtin_enum(char *str)
 	i = -1;
 	while (++i < NUM_BUILTINS)
 	{
-		if (!ft_strncmp(str,
-				ret_builtin_literal(i),
-				ft_strlen(ret_builtin_literal(i))))
+		if (!ft_strcmp(str, ret_builtin_literal(i)))
 			return (i);
 	}
 	return (-1);
