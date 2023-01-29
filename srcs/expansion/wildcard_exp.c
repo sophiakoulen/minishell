@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 13:48:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 23:31:25 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,8 @@ int	wildcard_exp(char **ret, char *str)
 	dir_entry = readdir(dir); // thrice to get rid of the starting . and .. directory
 	while (dir_entry != NULL)
 	{
-		// ft_printf("type: %d entry: %s\n", dir_entry->d_type, dir_entry->d_name);
-		// if (dir_entry->d_name[0] != '.' && match_wildcard(dir_entry->d_name, str) == 1)
 		if (match_wildcard(dir_entry->d_name, str) == 1)
-		{
-			// ft_printf("			match %s\n", dir_entry->d_name);
 			ft_lstadd_back(&words, ft_lstnew((char *)ft_strjoin(dir_entry->d_name, " ")));
-		}
 		dir_entry = readdir(dir);
 	}
 	*ret = list_to_str(words);
@@ -105,6 +100,13 @@ int	match_wildcard(char *file, char *expr)
 		}
 		file = tmp;
 		i++;
+	}
+	if (ret == 1 && expr[ft_strlen(expr) - 1] != '*')
+	{
+		if (ft_strncmp(file, chunks[i - 1], ft_strlen(file)) == 0)
+			ret = 1;
+		else
+			ret = 0;
 	}
 	strarr_cleanup(chunks);
 	return (ret);
