@@ -6,207 +6,147 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 15:52:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 19:26:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	next_word(t_list *word, char **str, t_env *env, int retn);
-static void	next_chunk(t_list *word, char **str, t_env *env, int retn);
-static int	get_bare_word(char **str, char **ret);
-static int	get_single_q_word(char **str, char **ret);
-static int	get_double_q_word(char **str, char **ret, t_env *env, int retn);
-static int	get_env_variable(char **str, char **ret, t_env *env, int retn);
-// static int	get_tilde_variable(char **str, char **ret, t_env *env);
+static void	insert_value(char **buf, char *val, int pos, int extra_space);
+static void	dollar_expansion(char **str, char **ret, t_env *env, int retn);
+static void	expand_special_param(char **str, char **ret, int retn);
+static void	expand_variable(char **str, char **ret, t_env *env);
 
 /*
-	expand env parameter, replace $VAR $? $~
-	cleans up after it's self, mallocs new return string
- */
+	Perform parameter expansion, taking into account that dollar-signs
+	can be escaped.
+
+	To achieve this, we keep track of a state:
+	- MSH_ESCAPED means backslash-escaped
+	- MSH_SQUOTE means single-quoted state
+
+	If the current character is an unescaped dollar-sign, we will perform
+	dollar-expansion on the following chunk and insert that resulting chunk
+	into the `res' buffer.
+
+	Else, we update the state and simply insert the current character in
+	the `res' buffer.
+*/
 char	*param_expansion(char *str, t_env *env, int retn)
 {
-	t_list	*words;
-	t_list	*tmp;
-	char	*ret;
-
-	(void)next_word;
-	words = NULL;
-	while (str && *str)
-	{
-		tmp = ft_lstnew(NULL);
-		next_chunk(tmp, &str, env, retn);
-		ft_lstadd_back(&words, tmp);
-	}
-	ret = list_to_str(words);
-	ft_lstclear(&words, free);
-	return(ret);
-}
-
-/*
-	looks for the next "word" / chunk
-	 1 check single quote   start '  stop at ' \0
-	 2 check double quote   start "  stop at " \0
-	 3 check var param      start $  stop at $ ? ~ " '
-	 4 check tilde          start ~  only do ~
-	 5 check bare word    letters    stop at " ' $ \0 ~
-	these function the str in ret and advance str
- */
-static void	next_word(t_list *word, char **str, t_env *env, int retn)
-{
-	char	*ret;
-
-	if (get_single_q_word(str, &ret))
-		;
-	else if (get_double_q_word(str, &ret, env, retn))
-		;
-	else if (get_env_variable(str, &ret, env, retn))
-		;
-	else
-		get_bare_word(str, &ret);
-	word->content = ret;
-}
-
-static void	next_chunk(t_list *word, char **str, t_env *env, int retn)
-{
-	char	*ret;
-
-	if ((*str)[0] == '\\' && (*str)[1] == '$')
-	{
-		(*str)++;
-		get_bare_word(str, &ret);
-	}
-	else if ((*str)[0] == '\'')
-	{
-		get_single_q_word(str, &ret);
-	}
-	else if ((*str)[0] == '"')
-	{
-		get_double_q_word(str, &ret, env, retn);
-	}
-	else if ((*str)[0] == '$')
-	{
-		get_env_variable(str, &ret, env, retn);
-	}
-	else
-	{
-		get_bare_word(str, &ret);
-	}
-	word->content = ret;
-}
-
-/*
-	check single quote   start '  stop at ' \0
-	return 1 on sucess and ret is filled with malloced string
- */
-static int	get_single_q_word(char **str, char **ret)
-{
+	int		state;
+	char	*val;
+	char	*res;
 	int		i;
 
-	i = 1;
-	if ((*str)[0] == '\0' || **str != SINGLE_QUOTE)
-		return (0);
-	while ((*str)[i] && !ft_strchr("\'", (*str)[i]))
-		i++;
-	if (i == 0)
-		return (0);
-	if ((*str)[i] == SINGLE_QUOTE)
-		i++;
-	*ret = ft_substr(*str, 0, i);
-	*str += i;
-	return (1);
-}
-
-/*
-	check double quote   start "  stop at " \0
-	return 1 on sucess and ret is filled with malloced string
- */
-static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
-{
-	int		i;
-	char	*s1;
-	char	*s2;
-	int		esc;
-
-	esc = 0;
-	i = 1;
-	if ((*str)[0] == '\0' || (**str != DOUBLE_QUOTE))
-		return (0);
-	s1 = ft_strdup("");
-	while ((*str)[i] && ft_strchr("\"", (*str)[i]) == NULL)
+	state = 0;
+	res = x_malloc(1, ft_strlen(str) + 1);
+	i = 0;
+	while (*str)
 	{
-		if ((*str)[i] == '$' && !esc)
+		if (*str == '$' && !(state & MSH_ESCAPED) && !(state & MSH_SQUOTE))
 		{
-			s1 = ft_strmerge(s1, ft_substr(*str, 0, i));
-			*str += i;
-			i = 0;
-			if (get_env_variable(str, &s2, env, retn))
-				s1 = ft_strmerge(s1, s2);
-		}
-		else if ((*str)[i] == '\\' && !esc)
-		{
-			esc = 1;
-			i++;
+			dollar_expansion(&str, &val, env, retn);
+			insert_value(&res, val, i, ft_strlen(str) + 1);
+			i += ft_strlen(val);
 		}
 		else
 		{
-			esc = 0;
-			i++;
+			update_state(str, &state);
+			res[i++] = *(str++);
 		}
 	}
-	if ((*str)[i] == DOUBLE_QUOTE)
-		i++;
-	*ret = ft_strmerge(s1, ft_substr(*str, 0, i));
-	*str += i;
-	return (1);
+	res[i] = 0;
+	return (res);
 }
 
 /*
-	Try $-sign expansion.
-	Return 0 if string doesn't start with $-sign.
-	Return 1 if yes and perform $-sign expansion as follows:
+	Insert value into the buffer at a given position, leaving a certain amount
+	of free space at the end of the buffer.
 
-	Special parameters:
-	$? gets the return value of the last command.
-	$# gets "0".
-	$!, $@, $* get an empty string.
+	This is a helper function for param_expansion, and that is the reason why
+	it is oddly specific.
 
-	Variable expansion:
-	A dollar sign followed by a valid identifier gets the value
-	of the corresponding environment variable. If no such
-	environment variable is set, the result is the empty string.
+	Buffer is re-allocated to contain the original contents of the string `*buf',
+	+ the contents of the string `val' + `extra_space' amount of bytes.
+*/
+static void	insert_value(char **buf, char *val, int pos, int extra_space)
+{
+	int		len;
+	char	*tmp;
 
-	Advance the pointer until end of variable name.
+	(*buf)[pos] = 0;
+	len = ft_strlen(*buf) + ft_strlen(val) + extra_space;
+	tmp = x_malloc(1, len);
+	ft_strlcpy(tmp, *buf, len);
+	ft_strlcat(tmp, val, len);
+	*buf = tmp;
+}
+
+/*
+	Perform $-sign expansion.
 
 	ret is filled with a heap-allocated result of the expansion.
-*/
-static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
-{
-	int		i;
-	char	*key;
-	char	*value;
 
-	if ((*str)[0] != '$')
-		return (0);
-	i = 1;
+	the str pointer is advanced until the end of the expanded chunk.
+*/
+static void	dollar_expansion(char **str, char **ret, t_env *env, int retn)
+{
+	if ((*str)[1] && ft_strchr("?!@*#", (*str)[1]))
+	{
+		expand_special_param(str, ret, retn);
+	}
+	else
+	{
+		expand_variable(str, ret, env);
+	}
+}
+
+/*
+	Special parameters:
+		$? gets the return value of the last command.
+		$# gets "0".
+		$!, $@, $* get an empty string.
+*/
+static void	expand_special_param(char **str, char **ret, int retn)
+{
 	if ((*str)[1] == '?')
 	{
 		*ret = ft_itoa(retn);
-		*str += 2;
-		return (1);
 	}
-	if (ft_isdigit((*str)[1]) || ((*str)[i] && ft_strchr("!@*", (*str)[1])))
+	if (ft_isdigit((*str)[1]) || ((*str)[1] && ft_strchr("!@*", (*str)[1])))
 	{
 		*ret = ft_strdup("");
-		*str += 2;
-		return (1);
 	}
 	if ((*str)[1] == '#')
 	{
 		*ret = ft_strdup("0");
-		*str += 2;
-		return (1);
 	}
+	*str += 2;
+}
+
+/*
+	Variable expansion:
+	A dollar sign followed by a valid identifier gets the value of
+	the corresponding environment variable.
+	If no such environment variable is set, the result is the empty string.
+
+	The extraction of the identifier stops when a character is found that
+	cannot be part of an identifier.
+	Ex: when expanding $USER!, we will not consider `!' as part of the
+	identifier.
+
+	When a corresponding value in the environment is found, we first escape
+	some of its characters using backslashes in order to not be confused during
+	quote removal. This is done by the escape_special_chars() function.
+*/
+static void	expand_variable(char **str, char **ret, t_env *env)
+{
+	char	*key;
+	char	*value;
+	int		i;
+
+	i = 1;
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	key = ft_substr(*str, 1, i - 1);
@@ -214,42 +154,4 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	free(key);
 	*str += i;
 	*ret = escape_special_chars(value);
-	return (1);
-}
-
-// /*
-// 	check tilde          start ~  only do ~
-// 	return 1 on sucess and ret is filled with malloced string
-//  */
-// static int	get_tilde_variable(char **str, char **ret, t_env *env)
-// {
-// 	char	*tmp;
-
-// 	if ((*str)[0] == '\0' || (*str)[0] != '~')
-// 		return (0);
-// 	tmp = ret_env_key(env, "HOME");
-// 	*str += 1;
-// 	if (tmp == NULL)
-// 		return (0);
-// 	*ret = ft_strdup(tmp);
-// 	return (1);
-// }
-
-
-/*
-	check bare word    letters    stop at " ' $ \0 ~
-	return 1 on sucess and ret is filled with malloced string
- */
-static int	get_bare_word(char **str, char **ret)
-{
-	int		i;
-
-	i = 0;
-	while ((*str)[i] && (i == 0 || !ft_strchr("\'\"$\\", (*str)[i])))
-		i++;
-	if (i == 0)
-		return (0);
-	*ret = ft_substr(*str, 0, i);
-	*str += i;
-	return (1);
 }

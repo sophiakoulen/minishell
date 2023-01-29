@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 17:33:14 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:21:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@
 # define STOP -1
 # define SYNTAX_ERROR -2
 
+/* used in expansion */
 # define T_IFS " 	\n"
+
+/* used in expansion */
+#define MSH_DQUOTE	1U
+#define MSH_SQUOTE	2U
+#define MSH_ESCAPED	4U
 
 /* colours, used in shout builtin */
 

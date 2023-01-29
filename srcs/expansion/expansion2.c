@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:19:53 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 16:13:38 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 18:39:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	expand_redirs(t_list *redirs, t_env *env, int retn)
 		redir = current->content;
 		if (redir->modifier == e_heredoc)
 		{
-			redir->word = quote_removal2(redir->word);
+			redir->word = quote_removal(redir->word);
 		}
 		else
 		{
@@ -130,7 +130,7 @@ static void	remove_all_quotes(t_list *lst)
 	current = lst;
 	while (current)
 	{
-		tmp = quote_removal2(current->content);
+		tmp = quote_removal(current->content);
 		free(current->content);
 		current->content = tmp;
 		current = current->next;

@@ -17,8 +17,8 @@ CFLAGS	= -Wall -Wextra
 #CFLAGS += -Werror
 CFLAGS += -g3 -fsanitize=address
 
-TEST_NAMES	=	echo pwd env export
-DEV_NAMES	=
+TEST_NAMES	=	echo pwd env
+DEV_NAMES	=	exprt
 
 # put the unit test files here
 # have one file that's the same as the test name
@@ -56,7 +56,7 @@ fclean : clean
 # Individual unit tests
 $(BIN_PATH)%.test: $(OBJS_PATH)%_test.o libminishell
 	@mkdir -p bin
-	$(CC) $(CFLAGS) -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@ $<
+	$(CC) $(CFLAGS) $< -I$(INCS_PATH) -lreadline -lminishell -L.. -o $@
 
 echo: $(BIN_PATH)echo.test
 

@@ -6,15 +6,11 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:59:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 16:03:21 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:15:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#define MSH_DQUOTE	1U
-#define MSH_SQUOTE	2U
-#define MSH_ESCAPED	4U
 
 static int	needs_escaping(char c, int state);
 
@@ -28,9 +24,11 @@ static int	needs_escaping(char c, int state);
 
 	The state is a single integer containing information about whether we
 	are in a single-quoted state, a double-quoted state, a backslash-escaped
-	state.
-	The operations are done using bitwise operations, since the states can be
-	represented using 3 bits.
+	state, using bitmasks:
+
+	MSH_ESCAPED tells us if we're in a backslash-escaped state
+	MSH_SQUOTE tells us if we're in a single-quoted state
+	MSH_DQUOTE tells us if we're in a double-quoted state
 
 	& is used to check a bit,
 	^= is used to flip a bit,
@@ -74,8 +72,10 @@ int	update_state(char *c, int *state)
 }
 
 /*
-	Checks whether the character would need to be escaped in the
-	given state.
+	Checks if, in the given state, this character would need to be escaped.
+
+	Ex1: In a normal state, the character `a' doesn't need to be escaped.
+	Ex2: In a double-quoted state, the character `$' would need to be escaped.
 */
 static int	needs_escaping(char c, int state)
 {
@@ -89,14 +89,14 @@ static int	needs_escaping(char c, int state)
 	Escape double-quotes, dollar-signs and backslashes.
 	A backslash is placed before each of these characters.
 
-	Result is heap-allocated.
+	Result is x_malloc()-ed.
 */
 char	*escape_special_chars(char *str)
 {
 	int		i;
 	char	*res;
 
-	res = x_malloc(1, 2 * ft_strlen(str) + 1);
+	res = x_malloc(sizeof(char), 2 * ft_strlen(str) + 1);
 	i = 0;
 	while (*str)
 	{

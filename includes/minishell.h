@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 14:16:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 18:39:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int			expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int 
 /* quote_removal.c */
 
 char		*quote_removal(char *str);
-char		*quote_removal2(char *str);
 
 /* param_expansion */
 
