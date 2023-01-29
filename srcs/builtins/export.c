@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 16:28:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 14:16:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 static int	split_equal(char *str, char **identifier, char **value);
 static void	print_export(t_env *env);
-static char	*escape_dquotes(char *str);
 
 /*
 	export builtin: set environment variables.
 
 	Perform the environment variable assignments given in arguments.
 	Variable assignements are in the form "identifier=value".
-	
+
 	If value is empty, like: "identifier=", the value of the identifier
 	becomes the empty string.
 
@@ -80,7 +79,7 @@ int	exec_export(char **args, t_env **env, int prev)
 
 	If there is no "=" sign, value is set to NULL.
 	If the first "=" sign is the last character,
-	value is set to the empty string. 
+	value is set to the empty string.
 */
 static int	split_equal(char *str, char **identifier, char **value)
 {
@@ -121,35 +120,9 @@ static void	print_export(t_env *env)
 	current = env;
 	while (current)
 	{
-		escaped = escape_dquotes(current->value);
+		escaped = escape_special_chars(current->value);
 		ft_printf("declare -x %s=\"%s\"\n", current->key, escaped);
 		free(escaped);
 		current = current->next;
-	}	
-}
-
-/*
-	Escape double-quotes and dollar-signs.
-	A backslash is placed before each of these characters.
-*/
-static char	*escape_dquotes(char *str)
-{
-	int		i;
-	char	*res;
-
-	res = x_malloc(1, 2 * ft_strlen(str) + 1);
-	i = 0;
-	while (*str)
-	{
-		if (*str == '"' || *str == '$' || *str == '\\')
-		{
-			res[i] = '\\';
-			i++;
-		}
-		res[i] = *str;
-		i++;
-		str++;
 	}
-	res[i] = 0;
-	return (res);
 }

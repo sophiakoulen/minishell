@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 13:08:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 14:16:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int			expand_redirs(t_list *redirs, t_env *env, int retn);
 
 /* expansion utils */
 int			update_state(char *c, int *state);
+char		*escape_special_chars(char *str);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */

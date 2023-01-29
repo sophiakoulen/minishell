@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   param_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/26 09:21:32 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:52:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	next_word(t_list *word, char **str, t_env *env, int retn);
+static void	next_chunk(t_list *word, char **str, t_env *env, int retn);
 static int	get_bare_word(char **str, char **ret);
 static int	get_single_q_word(char **str, char **ret);
 static int	get_double_q_word(char **str, char **ret, t_env *env, int retn);
@@ -29,11 +30,12 @@ char	*param_expansion(char *str, t_env *env, int retn)
 	t_list	*tmp;
 	char	*ret;
 
+	(void)next_word;
 	words = NULL;
 	while (str && *str)
 	{
 		tmp = ft_lstnew(NULL);
-		next_word(tmp, &str, env, retn);
+		next_chunk(tmp, &str, env, retn);
 		ft_lstadd_back(&words, tmp);
 	}
 	ret = list_to_str(words);
@@ -62,6 +64,34 @@ static void	next_word(t_list *word, char **str, t_env *env, int retn)
 		;
 	else
 		get_bare_word(str, &ret);
+	word->content = ret;
+}
+
+static void	next_chunk(t_list *word, char **str, t_env *env, int retn)
+{
+	char	*ret;
+
+	if ((*str)[0] == '\\' && (*str)[1] == '$')
+	{
+		(*str)++;
+		get_bare_word(str, &ret);
+	}
+	else if ((*str)[0] == '\'')
+	{
+		get_single_q_word(str, &ret);
+	}
+	else if ((*str)[0] == '"')
+	{
+		get_double_q_word(str, &ret, env, retn);
+	}
+	else if ((*str)[0] == '$')
+	{
+		get_env_variable(str, &ret, env, retn);
+	}
+	else
+	{
+		get_bare_word(str, &ret);
+	}
 	word->content = ret;
 }
 
@@ -96,14 +126,16 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 	int		i;
 	char	*s1;
 	char	*s2;
+	int		esc;
 
+	esc = 0;
 	i = 1;
 	if ((*str)[0] == '\0' || (**str != DOUBLE_QUOTE))
 		return (0);
 	s1 = ft_strdup("");
 	while ((*str)[i] && ft_strchr("\"", (*str)[i]) == NULL)
 	{
-		if ((*str)[i] == '$')
+		if ((*str)[i] == '$' && !esc)
 		{
 			s1 = ft_strmerge(s1, ft_substr(*str, 0, i));
 			*str += i;
@@ -111,8 +143,16 @@ static int	get_double_q_word(char **str, char **ret, t_env *env, int retn)
 			if (get_env_variable(str, &s2, env, retn))
 				s1 = ft_strmerge(s1, s2);
 		}
-		else
+		else if ((*str)[i] == '\\' && !esc)
+		{
+			esc = 1;
 			i++;
+		}
+		else
+		{
+			esc = 0;
+			i++;
+		}
 	}
 	if ((*str)[i] == DOUBLE_QUOTE)
 		i++;
@@ -173,7 +213,7 @@ static int	get_env_variable(char **str, char **ret, t_env *env, int retn)
 	value = ret_env_key(env, key);
 	free(key);
 	*str += i;
-	*ret = ft_strdup(value);
+	*ret = escape_special_chars(value);
 	return (1);
 }
 
@@ -205,7 +245,7 @@ static int	get_bare_word(char **str, char **ret)
 	int		i;
 
 	i = 0;
-	while ((*str)[i] && !ft_strchr("\'\"$", (*str)[i]))
+	while ((*str)[i] && (i == 0 || !ft_strchr("\'\"$\\", (*str)[i])))
 		i++;
 	if (i == 0)
 		return (0);
