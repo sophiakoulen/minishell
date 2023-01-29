@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 00:15:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 13:48:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 		this is the current bihaviour
 	- should be resistant to getting a string that has no wildcard matches
 	- match while ignoring quotes!
+	- matching is not done on ignored files, but is on folders!?
 	- refactor the function to:
 
 	int	wildcard_exp(char **ret, char *str);
@@ -51,16 +52,16 @@ int	wildcard_exp(char **ret, char *str)
 		return (0);
 	}
 	dir_entry = readdir(dir);
+	dir_entry = readdir(dir);
+	dir_entry = readdir(dir); // thrice to get rid of the starting . and .. directory
 	while (dir_entry != NULL)
 	{
 		// ft_printf("type: %d entry: %s\n", dir_entry->d_type, dir_entry->d_name);
-		if (dir_entry->d_type == 8)
+		// if (dir_entry->d_name[0] != '.' && match_wildcard(dir_entry->d_name, str) == 1)
+		if (match_wildcard(dir_entry->d_name, str) == 1)
 		{
-			if (match_wildcard(dir_entry->d_name, str) == 1)
-			{
-				// ft_printf("			match %s\n", dir_entry->d_name);
-				ft_lstadd_back(&words, ft_lstnew((char *)ft_strjoin(dir_entry->d_name, " ")));
-			}
+			// ft_printf("			match %s\n", dir_entry->d_name);
+			ft_lstadd_back(&words, ft_lstnew((char *)ft_strjoin(dir_entry->d_name, " ")));
 		}
 		dir_entry = readdir(dir);
 	}
@@ -80,6 +81,15 @@ int	match_wildcard(char *file, char *expr)
 	ret = -1;
 	chunks = ft_split(expr, '*');
 	i = 0;
+	if (expr[0] != '*')
+	{
+		if (0 != ft_strncmp(file, chunks[0], ft_strlen(chunks[0])))
+		{
+			strarr_cleanup(chunks);
+			return (0);
+		}
+		i++;
+	}
 	while (1)
 	{
 		if (chunks[i] == NULL)
@@ -97,6 +107,5 @@ int	match_wildcard(char *file, char *expr)
 		i++;
 	}
 	strarr_cleanup(chunks);
-	ft_printf("here is an error");
 	return (ret);
 }
