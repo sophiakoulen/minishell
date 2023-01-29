@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:59:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 19:33:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:15:09 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ static int	needs_escaping(char c, int state)
 	Escape double-quotes, dollar-signs and backslashes.
 	A backslash is placed before each of these characters.
 
-	Result is malloc()-ed.
+	Result is x_malloc()-ed.
 */
 char	*escape_special_chars(char *str)
 {
 	int		i;
 	char	*res;
 
-	res = x_malloc(1, 2 * ft_strlen(str) + 1);
+	res = x_malloc(sizeof(char), 2 * ft_strlen(str) + 1);
 	i = 0;
 	while (*str)
 	{
