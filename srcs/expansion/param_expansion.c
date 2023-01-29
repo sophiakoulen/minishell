@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 18:27:31 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 19:26:40 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,19 @@ static void	expand_special_param(char **str, char **ret, int retn);
 static void	expand_variable(char **str, char **ret, t_env *env);
 
 /*
-	Perform parameter expansion.
-	We keep track of a state while iterating over the string.
-	If the current character is an unescaped dollar-sign, we insert the
-	corresponding value into the buffer.
-	Else, we update the state and insert the character into the buffer.
+	Perform parameter expansion, taking into account that dollar-signs
+	can be escaped.
+
+	To achieve this, we keep track of a state:
+	- MSH_ESCAPED means backslash-escaped
+	- MSH_SQUOTE means single-quoted state
+
+	If the current character is an unescaped dollar-sign, we will perform
+	dollar-expansion on the following chunk and insert that resulting chunk
+	into the `res' buffer.
+
+	Else, we update the state and simply insert the current character in
+	the `res' buffer.
 */
 char	*param_expansion(char *str, t_env *env, int retn)
 {
@@ -53,10 +61,14 @@ char	*param_expansion(char *str, t_env *env, int retn)
 }
 
 /*
-	Helper function for param_expansion2: insert value into the buffer at a
-	given position.
-	Buffer is re-allocated to contain the original contents of the buffer,
-	the value and extra_space.
+	Insert value into the buffer at a given position, leaving a certain amount
+	of free space at the end of the buffer.
+
+	This is a helper function for param_expansion, and that is the reason why
+	it is oddly specific.
+
+	Buffer is re-allocated to contain the original contents of the string `*buf',
+	+ the contents of the string `val' + `extra_space' amount of bytes.
 */
 static void	insert_value(char **buf, char *val, int pos, int extra_space)
 {
@@ -73,22 +85,10 @@ static void	insert_value(char **buf, char *val, int pos, int extra_space)
 
 /*
 	Perform $-sign expansion.
-	Return 0 if string doesn't start with $-sign.
-	Return 1 if yes and perform $-sign expansion as follows:
-
-	Special parameters:
-	$? gets the return value of the last command.
-	$# gets "0".
-	$!, $@, $* get an empty string.
-
-	Variable expansion:
-	A dollar sign followed by a valid identifier gets the value
-	of the corresponding environment variable. If no such
-	environment variable is set, the result is the empty string.
-
-	Advance the pointer until end of variable name.
 
 	ret is filled with a heap-allocated result of the expansion.
+
+	the str pointer is advanced until the end of the expanded chunk.
 */
 static void	dollar_expansion(char **str, char **ret, t_env *env, int retn)
 {
@@ -102,6 +102,12 @@ static void	dollar_expansion(char **str, char **ret, t_env *env, int retn)
 	}
 }
 
+/*
+	Special parameters:
+		$? gets the return value of the last command.
+		$# gets "0".
+		$!, $@, $* get an empty string.
+*/
 static void	expand_special_param(char **str, char **ret, int retn)
 {
 	if ((*str)[1] == '?')
@@ -119,6 +125,21 @@ static void	expand_special_param(char **str, char **ret, int retn)
 	*str += 2;
 }
 
+/*
+	Variable expansion:
+	A dollar sign followed by a valid identifier gets the value of
+	the corresponding environment variable.
+	If no such environment variable is set, the result is the empty string.
+
+	The extraction of the identifier stops when a character is found that
+	cannot be part of an identifier.
+	Ex: when expanding $USER!, we will not consider `!' as part of the
+	identifier.
+
+	When a corresponding value in the environment is found, we first escape
+	some of its characters using backslashes in order to not be confused during
+	quote removal. This is done by the escape_special_chars() function.
+*/
 static void	expand_variable(char **str, char **ret, t_env *env)
 {
 	char	*key;
