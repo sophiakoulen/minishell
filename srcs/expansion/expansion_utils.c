@@ -6,15 +6,11 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:59:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 16:03:21 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 16:20:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#define MSH_DQUOTE	1U
-#define MSH_SQUOTE	2U
-#define MSH_ESCAPED	4U
 
 static int	needs_escaping(char c, int state);
 

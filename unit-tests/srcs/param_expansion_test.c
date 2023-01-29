@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_expansion_test.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:05:35 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/26 09:05:26 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:27:31 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

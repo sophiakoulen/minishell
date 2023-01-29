@@ -6,52 +6,26 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 13:31:58 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 18:39:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//l$USR"a"
-
-static void	next_word(t_list *word, char **str);
-static char	*get_bare_word(char **str);
-static char	*get_single_q_word(char **str);
-static char	*get_double_q_word(char **str);
-
 /*
-	- string expansion steps -
-	remove outside quotes
-	preserve spaces
-	if replacing an env variable remove the extra spaces inbetween the new caracters
- */
+	Remove quotes, repecting escaped sequences.
 
+	Iterate through the string, keeping track of and updating the state:
+	Single-quoted or double-quoted, and whether we are in a
+	backslash-escaped state.
 
-/*
-	remove extra single_quotes quotes from a string
- */
-char	*quote_removal(char *str)
-{
-	t_list	*words;
-	t_list	*tmp;
-	char	*ret;
+	The update_state() function returns true if the character is not to be
+	kept in the string, which can be deduced using the state.
 
-	words = NULL;
-	while (str && *str)
-	{
-		tmp = ft_lstnew(NULL);
-		next_word(tmp, &str);
-		ft_lstadd_back(&words, tmp);
-	}
-	ret = list_to_str(words);
-	ft_lstclear(&words, free);
-	return (ret);
-}
-
-/*
-	Quote removal, repecting escaped sequences.
+	We use that to decide whether or not to add or not the characters from our
+	str argument to the returning string.
 */
-char	*quote_removal2(char *str)
+char	*quote_removal(char *str)
 {
 	int		state;
 	int		i;
@@ -71,100 +45,4 @@ char	*quote_removal2(char *str)
 	}
 	res[i] = 0;
 	return (res);
-}
-
-/*
-	removes the quotes around words and returns the resulting strings
-	also expands $variables inside the quotes.
- */
-static void	next_word(t_list *word, char **str)
-{
-	char	*s1;
-	char	*s2;
-
-	s1 = get_bare_word(str);
-	if (**str == SINGLE_QUOTE || **str == '\0')
-		s2 = get_single_q_word(str);
-	else
-		s2 = get_double_q_word(str);
-	word->content = (char *)ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-}
-
-
-static char	*get_bare_word(char **str)
-{
-	int		i;
-	char	*ret;
-
-	i = 0;
-	while ((*str)[i] && (*str)[i] != SINGLE_QUOTE && (*str)[i] != DOUBLE_QUOTE)
-		i++;
-
-	ret = ft_substr(*str, 0, i);
-	*str += i;
-	return (ret);
-}
-
-static char	*get_single_q_word(char **str)
-{
-	int		i;
-	char	*ret;
-
-	i = 1;
-	if ((*str)[0] == '\0')
-		return (ft_substr(*str, 0, 0));
-	while ((*str)[i])
-	{
-		if ((*str)[i] == SINGLE_QUOTE)
-		{
-			ret = ft_substr(*str, 1, i  - 1);
-			*str += i + 1;
-			return (ret);
-		}
-		i++;
-	}
-	ret = ft_substr(*str, 1, i);
-	*str += i;
-	return (ret);
-}
-
-/*
-	This stage we remove the double quotes
-	Variables in double quotes don't produce two words!
- */
-static char	*get_double_q_word(char **str)
-{
-	int		i;
-	char	*ret;
-	// char	*s1;
-	// char	*s2;
-
-	i = 1;
-	if ((*str)[0] == '\0')
-		return (ft_substr(*str, 0, 0));
-	while ((*str)[i])
-	{
-		if ((*str)[i] == DOUBLE_QUOTE)
-		{
-			ret = ft_substr(*str, 1, i  - 1);
-			*str += i + 1;
-			return (ret);
-		}
-		// if ((*str)[i] == '$')
-		// {
-		// 	s1 = ft_substr(*str, 1, i  - 1);
-		// 	*str += i;
-		// 	s2 = get_env_variable(str, env);
-		// 	ret =ft_strjoin(s1, s2);
-		// 	free(s1);
-		// 	free(s2);
-		// 	return (ret);
-		// }
-		i++;
-	}
-	ret = ft_substr(*str, 1, i);
-	*str += i;
-	return (ret);
 }
