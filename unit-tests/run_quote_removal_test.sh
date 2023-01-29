@@ -44,6 +44,16 @@ exec_test $N 25 '{thisasd}' "this\"asd\""
 exec_test $N 26 '{  " inside  "  }' "'  \" inside  \"  '"
 exec_test $N 27 "{  ' inside '  q}" "\"  ' inside '  q\""
 
+# backslashes
+
+exec_test $N 28 "{hello\world}" "hello\world"
+exec_test $N 29 "{hey\'}" "\"hey\'\""
+exec_test $N 30 '{b"b}' "\"b\\\"b\""
+exec_test $N 31 '{asd\\\}' "asd\\\\\\\\\\\\"
+exec_test $N 32 "{'hello'}" "\'hello\'"
+exec_test $N 33 '{  " inside  "  }' '  \" inside  \"  '
+
+
 # # variable expansion in double quotes
 # exec_test $N 28 "{$LOGNAME}" '"$LOGNAME"'
 # exec_test $N 29 "{$PATH}" '"$PATH"'

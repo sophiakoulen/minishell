@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:19:53 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 16:49:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 12:16:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ static void	remove_all_quotes(t_list *lst)
 	current = lst;
 	while (current)
 	{
-		tmp = quote_removal(current->content);
+		tmp = quote_removal2(current->content);
 		free(current->content);
 		current->content = tmp;
 		current = current->next;

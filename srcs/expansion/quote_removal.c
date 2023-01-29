@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 21:02:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 07:33:18 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 13:31:58 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ char	*quote_removal(char *str)
 	ret = list_to_str(words);
 	ft_lstclear(&words, free);
 	return (ret);
+}
+
+/*
+	Quote removal, repecting escaped sequences.
+*/
+char	*quote_removal2(char *str)
+{
+	int		state;
+	int		i;
+	char	*res;
+
+	res = x_malloc(1, ft_strlen(str) + 1);
+	state = 0;
+	i = 0;
+	while (*str)
+	{
+		if (!update_state(str, &state))
+		{
+			res[i] = *str;
+			i++;
+		}
+		str++;
+	}
+	res[i] = 0;
+	return (res);
 }
 
 /*

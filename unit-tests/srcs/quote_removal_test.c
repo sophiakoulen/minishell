@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal_test.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:54:24 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/20 14:01:21 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/29 13:49:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	// strarr_print(env_to_strarr(env));
 	if (argc != 2)
 		return (0);
-	char * str = quote_removal(argv[1]);
+	char * str = quote_removal2(argv[1]);
 	ft_printf("{%s}", str);
 	ft_printf("\n");
 	free(str);

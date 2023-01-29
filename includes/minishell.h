@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 15:57:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/29 13:08:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int			expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int 
 /* quote_removal.c */
 
 char		*quote_removal(char *str);
+char		*quote_removal2(char *str);
 
 /* param_expansion */
 
@@ -140,6 +141,9 @@ t_list		*field_split(char *str);
 
 t_list		*expand_args_list(t_list *lst, t_env *env, int retn);
 int			expand_redirs(t_list *redirs, t_env *env, int retn);
+
+/* expansion utils */
+int			update_state(char *c, int *state);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
