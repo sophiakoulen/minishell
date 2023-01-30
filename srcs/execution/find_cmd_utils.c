@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:10 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/19 13:09:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 11:18:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /*
 	extract_path:
-	
+
 	Extracts the path variable from the environment,
 	in the form of a null-terminated array of strings.
-	
+
 	If the PATH variable isn't set (not the same as empty),
 	a default value for the path is used.
 */
@@ -38,7 +38,7 @@ char	**extract_path(char **envp)
 			i++;
 		}
 	}
-	default_path = ft_split(DEFAULT_PATH, ':');
+	default_path = ft_split("", ':');
 	return (default_path);
 }
 
