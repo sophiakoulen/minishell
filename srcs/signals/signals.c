@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 21:58:04 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/25 15:42:33 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:48:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	silent_signals(void)
 void	pipe_return_print(int retn)
 {
 	if (retn == 131)
-		write(1, &"Quit: 3\n", 10);
+		write(1, &"Quit: 3\n", 8);
 	if (retn == 130)
 		write(1, &"\n", 1);
 }

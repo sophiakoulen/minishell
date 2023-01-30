@@ -6,18 +6,18 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 16:50:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:22:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	remove_all_quotes(t_item *lst);
 static int	expand_cmd(t_item **cmd, t_env *env, int retn);
+static int	expand_item(t_item **item, t_env *env, int retn);
 
 /*
-	Transform the parsed pipeline into a definitive pipeline.
-	That means, expansion is performed on all the commands.
+	Perform expansion on each command, i.e, each item in
+	the pipeline list.
 */
 int	expand_pipeline(t_list **pipeline, t_env *env, int retn)
 {
@@ -36,53 +36,52 @@ int	expand_pipeline(t_list **pipeline, t_env *env, int retn)
 }
 
 /*
-	Transform the parsed command into a definitive command.
-	That means, string expansion is performed of both the argument list
-	and the rediretion list.
+	Perform expansion on a command. That means, expansion
+	on each item of the command list. The number of items
+	in the list might change in this phase.
 */
 static int	expand_cmd(t_item **cmd, t_env *env, int retn)
 {
 	t_item	**current;
-	char	*wrd;
-	int		n;
-	int		ret;
 
-	ret = 0;
 	current = cmd;
 	while (*current)
 	{
-		if ((*current)->modifier != e_heredoc)
-		{
-			wrd = (*current)->word;
-			(*current)->word = param_expansion((*current)->word, env, retn);
-			n = field_split(current);
-			if ((*current)->modifier != NO_MODIFIER && n != 1)
-			{
-				print_error(0, wrd, "ambiguous redirect");
-				ret = -1;
-			}
-		}
-		else
-		{
-			(*current)->word = ft_strdup((*current)->word);
-		}
+		if (expand_item(current, env, retn) != 0)
+			return (-1);
 		current = &(*current)->next;
 	}
-	remove_all_quotes(*cmd);
-	return (ret);
+	return (0);
 }
 
-static void	remove_all_quotes(t_item *lst)
+/*
+	Perform parameter expansion, filed-splitting and
+	quote-removal.
+	If the item is a heredoc redirection, only quote-removal
+	is done.
+	Return -1 in case of ambiguous redirect.
+*/
+static int	expand_item(t_item **item, t_env *env, int retn)
 {
-	t_item	*current;
 	char	*tmp;
+	char	*word;
+	int		n;
 
-	current = lst;
-	while (current)
+	word = (*item)->word;
+	if ((*item)->modifier != e_heredoc)
 	{
-		tmp = quote_removal(current->word);
-		free(current->word);
-		current->word = tmp;
-		current = current->next;
+		tmp = param_expansion((*item)->word, env, retn);
+		free((*item)->word);
+		(*item)->word = tmp;
+		n = field_split(item);
+		if ((*item)->modifier != NO_MODIFIER && n != 1)
+		{
+			print_error(0, word, "ambiguous redirect");
+			return (-1);
+		}
 	}
+	tmp = quote_removal((*item)->word);
+	free((*item)->word);
+	(*item)->word = tmp;
+	return (0);
 }

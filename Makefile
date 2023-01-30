@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/30 15:27:31 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/30 17:36:19 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ UTILS_FILES		:=	$(addprefix utils/,		$(UTILS_FILES))
 ENVIRONMENT		:=	$(addprefix environment/, $(ENVIRONMENT))
 
 
-FILES		=	main	$(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
+FILES		=	main	cleanup	print $(BUILTINS) $(EXPANSION_FILES) $(PARSING_FILES)       \
 						$(STRUCT_FILES) $(EXECUTION_FILES) $(TOKENIZER_FILES) \
 						$(UTILS_FILES) $(ENVIRONMENT) $(SIGNALS_FILES)
 

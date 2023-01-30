@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_test.c                                     :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 09:47:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 17:25:10 by skoulen          ###   ########.fr       */
+/*   Created: 2023/01/30 17:25:17 by skoulen           #+#    #+#             */
+/*   Updated: 2023/01/30 17:42:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "unit_tests.h"
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+void	pipeline_cleanup(t_list *pipeline)
 {
-	t_token	*tok;
-	t_token	*start;
-	char	*str;
-	t_list	*pipeline;
+	ft_lstclear(&pipeline, (void (*)(void *))cmd_cleanup);
+}
 
-	if (argc < 2)
-		str = "";
-	else
-		str = argv[1];
-	construct_tok_list(&tok, str);
-	start = tok;
-	if (parse_pipeline(&pipeline, &tok) == SUCCESS)
+void	cmd_cleanup(t_item *lst)
+{
+	t_item	*previous;
+
+	previous = 0;
+	while (lst)
 	{
-		print_pipeline(pipeline);
-		pipeline_cleanup(pipeline);
+		lst = lst->next;
+		if (previous)
+			free(previous->word);
+		free(previous);
+		previous = lst;
 	}
-	tok_list_cleanup(start);
-	return (0);
+	if (previous)
+		free(previous->word);
+	free(previous);
 }

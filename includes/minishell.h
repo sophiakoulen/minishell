@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/30 16:31:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:38:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@
 # include "defines.h"
 # include "structs.h"
 
-// # include "tokenizer.h"
-// # include "parsing.h"
-// # include "execution.h"
-// # include "cmd.h"
+
+/* cleanup */
+
+void	pipeline_cleanup(t_list *pipeline);
+void	cmd_cleanup(t_item *lst);
+
+/* print */
+
+void		print_pipeline(t_list *lst);
+void		print_cmd(t_item *lst);
 
 /* ************************************************************************** */
 /*   builtins                                                                 */

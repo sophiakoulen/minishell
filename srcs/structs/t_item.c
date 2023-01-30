@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:29:46 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 16:30:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:38:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,5 @@ void	print_item(t_item *item)
 	if (item)
 	{
 		ft_printf("%2s %s", ret_token_literal(item->modifier), item->word);
-	}
-}
-
-void	print_cmd(t_item *item)
-{
-	printf("cmd:\n");
-	while (item)
-	{
-		printf("%s\n", item->word);
-		item = item->next;
 	}
 }
