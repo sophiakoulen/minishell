@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 18:39:17 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:31:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void		sort_env(t_env **env);
 /* ************************************************************************** */
 
 /* exec pipeline */
-int			exec_pipeline(t_pipeline *p, t_env **env, int prev);
+int			exec_pipeline(t_list *pipeline, t_env **env, int prev);
 
 /* heredoc */
-void		read_all_heredocs(t_cmd_info *infos, int n);
-void		write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n);
+void		read_all_heredocs(t_exec *exec);
+void		write_all_heredocs(t_exec *exec);
 
 /* find_cmd utils */
 
@@ -89,22 +89,23 @@ int			find_cmd(char **path, char *filename, char **res);
 
 /* prepare cmd */
 
-t_cmd_info	*prepare_all_cmds(t_cmd *cmds, t_fds *fds, int n, t_env *env);
+t_exec		*prepare_pipeline(t_list *pipeline, t_env **env, int prev);
 
 /* prepare fds */
 
-t_fds		*prepare_fds(int n);
-void		cleanup_fds(t_fds *fds, int n_cmds);
+void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
+void		cleanup_exec(t_exec *exec);
 
 /* exec_utils */
 
 int			compute_return_value(int status);
 int			redirect(int input_fd, int output_fd);
+void		close_fds(t_exec *exec);
 
 /* multi_cmds.c */
 
-int			multiple_commands(t_cmd *cmds, t_fds *fds, int n, t_env *env, int prev);
-int			*launch_all(t_cmd_info *cmds, t_fds *fds, int n, t_env *env, int prev);
+int			multiple_commands(t_exec *exec);
+int			*launch_all(t_exec *exec);
 
 
 /* exec_builtin.c */
@@ -114,7 +115,7 @@ const char	*ret_builtin_literal(enum e_builtin n);
 int			exec_builtin(enum e_builtin n, char **args, t_env **env, int prev);
 
 /* launch_builtin.c */
-int			launch_builtin(t_cmd_info *cmd, t_fds *fds, t_env **env, int prev);
+int			launch_builtin(t_exec *exec, int i);
 
 /* ************************************************************************** */
 /*   expansion                                                                */
@@ -122,8 +123,7 @@ int			launch_builtin(t_cmd_info *cmd, t_fds *fds, t_env **env, int prev);
 
 /* expansion */
 
-int			expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn);
-int			expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn);
+int			expand_pipeline(t_list **pipeline, t_env *env, int retn);
 
 /* quote_removal.c */
 
@@ -134,12 +134,12 @@ char		*quote_removal(char *str);
 char		*param_expansion(char *str, t_env *env, int retn);
 
 /* field split */
-t_list		*field_split(char *str);
+int			field_split(t_item **item);
 
 /* expansion2 */
 
-t_list		*expand_args_list(t_list *lst, t_env *env, int retn);
-int			expand_redirs(t_list *redirs, t_env *env, int retn);
+//t_list		*expand_args_list(t_list *lst, t_env *env, int retn);
+//int			expand_redirs(t_list *redirs, t_env *env, int retn);
 
 /* expansion utils */
 int			update_state(char *c, int *state);
@@ -151,11 +151,11 @@ char		*escape_special_chars(char *str);
 
 /* prs pipeline */
 
-int			parse_pipeline(t_parsed_pipeline **pipeline, t_token **tok);
+int			parse_pipeline(t_list **pipeline, t_token **tok);
 
 /* prs command */
 
-int			parse_cmd(t_parsed_cmd **cmd, t_token **tok);
+int			parse_cmd(t_item **cmd, t_token **tok);
 
 /* prs item */
 
@@ -233,36 +233,32 @@ void	pipe_return_print(int retn);
 
 /* t_pipeline */
 
-void		print_pipeline(t_pipeline *p);
-void		pipeline_cleanup(t_pipeline *p);
+//void		print_pipeline(t_pipeline *p);
+//void		pipeline_cleanup(t_pipeline *p);
 
 /* t_parsed_pipeline */
 
-t_parsed_pipeline	*parsed_pipeline_factory(t_parsed_pipeline *blueprint);
-void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
-void				print_parsed_pipeline(t_parsed_pipeline *p);
+//t_parsed_pipeline	*parsed_pipeline_factory(t_parsed_pipeline *blueprint);
+//void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
+//void				print_parsed_pipeline(t_parsed_pipeline *p);
 
 /* t_cmd_info.c */
 
-void				cleanup_all_info(t_cmd_info *infos, int n);
-void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
+//void				cleanup_all_info(t_cmd_info *infos, int n);
+//void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
 
 /* t_parsed_cmd.c */
 
-t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
-void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
-void			print_parsed_cmd(t_parsed_cmd *cmd);
-void			print_parsed_cmd2(t_parsed_cmd *cmd);
+//t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
+//void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
+//void			print_parsed_cmd(t_parsed_cmd *cmd);
+//void			print_parsed_cmd2(t_parsed_cmd *cmd);
 
 /* t_cmd.c */
 
-t_cmd		*cmd_factory(t_cmd *blueprint);
-void		print_cmd(t_cmd *cmd);
-void		cmd_cleanup(t_cmd *cmd);
-
-/* t_fds.c */
-
-void		close_fds(t_fds *fds, int n);
+//t_cmd		*cmd_factory(t_cmd *blueprint);
+//void		print_cmd(t_cmd *cmd);
+//void		cmd_cleanup(t_cmd *cmd);
 
 /* t_token.c */
 
@@ -282,7 +278,7 @@ void		print_tree(t_pos p, t_tree *tree);
 
 /* t_word_lst.c */
 
-t_word_lst	*word_lst_factory(t_word_lst *blueprint);
+//t_word_lst	*word_lst_factory(t_word_lst *blueprint);
 t_list		*list_factory(t_list *blueprint);
 
 /* t_item.c */
@@ -291,6 +287,7 @@ t_item		*item_factory(t_item *blueprint);
 void		item_cleanup(t_item *item);
 void		item_cleanup_deep(t_item *item);
 void		print_item(t_item *item);
+void		print_cmd(t_item *item);
 
 /* t_env.c */
 

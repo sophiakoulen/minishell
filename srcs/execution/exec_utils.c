@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/16 13:40:12 by znichola         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:05:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,23 @@ int	redirect(int input_fd, int output_fd)
 	dup2(input_fd, STDIN_FILENO);
 	dup2(output_fd, STDOUT_FILENO);
 	return (0);
+}
+
+void	close_fds(t_exec *exec)
+{
+	int i;
+
+	i = 0;
+	while (i < exec->n)
+	{
+		close(exec->hd_pipes[i][0]);
+		close(exec->hd_pipes[i][1]);
+		close(exec->infile_fds[i]);
+		close(exec->outfile_fds[i]);
+		if (i == exec->n - 1)
+			break ;
+		close(exec->pipes[i][0]);
+		close(exec->pipes[i][1]);
+		i++;
+	}
 }

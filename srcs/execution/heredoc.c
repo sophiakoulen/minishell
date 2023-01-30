@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 15:51:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 14:56:31 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_delim(char *line, const char *delim);
 static void	add_line(char **buffer, char *line);
-static void	read_single_heredoc(t_cmd_info *cmd);
+static void	read_single_heredoc(t_cmd *cmd);
 
 /*
 	For each command that has a heredoc, read the heredoc
@@ -23,16 +23,16 @@ static void	read_single_heredoc(t_cmd_info *cmd);
 	is found.
 */
 
-void	read_all_heredocs(t_cmd_info *infos, int n)
+void	read_all_heredocs(t_exec *exec)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (i < exec->n)
 	{
-		if (infos[i].has_heredoc)
+		if (exec->cmds[i].has_heredoc)
 		{
-			read_single_heredoc(&infos[i]);
+			read_single_heredoc(&exec->cmds[i]);
 		}
 		i++;
 	}
@@ -42,18 +42,20 @@ void	read_all_heredocs(t_cmd_info *infos, int n)
 	For each command that has a heredoc, write it's heredoc
 	input to the corresponding pipe. Then close the pipe.
 */
-void	write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
+void	write_all_heredocs(t_exec *exec)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (i < exec->n)
 	{
-		if (infos[i].has_heredoc)
+		if (exec->cmds[i].has_heredoc)
 		{
-			write(hd_pipes[i][1], infos[i].hd_buffer, ft_strlen(infos[i].hd_buffer));
-			close(hd_pipes[i][1]);
-			free(infos[i].hd_buffer);
+			write(exec->hd_pipes[i][1],
+				exec->cmds[i].hd_buffer,
+				ft_strlen(exec->cmds[i].hd_buffer));
+			close(exec->hd_pipes[i][1]);
+			free(exec->cmds[i].hd_buffer);
 		}
 		i++;
 	}
@@ -62,7 +64,7 @@ void	write_all_heredocs(t_cmd_info *infos, int **hd_pipes, int n)
 /*
 	Read input from stdin into a buffer, until delim is found.
 */
-static void	read_single_heredoc(t_cmd_info *cmd)
+static void	read_single_heredoc(t_cmd *cmd)
 {
 	char	*buffer;
 	char	*line;
@@ -71,7 +73,7 @@ static void	read_single_heredoc(t_cmd_info *cmd)
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL || is_delim(line, cmd->heredoc_delim))
+		if (line == NULL || is_delim(line, cmd->hd_delim))
 		{
 			free(line);
 			break ;

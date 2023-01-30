@@ -6,35 +6,31 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 16:41:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:50:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		**list_to_array(t_list *lst);
+static void	remove_all_quotes(t_item *lst);
+static int	expand_cmd(t_item **cmd, t_env *env, int retn);
 
 /*
 	Transform the parsed pipeline into a definitive pipeline.
 	That means, expansion is performed on all the commands.
 */
-int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env, int retn)
+int	expand_pipeline(t_list **pipeline, t_env *env, int retn)
 {
-	int			i;
+	t_list	*current;
+	t_item	**cmd;
 
-	*p = x_malloc(sizeof(**p), 1);
-	(*p)->n_cmds = intermediate->n_cmds;
-	(*p)->cmds = x_malloc(sizeof(*((*p)->cmds)), (*p)->n_cmds);
-	i = 0;
-	while (i < (*p)->n_cmds)
+	current = *pipeline;
+	while (current)
 	{
-		if (expand_cmd(&(*p)->cmds[i], intermediate->cmds[i], env, retn) != 0)
-		{
-			pipeline_cleanup(*p);
-			*p = NULL;
+		cmd = (t_item **)&current->content;
+		if (expand_cmd(cmd, env, retn) != 0)
 			return (-1);
-		}
-		i++;
+		current = current->next;
 	}
 	return (0);
 }
@@ -44,41 +40,49 @@ int	expand_pipeline(t_pipeline **p, t_parsed_pipeline *intermediate, t_env *env,
 	That means, string expansion is performed of both the argument list
 	and the rediretion list.
 */
-int	expand_cmd(t_cmd *definitive, t_parsed_cmd *intermediate, t_env *env, int retn)
+static int	expand_cmd(t_item **cmd, t_env *env, int retn)
 {
-	t_list	*expanded_args;
+	t_item	**current;
+	char	*wrd;
+	int		n;
+	int		ret;
 
-	/* expand arguments */
-	expanded_args = expand_args_list(intermediate->args, env, retn);
-	definitive->args = list_to_array(expanded_args);
-	ft_lstclear(&expanded_args, do_nothing);
-
-	/* expand redirections */
-	
-	if (expand_redirs(intermediate->redirs, env, retn) != 0)
+	ret = 0;
+	current = cmd;
+	while (*current)
 	{
-		definitive->redirs = intermediate->redirs;
-		return (-1);
+		if ((*current)->modifier != e_heredoc)
+		{
+			wrd = (*current)->word;
+			(*current)->word = param_expansion((*current)->word, env, retn);
+			n = field_split(current);
+			if ((*current)->modifier != NO_MODIFIER && n != 1)
+			{
+				print_error(0, wrd, "ambiguous redirect");
+				ret = -1;
+			}
+		}
+		else
+		{
+			(*current)->word = ft_strdup((*current)->word);
+		}
+		current = &(*current)->next;
 	}
-	definitive->redirs = intermediate->redirs;
-	return (0);
+	remove_all_quotes(*cmd);
+	return (ret);
 }
 
-static char	**list_to_array(t_list *lst)
+static void	remove_all_quotes(t_item *lst)
 {
-	char			**array;
-	int				size;
-	int				i;
+	t_item	*current;
+	char	*tmp;
 
-	size = ft_lstsize(lst);
-	array = x_malloc(sizeof(*array), size + 1);
-	i = 0;
-	while (lst)
+	current = lst;
+	while (current)
 	{
-		array[i] = lst->content;
-		lst = lst->next;
-		i++;
+		tmp = quote_removal(current->word);
+		free(current->word);
+		current->word = tmp;
+		current = current->next;
 	}
-	array[i] = 0;
-	return (array);
 }

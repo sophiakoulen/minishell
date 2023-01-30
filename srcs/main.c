@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 15:32:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:52:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,9 @@ static void	interactive_shell(t_env *env, int *retn)
 
 static int	exec_line(char *line, t_env **env, int *retn)
 {
-	t_token				*tok_list;
-	t_token				*start;
-	t_parsed_pipeline	*parsed;
-	t_pipeline			*pipeline;
+	t_token	*tok_list;
+	t_token	*start;
+	t_list	*pipeline;
 
 	if (construct_tok_list(&tok_list, line) != 0)
 	{
@@ -88,20 +87,19 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	start = tok_list;
 	if (start->type != e_end)
 	{
-		if (parse_pipeline(&parsed, &tok_list) == SUCCESS)
+		if (parse_pipeline(&pipeline, &tok_list) == SUCCESS)
 		{
-			if (expand_pipeline(&pipeline, parsed, *env, *retn) == 0)
+			if (expand_pipeline(&pipeline, *env, *retn) == 0)
 			{
 				*retn = exec_pipeline(pipeline, env, *retn);
 				pipe_return_print(*retn);
-				pipeline_cleanup(pipeline); //need to free list of args and list of redirs
 			}
 			else
 				*retn = 1;
-			parsed_pipeline_cleanup(parsed); //need to free cmd and the items
 		}
 		else
 			*retn = 258;
+		//free pipeline
 	}
 	tok_list_cleanup(start);
 	return (*retn);

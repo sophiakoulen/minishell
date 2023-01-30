@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 13:55:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:40:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,64 @@
 		quote_removal();
  */
 
-static char	*get_word(char **str);
+static char		*get_word(char **str);
+static t_item	*create_chunk(char *str, int modifier);
 
-t_list	*field_split(char *str)
+/*
+	Replace the pointed item with multiple items.
+
+	The number of items generated is returned.
+	This number can be zero!
+*/
+int	field_split(t_item **item)
 {
-	t_list	*words;
+	t_item	*chunk;
+	t_item	*next;
+	int		i;
+
+	chunk = create_chunk((*item)->word, (*item)->modifier);
+	if (!chunk)
+		return (0);
+	next = (*item)->next;
+	(*item)->next = NULL;
+	//free item
+	*item = chunk;
+	i = 0;
+	while (1)
+	{
+		i++;
+		if (chunk->next)
+			chunk = chunk->next;
+		else
+		{
+			chunk->next = next;
+			break ;
+		}
+	}
+	return (i);
+}
+
+static t_item	*create_chunk(char *str, int modifier)
+{
+	t_item	*chunk;
+	t_item	**current;
 	char	*wrd;
 
-	words = NULL;
+	chunk = NULL;
+	current = &chunk;
 	while (1)
 	{
 		wrd = get_word(&str);
 		if (!*wrd)
 		{
 			free(wrd);
-			break;
+			break ;
 		}
-		ft_lstadd_back(&words, ft_lstnew(wrd));
+		*current = item_factory(&(t_item){wrd, modifier, NULL});
+		current = &(*current)->next;
 	}
-	return (words);
+	return (chunk);
 }
-
 
 static char	*get_word(char **str)
 {
@@ -113,20 +150,3 @@ static char	*get_word(char **str)
 	*str += i;
 	return (word);
 }
-
-/*
-static	word_expansion(t_parsed_pipeline *pp, t_env *env, int retn)
-{
-	t_list				*words;
-	t_parsed_cmd		*cmd;
-	t_parsed_pipeline	*newpp;
-	int					i;
-	char				*tmp;
-
-	i = -1;
-	while (i++ < pp->n_cmds)
-	{
-		tmp = param_expansion(pp->cmds[i], env, retn);
-	}
-}
-*/

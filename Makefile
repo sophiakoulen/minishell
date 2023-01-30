@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/29 13:01:30 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/30 15:27:31 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJS_PATH	=	objs/
 BUILTINS		=	echo            pwd             env             exit      \
 					shout           export          unset           cd
 
-EXPANSION_FILES	=	quote_removal   param_expansion expansion2      field_split\
+EXPANSION_FILES	=	quote_removal   param_expansion field_split\
 					expansion       expansion_utils
 
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
@@ -46,13 +46,12 @@ PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 
 SIGNALS_FILES	=	signals         termios
 
-STRUCT_FILES	=	t_token         t_tree          t_word_lst      t_cmd     \
-					t_cmd_info      t_tree_print    t_fds           t_item    \
-					t_env           t_pipeline      t_parsed_cmd              \
-					t_parsed_pipeline
+STRUCT_FILES	=	t_token         t_tree          \
+					t_tree_print                    t_item    \
+					t_env           \
 
 EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
-					prep_fds        exec_utils      mult_cmds\
+					init_exec       exec_utils      mult_cmds\
 					exec_builtin    exec_pipeline   launch_builtin\
 
 TOKENIZER_FILES	=	tokenizer       token_list

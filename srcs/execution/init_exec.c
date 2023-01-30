@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prep_fds.c                                         :+:      :+:    :+:   */
+/*   init_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/27 15:47:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:24:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,30 @@ static int	**cleanup_pipes(int **pipes, int n);
 static int	*prepare_all_input(int n);
 static int	*prepare_all_output(int n);
 
-t_fds	*prepare_fds(int n)
+void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 {
-	t_fds	*fds;
+	char	**strs;
 
-	fds = x_malloc(sizeof(*fds), 1);
-	fds->infile_fds = prepare_all_input(n);
-	fds->outfile_fds = prepare_all_output(n);
-	fds->pipes = get_pipes(n - 1);
-	fds->hd_pipes = get_pipes(n);
-	return (fds);
+	exec->n = ft_lstsize(pipeline);
+	exec->pipes = get_pipes(exec->n - 1);
+	exec->hd_pipes = get_pipes(exec->n);
+	exec->infile_fds = prepare_all_input(exec->n);
+	exec->outfile_fds = prepare_all_output(exec->n);
+	exec->env = env;
+	exec->prev = prev;
+	strs = env_to_strarr(*env);
+	exec->path = extract_path(strs);
+	strarr_cleanup(strs);
+	exec->cmds = x_malloc(sizeof(*(exec->cmds)), exec->n);
 }
 
-void	cleanup_fds(t_fds *fds, int n_cmds)
+void	cleanup_exec(t_exec *exec)
 {
-	cleanup_pipes(fds->pipes, n_cmds - 1);
-	cleanup_pipes(fds->hd_pipes, n_cmds);
-	free(fds->infile_fds);
-	free(fds->outfile_fds);
-	free(fds);
+	cleanup_pipes(exec->pipes, exec->n - 1);
+	cleanup_pipes(exec->hd_pipes, exec->n);
+	free(exec->infile_fds);
+	free(exec->outfile_fds);
+	free(exec->cmds);
 }
 
 static int	**get_pipes(int n)
@@ -87,7 +92,7 @@ static int	*prepare_all_input(int n)
 	return (input_fds);
 }
 
-static int	*prepare_all_output(int n)
+static int	*prepare_all_output(int n) //ridiculous!!
 {
 	int	*output_fds;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:41:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 11:26:47 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/30 11:52:19 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	parse_item(t_item **item, t_token **tok)
 		next_token(tok);
 		if (assert_token(*tok, e_string) != 0)
 			return (SYNTAX_ERROR);
-		*item = item_factory(&(t_item){(*tok)->str, modifier});
+		*item = item_factory(&(t_item){(*tok)->str, modifier, NULL});
 		next_token(tok);
 	}
 	else if ((*tok)->type == e_string)
 	{
-		*item = item_factory(&(t_item){(*tok)->str, NO_MODIFIER});
+		*item = item_factory(&(t_item){(*tok)->str, NO_MODIFIER, NULL});
 		next_token(tok);
 	}
 	else
