@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 14:53:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 10:40:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 	{
 		ret = multiple_commands(exec);
 	}
-	//cleanup stuff
+	cleanup_exec(exec);
+	free(exec);
 	return (ret);
 }
 

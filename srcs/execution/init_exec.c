@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 15:24:19 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 10:40:31 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,24 @@ void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 	exec->cmds = x_malloc(sizeof(*(exec->cmds)), exec->n);
 }
 
+/*
+	To do: cleanup the cmd_list!
+*/
 void	cleanup_exec(t_exec *exec)
 {
+	int	i;
+
 	cleanup_pipes(exec->pipes, exec->n - 1);
 	cleanup_pipes(exec->hd_pipes, exec->n);
 	free(exec->infile_fds);
 	free(exec->outfile_fds);
+	strarr_cleanup(exec->path);
+	i = 0;
+	while (i < exec->n)
+	{
+		cmd_cleanup(&exec->cmds[i]);
+		i++;
+	}
 	free(exec->cmds);
 }
 

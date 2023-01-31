@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/30 16:40:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 10:43:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	field_split(t_item **item)
 		return (0);
 	next = (*item)->next;
 	(*item)->next = NULL;
-	//free item
+	free((*item)->word);
+	free(*item);
 	*item = chunk;
 	i = 0;
 	while (1)

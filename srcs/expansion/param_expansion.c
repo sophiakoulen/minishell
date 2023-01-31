@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 19:26:40 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:00:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*param_expansion(char *str, t_env *env, int retn)
 			dollar_expansion(&str, &val, env, retn);
 			insert_value(&res, val, i, ft_strlen(str) + 1);
 			i += ft_strlen(val);
+			free(val);
 		}
 		else
 		{
@@ -80,6 +81,7 @@ static void	insert_value(char **buf, char *val, int pos, int extra_space)
 	tmp = x_malloc(1, len);
 	ft_strlcpy(tmp, *buf, len);
 	ft_strlcat(tmp, val, len);
+	free(*buf);
 	*buf = tmp;
 }
 

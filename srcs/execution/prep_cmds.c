@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 15:46:33 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 10:47:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	**extract_args(t_item *lst)
 	{
 		if (current->modifier == NO_MODIFIER)
 		{
-			args[i] = current->word;
+			args[i] = ft_strdup(current->word);
 			i++;
 		}
 		current = current->next;
@@ -81,7 +81,7 @@ static char	**extract_args(t_item *lst)
 	return (args);
 }
 
-static void	init_cmd(t_cmd *cmd)
+static void	init_cmd(t_cmd *cmd) //should this be here??
 {
 	cmd->i_fd = -1; //maybe default to 0
 	cmd->o_fd = -1;//maybe default to 1
@@ -139,7 +139,7 @@ static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec)
 	else if (redir->modifier == e_heredoc)
 	{
 		cmd->has_heredoc = 1;
-		cmd->hd_delim = redir->word;
+		cmd->hd_delim = ft_strdup(redir->word);
 		cmd->i_fd = exec->hd_pipes[cmd->i][0];
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 14:56:31 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 10:29:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	write_all_heredocs(t_exec *exec)
 				exec->cmds[i].hd_buffer,
 				ft_strlen(exec->cmds[i].hd_buffer));
 			close(exec->hd_pipes[i][1]);
-			free(exec->cmds[i].hd_buffer);
 		}
 		i++;
 	}
