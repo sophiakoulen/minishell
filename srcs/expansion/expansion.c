@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 17:22:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:05:42 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	expand_item(t_item **item, t_env *env, int retn)
 	char	*word;
 	int		n;
 
-	word = (*item)->word;
+	word = ft_strdup((*item)->word);
 	if ((*item)->modifier != e_heredoc)
 	{
 		tmp = param_expansion((*item)->word, env, retn);
@@ -77,11 +77,13 @@ static int	expand_item(t_item **item, t_env *env, int retn)
 		if ((*item)->modifier != NO_MODIFIER && n != 1)
 		{
 			print_error(0, word, "ambiguous redirect");
+			free(word); //ugly
 			return (-1);
 		}
 	}
 	tmp = quote_removal((*item)->word);
 	free((*item)->word);
 	(*item)->word = tmp;
+	free(word);
 	return (0);
 }
