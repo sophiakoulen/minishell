@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 10:34:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:07:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 /* cleanup */
 
-void	pipeline_cleanup(t_list *pipeline);
+void		pipeline_cleanup(t_list *pipeline);
 
 /* print */
 
@@ -74,32 +74,19 @@ void		sort_env(t_env **env);
 /*   exicution                                                                */
 /* ************************************************************************** */
 
-/* exec pipeline */
+/* builtin */
+
+int			launch_builtin(t_exec *exec, int i);
+int			ret_builtin_enum(char *str);
+
+/* exec_pipeline */
+
 int			exec_pipeline(t_list *pipeline, t_env **env, int prev);
 
-/* heredoc */
-void		read_all_heredocs(t_exec *exec);
-void		write_all_heredocs(t_exec *exec);
+/* exec_pipeline2 */
 
-/* find_cmd utils */
-
-char		**extract_path(char **envp);
-int			has_slashes(const char *str);
-char		*concat_slash(const char *str1, const char *str2);
-int			file_ok(char *filename, char **res);
-
-/* find_cmd */
-
-int			find_cmd(char **path, char *filename, char **res);
-
-/* prepare cmd */
-
-t_exec		*prepare_pipeline(t_list *pipeline, t_env **env, int prev);
-
-/* prepare fds */
-
-void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
-void		cleanup_exec(t_exec *exec);
+int			multiple_commands(t_exec *exec);
+int			*launch_all(t_exec *exec);
 
 /* exec_utils */
 
@@ -107,20 +94,29 @@ int			compute_return_value(int status);
 int			redirect(int input_fd, int output_fd);
 void		close_fds(t_exec *exec);
 
-/* multi_cmds.c */
+/* find_cmd */
 
-int			multiple_commands(t_exec *exec);
-int			*launch_all(t_exec *exec);
+int			find_cmd(char **path, char *filename, char **res);
 
+/* find_cmd_utils */
 
-/* exec_builtin.c */
+char		**extract_path(char **envp);
+int			has_slashes(const char *str);
+char		*concat_slash(const char *str1, const char *str2);
+int			file_ok(char *filename, char **res);
 
-int			ret_builtin_enum(char *str);
-const char	*ret_builtin_literal(enum e_builtin n);
-int			exec_builtin(enum e_builtin n, char **args, t_env **env, int prev);
+/* heredoc */
 
-/* launch_builtin.c */
-int			launch_builtin(t_exec *exec, int i);
+void		read_all_heredocs(t_exec *exec);
+void		write_all_heredocs(t_exec *exec);
+
+/* prep_pipeline1 */
+
+t_exec		*prepare_pipeline(t_list *pipeline, t_env **env, int prev);
+
+/* prep_pipeline2 */
+
+void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
 
 /* ************************************************************************** */
 /*   expansion                                                                */
@@ -139,12 +135,7 @@ char		*quote_removal(char *str);
 char		*param_expansion(char *str, t_env *env, int retn);
 
 /* field split */
-int			field_split(t_item **item);
-
-/* expansion2 */
-
-//t_list		*expand_args_list(t_list *lst, t_env *env, int retn);
-//int			expand_redirs(t_list *redirs, t_env *env, int retn);
+t_item		*field_split(t_item *item);
 
 /* expansion utils */
 int			update_state(char *c, int *state);
@@ -171,8 +162,6 @@ int			parse_item(t_item **item, t_token **tok);
 int			unexpected_token(t_token *tok);
 int			assert_token(t_token *tok, enum e_token_type expected);
 
-
-t_cmd		*cmd_factory(t_cmd *blueprint);
 
 /* ************************************************************************** */
 /*   tokenizer                                                                */
@@ -225,44 +214,19 @@ void		adjust_color(char *prompt, int retn);
 
 /* signals.c */
 
-void	sigint_handler(int sig);
-void	parent_signals(void);
-void	get_set_termios(int toggle);
-void	silent_signals(void);
-void	pipe_return_print(int retn);
+void		sigint_handler(int sig);
+void		parent_signals(void);
+void		get_set_termios(int toggle);
+void		silent_signals(void);
+void		pipe_return_print(int retn);
 
 
 /* ************************************************************************** */
 /*   structs                                                                  */
 /* ************************************************************************** */
 
-/* t_pipeline */
-
-//void		print_pipeline(t_pipeline *p);
-//void		pipeline_cleanup(t_pipeline *p);
-
-/* t_parsed_pipeline */
-
-//t_parsed_pipeline	*parsed_pipeline_factory(t_parsed_pipeline *blueprint);
-//void				parsed_pipeline_cleanup(t_parsed_pipeline *p);
-//void				print_parsed_pipeline(t_parsed_pipeline *p);
-
-/* t_cmd_info.c */
-
-//void				cleanup_all_info(t_cmd_info *infos, int n);
-//void				init_info(t_cmd_info *info, t_cmd *cmd, int i, int n);
-
-/* t_parsed_cmd.c */
-
-//t_parsed_cmd	*parsed_cmd_factory(t_parsed_cmd *blueprint);
-//void			parsed_cmd_cleanup(t_parsed_cmd *cmd);
-//void			print_parsed_cmd(t_parsed_cmd *cmd);
-//void			print_parsed_cmd2(t_parsed_cmd *cmd);
-
 /* t_cmd.c */
 
-//t_cmd		*cmd_factory(t_cmd *blueprint);
-//void		print_cmd(t_cmd *cmd);
 void		cmd_cleanup(t_cmd *cmd);
 
 /* t_token.c */
@@ -281,16 +245,11 @@ t_tree		*tree_factory(t_tree *blueprint);
 void		auto_print_tree(t_tree *tree);
 void		print_tree(t_pos p, t_tree *tree);
 
-/* t_word_lst.c */
-
-//t_word_lst	*word_lst_factory(t_word_lst *blueprint);
-t_list		*list_factory(t_list *blueprint);
 
 /* t_item.c */
 
 t_item		*item_factory(t_item *blueprint);
-void		item_cleanup(t_item *item);
-void		item_cleanup_deep(t_item *item);
+void		item_list_cleanup(t_item *lst);
 void		print_item(t_item *item);
 void		print_cmd(t_item *item);
 
@@ -299,5 +258,9 @@ void		print_cmd(t_item *item);
 t_env		*env_factory(t_env *blueprint);
 void		env_cleanup(t_env *env);
 void		env_cleanup_all(t_env *env);
+
+/* t_exec */
+
+void		cleanup_exec(t_exec *exec);
 
 #endif

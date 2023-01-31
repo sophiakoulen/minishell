@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 15:05:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:24:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,10 @@ void	close_fds(t_exec *exec)
 {
 	int i;
 
-	i = 0;
-	while (i < exec->n)
+	i = 3;
+	while (i < exec->fd_count + 3)
 	{
-		close(exec->hd_pipes[i][0]);
-		close(exec->hd_pipes[i][1]);
-		close(exec->infile_fds[i]);
-		close(exec->outfile_fds[i]);
-		if (i == exec->n - 1)
-			break ;
-		close(exec->pipes[i][0]);
-		close(exec->pipes[i][1]);
+		close(i);
 		i++;
 	}
 }

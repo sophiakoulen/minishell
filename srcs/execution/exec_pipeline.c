@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 10:40:44 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:11:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 	int		ret;
 
 	exec = prepare_pipeline(pipeline, env, prev);
+	ret = 0;
 	if (exec->n == 1)
 		ret = simple_command(exec);
-	else
-	{
+	else if (exec->n > 1)
 		ret = multiple_commands(exec);
-	}
 	cleanup_exec(exec);
 	free(exec);
 	return (ret);

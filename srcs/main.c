@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 10:45:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:10:30 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 		return (*retn);
 	}
 	start = tok_list;
-	if (parse_pipeline(&pipeline, &tok_list) == SUCCESS)
+	if (parse_pipeline(&pipeline, &tok_list) != SYNTAX_ERROR)
 	{
 		if (expand_pipeline(&pipeline, *env, *retn) == 0)
 		{

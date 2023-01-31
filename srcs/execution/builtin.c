@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_builtin.c                                     :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/27 15:50:35 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:59:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static const char	*ret_builtin_literal(enum e_builtin n);
+static int	exec_builtin(enum e_builtin n, char **args, t_env **env, int prev);
+
+int	launch_builtin(t_exec *exec, int i)
+{
+	int	stdin_clone;
+	int	stdout_clone;
+
+	stdin_clone = dup(STDIN_FILENO);
+	stdout_clone = dup(STDOUT_FILENO);
+	dup2(exec->cmds[i].i_fd, STDIN_FILENO);
+	dup2(exec->cmds[i].o_fd, STDOUT_FILENO);
+	close_fds(exec);
+	exec->cmds[i].status = exec_builtin(exec->cmds[i].builtin,
+											exec->cmds[i].args + 1,
+											exec->env, exec->prev);
+	dup2(stdin_clone, STDIN_FILENO);
+	dup2(stdout_clone, STDOUT_FILENO);
+	close(stdin_clone);
+	close(stdout_clone);
+	return (exec->cmds[i].status);
+}
 
 /*
 	If the string corresponds to the name of a builtin, return
@@ -34,7 +57,7 @@ int	ret_builtin_enum(char *str)
 	Returns the corresponding string for the builtin,
 	or NULL if not in list.
 */
-const char	*ret_builtin_literal(enum e_builtin n)
+static const char	*ret_builtin_literal(enum e_builtin n)
 {
 	static const char	*tok_strings[NUM_BUILTINS] = {
 		"echo",
@@ -68,7 +91,7 @@ static int	builtin_passthrough(char **args, t_env **env, int prev)
  * executed the builtin using args as it's argument,
  * or NULL if not in list.
 */
-int	exec_builtin(enum e_builtin n, char **args, t_env **env, int prev)
+static int	exec_builtin(enum e_builtin n, char **args, t_env **env, int prev)
 {
 	static int	(*builtin_arr[NUM_BUILTINS])(char **, t_env **, int) = {
 		exec_echo,

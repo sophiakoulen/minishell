@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/31 10:34:39 by skoulen          ###   ########.fr        #
+#    Updated: 2023/01/31 11:49:07 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,13 +46,14 @@ PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 
 SIGNALS_FILES	=	signals         termios
 
-STRUCT_FILES	=	t_token         t_tree          t_cmd\
+STRUCT_FILES	=	t_token         t_tree          t_cmd           t_exec\
 					t_tree_print                    t_item    \
 					t_env           \
 
-EXECUTION_FILES	=	heredoc         find_cmd        find_cmd_utils  prep_cmds \
-					init_exec       exec_utils      mult_cmds\
-					exec_builtin    exec_pipeline   launch_builtin\
+EXECUTION_FILES	=	prep_pipeline   prep_pipeline2\
+					exec_pipeline   exec_pipeline2  exec_utils\
+					find_cmd        find_cmd_utils\
+					builtin         heredoc
 
 TOKENIZER_FILES	=	tokenizer       token_list
 

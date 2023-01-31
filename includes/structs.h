@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/30 15:23:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:22:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ typedef struct s_exec
 
 	int		**hd_pipes;
 	int		**pipes;
-	int		*infile_fds;
-	int		*outfile_fds;
+
+	int		fd_count;
 
 	char	**path;
 

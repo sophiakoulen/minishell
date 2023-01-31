@@ -6,14 +6,15 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 11:05:42 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:37:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	expand_cmd(t_item **cmd, t_env *env, int retn);
-static int	expand_item(t_item **item, t_env *env, int retn);
+static int	expand_item(t_item *item, t_item **res, t_env *env, int retn);
+static void	lst_quote_removal(t_item *lst);
 
 /*
 	Perform expansion on each command, i.e, each item in
@@ -36,54 +37,84 @@ int	expand_pipeline(t_list **pipeline, t_env *env, int retn)
 }
 
 /*
-	Perform expansion on a command. That means, expansion
-	on each item of the command list. The number of items
-	in the list might change in this phase.
+	Perform expansion on a command.
+
+	Generate an expanded list of commands and free the original.
 */
 static int	expand_cmd(t_item **cmd, t_env *env, int retn)
 {
-	t_item	**current;
+	t_item	*current;
+	t_item	*new_chunk;
+	t_item	*res;
+	t_item	**ptr;
+	int		ret;
 
-	current = cmd;
-	while (*current)
+	ret = 0;
+	res = NULL;
+	ptr = &res;
+	current = *cmd;
+	while (current)
 	{
-		if (expand_item(current, env, retn) != 0)
-			return (-1);
-		current = &(*current)->next;
+		if (expand_item(current, &new_chunk, env, retn) != 0)
+			ret = -1;
+		*ptr = new_chunk;
+		while (*ptr)
+			ptr = &(*ptr)->next;
+		current = current->next;
 	}
-	return (0);
+	item_list_cleanup(*cmd);
+	*cmd = res;
+	return (ret);
 }
 
 /*
-	Perform parameter expansion, filed-splitting and
-	quote-removal.
+	Perform expansion on the given item.
+
+	That means:
+	1. perform param expansion on the item->word.
+	2. Split the item->word: the single list item can know expand
+		to zero, one or more items. The field_split function
+		modifies the list.
+	3. Perform quote removal on the expanded items.
+
 	If the item is a heredoc redirection, only quote-removal
 	is done.
 	Return -1 in case of ambiguous redirect.
 */
-static int	expand_item(t_item **item, t_env *env, int retn)
+static int	expand_item(t_item *item, t_item **res, t_env *env, int retn)
 {
 	char	*tmp;
 	char	*word;
-	int		n;
+	int		ret;
 
-	word = ft_strdup((*item)->word);
-	if ((*item)->modifier != e_heredoc)
+	ret = 0;
+	word = ft_strdup(item->word);
+	if (item->modifier != e_heredoc)
 	{
-		tmp = param_expansion((*item)->word, env, retn);
-		free((*item)->word);
-		(*item)->word = tmp;
-		n = field_split(item);
-		if ((*item)->modifier != NO_MODIFIER && n != 1)
+		tmp = param_expansion(item->word, env, retn);
+		free(item->word);
+		item->word = tmp;
+		*res = field_split(item);
+		if (item->modifier != NO_MODIFIER && (!*res || (*res)->next))
 		{
 			print_error(0, word, "ambiguous redirect");
-			free(word); //ugly
-			return (-1);
+			ret = -1;
 		}
 	}
-	tmp = quote_removal((*item)->word);
-	free((*item)->word);
-	(*item)->word = tmp;
+	lst_quote_removal(*res);
 	free(word);
-	return (0);
+	return (ret);
+}
+
+static void	lst_quote_removal(t_item *lst)
+{
+	char	*tmp;
+
+	while (lst)
+	{
+		tmp = quote_removal(lst->word);
+		free(lst->word);
+		lst->word = tmp;
+		lst = lst->next;
+	}
 }

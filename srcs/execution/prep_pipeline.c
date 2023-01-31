@@ -6,24 +6,23 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 10:47:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 11:34:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	prepare_cmd(t_item *lst, t_exec *exec, int i);
+static char	**extract_args(t_item *lst);
 static void	prepare_redirs(t_item *lst, t_cmd *cmd, t_exec *exec);
 static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec);
 static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec);
 static void	prepare_cmd_path(t_cmd *cmd, t_exec *exec);
-static void	init_cmd(t_cmd *cmd);
-static void	prepare_cmd(t_item *lst, t_exec *exec, int i);
-static char	**extract_args(t_item *lst);
 
 t_exec	*prepare_pipeline(t_list *pipeline, t_env **env, int prev)
 {
 	t_exec	*exec;
-	int			i;
+	int		i;
 
 	exec = x_malloc(sizeof(*exec), 1);
 	init_exec(pipeline, exec, env, prev);
@@ -42,7 +41,13 @@ static void	prepare_cmd(t_item *lst, t_exec *exec, int i)
 	t_cmd	*cmd;
 
 	cmd = &exec->cmds[i];
-	init_cmd(cmd);
+	cmd->status = 0;
+	cmd->full_path = NULL;
+	cmd->has_heredoc = 0;
+	cmd->hd_delim = NULL;
+	cmd->hd_buffer = NULL;
+	cmd->builtin = -1;
+	cmd->args = NULL;
 	cmd->i = i;
 	cmd->n = exec->n;
 	cmd->args = extract_args(lst);
@@ -71,31 +76,12 @@ static char	**extract_args(t_item *lst)
 	while (current)
 	{
 		if (current->modifier == NO_MODIFIER)
-		{
-			args[i] = ft_strdup(current->word);
-			i++;
-		}
+			args[i++] = ft_strdup(current->word);
 		current = current->next;
 	}
 	args[i] = NULL;
 	return (args);
 }
-
-static void	init_cmd(t_cmd *cmd) //should this be here??
-{
-	cmd->i_fd = -1; //maybe default to 0
-	cmd->o_fd = -1;//maybe default to 1
-	cmd->full_path = NULL;
-	cmd->status = 0;
-	cmd->has_heredoc = 0;
-	cmd->hd_delim = NULL;
-	cmd->hd_buffer = NULL;
-	cmd->builtin = -1;
-	cmd->args = NULL;
-	cmd->i = -1;
-	cmd->n = -1;
-}
-
 
 static void	prepare_redirs(t_item *lst, t_cmd *cmd, t_exec *exec)
 {
@@ -134,7 +120,7 @@ static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec)
 			cmd->status = 1;
 			return (-1);
 		}
-		exec->infile_fds[cmd->i] = cmd->i_fd;
+		exec->fd_count++;
 	}
 	else if (redir->modifier == e_heredoc)
 	{
@@ -167,7 +153,7 @@ static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec)
 		cmd->status = 1;
 		return (-1);
 	}
-	exec->outfile_fds[cmd->i] = cmd->o_fd;
+	exec->fd_count++;
 	return (0);
 }
 
