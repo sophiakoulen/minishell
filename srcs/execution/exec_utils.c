@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 11:24:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 15:03:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	redirect(int input_fd, int output_fd)
 
 void	close_fds(t_exec *exec)
 {
-	int i;
+	int	i;
 
 	i = 3;
 	while (i < exec->fd_count + 3)
