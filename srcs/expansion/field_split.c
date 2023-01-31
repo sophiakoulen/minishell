@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 14:32:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:57:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,37 +41,19 @@ t_item	*field_split(t_item *item)
 static char	*get_word(char **str)
 {
 	char	*word;
-	int		dquote;
-	int		squote;
-	int		escaped;
+	int		state;
 	int		i;
 
-	dquote = 0;
-	squote = 0;
-	escaped = 0;
-	while (ft_isspace(**str))
+	state = 0;
+	while (**str && ft_strchr(T_IFS, **str))
 		(*str)++;
 	i = 0;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '\'' && !dquote && !escaped)
-		{
-			squote = !squote;
-		}
-		if ((*str)[i] == '"' && !squote && !escaped)
-		{
-			dquote = !dquote;
-		}
-		if ((*str)[i] == '\\' && !escaped)
-		{
-			escaped = 1;
-		}
-		else
-		{
-			escaped = 0;
-		}
-		if (!dquote && !squote && !escaped && ft_isspace((*str)[i]))
-				break ;
+		update_state(*str + i, &state);
+		if (!(state & MSH_ESCAPED || state & MSH_DQUOTE || state & MSH_SQUOTE)
+			&& ft_strchr(T_IFS, **str))
+			break ;
 		i++;
 	}
 	word = ft_substr((*str), 0, i);

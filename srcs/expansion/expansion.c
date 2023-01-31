@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 14:37:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:52:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ static int	expand_item(t_item *item, t_item **res, t_env *env, int retn)
 			ret = -1;
 		}
 	}
+	else
+		*res = item_factory(&(t_item){ft_strdup(word), e_heredoc, NULL});
 	lst_quote_removal(*res);
 	free(word);
 	return (ret);
