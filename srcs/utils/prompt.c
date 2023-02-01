@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:51:06 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/27 15:27:34 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 14:39:05 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	make_blue(char *prompt)
 
 void	adjust_color(char *prompt, int retn)
 {
+	if (!*prompt)
+		return ;
 	if (retn == 0)
 		make_blue(prompt);
 	else

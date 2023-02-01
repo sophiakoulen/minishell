@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 11:10:30 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:00:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int		g_retn = 0;
 int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
+
+	if (isatty(2))
+		rl_outstream = stderr;
+	else if (isatty(1))
+		rl_outstream = stdout;
 
 	get_set_termios(1);
 	parent_signals();
@@ -51,7 +56,10 @@ static void	interactive_shell(t_env *env, int *retn)
 	char	*line;
 	char	*prompt;
 
-	prompt = ft_strdup("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
+	if (isatty(0) && isatty(2))
+		prompt = ft_strdup("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
+	else
+		prompt = ft_strdup("");
 	while (1)
 	{
 		adjust_color(prompt, *retn);
