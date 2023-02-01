@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 11:22:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:51:37 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ typedef struct s_cmd
 	int		o_fd;
 	char	*full_path;
 	int		status;
-	int		has_heredoc;
-	char	*hd_delim;
 	char	*hd_buffer;
 	int		builtin;
 	char	**args;

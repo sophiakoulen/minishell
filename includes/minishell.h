@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 14:07:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:56:04 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			file_ok(char *filename, char **res);
 
 /* heredoc */
 
-void		read_all_heredocs(t_exec *exec);
+void		read_single_heredoc(char **buffer, char *delim);
 void		write_all_heredocs(t_exec *exec);
 
 /* prep_pipeline1 */

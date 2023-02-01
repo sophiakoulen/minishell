@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prep_cmds.c                                        :+:      :+:    :+:   */
+/*   prep_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 11:34:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:52:37 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	prepare_cmd(t_item *lst, t_exec *exec, int i)
 	cmd = &exec->cmds[i];
 	cmd->status = 0;
 	cmd->full_path = NULL;
-	cmd->has_heredoc = 0;
-	cmd->hd_delim = NULL;
 	cmd->hd_buffer = NULL;
 	cmd->builtin = -1;
 	cmd->args = NULL;
@@ -124,8 +122,7 @@ static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec)
 	}
 	else if (redir->modifier == e_heredoc)
 	{
-		cmd->has_heredoc = 1;
-		cmd->hd_delim = ft_strdup(redir->word);
+		read_single_heredoc(&cmd->hd_buffer, redir->word);
 		cmd->i_fd = exec->hd_pipes[cmd->i][0];
 	}
 	return (0);

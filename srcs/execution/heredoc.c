@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 10:29:55 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:52:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,6 @@
 
 static int	is_delim(char *line, const char *delim);
 static void	add_line(char **buffer, char *line);
-static void	read_single_heredoc(t_cmd *cmd);
-
-/*
-	For each command that has a heredoc, read the heredoc
-	input into a buffer.
-	Input is read from stdin until the corresponding delimiter
-	is found.
-*/
-
-void	read_all_heredocs(t_exec *exec)
-{
-	int	i;
-
-	i = 0;
-	while (i < exec->n)
-	{
-		if (exec->cmds[i].has_heredoc)
-		{
-			read_single_heredoc(&exec->cmds[i]);
-		}
-		i++;
-	}
-}
 
 /*
 	For each command that has a heredoc, write it's heredoc
@@ -49,7 +26,7 @@ void	write_all_heredocs(t_exec *exec)
 	i = 0;
 	while (i < exec->n)
 	{
-		if (exec->cmds[i].has_heredoc)
+		if (exec->cmds[i].hd_buffer)
 		{
 			write(exec->hd_pipes[i][1],
 				exec->cmds[i].hd_buffer,
@@ -63,23 +40,22 @@ void	write_all_heredocs(t_exec *exec)
 /*
 	Read input from stdin into a buffer, until delim is found.
 */
-static void	read_single_heredoc(t_cmd *cmd)
+void	read_single_heredoc(char **buffer, char *delim)
 {
-	char	*buffer;
 	char	*line;
 
-	buffer = ft_strdup("");
+	free(*buffer);
+	*buffer = ft_strdup("");
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL || is_delim(line, cmd->hd_delim))
+		if (line == NULL || is_delim(line, delim))
 		{
 			free(line);
 			break ;
 		}
-		add_line(&buffer, line);
+		add_line(buffer, line);
 	}
-	cmd->hd_buffer = buffer;
 }
 
 /*

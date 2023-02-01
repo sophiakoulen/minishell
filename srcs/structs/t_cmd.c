@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 10:27:09 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 10:29:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:53:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ void	cmd_cleanup(t_cmd *cmd)
 {
 	free(cmd->full_path);
 	free(cmd->hd_buffer);
-	free(cmd->hd_delim);
 	strarr_cleanup(cmd->args);
 }

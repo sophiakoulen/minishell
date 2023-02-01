@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mult_cmds.c                                        :+:      :+:    :+:   */
+/*   exec_pipeline2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 15:24:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:53:33 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	multiple_commands(t_exec *exec)
 	int			*pids;
 	int			ret;
 
-	read_all_heredocs(exec);
 	pids = launch_all(exec);
 	write_all_heredocs(exec);
 	close_fds(exec);

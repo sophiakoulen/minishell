@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 11:11:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:57:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 
 static int	simple_command(t_exec *exec)
 {
-	int			*pids;
-	int			ret;
+	int	*pids;
+	int	ret;
 
 	pids = NULL;
-	read_all_heredocs(exec);
 	if (exec->cmds[0].builtin != -1)
 		ret = launch_builtin(exec, 0);
 	else
