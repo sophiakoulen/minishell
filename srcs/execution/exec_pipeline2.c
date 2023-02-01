@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/01 12:44:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:51:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	multiple_commands(t_exec *exec)
 	close_fds(exec);
 	ret = wait_all(exec->n, pids);
 	free(pids);
-	return (ret);
+	return (compute_return_value(ret));
 }
 
 int	*launch_all(t_exec *exec)
