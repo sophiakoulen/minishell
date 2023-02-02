@@ -175,21 +175,21 @@ Here are some slightly more detailed steps:
 ## Grammar
 
 ```ebnf
-<commandline> ::= <conditionnal>
-				| <conditionnal> "&&" <conditionnal>
-				| <conditionnal> "||" <conditionnal>
+<commandline>   ::= <conditionnal>
+                | <conditionnal> "&&" <conditionnal>
+                | <conditionnal> "||" <conditionnal>
 
-<conditionnal> ::= <pipeline>
-				| "(" <commandline> ")"
+<conditionnal>  ::= <pipeline>
+                | "(" <commandline> ")"
 
-<pipeline> ::=  <command>
-             |  <pipeline> "|" <command>
+<pipeline>      ::=  <command>
+                | <pipeline> "|" <command>
 
-<command>  ::=  <item>
-			 | <command> <item>
+<command>       ::=  <item>
+                | <command> <item>
 
-<item>  ::= WORD
-		| <redir> WORD
+<item>          ::= WORD
+                | <redir> WORD
 
-<redir>  ::=  "<"  |  ">"  |  ">>" | "<<"
+<redir>         ::=  "<"  |  ">"  |  ">>" | "<<"
 ```
