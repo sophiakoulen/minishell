@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/01 15:00:03 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:42:01 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env		*env;
 
-	if (isatty(2))
+	if (isatty(0) && isatty(2))
 		rl_outstream = stderr;
-	else if (isatty(1))
-		rl_outstream = stdout;
-
 	get_set_termios(1);
 	parent_signals();
 	env = init_env(envp);
@@ -37,36 +34,54 @@ int	main(int argc, char **argv, char **envp)
 
 static void	check_args(int argc, char **argv)
 {
-	const char	*msg1;
-	const char	*msg2;
+	int	fd;
 
-	(void)argv;
-	msg1 = "Script files are currently not supported.\n";
-	msg2 = "Use ./minishell to start an interactive shell.\n";
-	if (argc != 1)
+	if (argc > 1)
 	{
-		write(2, msg1, ft_strlen(msg1));
-		write(2, msg2, ft_strlen(msg2));
-		exit(2);
+		fd = open(argv[1], O_RDONLY);
+		if (fd < 0)
+		{
+			print_error(0, argv[1], strerror(errno));
+			if (errno == ENOENT)
+				exit(127);
+			else
+				exit(126);
+		}
+		dup2(fd, 0);
+		close(fd);
+	}
+}
+
+static char	*read_input(int interactive, int retn)
+{
+	int		fd;
+	char	*line;
+
+	if (interactive)
+	{
+		if (!retn)
+			return (readline(BLUE_PROMPT));
+		else
+			return (readline(RED_PROMPT));
+	}
+	else
+	{
+		return (readline(""));
 	}
 }
 
 static void	interactive_shell(t_env *env, int *retn)
 {
 	char	*line;
-	char	*prompt;
+	int		interactive;
 
-	if (isatty(0) && isatty(2))
-		prompt = ft_strdup("minishell\001\033[38:5:117m\002$\001\033[0m\002 ");
-	else
-		prompt = ft_strdup("");
+	interactive = isatty(0) && isatty(2);
 	while (1)
 	{
-		adjust_color(prompt, *retn);
-		line = readline(prompt);
+		line = read_input(interactive, *retn);
 		if (!line)
 		{
-			write(2, &"\e[1A\e[11C", 9);
+			write(2, &"\e[1A\e[11C", 9); // we should think about this
 			exec_exit(NULL, &env, *retn);
 			break ;
 		}

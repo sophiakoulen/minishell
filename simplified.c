@@ -10,8 +10,6 @@ int main()
 
 	if (isatty(2))
 		rl_outstream = stderr;
-	else if (isatty(1))
-		rl_outstream = stdout;
 
 	while (1)
 	{

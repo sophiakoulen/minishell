@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 16:21:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/02 12:38:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,10 @@ enum e_builtin
 	e_exit,
 	e_shout,
 };
+
+/* prompts */
+
+# define BLUE_PROMPT "minishell\001\033[38:5:117m\002$\001\033[0m\002 "
+# define RED_PROMPT "minishell\001\033[38:5:197m\002$\001\033[0m\002 "
 
 #endif

@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/01/31 11:49:07 by skoulen          ###   ########.fr        #
+#    Updated: 2023/02/02 12:39:47 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ EXECUTION_FILES	=	prep_pipeline   prep_pipeline2\
 TOKENIZER_FILES	=	tokenizer       token_list
 
 UTILS_FILES		=	utils_1         utils_2         tree_ops                  \
-					error_printer   prompt
+					error_printer
 
 ENVIRONMENT		=	environment     env_utils       env_sort
 
