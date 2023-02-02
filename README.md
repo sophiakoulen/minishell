@@ -19,7 +19,7 @@ You can download it on linux using
 sudo apt install lib32readline8 lib32readline-dev libreadline8 libreadline-dev
 ```
 If you're on MacOs, you can install readline using the homebrew package manager.
-If you're at 42, use this: [42homebrew](https://github.com/kube/42homebrew). 
+If you're at 42, use this: [42homebrew](https://github.com/kube/42homebrew).
 ```bash
 brew install readline
 ```
@@ -85,7 +85,7 @@ There are 2 possibilities:
 - The user has entered an absolute path, with slashes, like `/bin/ls` or
 `./minishell`. Then we just need to check if that filename is executable.
 - The user has entered just a command name without any slashes, like `echo` or
-`valgrind` or `clear`. Then, we need to check if the command is a builtin, 
+`valgrind` or `clear`. Then, we need to check if the command is a builtin,
 meaning, the shell itself knows how to execute the command. Examples of such
 builtins are `cd`, `pwd`, `echo`, `export`, `unset`, `env`, `exit`. If it
 isn't, the shell will look in all the directories of the PATH variable until
@@ -172,65 +172,24 @@ Here are some slightly more detailed steps:
 5. Executing the pipeline associated to that structure
 6. Computing the result of that pipeline
 
-## Extracts from POSIX
-
-- If the token is an operator, the token identifier for that operator shall result.
-- If the string consists solely of digits and the delimiter character is one of '<' or '>', the token identifier IO_NUMBER shall be returned.
-- Otherwise, the token identifier TOKEN results.
-[-source](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10)
-
-The WORD tokens shall have the word expansion rules applied to them immediately before the associated command is executed, not at the time the command is parsed.
-what the heck!
-
 ## Grammar
 
-### Current dev goal
-
 ```ebnf
-<commandline> ::= <pipeline> <end>
-                | <end>
+<commandline> ::= <conditionnal>
+				| <conditionnal> "&&" <conditionnal>
+				| <conditionnal> "||" <conditionnal>
 
-<pipeline> ::=  <string>
-             |  <pipeline> "|" <string>
-
-<string> ::= "any combination of characters really"
-```
-
-### Current dev goal rewrite
-
-```ebnf
-<commandline> ::= {<pipeline>} <end>
-
-<pipeline> ::=  <string> {"|" <string>}
-
-<string> ::= "any combination of characters really"
-```
-
-### Final gramar is something like this
-
-```ebnf
-
-<commandline> ::= <conditional> <end>
-                | <end>
-
-<conditional> ::=  <pipeline>
-                |  <conditional> "&&" <pipeline>
-                |  <conditional> "||" <pipeline>
+<conditionnal> ::= <pipeline>
+				| "(" <commandline> ")"
 
 <pipeline> ::=  <command>
              |  <pipeline> "|" <command>
 
-<command>  ::=  <word>
-             |  <redirection>
-             |  <command> <word>
-             |  <command> <redirection>
+<command>  ::=  <item>
+			 | <command> <item>
 
-<redirection>  ::=  <redirectionop> <filename>
+<item>  ::= WORD
+		| <redir> WORD
 
-<redirectionop>  ::=  "<"  |  ">"  |  ">"
-
-<end> ::= '\n' | '\r\n' | '\0'
-
+<redir>  ::=  "<"  |  ">"  |  ">>" | "<<"
 ```
-
-last updated on `12 01 2023`
