@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/02 13:42:01 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/03 14:19:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,9 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
-static char	*read_input(int interactive, int retn)
+static char	*read_input(int retn)
 {
-	int		fd;
-	char	*line;
-
-	if (interactive)
+	if (isatty(0) && isatty(2))
 	{
 		if (!retn)
 			return (readline(BLUE_PROMPT));
@@ -65,23 +62,21 @@ static char	*read_input(int interactive, int retn)
 			return (readline(RED_PROMPT));
 	}
 	else
-	{
-		return (readline(""));
-	}
+		return (get_next_line(0));
 }
-
+/*
+	I removed the hack with write to change the line we are writing on,
+	because it caused problems in non-interactive mode.
+*/
 static void	interactive_shell(t_env *env, int *retn)
 {
 	char	*line;
-	int		interactive;
 
-	interactive = isatty(0) && isatty(2);
 	while (1)
 	{
-		line = read_input(interactive, *retn);
+		line = read_input(*retn);
 		if (!line)
 		{
-			write(2, &"\e[1A\e[11C", 9); // we should think about this
 			exec_exit(NULL, &env, *retn);
 			break ;
 		}

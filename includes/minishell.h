@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/01 11:56:04 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/03 12:38:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,11 +202,9 @@ int			get_tree_max_width(t_tree *tree);
 void		print_error(char *program, char *arg, char *msg);
 char		*in_quotes(char *str);
 
-/* prompt.c */
+/* input */
 
-void		make_red(char *prompt);
-void		make_blue(char *prompt);
-void		adjust_color(char *prompt, int retn);
+char		*get_input_line(char *prompt);
 
 /* ************************************************************************** */
 /*   signals                                                                   */

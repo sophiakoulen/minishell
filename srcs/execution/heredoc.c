@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/01 11:52:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/03 12:38:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	read_single_heredoc(char **buffer, char *delim)
 	*buffer = ft_strdup("");
 	while (1)
 	{
-		line = readline("> ");
+		line = get_input_line("> ");
 		if (line == NULL || is_delim(line, delim))
 		{
 			free(line);
@@ -66,14 +66,7 @@ static int	is_delim(char *line, const char *delim)
 	int	len;
 
 	len = ft_strlen(delim);
-	if (ft_strncmp(line, delim, len + 1) == 0)
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	return (ft_strncmp(line, delim, len + 1) == 0);
 }
 
 /*
