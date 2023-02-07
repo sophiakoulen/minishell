@@ -13,3 +13,8 @@ echo "\n${ITALIC}${YELLOW}Testing the $N${RESET}"
 
 exec_test $N 0 '{no_split}' "no_split"
 exec_test $N 1 '{this} {should} {be} {split}' "this should be split"
+exec_test $N 2 '{this} {should} {be} {split}' "this	should	be	split"
+exec_test $N 3 '{this"should"} {be} {split}' "this\"should\" be split"
+exec_test $N 4 '{this" should"} {be} {split}' "this\" should\" be split"
+exec_test $N 5 '{"this "} {be"  "split}' '"this " be"  "split'
+exec_test $N 6 "{'that '} {this} {' what'}" "'that ' this ' what'"
