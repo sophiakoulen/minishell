@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 11:58:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 12:00:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 
 /* cleanup */
 
+void		tree_cleanup(t_tree *tree);
 void		pipeline_cleanup(t_list *pipeline);
 
 /* print */

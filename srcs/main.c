@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 17:44:29 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:20:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	}
 	else
 		*retn = 258;
-	//pipeline_cleanup(pipeline);
-	//cleanup tree!!!!
+	tree_cleanup(tree);
 	tok_list_cleanup(start);
 	return (*retn);
 }
