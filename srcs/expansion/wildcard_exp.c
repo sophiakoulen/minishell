@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 08:44:15 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:07:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	check_single_chunk(int i, int *ret, char **file, char **chunks);
 	- the matches need to be returned in alphabetical order!
 	very frustrating that opendir dosn't return in alphabetical order
 
-	ret contains a malloced string copiled with all the files that
-	match the wildcard expression and a space between them
+	ret contains a malloced string containing
+	all matched files/folders seperated by a space
 	if no matches are found return the expression string.
 
  */
@@ -56,7 +56,10 @@ int	wildcard_exp(char **ret, char *str)
 	if (words == NULL)
 		*ret = ft_strjoin(str, " ");
 	else
+	{
+		lst_bubble_sort(&words, ft_strcmp);
 		*ret = list_to_str(words);
+	}
 	ft_lstclear(&words, free);
 	closedir(dir);
 	return (1);

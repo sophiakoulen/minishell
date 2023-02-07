@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 13:53:05 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:55:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,8 +218,13 @@ char		*in_quotes(char *str);
 
 char		*get_input_line(char *prompt);
 
+/* lst_sort */
+
+t_list		*lst_swap(t_list *a, t_list *b);
+void		lst_bubble_sort(t_list **lst, int (cmp)(const char *, const char *));
+
 /* ************************************************************************** */
-/*   signals                                                                   */
+/*   signals                                                                  */
 /* ************************************************************************** */
 
 /* signals.c */

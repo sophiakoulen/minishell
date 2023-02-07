@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/07 13:55:06 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/07 13:55:29 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ EXECUTION_FILES	=	prep_pipeline   prep_pipeline2                           \
 TOKENIZER_FILES	=	tokenizer       token_list
 
 UTILS_FILES		=	utils_1         utils_2         tree_ops         input  \
-					error_printer
+					error_printer   lst_sort
 
 ENVIRONMENT		=	environment     env_utils       env_sort
 
