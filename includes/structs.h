@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:30:09 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/01 11:51:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 14:25:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTS_H
 
 # include "defines.h"
+# include "libft.h"
 
 /* **************************************************************************
 
@@ -45,7 +46,7 @@ typedef struct s_token
 typedef struct s_tree
 {
 	enum e_token_type	type;
-	char				*str;
+	t_list				*pipeline;
 	struct s_tree		*left;
 	struct s_tree		*right;
 }	t_tree;

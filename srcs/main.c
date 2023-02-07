@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/03 14:19:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 17:44:29 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 {
 	t_token	*tok_list;
 	t_token	*start;
-	t_list	*pipeline;
+	t_tree	*tree;
 
 	if (construct_tok_list(&tok_list, line) != 0)
 	{
@@ -103,11 +103,11 @@ static int	exec_line(char *line, t_env **env, int *retn)
 		return (*retn);
 	}
 	start = tok_list;
-	if (parse_pipeline(&pipeline, &tok_list) != SYNTAX_ERROR)
+	if (parse_tree(&tree, &tok_list) != SYNTAX_ERROR)
 	{
-		if (expand_pipeline(&pipeline, *env, *retn) == 0)
+		if (expand_tree(tree, *env, *retn) == 0)
 		{
-			*retn = exec_pipeline(pipeline, env, *retn);
+			*retn = exec_tree(tree, env, *retn);
 			pipe_return_print(*retn);
 		}
 		else
@@ -115,7 +115,8 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	}
 	else
 		*retn = 258;
-	pipeline_cleanup(pipeline);
+	//pipeline_cleanup(pipeline);
+	//cleanup tree!!!!
 	tok_list_cleanup(start);
 	return (*retn);
 }

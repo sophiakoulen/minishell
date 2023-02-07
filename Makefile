@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/07 14:40:34 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/08 11:58:32 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ EXPANSION_FILES	=	quote_removal   param_expansion field_split               \
 					wildcard_wrapper
 
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
-					parse_errors
+					parse_errors    prs_tree
 
 SIGNALS_FILES	=	signals         termios
 

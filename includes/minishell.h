@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 10:41:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:58:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int			ret_builtin_enum(char *str);
 
 /* exec_pipeline */
 
+int			exec_tree(t_tree *tree, t_env **env, int prev);
 int			exec_pipeline(t_list *pipeline, t_env **env, int prev);
 
 /* exec_pipeline2 */
@@ -132,7 +133,7 @@ void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
 /* ************************************************************************** */
 
 /* expansion */
-
+int			expand_tree(t_tree *tree, t_env *env, int retn);
 int			expand_pipeline(t_list **pipeline, t_env *env, int retn);
 
 /* quote_removal.c */
@@ -157,6 +158,10 @@ void		expand_wildcards(t_item **res, t_item *items);
 /* ************************************************************************** */
 /*   parsing                                                                  */
 /* ************************************************************************** */
+
+/* prs tree */
+
+int			parse_tree(t_tree **tree, t_token **tok);
 
 /* prs pipeline */
 
@@ -254,7 +259,7 @@ void		print_token_list_minimal(t_token *tok);
 
 /* t_tree.c */
 
-t_tree		*tree_factory(t_tree *blueprint);
+t_tree	*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
 
 /* t_tree_print.c */
 

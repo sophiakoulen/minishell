@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_tree.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:29:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 16:47:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:59:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,15 @@
  * call with blueprint or NULL
  * Don't forget to free it after!
 */
-t_tree	*tree_factory(t_tree *blueprint)
+t_tree	*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline)
 {
 	t_tree	*ret;
 
-	ret = (t_tree *)x_malloc(sizeof(t_tree), 1);
-	if (blueprint == NULL)
-	{
-		ret->type = -1;
-		ret->str = NULL;
-		ret->left = NULL;
-		ret->right = NULL;
-	}
-	else
-	{
-		ret->type = blueprint->type;
-		ret->str = blueprint->str;
-		ret->left = blueprint->left;
-		ret->right = blueprint->right;
-	}
+	ret = x_malloc(sizeof(*ret), 1);
+	ret->type = type;
+	ret->left = lhs;
+	ret->right = rhs;
+	ret->pipeline = pipeline;
 	return (ret);
 }
 
@@ -43,6 +33,7 @@ t_tree	*tree_factory(t_tree *blueprint)
 	used in unit tests, care if changing format!
 	eg: '{echo} | {{test} | {cat{-e}}}'
  */
+/*
 void	print_token_tree(t_tree *tree)
 {
 	if (tree == NULL)
@@ -71,3 +62,4 @@ void	print_token_tree(t_tree *tree)
 		ft_printf("}");
 	}
 }
+*/

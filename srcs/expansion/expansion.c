@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 10:56:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:59:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 static int	expand_cmd(t_item **cmd, t_env *env, int retn);
 static int	expand_item(t_item *item, t_item **res, t_env *env, int retn);
 static void	lst_quote_removal(t_item *lst);
+
+int	expand_tree(t_tree *tree, t_env *env, int retn)
+{
+	if (!tree->left && !tree->right)
+	{
+		return (expand_pipeline(&tree->pipeline, env, retn));
+	}
+	if (expand_tree(tree->left, env, retn) != 0)
+		return (-1);
+	if (expand_tree(tree->right, env, retn))
+		return (-1);
+	return (0);
+}
 
 /*
 	Perform expansion on each command, i.e, each item in

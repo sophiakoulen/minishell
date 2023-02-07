@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_tree_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:33:20 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/16 13:35:36 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:44:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 static void	print_token(t_tree *node)
 {
 	printf("\033[1D");
@@ -88,3 +89,4 @@ void	auto_print_tree(t_tree *tree)
 	printf("\033[%d;0H", height);
 	printf("\n");
 }
+*/
