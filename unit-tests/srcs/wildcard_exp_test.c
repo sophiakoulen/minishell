@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 00:28:49 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:58:39 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@ int	main(int ac, char **av)
 		free(ret);
 	return (0);
 }
+	// ret[ft_strlen(ret)-1] = '\0';
