@@ -42,4 +42,6 @@ exec_test $N 16 "$(echo apple*) " 'apple*'
 exec_test $N 17 "$(echo *apple) " '*apple'
 exec_test $N 18 "$(echo A*) " 'A*'
 
+exec_test $N 18 "$(echo *.sh) " '*".sh"'
+
 rm Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana fapple drapple .hidden .hid.this not.hidden ..what

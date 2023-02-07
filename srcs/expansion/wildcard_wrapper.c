@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_exp_test.c                                :+:      :+:    :+:   */
+/*   wildcard_wrapper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 14:32:00 by znichola         ###   ########.fr       */
+/*   Created: 2023/02/07 14:30:29 by znichola          #+#    #+#             */
+/*   Updated: 2023/02/07 17:04:52 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av)
+void	wildcard_wrapper(t_item *item)
 {
-	char	*ret;
+	char	*tmp;
 
-	(void)av;
-	ret = NULL;
-	if (ac != 2)
-		return (1);
-	find_wildcard_matches(&ret, av[1]);
-	ft_printf("%s\n", ret);
-	if (ret != NULL)
-		free(ret);
-	return (0);
+	if (item == NULL)
+		return ;
+	tmp = NULL;
+	if (find_wildcard_matches(&tmp, item->word) == 1)
+	{
+		free(item->word);
+		item->word = tmp;
+	}
+	// wildcard_expand(item->next);
+	return ;
 }
-	// ret[ft_strlen(ret)-1] = '\0';

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 13:07:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:31:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_single_chunk(int i, int *ret, char **file, char **chunks);
 	if no matches are found return the expression string.
 
  */
-int	wildcard_exp(char **ret, char *str)
+int	find_wildcard_matches(char **ret, char *str)
 {
 	struct dirent	*dir_entry;
 	DIR				*dir;
@@ -75,8 +75,8 @@ int	match_wildcard(char *file, char *expr)
 	int		ret;
 
 	ret = -1;
+	expr = quote_removal(expr);
 	chunks = ft_split(expr, '*');
-
 	i = 0;
 	if (check_starting_wildcard(&i, file, expr, &chunks) == 1)
 		return (0);
@@ -85,6 +85,7 @@ int	match_wildcard(char *file, char *expr)
 	if (ret == 1)
 		ret = check_ending_wildcard(i, file, expr, chunks);
 	strarr_cleanup(chunks);
+	free(expr);
 	return (ret);
 }
 

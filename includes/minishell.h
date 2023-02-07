@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 13:55:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:04:51 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ int			update_state(char *c, int *state);
 char		*escape_special_chars(char *str);
 /* wildcard_exp.c */
 
-int			wildcard_exp(char **ret, char *str);
+int			find_wildcard_matches(char **ret, char *str);
+void		wildcard_wrapper(t_item *item);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
