@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/01/28 17:11:04 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/07 15:38:36 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ ifdef DEBUG
 	CFLAGS += -g3 -fsanitize=address
 endif
 
-TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal
+TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal  \
+				field_split
 
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
 				expansion       prs_cmd         wildcard_exp
@@ -97,3 +98,5 @@ param_expansion: $(BIN_PATH)param_expansion.test
 expansion: $(BIN_PATH)expansion.test
 
 wildcard_exp: $(BIN_PATH)wildcard_exp.test
+
+field_split: $(BIN_PATH)field_split.test
