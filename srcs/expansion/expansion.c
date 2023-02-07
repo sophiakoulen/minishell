@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 11:59:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 11:59:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	lst_quote_removal(t_item *lst);
 
 int	expand_tree(t_tree *tree, t_env *env, int retn)
 {
+	if (!tree)
+		return (0);
 	if (!tree->left && !tree->right)
 	{
 		return (expand_pipeline(&tree->pipeline, env, retn));

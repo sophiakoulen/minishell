@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 16:09:56 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:07:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ int	parse_pipeline(t_list **pipeline, t_token **tok)
 
 	if ((*tok)->type == e_end)
 	{
-		return (STOP);
-	}
-	if (create_pipeline(pipeline, tok) == SYNTAX_ERROR)
-	{
-		//clean pipeline maybe?
+		unexpected_token(*tok);
 		return (SYNTAX_ERROR);
 	}
+	if (create_pipeline(pipeline, tok) == SYNTAX_ERROR)
+		return (SYNTAX_ERROR);
 	return (SUCCESS);
 }
 
@@ -61,10 +59,7 @@ static int	create_pipeline(t_list **pipeline, t_token **tok)
 		ret = parse_cmd(&cmd, tok);
 	}
 	if (ret == SYNTAX_ERROR)
-	{
-		// free list maybe
 		return (SYNTAX_ERROR);
-	}
 	if (!*pipeline)
 		return (unexpected_token(*tok));
 	return (SUCCESS);

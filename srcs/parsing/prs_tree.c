@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:16:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/07 17:49:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:04:06 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static int	parse_conditionnal(t_tree **ast, t_token **tok);
 
 int	parse_tree(t_tree **tree, t_token **tok)
 {
-	if (parse_commandline(tree, tok) == SYNTAX_ERROR)
+	*tree = NULL;
+	if ((*tok)->type == e_end)
+		return (SUCCESS);
+	if (parse_commandline(tree, tok) != SUCCESS)
 		return (SYNTAX_ERROR);
 	if ((*tok)->type != e_end)
 	{
@@ -33,7 +36,7 @@ static int	parse_commandline(t_tree **ast, t_token **tok)
 	int		op;
 
 	*ast = NULL;
-	if (parse_conditionnal(ast, tok) == SYNTAX_ERROR)
+	if (parse_conditionnal(ast, tok) != SUCCESS)
 		return (SYNTAX_ERROR);
 	while (1)
 	{
@@ -46,11 +49,6 @@ static int	parse_commandline(t_tree **ast, t_token **tok)
 		}
 		op = (*tok)->type;
 		next_token(tok);
-		if ((*tok)->type == e_end)
-		{
-			unexpected_token(*tok);
-			return (SYNTAX_ERROR);
-		}
 		if (parse_conditionnal(&rhs, tok) != SUCCESS)
 			return (SYNTAX_ERROR);
 		*ast = tree_factory(op, *ast, rhs, NULL);
@@ -66,11 +64,6 @@ static int	parse_conditionnal(t_tree **ast, t_token **tok)
 	if ((*tok)->type == e_open_brace)
 	{
 		next_token(tok);
-		if ((*tok)->type == e_end)
-		{
-			unexpected_token(*tok);
-			return (SYNTAX_ERROR);
-		}
 		if (parse_commandline(ast, tok) != SUCCESS)
 			return (SYNTAX_ERROR);
 		if (assert_token(*tok, e_close_brace) != SUCCESS)

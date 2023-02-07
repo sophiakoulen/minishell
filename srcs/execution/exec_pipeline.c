@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/07 16:00:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/07 18:01:18 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ int	exec_tree(t_tree *tree, t_env **env, int prev)
 {
 	int	ret;
 
+	if (!tree)
+		return (0);
 	if (!tree->left && !tree->right)
 		return (exec_pipeline(tree->pipeline, env, prev));
-
 	ret = exec_tree(tree->left, env, prev);
 	if (!!ret == (tree->type == e_or))
-	{
 		ret = exec_tree(tree->right, env, prev);
-	}
 	return (ret);
 }
 
