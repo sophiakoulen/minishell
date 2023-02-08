@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 17:37:39 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 23:34:40 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ int	match_wildcard(char *file, char *expr)
 	int		ret;
 
 	ret = -1;
-	expr = quote_removal(expr);
-	chunks = ft_split(expr, '*');
+	// expr = quote_removal(expr);
+	expr = ft_strdup(expr);
+	chunks = wild_split(expr, '*');
+	// chunks = ft_split(expr, '*');
 	i = 0;
 	if (check_starting_wildcard(&i, file, expr, &chunks) == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 12:24:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 23:00:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,12 @@ t_item		*field_split(t_item *item);
 /* expansion utils */
 int			update_state(char *c, int *state);
 char		*escape_special_chars(char *str);
+
 /* wildcard_exp.c */
 
 int			find_wildcard_matches(char **ret, char *str);
 void		expand_wildcards(t_item **res, t_item *items);
+char		**wild_split(char const *s, char c);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
