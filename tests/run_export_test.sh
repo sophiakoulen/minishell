@@ -23,3 +23,20 @@ exec_stdout 2 \
 export var=""
 echo $var
 '
+
+#64
+exec_stdout 3 \
+"
+export U1='hello\"world'
+env | grep U1
+"
+exec_stdout 4 \
+"
+export U2="'hello world'"
+env | grep U2
+"
+exec_stdout 5 \
+"
+export U3='\"hello world\"'
+env | grep U3
+"

@@ -13,17 +13,14 @@ touch	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna b
 
 exec_stdout 0 \
 '
-ls
 echo *
 '
 exec_stdout 1 \
 '
-ls
 echo *.sh
 '
 exec_stdout 2 \
 '
-ls
 echo
 '
 #issue #110

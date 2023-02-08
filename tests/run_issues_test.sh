@@ -6,7 +6,7 @@ source test_framework.sh
 
 make -C ..
 
-echo "\n${ITALIC}${YELLOW}Testing exit ${RESET}"
+echo "\n${ITALIC}${YELLOW}Testing issues ${RESET}"
 
 #107 and #83
 exec_stderr 0 \
