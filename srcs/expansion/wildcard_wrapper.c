@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_wrapper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:30:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 11:02:17 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:13:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	expand_wildcards(t_item **res, t_item *items)
 {
 	char		*wrd_tmp;
 
+	*res = NULL;
 	if (items == NULL)
 		return ;
 	find_wildcard_matches(&wrd_tmp, items->word);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/25 19:16:23 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:15:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,11 @@ char	**env_to_strarr(t_env *env)
 */
 char	*ret_env_key(t_env *env, char *key)
 {
-	size_t	l;
 	static char	empty[1] = "";
 
 	while (env)
 	{
-		l = ft_strlen(key);
-		if (l < ft_strlen(env->key))
-			l = ft_strlen(env->key);
-		if (ft_strncmp(env->key, key, l) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			return (env->value);
 		}
