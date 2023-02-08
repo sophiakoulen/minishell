@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 15:05:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 12:23:35 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # define SUCCESS 0
 # define STOP -1
 # define SYNTAX_ERROR -2
+
+/* used for safe atoi */
+# define FT_INT_MAX 2147483647
+# define FT_INT_MIN -2147483648
 
 /* used in expansion */
 # define T_IFS " 	\n"

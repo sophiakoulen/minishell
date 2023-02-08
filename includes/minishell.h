@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 12:00:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 12:24:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,12 @@ char		*get_input_line(char *prompt);
 
 t_list		*lst_swap(t_list *a, t_list *b);
 void		lst_bubble_sort(t_list **lst, int (cmp)(const char *, const char *));
+
+/* safe_atoi.c */
+
+int			safe_atoi(int *n, char **str);
+int			safe_multi(int *a, int b);
+int			safe_add(int *a, int b);
 
 /* ************************************************************************** */
 /*   signals                                                                  */

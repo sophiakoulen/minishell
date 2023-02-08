@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 12:15:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 12:24:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	incrament_shlvl(t_env **env);
 
 /*
 	returns allocated linked list of env structs
@@ -41,6 +43,7 @@ t_env	*init_env(char **envp)
 		}
 		envp++;
 	}
+	incrament_shlvl(&start);
 	return (start);
 }
 
@@ -103,4 +106,36 @@ int	is_valid_identifier(char *str)
 	while (ft_isalnum(*str) || *str == '_')
 		str++;
 	return (*str == '\0');
+}
+
+/*
+	incraments the shell level
+ */
+static void	incrament_shlvl(t_env **env)
+{
+	char	*value;
+	int		lvl;
+
+	value = ret_env_key(*env, "SHLVL");
+	if (value == NULL)
+		lvl = 0;
+	else
+	{
+		if (safe_atoi(&lvl, &value))
+		{
+			print_error(0, 0, "shell level is too damn high, resting to 0");
+			lvl = 0;
+		}
+		if (lvl < 0)
+		{
+			print_error(0, 0, "don't like this negative shell enegry, resetting to 0");
+			lvl = 0;
+		}
+		if (safe_add(&lvl, 1))
+		{
+			print_error(0, 0, "tried to catch me in an overflow! well I reset you to 0");
+			lvl = 0;
+		}
+	}
+	env_add(env, "SHLVL", ft_itoa(lvl));
 }
