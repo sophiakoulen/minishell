@@ -6,5 +6,6 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -t eastwood
 ENV DEBUG=1
 COPY . minishell
+WORKDIR minishell
 
 ENTRYPOINT [ "/bin/zsh" ]

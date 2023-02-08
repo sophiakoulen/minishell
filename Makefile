@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/08 12:23:20 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/08 15:01:20 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,6 +132,12 @@ fclean	: clean
 	@$(MAKE) -s fclean -C $(LIBFT_DIR)
 
 re		: fclean all
+
+docker : fclean
+	docker run -it minshell_docker
+
+dockerbuild :
+	docker build -t minshell_docker .
 
 .PHONY: all clean fclean re lib run-tests
 
