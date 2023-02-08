@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-#function testing for minishell
+#testing minishell
 
 source test_framework.sh
 
@@ -14,6 +14,11 @@ export var="a b c"
 echo $var
 '
 exec_test 1 \
+'
+export var=""
+echo $var
+'
+exec_test 2 \
 '
 export var=""
 echo $var
