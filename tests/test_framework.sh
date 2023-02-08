@@ -14,7 +14,7 @@ ITALIC="\033[3m"
 
 MINI=../minishell
 
-function exec_test()
+function exec_stdout()
 {
 	NUM=$1
 	ARG=$2
@@ -35,6 +35,29 @@ function exec_test()
 	rm tmp
 }
 
+function exec_stderr()
+{
+	NUM=$1
+	ARG=$2
+
+	>tmp printf $ARG
+	RES="$($MINI tmp 2>&1)"
+	EXPCTED="$(bash tmp 2>&1)"
+
+	RES=${RES%exit} # we remove the last exit as minishell is polite and like to print it, but bash does not!
+
+	if [[ $RES == $EXPCTED ]]; then
+		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$NUM"
+	else
+		printf "${BLUE}%2s ${BOLD}${RED}KO${RESET}\n" "$NUM"
+		echo "   ${BOLD}${RED}:${RESET}  Inputted '$ARG'"
+		echo "   ${BOLD}${RED}:${RESET}  Expected '$EXPCTED'"
+		echo "   ${BOLD}${RED}:${RESET}  Received '$RES'"
+	fi
+
+	rm tmp
+}
+
 # t1=\
 # '
 # export var="a b c"
@@ -42,7 +65,7 @@ function exec_test()
 # lsasda
 # '
 
-# exec_test 1 \
+# exec_stdout 1 \
 # '
 # export var="a b c"
 # echo $var

@@ -10,28 +10,34 @@ echo "\n${ITALIC}${YELLOW}Testing wildcard expansion ${RESET}"
 
 touch	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
 		fapple drapple .hidden .hid.this not.hidden ..what aaaazzzzaaazz thisthatthis \
-		simplified.c srcs
 
-exec_test 0 \
+exec_stdout 0 \
 '
 ls
 echo *
 '
-exec_test 1 \
+exec_stdout 1 \
 '
 ls
 echo *.sh
 '
-exec_test 2 \
+exec_stdout 2 \
 '
 ls
 echo
 '
 #issue #110
-exec_test 3 \
+touch simplified.c srcs ss__s__ ss_____ s__
+exec_stdout 3 \
 '
 echo s*s*
 '
+rm simplified.c srcs ss__s__ ss_____ s__
 
+#issue #109
+exec_stdout 4 \
+'
+echo "*"
+'
 rm	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
-		fapple drapple .hidden .hid.this not.hidden ..what aaaazzzzaaazz thisthatthis
+		fapple drapple .hidden .hid.this not.hidden ..what aaaazzzzaaazz thisthatthis \

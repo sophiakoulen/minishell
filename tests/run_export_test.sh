@@ -8,17 +8,17 @@ make -C ..
 
 echo "\n${ITALIC}${YELLOW}Testing export builtin ${RESET}"
 
-exec_test 0 \
+exec_stdout 0 \
 '
 export var="a b c"
 echo $var
 '
-exec_test 1 \
+exec_stdout 1 \
 '
 export var=""
 echo $var
 '
-exec_test 2 \
+exec_stdout 2 \
 '
 export var=""
 echo $var
