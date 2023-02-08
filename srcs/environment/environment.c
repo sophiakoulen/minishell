@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 12:24:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:56:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ static void	incrament_shlvl(t_env **env)
 			lvl = 0;
 		}
 	}
-	env_add(env, "SHLVL", ft_itoa(lvl));
+	value = ft_itoa(lvl);
+	env_add(env, "SHLVL", value);
+	free(value);
 }

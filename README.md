@@ -44,6 +44,13 @@ make
 
 Have fun breaking our Minishell!
 
+## Docker quickstart
+
+```
+docker build -t foobar .
+docker run -it foobar
+```
+
 ## What is a mini shell, exactly?
 
 Let's give some explanation about what a unix shell is and what it does.
