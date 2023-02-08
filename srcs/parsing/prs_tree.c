@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:16:47 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/07 18:29:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/08 11:52:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ static int	parse_commandline(t_tree **ast, t_token **tok)
 		op = (*tok)->type;
 		next_token(tok);
 		if (parse_conditionnal(&rhs, tok) != SUCCESS)
+		{
+			tree_cleanup(rhs);
 			return (SYNTAX_ERROR);
+		}
 		*ast = tree_factory(op, *ast, rhs, NULL);
 	}
 	return (SUCCESS);
@@ -73,7 +76,10 @@ static int	parse_conditionnal(t_tree **ast, t_token **tok)
 	else
 	{
 		if (parse_pipeline(&pipeline, tok) != SUCCESS)
+		{
+			pipeline_cleanup(pipeline);
 			return (SYNTAX_ERROR);
+		}
 		*ast = tree_factory(e_pipe, NULL, NULL, pipeline);
 	}
 	return (SUCCESS);
