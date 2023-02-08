@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 14:31:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 09:18:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	find_wildcard_matches(char **ret, char *str)
 	}
 	ft_lstclear(&words, free);
 	closedir(dir);
+	// (*ret)[ft_strlen(*ret)-1] = '\0';
 	return (1);
 }
 

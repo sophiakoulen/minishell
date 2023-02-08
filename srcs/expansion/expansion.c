@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 14:32:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/07 17:04:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:56:56 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static int	expand_item(t_item *item, t_item **res, t_env *env, int retn)
 	char	*tmp;
 	char	*word;
 	int		ret;
+	t_item	*t;
 
 	ret = 0;
 	word = ft_strdup(item->word);
@@ -94,9 +95,8 @@ static int	expand_item(t_item *item, t_item **res, t_env *env, int retn)
 		tmp = param_expansion(item->word, env, retn);
 		free(item->word);
 		item->word = tmp;
-		wildcard_wrapper(item); //TODO: this is not in the right order!
-		*res = field_split(item);
-		// *res = field_split(*res);
+		t = field_split(item);
+		expand_wildcards(res, t);
 		if (item->modifier != NO_MODIFIER && (!*res || (*res)->next))
 		{
 			print_error(0, word, "ambiguous redirect");
