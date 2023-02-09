@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 12:23:35 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:21:58 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,22 @@ enum e_builtin
 
 # define BLUE_PROMPT "minishell\001\033[38:5:117m\002$\001\033[0m\002 "
 # define RED_PROMPT "minishell\001\033[38:5:197m\002$\001\033[0m\002 "
+
+# define MSH_MSG_SIGHUP "Hangup"
+# define MSH_MSG_SIGINT "Interrupt"
+# define MSH_MSG_SIGQUIT "Quit"
+# define MSH_MSG_SIGILL "Illegal instruction"
+# define MSH_MSG_SIGTRAP "Trace/BPT trap"
+# define MSH_MSG_SIGABRT "Abort trap"
+# define MSH_MSG_SIGEMT "EMT trap"
+# define MSH_MSG_SIGFPE "Floating point exception"
+# define MSH_MSG_SIGKILL "Killed"
+# define MSH_MSG_SIGBUS "Bus error"
+# define MSH_MSG_SIGSEGV "Segmentation fault"
+# define MSH_MSG_SIGSYS "Bad system call"
+# define MSH_MSG_SIGPIPE "Broken pipe"
+# define MSH_MSG_SIGALRM "Alarm clock"
+# define MSH_MSG_SIGTERM "Terminated"
+# define MSH_MSG_SIGTERM "Terminated"
 
 #endif

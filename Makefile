@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/08 23:09:00 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/09 16:11:59 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ EXPANSION_FILES	=	quote_removal   param_expansion field_split               \
 PARSING_FILES	=	prs_pipeline    prs_cmd         prs_item                  \
 					parse_errors    prs_tree
 
-SIGNALS_FILES	=	signals         termios
+SIGNALS_FILES	=	signals         termios         signals_msg
 
 STRUCT_FILES	=	t_token         t_tree          t_cmd           t_exec    \
 					t_tree_print                    t_item                    \
