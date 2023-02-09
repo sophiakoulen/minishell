@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/02/09 08:32:02 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/09 18:10:51 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ ifdef DEBUG
 endif
 
 TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal  \
-				field_split
+				field_split     wildcard_exp
 
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
-				expansion       prs_cmd         wildcard_exp    wild_split
+				expansion       prs_cmd         wild_split
 
 # put the unit test files here
 # have one file that's the same as the test name
