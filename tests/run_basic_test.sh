@@ -102,4 +102,5 @@ printf "hey" > hello
 chmod +x hello | touch hello2
 ./hello2
 ./hello
+rm -f hello hello2
 '

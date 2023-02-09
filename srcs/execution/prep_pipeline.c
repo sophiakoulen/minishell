@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/01 11:52:37 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/09 12:39:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec)
 	flags = O_WRONLY | O_TRUNC | O_CREAT;
 	if (redir->modifier == e_append)
 	{
-		flags |= O_APPEND;
+		flags = O_WRONLY | O_CREAT | O_APPEND;
 	}
 	cmd->o_fd = open(redir->word, flags, 0644);
 	if (cmd->o_fd < 0)
