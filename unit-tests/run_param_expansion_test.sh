@@ -29,7 +29,7 @@ exec_test $N 12 "{\"$USER\"}" "\"\$USER\""
 exec_test $N 13 "{\"! $USER is awsome\"}" "\"! \$USER is awsome\""
 exec_test $N 14 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
 exec_test $N 15 "{\"hello $USER $SHELL\"}" "\"hello \$USER \$SHELL\""
-exec_test $N 16 "{\"hello \"}" "\"hello \$\$\$\$\""
+exec_test $N 16 "{\"hello \$\$\$\$\"}" "\"hello \$\$\$\$\""
 exec_test $N 17 "{42}" '$?'
 exec_test $N 18 "{\"42\"}" '"$?"'
 exec_test $N 19 "{\"$USER$HOME$LANG\"}" "\"\$USER\$HOME\$LANG\""
@@ -39,7 +39,7 @@ exec_test $N 23 "{$USER \"b\" $LANG}" '$USER "b" $LANG'
 exec_test $N 24 "{$USER\"b\"$LANG}" '$USER"b"$LANG'
 exec_test $N 25 "{\"$USER\"a'\$LANG'}" "\"\$USER\"a'\$LANG'"
 
-exec_test $N 26 "{\"$USER\"'\$LANG'\" $SHLVL \"}" "\"\$USER\"'\$LANG'\" \$SHLVL \""
+exec_test $N 26 "{\"$USER\"'\$LANG'\" $(expr $SHLVL + 1) \"}" "\"\$USER\"'\$LANG'\" \$SHLVL \""
 
 exec_test $N 27 "{'\$USER'\"$LANG\"}" "'\$USER'\"\$LANG\""
 exec_test $N 28 "{'\$USER'abc\"$LANG\"}" "'\$USER'abc\"\$LANG\""
