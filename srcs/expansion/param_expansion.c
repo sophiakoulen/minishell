@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 12:18:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:39:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,12 @@ static void	expand_variable(char **str, char **ret, t_env *env)
 	i = 1;
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
+	if (i == 1)
+	{
+		*ret = ft_strdup("$");
+		*str += i;
+		return ;
+	}
 	key = ft_substr(*str, 1, i - 1);
 	value = ret_env_key(env, key);
 	free(key);
