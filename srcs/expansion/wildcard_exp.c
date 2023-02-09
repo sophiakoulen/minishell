@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 09:04:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:06:47 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 int		match_wildcard(char *file, char *expr);
-int		check_starting_wildcard(int *i, char *file, char *expr, char ***chunks);
+int		check_starting_wildcard(int *i, char **file, char *expr, char ***chunks);
 int		check_ending_wildcard(int i, char *file, char *expr, char **chunks);
 int		check_single_chunk(int i, int *ret, char **file, char **chunks);
 
@@ -82,7 +82,7 @@ int	match_wildcard(char *file, char *expr)
 	quote_removal_strarr(chunks);
 	// chunks = ft_split(expr, '*');
 	i = 0;
-	if (check_starting_wildcard(&i, file, expr, &chunks) == 1)
+	if (check_starting_wildcard(&i, &file, expr, &chunks) == 1)
 	{
 		free(expr);
 		return (0);
@@ -134,7 +134,7 @@ int	check_single_chunk(int i, int *ret, char **file, char **chunks)
 		*ret = 0;
 		return (0);
 	}
-	*file = tmp;
+	*file = tmp + ft_strlen(chunks[i]);
 	return (1);
 }
 
@@ -143,20 +143,21 @@ int	check_single_chunk(int i, int *ret, char **file, char **chunks)
 	cleans up chunks if ret is 1
 	checks if there is a starting wildcard and return accordingly
  */
-int	check_starting_wildcard(int *i, char *file, char *expr, char ***chunks)
+int	check_starting_wildcard(int *i, char **file, char *expr, char ***chunks)
 {
-	if (file[0] == '.' && expr[0] != '.')
+	if (*file[0] == '.' && expr[0] != '.')
 	{
 		strarr_cleanup(*chunks);
 		return (1);
 	}
 	if (expr[0] != '*')
 	{
-		if (0 != ft_strncmp(file, *chunks[0], ft_strlen(*chunks[0])))
+		if (0 != ft_strncmp(*file, *chunks[0], ft_strlen(*chunks[0])))
 		{
 			strarr_cleanup(*chunks);
 			return (1);
 		}
+		*file = *file + ft_strlen(*chunks[0]);
 		*i = *i + 1;
 	}
 	return (0);
@@ -168,14 +169,25 @@ int	check_starting_wildcard(int *i, char *file, char *expr, char ***chunks)
 int	check_ending_wildcard(int i, char *file, char *expr, char **chunks)
 {
 	int	ret;
+	int	y;
 
+	y = ft_strlen(file) - 1;
 	ret = 1;
 	if (expr[ft_strlen(expr) - 1] != '*')
 	{
-		if (ft_strncmp(file, chunks[i - 1], ft_strlen(file)) == 0)
-			ret = 1;
-		else
-			ret = 0;
+		while (y >= 0)
+		{
+			if (ft_strncmp(file + y, chunks[i - 1], ft_strlen(file)) == 0)
+			{
+				ret = 1;
+				break ;
+			}
+			else
+			{
+				ret = 0;
+			}
+			y--;
+		}
 	}
 	return (ret);
 }
