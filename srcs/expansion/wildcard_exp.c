@@ -6,17 +6,17 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 23:34:40 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/09 09:04:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-int	match_wildcard(char *file, char *expr);
-int	check_starting_wildcard(int *i, char *file, char *expr, char ***chunks);
-int	check_ending_wildcard(int i, char *file, char *expr, char **chunks);
-int	check_single_chunk(int i, int *ret, char **file, char **chunks);
+int		match_wildcard(char *file, char *expr);
+int		check_starting_wildcard(int *i, char *file, char *expr, char ***chunks);
+int		check_ending_wildcard(int i, char *file, char *expr, char **chunks);
+int		check_single_chunk(int i, int *ret, char **file, char **chunks);
 
 /*
 	TODO:
@@ -79,6 +79,7 @@ int	match_wildcard(char *file, char *expr)
 	// expr = quote_removal(expr);
 	expr = ft_strdup(expr);
 	chunks = wild_split(expr, '*');
+	quote_removal_strarr(chunks);
 	// chunks = ft_split(expr, '*');
 	i = 0;
 	if (check_starting_wildcard(&i, file, expr, &chunks) == 1)
@@ -93,6 +94,25 @@ int	match_wildcard(char *file, char *expr)
 	strarr_cleanup(chunks);
 	free(expr);
 	return (ret);
+}
+
+/*
+	remove quotes from a stararr only used in wildcard matching!
+	modifies the input string!
+ */
+void	quote_removal_strarr(char **strarr)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (strarr[i])
+	{
+		tmp = quote_removal(strarr[i]);
+		free(strarr[i]);
+		strarr[i] = tmp;
+		i++;
+	}
 }
 
 /*
