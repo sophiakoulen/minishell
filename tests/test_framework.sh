@@ -44,7 +44,7 @@ function exec_stderr()
 	RES="$($MINI tmp 2>&1)"
 	EXPCTED="$(bash tmp 2>&1)"
 
-	RES=${RES%exit} # we remove the last exit as minishell is polite and like to print it, but bash does not!
+	#RES=${RES%exit} # we remove the last exit as minishell is polite and like to print it, but bash does not!
 
 	if [[ $RES == $EXPCTED ]]; then
 		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$NUM"

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 10:36:22 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:17:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	is_numeric(char *str);
 		If the argument is numeric, it is used as the exit status.
 		If it isn't numeric, an error is printed and the exit status is 255.
 	If no argument is supplied, the exit code is that of the last command.
+
+	In interactive mode, "exit\n" is printed
 */
 int	exec_exit(char **args, t_env **env, int prev)
 {
@@ -46,8 +48,8 @@ int	exec_exit(char **args, t_env **env, int prev)
 		args++;
 		i++;
 	}
-	// cleanup functions?
-	write(2, &"exit\n", 5);
+	if (isatty(0) && isatty(2))
+		write(2, &"exit\n", 5);
 	get_set_termios(0);
 	exit(ret_code);
 	return (0);
