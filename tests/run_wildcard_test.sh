@@ -36,5 +36,13 @@ exec_stdout 4 \
 '
 echo "*"
 '
+#issue #112
+touch '*diabolical' 'this*test' '*dia_whatnow' '***' diabolical
+exec_stdout 5 \
+'
+echo "*"*
+'
+rm '*diabolical' 'this*test' '*dia_whatnow' '***' diabolical
+
 rm	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
 		fapple drapple .hidden .hid.this not.hidden ..what aaaazzzzaaazz thisthatthis \

@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/02/07 15:38:36 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/09 08:32:02 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ TEST_NAMES	=	param_expansion tokenizer       parsing         quote_removal  \
 				field_split
 
 DEV_NAMES	=	mult_cmd        heredoc         parse_item      prepare_cmd    \
-				expansion       prs_cmd         wildcard_exp
+				expansion       prs_cmd         wildcard_exp    wild_split
 
 # put the unit test files here
 # have one file that's the same as the test name
-FILES		:= $(TEST_NAMES)  $(DEV_NAMES)
+FILES		:= $(TEST_NAMES) $(DEV_NAMES)
 
 INCS_PATH	=	../includes/
 OBJS_PATH	=	objs/
@@ -100,3 +100,5 @@ expansion: $(BIN_PATH)expansion.test
 wildcard_exp: $(BIN_PATH)wildcard_exp.test
 
 field_split: $(BIN_PATH)field_split.test
+
+wild_split: $(BIN_PATH)wild_split.test

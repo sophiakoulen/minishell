@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/29 12:43:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:52:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_token_literals(char *str)
 	i = -1;
 	if (ft_isspace(*str))
 		return (100);
-	if (*str == '\0' || *str == '\n' || (*str == '\r' && *str + 1 == '\n'))
+	if (*str == '\0' || *str == '\n' || *str == '#')
 		return (e_end);
 	while (++i < NUM_TOKEN_LITERALS)
 	{
