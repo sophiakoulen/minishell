@@ -17,10 +17,10 @@ echo $?
 #93
 exec_stdout 1 'echo $ $ $'
 exec_stdout 2 'echo $lasdjas'
-exec_stdout 2 'echo $USER'
+exec_stdout 3 'echo $USER'
 
 #115
-exec_stdout 3 \
+exec_stderr 4 \
 '
 cat
 hello
@@ -38,7 +38,7 @@ $$$$$$$
 <<<<<>>>>>>.|||||||||
 '
 
-exec_stdout 4 \
+exec_stderr 5 \
 '
 cat | cat | cat | ls
 hello
