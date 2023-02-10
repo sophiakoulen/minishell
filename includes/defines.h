@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 18:15:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 19:04:00 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,9 @@ enum e_builtin
 # define MSH_MSG_SIGPIPE "Broken pipe"
 # define MSH_MSG_SIGALRM "Alarm clock"
 # define MSH_MSG_SIGTERM "Terminated"
+# define MSH_MSG_SIGURG "Urgent I/O condition"
+# define MSH_MSG_SIGSTOP "Stopped (signal)"
+# define MSH_MSG_SIGTSTP "Stopped (user)"
+# define MSH_MSG_SIGCONT "Continued"
 
 #endif

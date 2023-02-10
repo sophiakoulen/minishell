@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:48:54 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 10:19:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:07:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	print_pipe_error(int n)
 
 static const char	*ret_sig_msg(int sig)
 {
-	static const char	*msg[16] = {
+	static const char	*msg[20] = {
 		"",
 		MSH_MSG_SIGHUP,
 		"",
@@ -87,9 +87,13 @@ static const char	*ret_sig_msg(int sig)
 		MSH_MSG_SIGPIPE,
 		MSH_MSG_SIGALRM,
 		MSH_MSG_SIGTERM,
+		MSH_MSG_SIGURG,
+		MSH_MSG_SIGSTOP,
+		MSH_MSG_SIGTSTP,
+		MSH_MSG_SIGCONT,
 	};
 
-	if (sig <= 0 || sig >= 16)
+	if (sig <= 0 || sig >= 20)
 		return (msg[0]);
 	return (msg[sig]);
 }
