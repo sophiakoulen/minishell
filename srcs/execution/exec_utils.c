@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 15:03:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:36:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@ int	compute_return_value(int status)
 		exit_code = WEXITSTATUS(status);
 		return (exit_code);
 	}
-	else
+	else if (WIFSIGNALED(status))
 	{
 		sig_num = WTERMSIG(status);
+		return (128 + sig_num);
+	}
+	else
+	{
+		sig_num = WSTOPSIG(status);
 		return (128 + sig_num);
 	}
 }

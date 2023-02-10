@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/01 12:51:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:48:36 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	wait_all(int n, int *pids)
 	i = 0;
 	while (i < n)
 	{
-		waitpid(pids[i], &status, 0);
+		waitpid(pids[i], &status, WUNTRACED);
 		i++;
 	}
 	return (status);
