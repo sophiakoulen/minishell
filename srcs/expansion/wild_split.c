@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:57:14 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 17:35:25 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:51:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_freeme(char **s, int i);
 static char	*ft_nextword(char **str, char const c);
 static int	ft_countwords(char const *s, char const c);
-static void	update_wld_state(char c, int *state);
 
 char	**wild_split(char const *s, char c)
 {
@@ -39,19 +38,6 @@ char	**wild_split(char const *s, char c)
 	}
 	ret[i] = NULL;
 	return (ret);
-}
-
-static void	update_wld_state(char c, int *state)
-{
-	if (c == SINGLE_QUOTE && !(*state & MSH_DQUOTE) && !(*state & MSH_ESCAPED))
-	{
-		*state ^= MSH_SQUOTE;
-	}
-	else if (c == DOUBLE_QUOTE
-		&& !(*state & MSH_SQUOTE) && !(*state & MSH_ESCAPED))
-	{
-		*state ^= MSH_DQUOTE;
-	}
 }
 
 static char	*ft_nextword(char **str, char const c)
@@ -88,7 +74,6 @@ static int	ft_countwords(char const *s, char const c)
 	int		old_flag;
 	int		state;
 
-	(void)update_wld_state;
 	flag = -1;
 	count = 0;
 	state = 0;
