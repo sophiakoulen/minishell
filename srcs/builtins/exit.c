@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:29:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 13:17:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:28:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	exec_exit(char **args, t_env **env, int prev)
 	int	ret_code;
 	int	i;
 
-	(void)env;
 	i = 0;
 	ret_code = prev;
 	while (args && *args)
@@ -42,17 +41,15 @@ int	exec_exit(char **args, t_env **env, int prev)
 		if (!is_numeric(*args))
 		{
 			print_error("exit", *args, "numeric argument required");
-			exit(255);
+			env_add(env, "EXIT", "yes");
+			return (255);
 		}
 		ret_code = ft_atoi(*args);
 		args++;
 		i++;
 	}
-	if (isatty(0) && isatty(2))
-		write(2, &"exit\n", 5);
-	get_set_termios(0);
-	exit(ret_code);
-	return (0);
+	env_add(env, "EXIT", "yes");
+	return (ret_code);
 }
 
 static int	is_numeric(char *str)

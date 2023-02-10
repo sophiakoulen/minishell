@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 18:20:43 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:33:10 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int argc, char **argv, char **envp)
 	parent_signals();
 	env = init_env(envp);
 	check_args(argc, argv);
-	interactive_shell(env, &g_retn);
-	return (0);
+	interactive_shell(env, &g_retn); //why are we giving it a pointer if it's a global????????
+	return (g_retn);
 }
 
 static void	check_args(int argc, char **argv)
@@ -64,6 +64,7 @@ static char	*read_input(int retn)
 	else
 		return (get_next_line(0));
 }
+
 /*
 	I removed the hack with write to change the line we are writing on,
 	because it caused problems in non-interactive mode.
@@ -71,24 +72,28 @@ static char	*read_input(int retn)
 static void	interactive_shell(t_env *env, int *retn)
 {
 	char	*line;
+	int		need_to_exit;
 
-	while (1)
+	need_to_exit = 0;
+	while (!need_to_exit)
 	{
 		line = read_input(*retn);
 		if (!line)
-		{
-			exec_exit(NULL, &env, *retn);
 			break ;
-		}
 		if (*line)
 			add_history(line);
 		silent_signals();
 		get_set_termios(0);
 		exec_line(line, &env, retn);
+		if (*ret_env_key(env, "EXIT"))
+			need_to_exit = 1;
 		get_set_termios(1);
 		parent_signals();
 		free(line);
 	}
+	if (isatty(0) && isatty(2))
+		write(2, "exit\n", 5);
+	get_set_termios(0);
 }
 
 static int	exec_line(char *line, t_env **env, int *retn)
