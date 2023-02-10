@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/26 09:09:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:32:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static void	lst_words_len(t_list *word, size_t *len)
 	lst_words_len(word->next, len);
 }
 
+/*
+	tranforms a linked list of words to a single string
+ */
 char	*list_to_str(t_list *word)
 {
 	char	*ret;
@@ -29,14 +32,11 @@ char	*list_to_str(t_list *word)
 	lst_words_len(word, &size);
 	ret = (char *)x_malloc(sizeof(char), size + 1);
 	ret[0] = '\0';
-	// ft_printf("size%d\n", size);
 	while (word)
 	{
-		// ft_printf("-%s-\n", word->content);
 		ft_strlcat(ret, word->content, size);
 		word = word->next;
 	}
-	// ft_printf("<%s>\n", ret);
 	return (ret);
 }
 

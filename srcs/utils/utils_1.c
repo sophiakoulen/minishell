@@ -6,12 +6,15 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:16:52 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/19 13:38:37 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:27:32 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	wrapper for malloc, if we can't allocate memory, exit; just like bash!
+ */
 void	*x_malloc(size_t size, size_t quantity)
 {
 	void	*ret;
@@ -20,7 +23,6 @@ void	*x_malloc(size_t size, size_t quantity)
 	if (!ret)
 	{
 		perror("failed to allocate more memory, quitting.");
-		// our clean up function! but maybe we don't need it.
 		exit(2);
 	}
 	return (ret);
@@ -47,7 +49,7 @@ void	strarr_cleanup(char **s)
 	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 		i++;
 	while (i >= 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:51:06 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/03 12:39:32 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 10:24:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	remove_endl(char *line)
 		if (line[i] == '\n')
 		{
 			line[i] = '\0';
-			break;
+			break ;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 08:37:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/15 08:37:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:25:15 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_tree_width(t_tree *tree, int level)
 		return (1);
 	if (level > 1)
 		return (get_tree_width(tree->left, level - 1)
-				+ get_tree_width(tree->right, level - 1));
+			+ get_tree_width(tree->right, level - 1));
 	return (0);
 }
 
