@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   param_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:48 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 14:39:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:57:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	insert_value(char **buf, char *val, int pos, int extra_space);
-static void	dollar_expansion(char **str, char **ret, t_env *env, int retn);
-static void	expand_special_param(char **str, char **ret, int retn);
-static void	expand_variable(char **str, char **ret, t_env *env);
+static char	*dollar_expansion(char **str, t_env *env, int retn, int state);
+static char	*expand_special_param(char **str, int retn);
+static char	*expand_variable(char **str, t_env *env, int state);
 
 /*
 	Perform parameter expansion, taking into account that dollar-signs
@@ -46,7 +46,7 @@ char	*param_expansion(char *str, t_env *env, int retn)
 	{
 		if (*str == '$' && !(state & MSH_ESCAPED) && !(state & MSH_SQUOTE))
 		{
-			dollar_expansion(&str, &val, env, retn);
+			val = dollar_expansion(&str, env, retn, state);
 			insert_value(&res, val, i, ft_strlen(str) + 1);
 			i += ft_strlen(val);
 			free(val);
@@ -92,16 +92,19 @@ static void	insert_value(char **buf, char *val, int pos, int extra_space)
 
 	the str pointer is advanced until the end of the expanded chunk.
 */
-static void	dollar_expansion(char **str, char **ret, t_env *env, int retn)
+static char	*dollar_expansion(char **str, t_env *env, int retn, int state)
 {
+	char	*ret;
+
 	if ((*str)[1] && ft_strchr("?!@*#", (*str)[1]))
 	{
-		expand_special_param(str, ret, retn);
+		ret = expand_special_param(str, retn);
 	}
 	else
 	{
-		expand_variable(str, ret, env);
+		ret = expand_variable(str, env, state);
 	}
+	return (ret);
 }
 
 /*
@@ -110,21 +113,24 @@ static void	dollar_expansion(char **str, char **ret, t_env *env, int retn)
 		$# gets "0".
 		$!, $@, $* get an empty string.
 */
-static void	expand_special_param(char **str, char **ret, int retn)
+static char	*expand_special_param(char **str, int retn)
 {
+	char	*ret;
+
 	if ((*str)[1] == '?')
 	{
-		*ret = ft_itoa(retn);
+		ret = ft_itoa(retn);
 	}
 	if (ft_isdigit((*str)[1]) || ((*str)[1] && ft_strchr("!@*", (*str)[1])))
 	{
-		*ret = ft_strdup("");
+		ret = ft_strdup("");
 	}
 	if ((*str)[1] == '#')
 	{
-		*ret = ft_strdup("0");
+		ret = ft_strdup("0");
 	}
 	*str += 2;
+	return (ret);
 }
 
 /*
@@ -142,8 +148,9 @@ static void	expand_special_param(char **str, char **ret, int retn)
 	some of its characters using backslashes in order to not be confused during
 	quote removal. This is done by the escape_special_chars() function.
 */
-static void	expand_variable(char **str, char **ret, t_env *env)
+static char	*expand_variable(char **str, t_env *env, int state)
 {
+	char	*ret;
 	char	*key;
 	char	*value;
 	int		i;
@@ -153,13 +160,17 @@ static void	expand_variable(char **str, char **ret, t_env *env)
 		i++;
 	if (i == 1)
 	{
-		*ret = ft_strdup("$");
+		ret = ft_strdup("$");
 		*str += i;
-		return ;
+		return (ret);
 	}
 	key = ft_substr(*str, 1, i - 1);
 	value = ret_env_key(env, key);
 	free(key);
 	*str += i;
-	*ret = escape_special_chars(value);
+	if (state & MSH_DQUOTE)
+		ret = escape_special_chars(value, ESC_TYPE_DQUOTED);
+	else
+		ret = escape_special_chars(value, ESC_TYPE_DEFAULT);
+	return (ret);
 }

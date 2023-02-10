@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wild_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:57:14 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 12:54:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:51:02 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_freeme(char **s, int i);
 static char	*ft_nextword(char **str, char const c);
 static int	ft_countwords(char const *s, char const c);
-static void	update_wld_state(char c, int *state);
 
 char	**wild_split(char const *s, char c)
 {
@@ -41,19 +40,6 @@ char	**wild_split(char const *s, char c)
 	return (ret);
 }
 
-static void	update_wld_state(char c, int *state)
-{
-	if (c == SINGLE_QUOTE && !(*state & MSH_DQUOTE) && !(*state & MSH_ESCAPED))
-	{
-		*state ^= MSH_SQUOTE;
-	}
-	else if (c == DOUBLE_QUOTE
-		&& !(*state & MSH_SQUOTE) && !(*state & MSH_ESCAPED))
-	{
-		*state ^= MSH_DQUOTE;
-	}
-}
-
 static char	*ft_nextword(char **str, char const c)
 {
 	char	*ret;
@@ -67,7 +53,7 @@ static char	*ft_nextword(char **str, char const c)
 	state = 0;
 	while (*end != '\0' && !(*end == c && !state))
 	{
-		update_wld_state(*end, &state);
+		update_state(end, &state);
 		end++;
 	}
 	len = end - *str + 1;
@@ -94,7 +80,7 @@ static int	ft_countwords(char const *s, char const c)
 	while (*s)
 	{
 		old_flag = flag;
-		update_wld_state(*s, &state);
+		update_state((char *)s, &state);
 		if (state == 0 && *s == c)
 			flag = 0;
 		else

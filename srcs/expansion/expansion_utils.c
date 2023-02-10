@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:59:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 12:54:55 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:48:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,42 @@ static int	needs_escaping(char c, int state)
 	return (c == '\\'
 		|| c == '"'
 		|| (c == '\'' && !(state & MSH_DQUOTE))
-		|| (c == '$'));
+		|| (c == '$')
+		|| (c == '*' && !(state & MSH_DQUOTE)));
 }
 
+#define ESC_DEFAULT_CHARS	"\"\\$'"
+#define ESC_DQUOTED_CHARS	"\"\\$"
+
 /*
-	Escape double-quotes, dollar-signs and backslashes.
+	Escape some special characters.
 	A backslash is placed before each of these characters.
 
 	Result is x_malloc()-ed.
+
+	If flag is ESC_DEFAULT_CHARS (0), escape all characters that need to be escaped
+	during param expansion or filename generation.
+	These are: " \ $ '
+
+	Else if flag is set to ESC_DQUOTED_CHARS (1), escape only characters that
+	need to be escaped in a double quoted state.
+	These are: " \ $
 */
-char	*escape_special_chars(char *str)
+char	*escape_special_chars(char *str, int flag)
 {
 	int		i;
 	char	*res;
+	char	*chars;
 
+	if (flag == ESC_TYPE_DQUOTED)
+		chars = ESC_DQUOTED_CHARS;
+	else
+		chars = ESC_DEFAULT_CHARS;
 	res = x_malloc(sizeof(char), 2 * ft_strlen(str) + 1);
 	i = 0;
 	while (*str)
 	{
-		if (*str == '"' || *str == '$' || *str == '\\')
+		if (ft_strchr(chars, *str))
 		{
 			res[i] = '\\';
 			i++;

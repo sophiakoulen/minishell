@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 13:12:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:39:34 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 # define MSH_DQUOTE	1U
 # define MSH_SQUOTE	2U
 # define MSH_ESCAPED	4U
+
+/* used when escaping special characters, 2 types of escaping */
+# define ESC_TYPE_DEFAULT	0
+# define ESC_TYPE_DQUOTED	1
 
 /* colours, used in shout builtin */
 

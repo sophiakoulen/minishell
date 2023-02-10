@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 14:16:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 16:48:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void	print_export(t_env *env)
 	current = env;
 	while (current)
 	{
-		escaped = escape_special_chars(current->value);
+		escaped = escape_special_chars(current->value, ESC_TYPE_DQUOTED);
 		ft_printf("declare -x %s=\"%s\"\n", current->key, escaped);
 		free(escaped);
 		current = current->next;

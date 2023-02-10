@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_exp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 14:06:47 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:29:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@ int		check_single_chunk(int i, int *ret, char **file, char **chunks);
 	all matched files/folders seperated by a space
 	if no matches are found return the expression string.
 
- */
-int	find_wildcard_matches(char **ret, char *str)
+	What is the meaning of the return value??
+*/
+void	find_wildcard_matches(char **ret, char *str)
 {
 	struct dirent	*dir_entry;
 	DIR				*dir;
 	t_list			*words;
+	char			*escaped;
 
 	if (str == NULL || *str == '\0')
-		return (0);
+		return ;
 	dir = opendir(".");
 	if (dir == NULL)
 	{
-		ft_printf("could'nt open current directory\n");
-		return (0);
+		*ret = ft_strjoin(str, " ");
+		return ;
 	}
 	words = NULL;
 	dir_entry = readdir(dir);
-	dir_entry = readdir(dir);
-	dir_entry = readdir(dir); // thrice to get rid of the starting . and .. directory
 	while (dir_entry != NULL)
 	{
 		if (match_wildcard(dir_entry->d_name, str) == 1)
@@ -59,16 +59,17 @@ int	find_wildcard_matches(char **ret, char *str)
 	{
 		lst_bubble_sort(&words, ft_strcmp);
 		*ret = list_to_str(words);
+		escaped = escape_special_chars(*ret, ESC_TYPE_DEFAULT);
+		free(*ret);
+		*ret = escaped;
 	}
 	ft_lstclear(&words, free);
 	closedir(dir);
-	// (*ret)[ft_strlen(*ret)-1] = '\0';
-	return (1);
 }
 
 /*
 	checks if the file is a match with the wildcard expression
- */
+*/
 int	match_wildcard(char *file, char *expr)
 {
 	char	**chunks;
@@ -76,11 +77,17 @@ int	match_wildcard(char *file, char *expr)
 	int		ret;
 
 	ret = -1;
-	// expr = quote_removal(expr);
 	expr = ft_strdup(expr);
 	chunks = wild_split(expr, '*');
 	quote_removal_strarr(chunks);
-	// chunks = ft_split(expr, '*');
+
+	int j = 0;
+	while (chunks[j])
+	{
+		printf("expr: {%s} chunk %d: {%s}\n", expr, j, chunks[j]);
+		j++;
+	}
+
 	i = 0;
 	if (check_starting_wildcard(&i, &file, expr, &chunks) == 1)
 	{
