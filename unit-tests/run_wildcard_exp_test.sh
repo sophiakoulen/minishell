@@ -46,11 +46,11 @@ exec_test $N 18 "$(echo A*) " 'A*'
 
 exec_test $N 19 "$(echo *".sh") " '*".sh"'
 
-exec_test $N 20 "$(echo '"*".sh') " '"*".sh'
+exec_test $N 20 "$(echo '*.sh') " '"*".sh'
 
 exec_test $N 21 "$(echo '*'THIS) " '"*"THIS'
 
-exec_test $N 22 "$(echo *'*'*S*) " '*"*"*S*'
+exec_test $N 22 "$(echo *\**S*) " '*"*"*S*'
 
 # exec_test $N 23 "$(echo *'*'*) " "*\"*\"*"
 
