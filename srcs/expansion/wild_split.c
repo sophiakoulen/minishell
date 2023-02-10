@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:57:14 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 11:42:07 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:54:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	update_wld_state(char c, int *state)
 	{
 		*state ^= MSH_SQUOTE;
 	}
-	else if (c == DOUBLE_QUOTE && !(*state & MSH_SQUOTE) && !(*state & MSH_ESCAPED))
+	else if (c == DOUBLE_QUOTE
+		&& !(*state & MSH_SQUOTE) && !(*state & MSH_ESCAPED))
 	{
 		*state ^= MSH_DQUOTE;
 	}
@@ -64,12 +65,8 @@ static char	*ft_nextword(char **str, char const c)
 		(*str)++;
 	end = (char *)*str;
 	state = 0;
-	// printf("\n");
-	// update_wld_state(*end, &state);
 	while (*end != '\0' && !(*end == c && !state))
-	// while (*end != '\0')
 	{
-		// printf("%c:  %d : %d  [%d]\n", *end, *end == c, state, !(*end == c && !state));
 		update_wld_state(*end, &state);
 		end++;
 	}
@@ -98,7 +95,6 @@ static int	ft_countwords(char const *s, char const c)
 	{
 		old_flag = flag;
 		update_wld_state(*s, &state);
-		// printf("%c:%d f:%d\n", *s, state, flag);
 		if (state == 0 && *s == c)
 			flag = 0;
 		else
@@ -107,7 +103,6 @@ static int	ft_countwords(char const *s, char const c)
 			count++;
 		s++;
 	}
-	// printf("count:%d\n\n", count);
 	return (count);
 }
 

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 23:49:13 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 16:03:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:55:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_item	*field_split(t_item *item)
 	while (1)
 	{
 		wrd = get_word(&str);
-		// printf("\nwrd<%s>\n", wrd);
 		if (!*wrd)
 		{
 			free(wrd);
@@ -51,7 +50,6 @@ static char	*get_word(char **str)
 	i = 0;
 	while ((*str)[i])
 	{
-		// printf("str:%s\n", *str + i);
 		update_state(*str + i, &state);
 		if (!(state & MSH_ESCAPED || state & MSH_DQUOTE || state & MSH_SQUOTE)
 			&& ft_strchr(T_IFS, (*str)[i]))

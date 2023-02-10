@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:28:48 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:09:12 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	str_cap(char *str)
 {
-	while(*str)
+	while (*str)
 	{
 		*str = ft_toupper(*str);
 		str++;
@@ -34,7 +34,7 @@ int	exec_shout(char **args, t_env **env, int prev)
 	if (!args || !*args)
 		return (0);
 	no_newline = 0;
-	if (ft_strlen(args[0]) == 2 &&  args[0][0] == '-' && args[0][1] == 'n')
+	if (ft_strlen(args[0]) == 2 && args[0][0] == '-' && args[0][1] == 'n')
 		no_newline = 1;
 	while (*args)
 	{

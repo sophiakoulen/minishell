@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 12:59:11 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/29 22:15:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:54:55 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

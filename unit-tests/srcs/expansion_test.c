@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:07:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/26 11:37:09 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:23:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_lst(t_list *lst);
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
 	t_list	*expanded;

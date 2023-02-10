@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:10 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 11:18:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:56:28 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int	has_slashes(const char *str)
 	'/' as a separator.
 
 	Returns 0 if one of them is an empty string. WTF??
+
+	if (*str1 == '\0' || *str2 == '\0')
+	return (0); //why??
 */
 char	*concat_slash(const char *str1, const char *str2)
 {
@@ -63,7 +66,7 @@ char	*concat_slash(const char *str1, const char *str2)
 	size_t	buffer_size;
 
 	if (*str1 == '\0' || *str2 == '\0')
-		return (0); //why??
+		return (0);
 	buffer_size = ft_strlen(str1) + ft_strlen(str2) + 2;
 	res = malloc(buffer_size);
 	if (!res)

@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 17:21:58 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:12:42 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define T_IFS " 	\n"
 
 /* used in expansion */
-#define MSH_DQUOTE	1U
-#define MSH_SQUOTE	2U
-#define MSH_ESCAPED	4U
+# define MSH_DQUOTE	1U
+# define MSH_SQUOTE	2U
+# define MSH_ESCAPED	4U
 
 /* colours, used in shout builtin */
 
@@ -53,18 +53,30 @@
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
 
+/*
+	e_or,			||
+	e_pipe,			|
+	e_heredoc,		<<
+	e_infile,		<
+	e_append,		>>
+	e_outfile,		>
+	e_open_brace,	(
+	e_close_brace,	)
+	e_and,			&&
+	e_end,			\n or #
+ */
 enum e_token_type
 {
-	e_or,			// ||
-	e_pipe,			// |
-	e_heredoc,		// <<
-	e_infile,		// <
-	e_append,		// >>
-	e_outfile,		// >
-	e_open_brace,	// (
-	e_close_brace,	// )
-	e_and,			// &&
-	e_end,			// \n or \r\n
+	e_or,
+	e_pipe,
+	e_heredoc,
+	e_infile,
+	e_append,
+	e_outfile,
+	e_open_brace,
+	e_close_brace,
+	e_and,
+	e_end,
 	e_string,
 };
 

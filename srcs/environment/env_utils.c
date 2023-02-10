@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 16:36:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:08:02 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,53 @@ void	env_remove(t_env **env, char *key)
 			env_cleanup(current);
 			break ;
 		}
-		previous = current; 
+		previous = current;
 		current = current->next;
 	}
+}
+
+/*
+	returns the value string associated with key
+	this points to env string, don't free it!
+	NULL if not found
+*/
+char	*ret_env_key(t_env *env, char *key)
+{
+	static char	empty[1] = "";
+
+	while (env)
+	{
+		if (ft_strcmp(env->key, key) == 0)
+		{
+			return (env->value);
+		}
+		env = env->next;
+	}
+	return (empty);
+}
+
+/*
+	return malloced strarr of env
+	remember to free it!
+ */
+char	**env_to_strarr(t_env *env)
+{
+	char	**ret;
+	char	*tmp;
+	int		size;
+	int		i;
+
+	size = size_env(env);
+	ret = x_malloc(sizeof(*ret), size + 1);
+	i = 0;
+	while (i < size)
+	{
+		tmp = ft_strjoin(env->key, "=");
+		ret[i] = ft_strjoin(tmp, env->value);
+		free(tmp);
+		env = env->next;
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
 }

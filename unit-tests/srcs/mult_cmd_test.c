@@ -6,13 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 08:57:41 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:22:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "unit_tests.h"
 #include "minishell.h"
 
+/*
 static void print_fds(t_fds *fds, int n)
 {
 	printf("pipes:\n");
@@ -51,9 +52,13 @@ static void	print_infos(t_cmd_info *infos, int n)
 		printf("\tstatus:%d\n\n", infos[i].status);
 	}
 }
+*/
 
-int main()
+int	main(void)
 {
+	return (0);
+}
+
 	/*
 	t_fds	*fds = prepare_fds(2);
 
@@ -86,6 +91,3 @@ int main()
 
 	cleanup_fds(fds, 2);
 	*/
-
-	return (0);
-}

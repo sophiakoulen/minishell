@@ -6,25 +6,23 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 10:06:31 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 08:56:34 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:23:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "unit_tests.h"
 #include "minishell.h"
 
-int	main()
+int	main(void)
 {
-	// const char *delim = "EOF";
+	static char	*args[2] = {"cat", 0};
+	int			hd_pipe[2];
+	int			pid;
 
-	char *args[2] = {"cat", 0};
-
-	int hd_pipe[2];
 	if (pipe(hd_pipe) != 0)
 	{
 		perror("pipe() failed");
 	}
-	int pid = fork();
+	pid = fork();
 	if (pid == 0)
 	{
 		dup2(hd_pipe[0], STDIN_FILENO);
@@ -34,7 +32,6 @@ int	main()
 		perror("execution failed\n");
 	}
 	close(hd_pipe[0]);
-	// do_single_heredoc(delim, hd_pipe[1]);
 	waitpid(pid, 0, 0);
 	return (0);
 }

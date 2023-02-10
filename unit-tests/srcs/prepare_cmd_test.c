@@ -6,54 +6,62 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:19:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/18 08:57:03 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:21:05 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "unit_tests.h"
 #include "minishell.h"
 
-static void print_fds(t_fds *fds, int n)
+/*
+static void	print_fds(t_fds *fds, int n)
 {
-	printf("pipes:\n");
+	ft_printf("pipes:\n");
 	for (int i = 0; i < n - 1; i++)
 	{
-		printf("\tREAD:[%d] - WRITE [%d]\n", fds->pipes[i][0], fds->pipes[i][1]);
+		ft_printf("\tREAD:[%d] - WRITE [%d]\n",
+			fds->pipes[i][0], fds->pipes[i][1]);
 	}
-	printf("heredoc pipes:\n");
+	ft_printf("heredoc pipes:\n");
 	for (int i = 0; i < n; i++)
 	{
-		printf("\tREAD:[%d] - WRITE [%d]\n", fds->hd_pipes[i][0], fds->hd_pipes[i][1]);
+		ft_printf("\tREAD:[%d] - WRITE [%d]\n",
+			fds->hd_pipes[i][0], fds->hd_pipes[i][1]);
 	}
-	printf("infiles:\n");
+	ft_printf("infiles:\n");
 	for (int i = 0; i < n; i++)
 	{
-		printf("\t[%d] ", fds->infile_fds[i]);
+		ft_printf("\t[%d] ", fds->infile_fds[i]);
 	}
-	printf("\n");
-	printf("outfiles:\n");
+	ft_printf("\n");
+	ft_printf("outfiles:\n");
 	for (int i = 0; i < n; i++)
 	{
-		printf("\t[%d] ", fds->outfile_fds[i]);
+		ft_printf("\t[%d] ", fds->outfile_fds[i]);
 	}
-	printf("\n");
-	printf("\n");
+	ft_printf("\n");
+	ft_printf("\n");
 }
+
 
 static void	print_infos(t_cmd_info *infos, int n)
 {
 	for(int i = 0; i < n; i++)
 	{
-		printf("info on cmd #%i:\n\n", i);
-		printf("\tinput:[%d]\n", infos[i].i_fd);
-		printf("\toutput:[%d]\n", infos[i].o_fd);
-		printf("\tfull_path:%s\n", infos[i].full_path);
-		printf("\tstatus:%d\n\n", infos[i].status);
+		ft_printf("info on cmd #%i:\n\n", i);
+		ft_printf("\tinput:[%d]\n", infos[i].i_fd);
+		ft_printf("\toutput:[%d]\n", infos[i].o_fd);
+		ft_printf("\tfull_path:%s\n", infos[i].full_path);
+		ft_printf("\tstatus:%d\n\n", infos[i].status);
 	}
 }
+*/
 
-int main()
+int	main(void)
 {
+	return (0);
+}
+
 	/*t_fds	*fds = prepare_fds(2);
 
 	char	*args1[] = {"hello", "-la", 0};
@@ -84,5 +92,3 @@ int main()
 
 	cleanup_fds(fds, 2);
 	*/
-	return (0);
-}

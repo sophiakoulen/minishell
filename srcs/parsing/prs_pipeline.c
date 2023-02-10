@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_pipeline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 08:14:59 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 18:07:08 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:50:10 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int			create_pipeline(t_list **pipeline, t_token **tok);
 int	parse_pipeline(t_list **pipeline, t_token **tok)
 {
 	*pipeline = NULL;
-
 	if ((*tok)->type == e_end)
 	{
 		unexpected_token(*tok);
@@ -48,7 +47,8 @@ static int	create_pipeline(t_list **pipeline, t_token **tok)
 	while (ret == 0)
 	{
 		ft_lstadd_back(pipeline, ft_lstnew(cmd));
-		if ((*tok)->type == e_end || (*tok)->type == e_and || (*tok)->type == e_or || (*tok)->type == e_close_brace)
+		if ((*tok)->type == e_end || (*tok)->type == e_and
+			|| (*tok)->type == e_or || (*tok)->type == e_close_brace)
 			break ;
 		if (assert_token(*tok, e_pipe) != SUCCESS)
 		{

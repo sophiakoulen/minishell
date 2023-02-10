@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_item.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 10:41:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/30 17:19:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:50:46 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	parse_item(t_item **item, t_token **tok)
 	}
 	else if ((*tok)->type == e_string)
 	{
-		*item = item_factory(&(t_item){ft_strdup((*tok)->str), NO_MODIFIER, NULL});
+		*item = item_factory(
+				&(t_item){ft_strdup((*tok)->str), NO_MODIFIER, NULL});
 		next_token(tok);
 	}
 	else

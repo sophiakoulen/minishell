@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:43:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/23 12:10:21 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:44:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	construct_tok_list(t_token **lst, char *str)
 
 void	tok_list_cleanup(t_token *lst)
 {
-	t_token *previous;
+	t_token	*previous;
 
 	previous = 0;
 	while (lst)
@@ -57,7 +57,6 @@ void	tok_list_cleanup(t_token *lst)
 	}
 	token_cleanup(previous);
 }
-
 
 void	next_token(t_token **list)
 {

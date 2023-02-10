@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_item.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:29:46 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/31 12:03:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:49:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_item	*item_factory(t_item *blueprint)
 {
 	t_item	*item;
 
-	item  = x_malloc(sizeof(*item), 1);
+	item = x_malloc(sizeof(*item), 1);
 	if (blueprint)
 	{
 		item->modifier = blueprint->modifier;

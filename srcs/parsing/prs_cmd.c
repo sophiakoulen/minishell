@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:55:44 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/30 15:40:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:51:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ int	parse_cmd(t_item **cmd, t_token **tok)
 	}
 	if (ret == SYNTAX_ERROR)
 	{
-		//clear item-list
 		return (ret);
 	}
 	if (i == 0)
 	{
-		//clear item-list
 		return (unexpected_token(*tok));
 	}
 	return (0);

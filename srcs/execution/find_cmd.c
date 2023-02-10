@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 17:52:02 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 12:57:24 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	compute_status(int errno_value);
 /*
 	Finds a specified command and sets a heap-allocated string containing
 	the absolute path to the program.
-	
+
 	res is set to 0 if no such file with executable permissions is found,
 	and an appropriate error code is returned.
 
@@ -31,12 +31,12 @@ static int	compute_status(int errno_value);
 
 	This function prints the appropriate error message.
 
+	//what if filename is null??
 */
 int	find_cmd(char **path, char *filename, char **res)
 {
 	int			errno_value;
 
-	//what if filename is null??
 	errno_value = ENOENT;
 	*res = 0;
 	if (*filename)
@@ -79,6 +79,10 @@ static void	print_err_cmd_find(int errno_value, char *str)
 
 	!!!! Error message may be innacurate if something
 	else is happening.
+
+
+	free(concat);
+	if (status == 0) // executable file is found
 */
 static int	search_path(char **path, const char *filename, char **res)
 {
@@ -96,17 +100,12 @@ static int	search_path(char **path, const char *filename, char **res)
 			concat = concat_slash(path[i], filename);
 			if (!concat)
 				return (errno);
-			
 			status = file_ok(concat, res);
 			free(concat);
-			if (status == 0) // executable file is found
-			{
+			if (status == 0)
 				return (0);
-			}
 			else if (status != ENOENT)
-			{
 				ret = status;
-			}
 			i++;
 		}
 	}

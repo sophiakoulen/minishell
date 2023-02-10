@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 09:04:57 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:18:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
 # include "defines.h"
 # include "structs.h"
 
-
 // wsl linux
-#include <sys/types.h>
+# include <sys/types.h>
 
 // # include "tokenizer.h"
 // # include "parsing.h"
@@ -59,6 +58,7 @@ int			exec_unset(char **args, t_env **env, int prev);
 int			exec_cd(char **args, t_env **env, int prev);
 
 /* custom */
+
 int			exec_shout(char **args, t_env **env, int prev);
 
 /* ************************************************************************** */
@@ -73,11 +73,13 @@ char		*ret_env_key(t_env *env, char *key);
 int			is_valid_identifier(char *str);
 
 /* env_utils.c */
+
 size_t		size_env(t_env *env);
 void		env_add(t_env **env, char *key, char *value);
 void		env_remove(t_env **env, char *key);
 
 /* env_sort.c */
+
 void		sort_env(t_env **env);
 
 /* ************************************************************************** */
@@ -134,6 +136,7 @@ void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
 /* ************************************************************************** */
 
 /* expansion */
+
 int			expand_tree(t_tree *tree, t_env *env, int retn);
 int			expand_pipeline(t_list **pipeline, t_env *env, int retn);
 
@@ -146,9 +149,11 @@ char		*quote_removal(char *str);
 char		*param_expansion(char *str, t_env *env, int retn);
 
 /* field split */
+
 t_item		*field_split(t_item *item);
 
 /* expansion utils */
+
 int			update_state(char *c, int *state);
 char		*escape_special_chars(char *str);
 
@@ -183,7 +188,6 @@ int			parse_item(t_item **item, t_token **tok);
 
 int			unexpected_token(t_token *tok);
 int			assert_token(t_token *tok, enum e_token_type expected);
-
 
 /* ************************************************************************** */
 /*   tokenizer                                                                */
@@ -231,7 +235,7 @@ char		*get_input_line(char *prompt);
 /* lst_sort */
 
 t_list		*lst_swap(t_list *a, t_list *b);
-void		lst_bubble_sort(t_list **lst, int (cmp)(const char *, const char *));
+void		lst_bubble_sort(t_list **lst, int (c)(const char *, const char *));
 
 /* safe_atoi.c */
 
@@ -251,7 +255,6 @@ void		get_set_termios(int toggle);
 void		silent_signals(void);
 void		pipe_return_print(int retn);
 
-
 /* ************************************************************************** */
 /*   structs                                                                  */
 /* ************************************************************************** */
@@ -269,13 +272,12 @@ void		print_token_list_minimal(t_token *tok);
 
 /* t_tree.c */
 
-t_tree	*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
+t_tree		*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
 
 /* t_tree_print.c */
 
 void		auto_print_tree(t_tree *tree);
 void		print_tree(t_pos p, t_tree *tree);
-
 
 /* t_item.c */
 
