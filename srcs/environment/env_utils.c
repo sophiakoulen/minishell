@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 13:08:02 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:37:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	env_remove(t_env **env, char *key)
 /*
 	returns the value string associated with key
 	this points to env string, don't free it!
-	NULL if not found
+	empty string if not found
 */
 char	*ret_env_key(t_env *env, char *key)
 {
