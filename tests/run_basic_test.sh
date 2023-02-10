@@ -194,6 +194,7 @@ echo $?
 echo $?
 rm -f exists existpas
 '
+rm -f existpas
 
 exec_stdout 25 \
 '

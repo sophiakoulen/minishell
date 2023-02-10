@@ -20,8 +20,8 @@ function exec_stdout()
 	ARG=$2
 
 	>tmp printf $ARG
-	RES="$($MINI tmp 2>/dev/null)"
-	EXPCTED="$(bash tmp 2>/dev/null)"
+	RES="$($MINI <tmp 2>/dev/null)"
+	EXPCTED="$(bash <tmp 2>/dev/null)"
 
 	if [[ $RES == $EXPCTED ]]; then
 		printf "${BLUE}%2s ${BOLD}${GREEN}OK${RESET}\n" "$NUM"
@@ -41,8 +41,8 @@ function exec_stderr()
 	ARG=$2
 
 	>tmp printf $ARG
-	RES="$($MINI tmp 2>&1)"
-	EXPCTED="$(bash tmp 2>&1)"
+	RES="$($MINI <tmp 2>&1)"
+	EXPCTED="$(bash <tmp 2>&1)"
 
 	#RES=${RES%exit} # we remove the last exit as minishell is polite and like to print it, but bash does not!
 
