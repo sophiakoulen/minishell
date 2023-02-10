@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 16:49:14 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:29:03 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ int	match_wildcard(char *file, char *expr)
 	expr = ft_strdup(expr);
 	chunks = wild_split(expr, '*');
 	quote_removal_strarr(chunks);
+
+	int j = 0;
+	while (chunks[j])
+	{
+		printf("expr: {%s} chunk %d: {%s}\n", expr, j, chunks[j]);
+		j++;
+	}
+
 	i = 0;
 	if (check_starting_wildcard(&i, &file, expr, &chunks) == 1)
 	{

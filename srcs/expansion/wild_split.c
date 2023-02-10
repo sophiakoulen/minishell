@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wild_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:57:14 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 12:54:42 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:35:25 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*ft_nextword(char **str, char const c)
 	state = 0;
 	while (*end != '\0' && !(*end == c && !state))
 	{
-		update_wld_state(*end, &state);
+		update_state(end, &state);
 		end++;
 	}
 	len = end - *str + 1;
@@ -88,13 +88,14 @@ static int	ft_countwords(char const *s, char const c)
 	int		old_flag;
 	int		state;
 
+	(void)update_wld_state;
 	flag = -1;
 	count = 0;
 	state = 0;
 	while (*s)
 	{
 		old_flag = flag;
-		update_wld_state(*s, &state);
+		update_state((char *)s, &state);
 		if (state == 0 && *s == c)
 			flag = 0;
 		else
