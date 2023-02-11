@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:17:28 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/24 13:52:06 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:28:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,15 @@ void	env_cleanup_all(t_env *env)
 		env = env->next;
 	}
 	env_cleanup(previous);
+}
+
+t_env	*env_last(t_env *env)
+{
+	if (env == NULL)
+		return (NULL);
+	while (env->next != NULL)
+	{
+		env = env->next;
+	}
+	return (env);
 }

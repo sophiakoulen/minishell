@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 14:37:28 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:20:51 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	size_env(t_env *env)
 void	env_add(t_env **env, char *key, char *value)
 {
 	t_env	*current;
-	t_env	*node;
+	t_env	*new_node;
 
 	if (!*key)
 		return ;
@@ -52,8 +52,9 @@ void	env_add(t_env **env, char *key, char *value)
 	}
 	if (current == NULL)
 	{
-		node = env_factory(&(t_env){ft_strdup(key), ft_strdup(value), *env});
-		*env = node;
+		new_node = env_factory(&(t_env){ft_strdup(key), ft_strdup(value), NULL});
+		current = env_last(*env);
+		current->next = new_node;
 	}
 }
 
@@ -78,6 +79,7 @@ void	env_remove(t_env **env, char *key)
 			else
 				*env = next;
 			env_cleanup(current);
+			current = NULL;
 			break ;
 		}
 		previous = current;

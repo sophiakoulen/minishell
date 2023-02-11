@@ -7,3 +7,4 @@ libminishell.a
 unit-tests/test
 *.o
 *.dSYM
+valgrind-out.txt

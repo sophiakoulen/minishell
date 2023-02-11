@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/10 20:40:35 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/11 16:10:43 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,11 +135,15 @@ fclean	: clean
 
 re		: fclean all
 
+CURRENT_DIR = $(shell pwd)
+
 docker : fclean
-	docker run -it minshell_docker
+	echo $(CURRENT_DIR)
+#	docker run -it -v /Users/znichola/Documents/minishell:/minishell minishell_docker_image
+	docker run -it -v $(CURRENT_DIR):/minishell minishell_docker_image
 
 dockerbuild :
-	docker build -t minshell_docker .
+	docker build -t minishell_docker_image .
 
 .PHONY: all clean fclean re lib run-tests
 

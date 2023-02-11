@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 14:36:15 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 18:49:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*init_env(char **envp)
 	int		index;
 
 	start = NULL;
-	while (*envp)
+	while (envp && *envp)
 	{
 		index = ft_strchr(*envp, '=') - *envp;
 		tmp = env_factory(&(t_env){ft_substr(*envp, 0, index),

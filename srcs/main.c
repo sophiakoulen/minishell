@@ -3,32 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 13:33:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:23:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	check_args(int argc, char **argv);
-static void	interactive_shell(t_env *env, int *retn);
+static void	interactive_shell(t_env **env, int *retn);
 static int	exec_line(char *line, t_env **env, int *retn);
 
 int		g_retn = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env		*env;
+	static t_env		*env[1];
 
+	// env = (t_env **)x_malloc(sizeof(t_env *), 1);
 	if (isatty(0) && isatty(2))
 		rl_outstream = stderr;
 	get_set_termios(1);
 	parent_signals();
-	env = init_env(envp);
+	*env = init_env(envp);
 	check_args(argc, argv);
 	interactive_shell(env, &g_retn); //why are we giving it a pointer if it's a global????????
+	rl_clear_history();
+	env_cleanup_all(*env);
+	// free(env);
+	exit(g_retn);
 	return (g_retn);
 }
 
@@ -69,7 +74,7 @@ static char	*read_input(int retn)
 	I removed the hack with write to change the line we are writing on,
 	because it caused problems in non-interactive mode.
 */
-static void	interactive_shell(t_env *env, int *retn)
+static void	interactive_shell(t_env **env, int *retn)
 {
 	char	*line;
 	int		need_to_exit;
@@ -84,8 +89,8 @@ static void	interactive_shell(t_env *env, int *retn)
 			add_history(line);
 		silent_signals();
 		get_set_termios(0);
-		exec_line(line, &env, retn);
-		if (*ret_env_key(env, "EXIT"))
+		exec_line(line, env, retn);
+		if (*ret_env_key(*env, "EXIT"))
 			need_to_exit = 1;
 		get_set_termios(1);
 		parent_signals();

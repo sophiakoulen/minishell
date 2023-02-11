@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 16:40:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:25:22 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ void		print_cmd(t_item *item);
 t_env		*env_factory(t_env *blueprint);
 void		env_cleanup(t_env *env);
 void		env_cleanup_all(t_env *env);
+t_env		*env_last(t_env *env);
 
 /* t_exec */
 
