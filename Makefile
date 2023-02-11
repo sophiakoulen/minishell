@@ -136,7 +136,7 @@ fclean	: clean
 re		: fclean all
 
 docker : fclean
-	docker run -it minshell_docker
+	docker run -it -v /Users/znichola/Documents/minishell:/dockershell minshell_docker
 
 dockerbuild :
 	docker build -t minshell_docker .

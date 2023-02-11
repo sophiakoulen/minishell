@@ -17,7 +17,7 @@ RUN echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
 RUN echo 'alias val="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt" ./' >> ~/.zshrc && \
 	chmod +x ~/.zshrc
 
-COPY . minishell
-WORKDIR minishell
+COPY . dockershell
+WORKDIR dockershell
 RUN make re
 ENTRYPOINT [ "/bin/zsh" ]
