@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+static int	exec_pipeline(t_list *pipeline, t_env **env, int prev);
+
 int	exec_tree(t_tree *tree, t_env **env, int prev)
 {
 	int	ret;
@@ -19,7 +21,11 @@ int	exec_tree(t_tree *tree, t_env **env, int prev)
 	if (!tree)
 		return (0);
 	if (!tree->left && !tree->right)
+	{
+		if (expand_pipeline(&tree->pipeline, *env, prev) != 0)
+			return (1);
 		return (exec_pipeline(tree->pipeline, env, prev));
+	}
 	ret = exec_tree(tree->left, env, prev);
 	if (!!ret == (tree->type == e_or))
 		ret = exec_tree(tree->right, env, prev);
@@ -31,7 +37,7 @@ int	exec_tree(t_tree *tree, t_env **env, int prev)
 	Needs the environment to work with and send to child processes.
 	If there is only one command, we don't fork.
 */
-int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
+static int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 {
 	t_exec	*exec;
 	int		ret;

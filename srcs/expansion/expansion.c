@@ -16,6 +16,7 @@ static int	expand_cmd(t_item **cmd, t_env *env, int retn);
 static int	expand_item(t_item *item, t_item **res, t_env *env, int retn);
 static void	lst_quote_removal(t_item *lst);
 
+/*
 int	expand_tree(t_tree *tree, t_env *env, int retn)
 {
 	if (!tree)
@@ -30,6 +31,7 @@ int	expand_tree(t_tree *tree, t_env *env, int retn)
 		return (-1);
 	return (0);
 }
+*/
 
 /*
 	Perform expansion on each command, i.e, each item in

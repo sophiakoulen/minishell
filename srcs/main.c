@@ -110,13 +110,8 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	start = tok_list;
 	if (parse_tree(&tree, &tok_list) != SYNTAX_ERROR)
 	{
-		if (expand_tree(tree, *env, *retn) == 0)
-		{
-			*retn = exec_tree(tree, env, *retn);
-			pipe_return_print(*retn);
-		}
-		else
-			*retn = 1;
+		*retn = exec_tree(tree, env, *retn);
+		pipe_return_print(*retn);
 	}
 	else
 		*retn = 258;

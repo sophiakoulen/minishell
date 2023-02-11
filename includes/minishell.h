@@ -94,7 +94,6 @@ int			ret_builtin_enum(char *str);
 /* exec_pipeline */
 
 int			exec_tree(t_tree *tree, t_env **env, int prev);
-int			exec_pipeline(t_list *pipeline, t_env **env, int prev);
 
 /* exec_pipeline2 */
 
@@ -137,7 +136,6 @@ void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
 
 /* expansion */
 
-int			expand_tree(t_tree *tree, t_env *env, int retn);
 int			expand_pipeline(t_list **pipeline, t_env *env, int retn);
 
 /* quote_removal.c */
