@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:29:21 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/01 12:23:07 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 21:56:34 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ static int	update_env(t_env **env)
 
 	if (getcwd(newpwd, sizeof(newpwd)) != NULL)
 	{
-		oldpwd = ret_env_key(*env, "PWD");
+		oldpwd = ft_strdup(ret_env_key(*env, "PWD"));
 		env_add(env, "PWD", newpwd);
 		env_add(env, "OLDPWD", oldpwd);
+		free(oldpwd);
 	}
 	else
 	{
