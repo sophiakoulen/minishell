@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 13:33:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 13:08:14 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ static void	interactive_shell(t_env *env, int *retn)
 			break ;
 		if (*line)
 			add_history(line);
-		silent_signals();
-		get_set_termios(0);
+		// silent_signals();
+		// get_set_termios(0);
 		exec_line(line, &env, retn);
 		if (*ret_env_key(env, "EXIT"))
 			need_to_exit = 1;
-		get_set_termios(1);
-		parent_signals();
+		// get_set_termios(1);
+		// parent_signals();
 		free(line);
 	}
 	if (isatty(0) && isatty(2))

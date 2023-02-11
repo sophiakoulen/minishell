@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 11:26:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/11 13:08:20 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ static int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 
 	exec = prepare_pipeline(pipeline, env, prev);
 	ret = 0;
+	silent_signals();
+	get_set_termios(0);
 	if (exec->n == 1 && exec->cmds[0].builtin != -1)
 		ret = launch_builtin(exec, 0);
 	else if (exec->n >= 1)
 		ret = multiple_commands(exec);
 	cleanup_exec(exec);
 	free(exec);
+	get_set_termios(1);
+	parent_signals();
 	return (ret);
 }
