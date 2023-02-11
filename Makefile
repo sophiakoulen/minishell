@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/10 10:17:18 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/10 20:40:35 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBMINISHELL	=	libminishell.a
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra
-CFLAGS	+=	-Werror
+CFLAGS	+=	-Werror -g
 
 # If DEBUG env variable is set, compile with debugging symbols
 # and the compiler's address sanitizer
