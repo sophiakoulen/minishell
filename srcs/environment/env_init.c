@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:41:48 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/11 18:49:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:58:48 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static void	incrament_shlvl(t_env **env);
 static void	assigne_and_respond(int *lvl, char **value);
 
 /*
-	returns allocated linked list of env structs
- */
+	returns allocated linked list of env structs.
+
+	SHLVL is incremented.
+*/
 t_env	*init_env(char **envp)
 {
 	t_env	*ret;
@@ -41,23 +43,8 @@ t_env	*init_env(char **envp)
 }
 
 /*
-	Checks if a string is a valid identifier for export.
-
-	Valid identifiers may only contain letters, digits and
-	underscores, and must not start with a digit.
-*/
-int	is_valid_identifier(char *str)
-{
-	if (ft_isdigit(*str))
-		return (0);
-	while (ft_isalnum(*str) || *str == '_')
-		str++;
-	return (*str == '\0');
-}
-
-/*
 	incraments the shell level
- */
+*/
 static void	incrament_shlvl(t_env **env)
 {
 	char	*value;

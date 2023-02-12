@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/11 16:10:43 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/12 16:54:50 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ UTILS_FILES		=	utils_1          utils_2         tree_ops         input    \
 					error_printer    lst_sort        safe_atoi        print    \
 					cleanup
 
-ENVIRONMENT		=	environment      env_utils       env_sort
+ENVIRONMENT		=	env_init         env_utils       env_utils2       env_sort
 
 BUILTINS		:=	$(addprefix builtins/,	$(BUILTINS))
 EXPANSION_FILES	:=	$(addprefix expansion/, $(EXPANSION_FILES))
