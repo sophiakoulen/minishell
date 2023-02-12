@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/11 22:51:03 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 03:07:43 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,20 @@ enum e_builtin
 # define MSH_MSG_SIGSTOP "Stopped (signal)"
 # define MSH_MSG_SIGTSTP "Stopped (user)"
 # define MSH_MSG_SIGCONT "Continued"
+
+/* for printing the tree */
+
+typedef struct s_trunk
+{
+	char			*str;
+	struct s_trunk	*prev;
+}	t_trunk;
+
+
+# define TREE_STRAGHT "———"
+# define TREE_TOP_JOINT ".———"
+# define TREE_BOT_JOINT "`———"
+# define TREE_VERT_JOINT "    |"
+# define TREE_EMPTY "     "
 
 #endif
