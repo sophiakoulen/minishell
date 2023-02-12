@@ -6,13 +6,12 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:51:33 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/03 12:38:36 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/12 18:10:22 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_delim(char *line, const char *delim);
 static void	add_line(char **buffer, char *line);
 
 /*
@@ -49,24 +48,13 @@ void	read_single_heredoc(char **buffer, char *delim)
 	while (1)
 	{
 		line = get_input_line("> ");
-		if (line == NULL || is_delim(line, delim))
+		if (line == NULL || ft_strcmp(line, delim) == 0)
 		{
 			free(line);
 			break ;
 		}
 		add_line(buffer, line);
 	}
-}
-
-/*
-	check if line is equal to the delimiter
-*/
-static int	is_delim(char *line, const char *delim)
-{
-	int	len;
-
-	len = ft_strlen(delim);
-	return (ft_strncmp(line, delim, len + 1) == 0);
 }
 
 /*
