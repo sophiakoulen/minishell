@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:37:42 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 10:44:56 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:38:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_trunk	*trunk_factory(t_trunk *blueprint)
 /*
 	print branches of the binary tree
  */
-void trunk_print(t_trunk *t)
+void	trunk_print(t_trunk *t)
 {
 	if (t == NULL)
 		return ;

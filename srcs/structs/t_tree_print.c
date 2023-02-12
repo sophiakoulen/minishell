@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:33:20 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 11:30:53 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:39:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void		print_minitree_cmd(t_item *lst);
 /*
 	printf the ast using recursion
  */
-void print_minitree(t_tree *root, t_trunk *prev, int isright)
+void	print_minitree(t_tree *root, t_trunk *prev, int isright)
 {
 	char	*prev_str;
 	t_trunk	*trunk;
 
 	if (root == NULL)
-		return;
+		return ;
 	prev_str = TREE_EMPTY;
 	trunk = trunk_factory(&(t_trunk){TREE_EMPTY, prev});
 	print_minitree(root->left, trunk, 1);
@@ -47,7 +47,6 @@ void print_minitree(t_tree *root, t_trunk *prev, int isright)
 	trunk->str = TREE_VERT_JOINT;
 	print_minitree(root->right, trunk, 0);
 }
-
 
 /*
 	prints a node of the tree
@@ -93,7 +92,6 @@ static void	print_minitree_cmd(t_item *lst)
 			ft_printf("%s ", current->word);
 		current = current->next;
 	}
-	// ft_printf("");
 	current = lst;
 	while (current)
 	{
