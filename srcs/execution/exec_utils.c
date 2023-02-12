@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/12 18:00:10 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/12 18:06:16 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	compute_return_value(int status)
 	}
 }
 
+/*
+	Let file descriptors 0 and 1 point to
+	the objects pointed to by the given file descriptors.
+
+	input_fd and output_fd still need to be closed.
+*/
 int	redirect(int input_fd, int output_fd)
 {
 	dup2(input_fd, STDIN_FILENO);
@@ -53,6 +59,16 @@ int	redirect(int input_fd, int output_fd)
 	return (0);
 }
 
+/*
+	Close all unused file descriptors.
+	That means all any file descriptor except 0, 1 and 2.
+	
+	The exec structure keeps track of the amount of file
+	descriptors we've opened. Because when calling open() or
+	dup() the allocated file descriptor is the lowest available,
+	we can assume it is correct to call close on any file descriptor
+	from 3 to fd_count + 3.
+*/
 void	close_fds(t_exec *exec)
 {
 	int	i;
