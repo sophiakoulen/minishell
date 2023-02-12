@@ -6,13 +6,12 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:07:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/01/22 13:11:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/12 17:50:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	greater(char *str1, char *str2);
 static void	swap(char **str1, char **str2);
 
 /*
@@ -30,7 +29,7 @@ void	sort_env(t_env **env)
 		current = *env;
 		while (current && current->next)
 		{
-			if (greater(current->key, current->next->key))
+			if (ft_strcmp(current->key, current->next->key) > 0)
 			{
 				sorted = 0;
 				swap(&current->key, &current->next->key);
@@ -39,18 +38,6 @@ void	sort_env(t_env **env)
 			current = current->next;
 		}
 	}	
-}
-
-/*
-	Checks if string str1 is lexographically greater compared
-	to string str2.
-*/
-static int	greater(char *str1, char *str2)
-{
-	int	len;
-
-	len = ft_strlen(str1);
-	return (ft_strncmp(str1, str2, len + 1) > 0);
 }
 
 /*
