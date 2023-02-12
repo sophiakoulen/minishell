@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:49:11 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/08 12:36:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 17:40:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	safe_atoi(int *n, char **str)
 
 	*n = 0;
 	s = 1;
-	while (**str == ' ' || **str == '\f' || **str == '\n'
-		|| **str == '\r' || **str == '\t' || **str == '\v')
+	while (ft_isspace(**str))
 		(*str)++;
 	if (**str == '-' || **str == '+')
 	{
@@ -30,17 +29,16 @@ int	safe_atoi(int *n, char **str)
 			s = -1;
 		(*str)++;
 	}
-	if (!(**str >= '0' && **str <= '9'))
-		return (FAILIUR);
 	while (**str >= '0' && **str <= '9')
 	{
-		if (!(safe_multi(n, 10) + safe_add(n, **str - '0') == SUCCESS))
+		if (!(safe_multi(n, 10) + safe_add(n, s * (**str - '0')) == SUCCESS))
 			return (FAILIUR);
 		(*str)++;
 	}
-	if (!(**str == ' ' || **str == '\0'))
+	while (ft_isspace(**str))
+		(*str)++;
+	if (**str)
 		return (FAILIUR);
-	safe_multi(n, s);
 	return (SUCCESS);
 }
 
