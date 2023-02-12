@@ -3,25 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   t_tree_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:33:20 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/07 15:44:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/12 01:45:19 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
+// minitree 'a && b || c || d && (e && f || (g && h) && (h || i))'
+
+static void	print_pipeline2(t_list *lst)
+{
+	int	n;
+
+	n = ft_lstsize(lst);
+	// printf("%d", n);
+	while (lst)
+	{
+		print_cmd(lst->content);
+		lst = lst->next;
+	}
+}
+
 static void	print_token(t_tree *node)
 {
 	printf("\033[1D");
-	if (node->type == e_string)
+	if (!node->pipeline)
 	{
-		printf("%s", node->str);
+		printf("%s", ret_token_literal(node->type));
 		return ;
 	}
-	printf("%s", ret_token_literal(node->type));
+	print_pipeline2(node->pipeline);
 }
 
 static void print_connector(t_pos p, char dir, int depth)
@@ -89,4 +103,3 @@ void	auto_print_tree(t_tree *tree)
 	printf("\033[%d;0H", height);
 	printf("\n");
 }
-*/

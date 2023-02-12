@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/13 15:14:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:18:08 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static const char	*ret_builtin_literal(int n)
 		"unset",
 		"env",
 		"exit",
-		"shout"
+		"shout",
+		"minitree"
 	};
 
 	if (n > NUM_BUILTINS || n < 0)
@@ -115,6 +116,7 @@ static int	exec_builtin(int n, char **args, t_env **env, int prev)
 		exec_env,
 		exec_exit,
 		exec_shout,
+		minitree
 	};
 
 	if (n > NUM_BUILTINS || n < 0)

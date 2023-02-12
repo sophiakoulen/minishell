@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/15 14:59:47 by skoulen          ###   ########.fr        #
+#    Updated: 2023/02/16 14:17:40 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS_PATH	=	srcs/
 OBJS_PATH	=	objs/
 
 BUILTINS		=	echo             pwd             env             exit      \
-					shout            export          unset           cd
+					shout            export          unset           cd        \
+					minitree
 
 EXPANSION_FILES	=	quote_removal    param_expansion field_split               \
 					expansion        expansion_utils wildcard_exp              \

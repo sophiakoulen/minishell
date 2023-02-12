@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 19:04:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/11 22:51:03 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ enum e_token_type
 	e_string,
 };
 
-# define NUM_BUILTINS 8
+# define NUM_BUILTINS 9
 
 enum e_builtin
 {
@@ -96,6 +96,7 @@ enum e_builtin
 	e_env,
 	e_exit,
 	e_shout,
+	e_minitree,
 };
 
 /* prompts */
