@@ -35,10 +35,12 @@ size_t	size_env(t_env *env)
 void	env_add(t_env **env, char *key, char *value)
 {
 	t_env	*current;
+	t_env	**ptr;
 	t_env	*new_node;
 
 	if (!*key)
 		return ;
+	ptr = env;
 	current = *env;
 	while (current)
 	{
@@ -48,13 +50,13 @@ void	env_add(t_env **env, char *key, char *value)
 			current->value = ft_strdup(value);
 			break ;
 		}
+		ptr = &current->next;
 		current = current->next;
 	}
 	if (current == NULL)
 	{
 		new_node = env_factory(&(t_env){ft_strdup(key), ft_strdup(value), NULL});
-		current = env_last(*env);
-		current->next = new_node;
+		*ptr = new_node;
 	}
 }
 

@@ -20,31 +20,24 @@ static void	assigne_and_respond(int *lvl, char **value);
  */
 t_env	*init_env(char **envp)
 {
-	t_env	*start;
-	t_env	*current;
-	t_env	*tmp;
+	t_env	*ret;
+	char	*key;
+	char	*value;
 	int		index;
 
-	start = NULL;
+	ret = NULL;
 	while (envp && *envp)
 	{
 		index = ft_strchr(*envp, '=') - *envp;
-		tmp = env_factory(&(t_env){ft_substr(*envp, 0, index),
-				ft_substr(*envp, index + 1, ft_strlen(*envp + index)), NULL});
-		if (start == NULL)
-		{
-			start = tmp;
-			current = start;
-		}
-		else
-		{
-			current->next = tmp;
-			current = current->next;
-		}
+		key = ft_substr(*envp, 0, index);
+		value = ft_substr(*envp, index + 1, ft_strlen(*envp + index));
+		env_add(&ret, key, value);
+		free(key);
+		free(value);
 		envp++;
 	}
-	incrament_shlvl(&start);
-	return (start);
+	incrament_shlvl(&ret);
+	return (ret);
 }
 
 /*
