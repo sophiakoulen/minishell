@@ -6,101 +6,100 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:33:20 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 03:34:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 11:30:53 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// minitree 'a && b || c || d && (e && f || (g && h) && (h || i))'
-/*
-static void	print_pipeline2(t_list *lst)
-{
-	int	n;
+static void		print_tree_node(t_tree *root, t_trunk *trunk);
+static void		print_minitree_pipeline(t_list *lst);
+static void		print_minitree_cmd(t_item *lst);
 
-	n = ft_lstsize(lst);
-	// printf("%d", n);
+/*
+	printf the ast using recursion
+ */
+void print_minitree(t_tree *root, t_trunk *prev, int isright)
+{
+	char	*prev_str;
+	t_trunk	*trunk;
+
+	if (root == NULL)
+		return;
+	prev_str = TREE_EMPTY;
+	trunk = trunk_factory(&(t_trunk){TREE_EMPTY, prev});
+	print_minitree(root->left, trunk, 1);
+	if (!prev)
+		trunk->str = TREE_STRAGHT;
+	else if (isright)
+	{
+		trunk->str = TREE_TOP_JOINT;
+		prev_str = TREE_VERT_JOINT;
+	}
+	else
+	{
+		trunk->str = TREE_BOT_JOINT;
+		prev->str = prev_str;
+	}
+	print_tree_node(root, trunk);
+	if (prev)
+		prev->str = prev_str;
+	trunk->str = TREE_VERT_JOINT;
+	print_minitree(root->right, trunk, 0);
+}
+
+
+/*
+	prints a node of the tree
+	the pipeline is a leaf
+	token literal is the root node
+ */
+static void	print_tree_node(t_tree *root, t_trunk *trunk)
+{
+	trunk_print(trunk);
+	if (root->pipeline)
+		print_minitree_pipeline(root->pipeline);
+	else
+		ft_printf("%s", ret_token_literal(root->type));
+	ft_printf("\n");
+}
+
+static void	print_minitree_pipeline(t_list *lst)
+{
+	int	flag;
+
+	if (lst == NULL)
+		return ;
+	ft_printf(" ");
+	flag = 0;
 	while (lst)
 	{
-		print_cmd(lst->content);
+		if (flag)
+			ft_printf("| ");
+		print_minitree_cmd(lst->content);
 		lst = lst->next;
+		flag = 1;
 	}
 }
 
-static void	print_token(t_tree *node)
+static void	print_minitree_cmd(t_item *lst)
 {
-	printf("\033[1D");
-	if (!node->pipeline)
-	{
-		printf("%s", ret_token_literal(node->type));
-		return ;
-	}
-	print_pipeline2(node->pipeline);
-}
+	t_item	*current;
 
-static void print_connector(t_pos p, char dir, int depth)
-{
-	if (dir == 'l')
+	current = lst;
+	while (current)
 	{
-		while (depth--)
-		{
-			printf("\033[%d;%dH/", p.y+1, p.x-1);
-			p = (t_pos){p.x - 1, p.y + 1};
-		}
+		if (current->modifier == NO_MODIFIER)
+			ft_printf("%s ", current->word);
+		current = current->next;
 	}
-	else if (dir == 'r')
+	// ft_printf("");
+	current = lst;
+	while (current)
 	{
-		while (depth--)
-		{
-			printf("\033[%d;%dH\\", p.y+1, p.x+1);
-			p = (t_pos){p.x + 1, p.y + 1};
-		}
+		if (current->modifier != NO_MODIFIER)
+			ft_printf("%s%s ",
+				ret_token_literal(current->modifier), current->word);
+		current = current->next;
 	}
 }
-
-void	print_tree(t_pos p, t_tree *tree)
-{
-	int		size;
-
-	size = 3;
-	if (tree->type != e_string)
-	{
-		printf("\033[%d;%dH", p.y, p.x + 1);
-		print_token(tree);
-
-		size = get_tree_max_width(tree);
-		// printf("\033[%d;0H", p.y);
-		// printf("s:%d", get_tree_max_width(tree));
-		if (tree->left != NULL)
-		{
-			print_connector(p, 'l', size);
-			print_tree((t_pos){p.x - size, p.y + size}, tree->left);
-		}
-		if (tree->right != NULL)
-		{
-			print_connector(p, 'r', size);
-			print_tree((t_pos){p.x + size, p.y + size}, tree->right);
-		}
-	}
-	else if (tree->type == e_string)
-	{
-		printf("\033[%d;%dH", p.y, p.x);
-		print_token(tree);
-	}
-}
-
-// wrapper for the print tree that
-// calculates very roughly the space it needs
-void	auto_print_tree(t_tree *tree)
-{
-	int	width;
-	int	height;
-
-	width = get_tree_max_width(tree) * 6;
-	height = get_tree_height(tree) * 4;
-	printf("\033[2J\033[1;1H");
-	print_tree((t_pos){width, 2}, tree);
-	printf("\033[%d;0H", height);
-	printf("\n");
-}
-*/

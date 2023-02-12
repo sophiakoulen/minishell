@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 14:18:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:23:48 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,8 +273,7 @@ t_tree		*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
 
 /* t_tree_print.c */
 
-void		auto_print_tree(t_tree *tree);
-void		print_tree(t_pos p, t_tree *tree);
+void		print_minitree(t_tree *root, t_trunk *prev, int isright);
 
 /* t_item.c */
 
