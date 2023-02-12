@@ -6,14 +6,14 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:33:20 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 01:45:19 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 03:34:11 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // minitree 'a && b || c || d && (e && f || (g && h) && (h || i))'
-
+/*
 static void	print_pipeline2(t_list *lst)
 {
 	int	n;
@@ -103,3 +103,4 @@ void	auto_print_tree(t_tree *tree)
 	printf("\033[%d;0H", height);
 	printf("\n");
 }
+*/

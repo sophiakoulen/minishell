@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/16 14:17:40 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/16 14:18:45 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SIGNALS_FILES	=	signals          termios         signals_msg
 
 STRUCT_FILES	=	t_token          t_tree          t_cmd           t_exec    \
 					t_tree_print                     t_item                    \
-					t_env
+					t_env            t_trunk
 
 EXECUTION_FILES	=	prep_pipeline    prep_utils                                \
 					exec_pipeline    exec_pipeline2  exec_utils                \
