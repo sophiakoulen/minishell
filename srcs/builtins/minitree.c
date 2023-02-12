@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:31:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 03:07:50 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 03:24:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,15 @@ static void	print_cmd2(t_item *lst)
 	while (current)
 	{
 		if (current->modifier == NO_MODIFIER)
-			ft_printf("%s ", current->word);
+			ft_printf(" %s", current->word);
 		current = current->next;
 	}
-	ft_printf(":");
+	ft_printf(" |");
 	current = lst;
 	while (current)
 	{
 		if (current->modifier != NO_MODIFIER)
-			ft_printf("%s %s ",
+			ft_printf(" %s %s",
 				ret_token_literal(current->modifier), current->word);
 		current = current->next;
 	}
