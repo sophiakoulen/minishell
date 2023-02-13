@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/11 16:25:22 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:21:31 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int			find_cmd(char **path, char *filename, char **res);
 
 /* find_cmd_utils */
 
-char		**extract_path(char **envp);
 int			has_slashes(const char *str);
 char		*concat_slash(const char *str1, const char *str2);
 int			file_ok(char *filename, char **res);

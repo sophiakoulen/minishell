@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   prep_pipeline2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 12:55:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/12 18:21:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	**get_pipes(int n);
+static char	**extract_path(t_env *env);
 
 void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 {
-	char	**strs;
 	int		n_pipes;
 
 	exec->n = ft_lstsize(pipeline);
@@ -29,9 +29,7 @@ void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 	exec->fd_count = n_pipes * 2 + exec->n * 2;
 	exec->env = env;
 	exec->prev = prev;
-	strs = env_to_strarr(*env);
-	exec->path = extract_path(strs);
-	strarr_cleanup(strs);
+	exec->path = extract_path(*env);
 	exec->cmds = x_malloc(sizeof(*(exec->cmds)), exec->n);
 }
 
@@ -53,4 +51,37 @@ static int	**get_pipes(int n)
 		i++;
 	}
 	return (pipes);
+}
+
+/*
+	extract_path:
+
+	Extracts the path variable from the environment,
+	in the form of a null-terminated array of strings.
+
+	If the PATH variable isn't set (not the same as empty),
+	a default value for the path is used.
+*/
+static char	**extract_path(t_env *env)
+{
+	int		i;
+	char	**default_path;
+	char	**strs;
+
+	strs = env_to_strarr(env);
+	if (strs)
+	{
+		i = 0;
+		while (strs[i])
+		{
+			if (ft_strncmp("PATH=", strs[i], 5) == 0)
+			{
+				return (ft_split(strs[i] + 5, ':'));
+			}
+			i++;
+		}
+	}
+	strarr_cleanup(strs);
+	default_path = ft_split("", ':');
+	return (default_path);
 }
