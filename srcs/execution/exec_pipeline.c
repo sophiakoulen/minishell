@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 14:40:26 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	exec_pipeline(t_list *pipeline, t_env **env, int prev)
 	if (exec->n == 1 && exec->cmds[0].builtin != -1)
 		ret = launch_builtin(exec, 0);
 	else if (exec->n >= 1)
-		ret = multiple_commands(exec);
+		ret = cmds_with_forks(exec);
 	cleanup_exec(exec);
 	free(exec);
 	return (ret);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mult_cmd_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 15:50:19 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 12:22:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(void)
 
 	int ret;
 
-	ret = multiple_commands(cmds, fds, 2);
+	ret = cmds_with_forks(cmds, fds, 2);
 
 	printf("return value:%d\n", ret);
 

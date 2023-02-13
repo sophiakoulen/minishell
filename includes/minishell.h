@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/13 12:14:11 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			exec_tree(t_tree *tree, t_env **env, int prev);
 
 /* exec_pipeline2 */
 
-int			multiple_commands(t_exec *exec);
+int			cmds_with_forks(t_exec *exec);
 int			*launch_all(t_exec *exec);
 
 /* exec_utils */

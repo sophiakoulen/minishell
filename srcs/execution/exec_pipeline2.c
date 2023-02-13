@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 15:19:20 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ extern int	g_retn;
 	- wait for the child processes to terminate or stop
 	- compute return value that corresponds to the last command
 */
-int	multiple_commands(t_exec *exec)
+int	cmds_with_forks(t_exec *exec)
 {
 	int			*pids;
 	int			ret;
