@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:10 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/10 12:56:28 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:29:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-	extract_path:
-
-	Extracts the path variable from the environment,
-	in the form of a null-terminated array of strings.
-
-	If the PATH variable isn't set (not the same as empty),
-	a default value for the path is used.
-*/
-char	**extract_path(char **envp)
-{
-	int		i;
-	char	**default_path;
-
-	if (envp)
-	{
-		i = 0;
-		while (envp[i])
-		{
-			if (ft_strncmp("PATH=", envp[i], 5) == 0)
-			{
-				return (ft_split(envp[i] + 5, ':'));
-			}
-			i++;
-		}
-	}
-	default_path = ft_split("", ':');
-	return (default_path);
-}
 
 /*
 	returns true if a filename is actually a path,
