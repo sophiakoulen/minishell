@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/12 18:21:13 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:34:12 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 static int	**get_pipes(int n);
 static char	**extract_path(t_env *env);
 
+/*
+	Initialize the exec structure before preparing the commands:
+	- compute the number of commands
+	- allocate and open the needed pipes
+	- keep track of the number of file descriptors we opened
+	- store the env and prev variable in the struct
+	- extract the PATH from the environment
+	- allocate memory to store info about each command
+
+	Note:
+	The amount of regular pipes we open is normally n - 1,
+	unless n is 0, of course.
+	The amount of heredoc pipes we open is n, although we might not
+	need them all.
+*/
 void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 {
 	int		n_pipes;
@@ -33,6 +48,9 @@ void	init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev)
 	exec->cmds = x_malloc(sizeof(*(exec->cmds)), exec->n);
 }
 
+/*
+	Allocate an array of n pipes and open them.
+*/
 static int	**get_pipes(int n)
 {
 	int	**pipes;
@@ -54,13 +72,8 @@ static int	**get_pipes(int n)
 }
 
 /*
-	extract_path:
-
-	Extracts the path variable from the environment,
+	Extracts the PATH variable from the environment,
 	in the form of a null-terminated array of strings.
-
-	If the PATH variable isn't set (not the same as empty),
-	a default value for the path is used.
 */
 static char	**extract_path(t_env *env)
 {

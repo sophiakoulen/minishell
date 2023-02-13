@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/09 12:39:23 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:17:52 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec);
 static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec);
 static void	prepare_cmd_path(t_cmd *cmd, t_exec *exec);
 
+/*
+	Process a linked list of commands and produce an exec structure.
+
+	File descriptors will be opened, arguments extracted and commands
+	will be searched for in the PATH variable.
+*/
 t_exec	*prepare_pipeline(t_list *pipeline, t_env **env, int prev)
 {
 	t_exec	*exec;
@@ -36,6 +42,18 @@ t_exec	*prepare_pipeline(t_list *pipeline, t_env **env, int prev)
 	return (exec);
 }
 
+/*
+	Process a list of items which forms a command.
+
+	We'll assign the right pipe ends to the command.
+	Then we'll go through the list of items and update input and output
+	file descriptors if redirections are found.
+
+	Each command has a status which is used to determine if the command
+	is "broken": should we continue preparing and executing this command?
+
+	If we have found a problem with redirections, we won't search in the PATH.
+*/
 static void	prepare_cmd(t_item *lst, t_exec *exec, int i)
 {
 	t_cmd	*cmd;
@@ -54,6 +72,11 @@ static void	prepare_cmd(t_item *lst, t_exec *exec, int i)
 		prepare_cmd_path(cmd, exec);
 }
 
+/*
+	Extract the array of arguments from the list of items.
+
+	Items with modifier NO_MODIFIER are considered arguments.
+*/
 static char	**extract_args(t_item *lst)
 {
 	char	**args;
@@ -81,6 +104,14 @@ static char	**extract_args(t_item *lst)
 	return (args);
 }
 
+/*
+	Prepare input and output file descriptors:
+
+	1. Set default descriptors to be stdin, stdout or the appropriate pipe ends.
+
+	2. Go through the list of items and update input and output file
+	descriptors.
+*/
 static void	prepare_redirs(t_item *lst, t_cmd *cmd, t_exec *exec)
 {
 	t_item	*current;
@@ -105,6 +136,18 @@ static void	prepare_redirs(t_item *lst, t_cmd *cmd, t_exec *exec)
 }
 
 /*
+	Update input file descriptor:
+
+	If item corresponds to a '<' redirection, try to open
+	the associated filename. Update the command's status in case
+	of failure.
+
+	If item corresponds to a '<<' heredoc, read the heredoc from stdin,
+	and set the input fd to the pipe on which it will be transmitted to
+	the child.
+
+	The file descriptor count is updated.
+
 	Question: Should errors be printed in child?
 */
 static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec)
@@ -129,6 +172,15 @@ static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec)
 }
 
 /*
+	Update output file descriptor:
+
+	If item corresponds to '>' or '>>', try to open
+	the associated filename with the appropriate flags.
+
+	In case of faiure to open, print an error message and
+	update the command's status.
+
+	The file descriptor count will be updated.
 */
 static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec)
 {
@@ -154,6 +206,14 @@ static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec)
 	return (0);
 }
 
+/*
+	If needed, find the absolute path of the command we
+	need to execute.
+
+	If the args list is empty, do not do anything.
+	If the command is a builtin, store it's builtin identifier.
+	Else, find the absolute path of the command.
+*/
 static void	prepare_cmd_path(t_cmd *cmd, t_exec *exec)
 {
 	if (!cmd->args[0])

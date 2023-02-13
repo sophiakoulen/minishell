@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:21:47 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/31 15:02:50 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:14:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 static const char	*ret_builtin_literal(int n);
 static int			exec_builtin(int n, char **args, t_env **env, int prev);
 
+/*
+	Launch a builtin:
+	- clone stdin and stdout
+	- apply the redirections
+	- close unused file descriptors
+	- do the builtin function with arguments, environment
+	and previous return value
+	- reconnect the stdin and stdout
+
+	Note:
+	The reason we're cloning stdin and stderr is because unlike in fork-mode,
+	me need to reconnect stdin and stderr to fd 0 and 1.
+	This is because the parent process is executing the builtin.
+*/
 int	launch_builtin(t_exec *exec, int i)
 {
 	int	stdin_clone;
@@ -86,9 +100,9 @@ static int	builtin_passthrough(char **args, t_env **env, int prev)
 	return (0);
 }
 
-/**
- * executed the builtin using args as it's argument,
- * or NULL if not in list.
+/*
+	executed the builtin using args as it's argument,
+	or NULL if not in list.
 */
 static int	exec_builtin(int n, char **args, t_env **env, int prev)
 {

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:03:02 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/08 11:26:24 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:40:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 
 static int	exec_pipeline(t_list *pipeline, t_env **env, int prev);
 
+/*
+	Execute the abstract-syntax tree corresponding to the line entered by
+	the user.
+
+	This is done recursively:
+	If the current node is a leaf, that means it corresponds to a pipeline.
+	We try to expand it then execute it.
+
+	Else, we first execute the left child.
+	Depending on the return value and whether the node of the
+	tree is an && or an ||, we maybe execute the right child.
+
+	If the right child was executed the return value is that of the
+	right child, else it is that of the left child.
+*/
 int	exec_tree(t_tree *tree, t_env **env, int prev)
 {
 	int	ret;
