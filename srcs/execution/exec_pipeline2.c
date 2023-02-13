@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 15:05:39 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:19:20 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ static int	launch_child(t_exec *exec, int i)
 	Else, check first if the command is not empty.
 	Then extract the environment, call execve.
 	If something went wrong during execve, set the status to 1.
-
-	TO DO: change error message.
 */
 static void	exec_cmd(t_exec *exec, int i)
 {
@@ -142,8 +140,8 @@ static void	exec_cmd(t_exec *exec, int i)
 	{
 		env_array = env_to_strarr(*exec->env);
 		execve(exec->cmds[i].full_path, exec->cmds[i].args, env_array);
+		print_error(0, exec->cmds[i].full_path, strerror(errno));
 		strarr_cleanup(env_array);
-		perror("execve failed");
 		exec->cmds[i].status = 1;
 	}
 }
