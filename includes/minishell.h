@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 18:21:31 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/13 12:14:11 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,6 @@ void		close_fds(t_exec *exec);
 /* find_cmd */
 
 int			find_cmd(char **path, char *filename, char **res);
-
-/* find_cmd_utils */
-
-int			has_slashes(const char *str);
-char		*concat_slash(const char *str1, const char *str2);
-int			file_ok(char *filename, char **res);
 
 /* heredoc */
 
