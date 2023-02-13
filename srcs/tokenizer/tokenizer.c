@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 14:52:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:59:43 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ static int	check_token_literals(char *str)
 	return (-1);
 }
 
-static int	end_of_string(char c, int sq, int dq, int esc)
-{
-	if (!c)
-		return (1);
-	if (!sq && !dq && !esc && ft_isspace(c))
-		return (1);
-	return (0);
-}
-
 /*
 	Feed the incoming string to the token and advance the input pointer.
 
@@ -57,36 +48,22 @@ static int	end_of_string(char c, int sq, int dq, int esc)
 	Then, when we've computed the length of the string, we can substr it.
 
 	Finally, we increment the pointer by the length of the string.
-
-	To do: when encountering closing quote, an error status should be returned.
-	Important!!
 */
 static int	string_detection(t_token *tok, char **str)
 {
 	int	i;
-	int	single_q;
-	int	double_q;
-	int	esc;
+	int	state;
 
-	single_q = 0;
-	double_q = 0;
-	esc = 0;
+	state = 0;
 	i = 0;
-	while (!end_of_string((*str)[i], single_q, double_q, esc) && (int)tok->type == -1)
+	while ((*str)[i] && (!ft_isspace((*str)[i]) || state) && (int)tok->type == -1)
 	{
-		if ((*str)[i] == 34 && !single_q && !esc)
-			double_q ^= 1U;
-		if ((*str)[i] == 39 && !double_q && !esc)
-			single_q ^= 1U;
-		if (!single_q && !double_q)
+		update_state(*str + i, &state);
+		if (!state)
 			tok->type = check_token_literals(*str + i);
-		if ((*str)[i] == '\\' && !esc && !single_q)
-			esc = 1;
-		else
-			esc = 0;
 		i++;
 	}
-	if (single_q || double_q)
+	if (state & MSH_SQUOTE || state & MSH_DQUOTE)
 	{
 		print_error(0, 0, "expecting closing quote");
 		return (-1);
@@ -115,6 +92,6 @@ int	lexer(t_token **tok, char **str)
 	else if ((int)(*tok)->type != -1)
 		*str = *str + ft_strlen(ret_token_literal((*tok)->type));
 	else
-		ret = string_detection((*tok), str);
+		ret = string_detection(*tok, str);
 	return (ret);
 }
