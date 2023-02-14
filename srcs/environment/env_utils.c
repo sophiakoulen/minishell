@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:47:00 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/11 19:20:51 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:22:28 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	env_add(t_env **env, char *key, char *value)
 	}
 	if (current == NULL)
 	{
-		new_node = env_factory(&(t_env){ft_strdup(key), ft_strdup(value), NULL});
+		new_node = env_factory(ft_strdup(key), ft_strdup(value), NULL);
 		*ptr = new_node;
 	}
 }

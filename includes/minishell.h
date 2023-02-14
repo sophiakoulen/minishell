@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/14 11:22:09 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ void		print_cmd(t_item *item);
 
 /* t_env.c */
 
-t_env		*env_factory(t_env *blueprint);
+t_env		*env_factory(char *key, char *value, t_env *next);
 void		env_cleanup(t_env *env);
 void		env_cleanup_all(t_env *env);
 t_env		*env_last(t_env *env);
