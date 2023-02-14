@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_msg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:48:54 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 19:07:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:15:47 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	print_pipe_error(int n)
 
 static const char	*ret_sig_msg(int sig)
 {
-	static const char	*msg[20] = {
+	static const char	*msg[19] = {
 		"",
 		MSH_MSG_SIGHUP,
 		"",
@@ -90,11 +90,10 @@ static const char	*ret_sig_msg(int sig)
 		MSH_MSG_SIGURG,
 		MSH_MSG_SIGSTOP,
 		MSH_MSG_SIGTSTP,
-		MSH_MSG_SIGCONT,
 	};
 
-	if (sig <= 0 || sig >= 20)
-		return (msg[0]);
+	if (sig <= 0 || sig >= 19)
+		return ("");
 	return (msg[sig]);
 }
 
