@@ -6,12 +6,13 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:25:03 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/14 11:25:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/14 11:33:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	export_arg(char *str, t_env **env);
 static int	split_equal(char *str, char **identifier, char **value);
 static void	print_export(t_env *env);
 
@@ -40,9 +41,6 @@ static void	print_export(t_env *env);
 int	exec_export(char **args, t_env **env, int prev)
 {
 	int		ret;
-	char	*identifier;
-	char	*value;
-	char	*quoted_id;
 
 	(void)prev;
 	ret = 0;
@@ -50,21 +48,32 @@ int	exec_export(char **args, t_env **env, int prev)
 		print_export(*env);
 	while (*args)
 	{
-		split_equal(*args, &identifier, &value);
-		if (!is_valid_identifier(identifier))
-		{
-			quoted_id = in_quotes(*args);
-			print_error("export", quoted_id, "not a valid identifier");
-			free(quoted_id);
+		if (export_arg(*args, env) == -1)
 			ret = 1;
-		}
-		else if (value)
-			env_add(env, identifier, value);
-		free(identifier);
-		free(value);
 		args++;
 	}
 	return (ret);
+}
+
+static int	export_arg(char *str, t_env **env)
+{
+	char	*identifier;
+	char	*value;
+	char	*quoted;
+
+	split_equal(str, &identifier, &value);
+	if (!is_valid_identifier(identifier))
+	{
+		quoted = in_quotes(str);
+		print_error("export", quoted, "not a valid identifier");
+		free(quoted);
+		return (-1);
+	}
+	else if (value)
+		env_add(env, identifier, value);
+	free(identifier);
+	free(value);
+	return (0);
 }
 
 /*
