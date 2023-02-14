@@ -3,99 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:42:40 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/09 14:52:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:55:23 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * helper function for the lexer,
- * checks if str at it's currrent point is a token from the list,
- * returns the corresponding enum or -1
-
- * TODO: maybe it's a good idea to return e_string instead of -1
- * as that's what it really means.
+/*
+	Checks if str at it's currrent point is a token from the list.
+	Return the corresponding enum or e_string.
 */
 static int	check_token_literals(char *str)
 {
-	int	i;
+	int			i;
+	const char	*tok_literal;
 
-	i = -1;
-	if (ft_isspace(*str))
-		return (100);
 	if (*str == '\0' || *str == '\n' || *str == '#')
 		return (e_end);
-	while (++i < NUM_TOKEN_LITERALS)
+	i = 0;
+	while (i < NUM_TOKEN_LITERALS)
 	{
-		if (!ft_strncmp(str,
-				ret_token_literal(i),
-				ft_strlen(ret_token_literal(i))))
+		tok_literal = ret_token_literal(i);
+		if (!ft_strncmp(str, tok_literal, ft_strlen(tok_literal)))
 			return (i);
+		i++;
 	}
-	return (-1);
-}
-
-static int	end_of_string(char c, int sq, int dq, int esc)
-{
-	if (!c)
-		return (1);
-	if (!sq && !dq && !esc && ft_isspace(c))
-		return (1);
-	return (0);
+	return (e_string);
 }
 
 /*
-	Feed the incoming string to the token and advance the input pointer.
+	Extract a word from the input string. Quoting is respected.
+	The string pointer is advanced past it.
 
-	How it works: while another token type is not detected, we increment i.
-	If we're then still in a quoted state, we have a syntax error.
-
-	Then, when we've computed the length of the string, we can substr it.
-
-	Finally, we increment the pointer by the length of the string.
-
-	To do: when encountering closing quote, an error status should be returned.
-	Important!!
+	How it works:
+	- while another token type is not detected, we increment i.
+	- If we're then still in a quoted state, we have a syntax error.
+	- when we've computed the length of the string, we can substr it.
+	- advance the str pointer
 */
-static int	string_detection(t_token *tok, char **str)
+static int	get_str_token(char **word, char **str)
 {
 	int	i;
-	int	single_q;
-	int	double_q;
-	int	esc;
+	int	state;
 
-	single_q = 0;
-	double_q = 0;
-	esc = 0;
+	state = 0;
 	i = 0;
-	while (!end_of_string((*str)[i], single_q, double_q, esc) && (int)tok->type == -1)
+	while ((*str)[i] && (!ft_isspace((*str)[i]) || state))
 	{
-		if ((*str)[i] == 34 && !single_q && !esc)
-			double_q ^= 1U;
-		if ((*str)[i] == 39 && !double_q && !esc)
-			single_q ^= 1U;
-		if (!single_q && !double_q)
-			tok->type = check_token_literals(*str + i);
-		if ((*str)[i] == '\\' && !esc && !single_q)
-			esc = 1;
-		else
-			esc = 0;
+		update_state(*str + i, &state);
+		if (!state && check_token_literals(*str + i) != e_string)
+			break ;
 		i++;
 	}
-	if (single_q || double_q)
+	*word = ft_substr(*str, 0, i);
+	*str += i;
+	if (state & MSH_SQUOTE || state & MSH_DQUOTE)
 	{
-		print_error(0, 0, "expecting closing quote");
+		print_error(0, "syntax error",
+			"unexpected end of line when looking for matching quote");
 		return (-1);
 	}
-	if ((int)tok->type != -1)
-		i--;
-	tok->type = e_string;
-	tok->str = ft_substr(*str, 0, i);
-	*str += i;
 	return (0);
 }
 
@@ -104,17 +74,24 @@ static int	string_detection(t_token *tok, char **str)
 */
 int	lexer(t_token **tok, char **str)
 {
-	int	ret;
+	int		ret;
+	char	*word;
+	int		tok_type;
 
 	ret = 0;
 	while (ft_isspace(**str))
 		(*str)++;
-	*tok = token_factory(NULL, NULL, check_token_literals(*str));
-	if ((*tok)->type == e_end)
-		;
-	else if ((int)(*tok)->type != -1)
-		*str = *str + ft_strlen(ret_token_literal((*tok)->type));
+	tok_type = check_token_literals(*str);
+	if (tok_type != e_string)
+	{
+		*tok = token_factory(NULL, NULL, tok_type);
+		if (tok_type != e_end)
+			*str += ft_strlen(ret_token_literal(tok_type));
+	}
 	else
-		ret = string_detection((*tok), str);
+	{
+		ret = get_str_token(&word, str);
+		*tok = token_factory(NULL, word, e_string);
+	}
 	return (ret);
 }
