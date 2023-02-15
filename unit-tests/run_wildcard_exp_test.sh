@@ -15,10 +15,10 @@ FILES="apple apple1 apple2 apple3 applebananna bannana fapple drapple .hidden"
 
 touch	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
 		fapple drapple .hidden .hid.this not.hidden ..what '*THIS' "IS*SUPER'*'*MEAN*\"*\"*" \
-		simplified.boo srczzs ss__s__ ss_____ s__ s__s__ sr__sr__ tst.me tst.me____me
+		simplified.boo srczzs ss__s__ ss_____ s__ s__s__ sr__sr__ tst.me tst.me____me hello_world_abca
 
-exec_test $N 0 "$(echo *) " '*'
-exec_test $N 1 "$(echo *.sh) " '*.sh'
+exec_test $N 0 "$(bash -c 'echo *') " '*'
+exec_test $N 1 "$(bash -c 'echo *.sh') " '*.sh'
 exec_test $N 2 "$(echo run*) " 'run*'
 exec_test $N 3 "$(echo *_*) " '*_*'
 exec_test $N 4 "$(echo run*.sh) " 'run*.sh'
@@ -30,12 +30,12 @@ exec_test $N 6 "$(echo test'*') " 'test*'
 exec_test $N 7 "$(echo file) " 'file'
 exec_test $N 8 "$(echo *file) " '*file'
 
-exec_test $N 9 "$(echo .*) " '.*'
-exec_test $N 10 "$(echo *.sh) " '*.sh'
+exec_test $N 9 "$(bash -c 'echo .*') " '.*'
+exec_test $N 10 "$(bash -c 'echo *.sh') " '*.sh'
 exec_test $N 11 "$(echo *M*) " '*M*'
 exec_test $N 12 "$(echo *.*) " '*.*'
 
-exec_test $N 13 "$(echo .**) " '.**'
+exec_test $N 13 "$(bash -c 'echo .**') " '.**'
 exec_test $N 14 "$(echo **.sh) " '**.sh'
 
 
@@ -63,8 +63,10 @@ exec_test $N 25 "$(echo sr*s*) " "sr*s*"
 # issue #117
 exec_test $N 25 "$(echo *me) " "*me"
 
+#issue #150
+exec_test $N 26 "$(bash -c 'echo hello*abc') " "hello*abc"
 
 
 rm	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
 	fapple drapple .hidden .hid.this not.hidden ..what '*THIS' "IS*SUPER'*'*MEAN*\"*\"*" \
-	simplified.boo srczzs ss__s__ ss_____ s__ s__s__ sr__sr__ tst.me tst.me____me
+	simplified.boo srczzs ss__s__ ss_____ s__ s__s__ sr__sr__ tst.me tst.me____me hello_world_abca
