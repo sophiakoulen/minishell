@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 14:34:12 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:36:45 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,26 @@ static int	**get_pipes(int n)
 static char	**extract_path(t_env *env)
 {
 	int		i;
-	char	**default_path;
-	char	**strs;
+	char	**env_array;
+	char	**ret;
 
-	strs = env_to_strarr(env);
-	if (strs)
+	ret = NULL;
+	env_array = env_to_strarr(env);
+	if (env_array)
 	{
 		i = 0;
-		while (strs[i])
+		while (env_array[i])
 		{
-			if (ft_strncmp("PATH=", strs[i], 5) == 0)
+			if (ft_strncmp("PATH=", env_array[i], 5) == 0)
 			{
-				return (ft_split(strs[i] + 5, ':'));
+				ret = ft_split(env_array[i] + 5, ':');
+				break ;
 			}
 			i++;
 		}
 	}
-	strarr_cleanup(strs);
-	default_path = ft_split("", ':');
-	return (default_path);
+	strarr_cleanup(env_array);
+	if (ret)
+		return (ret);
+	return (ft_split("", ':'));
 }
