@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 18:08:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:28:53 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ void	quote_removal_strarr(char **strarr)
 /*
 	updates the file string to what's left to match against
 	the i chunk from the expression
+
+	Returns 0 if we should stop iterating over the chunks
+	(because we're at the end or we've mismatched)
+
  */
 int	check_single_chunk(int i, int *ret, char **file, char **chunks)
 {
@@ -164,12 +168,25 @@ int	check_starting_wildcard(int *i, char **file, char *expr, char ***chunks)
 
 /*
 	checks if we end with a wildcard and return accordingly
- */
+
+	How does this function work????
+
+	Possibilities for file:
+	either "" since we've matched the entire string
+
+	either "something" if the last wildcard we matched wasn't at the end
+	then we must check if the last chunk of the file matches the wildcard
+
+	either "aaaa"
+	then the last chunks could overlap.
+
+*/
 int	check_ending_wildcard(int i, char *file, char *expr, char **chunks)
 {
 	int	ret;
 	int	y;
 
+	printf("file: {%s}\n", file);
 	y = ft_strlen(file) - 1;
 	ret = 1;
 	if (expr[ft_strlen(expr) - 1] != '*')
