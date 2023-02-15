@@ -66,7 +66,6 @@ exec_test $N 25 "$(echo *me) " "*me"
 #issue #150
 exec_test $N 26 "$(bash -c 'echo hello*abc') " "hello*abc"
 
-
 rm	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \
 	fapple drapple .hidden .hid.this not.hidden ..what '*THIS' "IS*SUPER'*'*MEAN*\"*\"*" \
 	simplified.boo srczzs ss__s__ ss_____ s__ s__s__ sr__sr__ tst.me tst.me____me hello_world_abca
