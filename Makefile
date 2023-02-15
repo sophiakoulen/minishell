@@ -6,7 +6,7 @@
 #    By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/13 12:15:41 by skoulen          ###   ########.fr        #
+#    Updated: 2023/02/15 14:59:47 by skoulen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ STRUCT_FILES	=	t_token          t_tree          t_cmd           t_exec    \
 					t_tree_print                     t_item                    \
 					t_env
 
-EXECUTION_FILES	=	prep_pipeline    prep_pipeline2                            \
+EXECUTION_FILES	=	prep_pipeline    prep_utils                                \
 					exec_pipeline    exec_pipeline2  exec_utils                \
 					find_cmd                                                   \
 					builtin          heredoc

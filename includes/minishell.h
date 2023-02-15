@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/14 11:22:09 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:59:27 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,11 @@ void		write_all_heredocs(t_exec *exec);
 
 t_exec		*prepare_pipeline(t_list *pipeline, t_env **env, int prev);
 
-/* prep_pipeline2 */
+/* prep_utils */
 
 void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
+char		**extract_args(t_item *lst);
+void		prepare_cmd_path(t_cmd *cmd, t_exec *exec);
 
 /* ************************************************************************** */
 /*   expansion                                                                */

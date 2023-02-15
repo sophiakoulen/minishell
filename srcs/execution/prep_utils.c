@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prep_pipeline2.c                                   :+:      :+:    :+:   */
+/*   prep_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:57:32 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/15 14:36:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:58:00 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,54 @@ static char	**extract_path(t_env *env)
 	if (ret)
 		return (ret);
 	return (ft_split("", ':'));
+}
+
+/*
+	Extract the array of arguments from the list of items.
+
+	Items with modifier NO_MODIFIER are considered arguments.
+*/
+char	**extract_args(t_item *lst)
+{
+	char	**args;
+	t_item	*current;
+	int		i;
+
+	i = 0;
+	current = lst;
+	while (current)
+	{
+		if (current->modifier == NO_MODIFIER)
+			i++;
+		current = current->next;
+	}
+	args = x_malloc(sizeof(*args), i + 1);
+	current = lst;
+	i = 0;
+	while (current)
+	{
+		if (current->modifier == NO_MODIFIER)
+			args[i++] = ft_strdup(current->word);
+		current = current->next;
+	}
+	args[i] = NULL;
+	return (args);
+}
+
+/*
+	If needed, find the absolute path of the command we
+	need to execute.
+
+	If the args list is empty, do not do anything.
+	If the command is a builtin, store it's builtin identifier.
+	Else, find the absolute path of the command.
+*/
+void	prepare_cmd_path(t_cmd *cmd, t_exec *exec)
+{
+	if (!cmd->args[0])
+		return ;
+	if (ret_builtin_enum(cmd->args[0]) != -1)
+		cmd->builtin = ret_builtin_enum(cmd->args[0]);
+	else
+		cmd->status = find_cmd(exec->path, cmd->args[0], &(cmd->full_path));
 }

@@ -6,18 +6,16 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:11:39 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 14:17:52 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:58:26 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	prepare_cmd(t_item *lst, t_exec *exec, int i);
-static char	**extract_args(t_item *lst);
 static void	prepare_redirs(t_item *lst, t_cmd *cmd, t_exec *exec);
 static int	update_fd_in(t_cmd *cmd, t_item *redir, t_exec *exec);
 static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec);
-static void	prepare_cmd_path(t_cmd *cmd, t_exec *exec);
 
 /*
 	Process a linked list of commands and produce an exec structure.
@@ -70,38 +68,6 @@ static void	prepare_cmd(t_item *lst, t_exec *exec, int i)
 	prepare_redirs(lst, cmd, exec);
 	if (cmd->status == 0)
 		prepare_cmd_path(cmd, exec);
-}
-
-/*
-	Extract the array of arguments from the list of items.
-
-	Items with modifier NO_MODIFIER are considered arguments.
-*/
-static char	**extract_args(t_item *lst)
-{
-	char	**args;
-	t_item	*current;
-	int		i;
-
-	i = 0;
-	current = lst;
-	while (current)
-	{
-		if (current->modifier == NO_MODIFIER)
-			i++;
-		current = current->next;
-	}
-	args = x_malloc(sizeof(*args), i + 1);
-	current = lst;
-	i = 0;
-	while (current)
-	{
-		if (current->modifier == NO_MODIFIER)
-			args[i++] = ft_strdup(current->word);
-		current = current->next;
-	}
-	args[i] = NULL;
-	return (args);
 }
 
 /*
@@ -204,22 +170,4 @@ static int	update_fd_out(t_cmd *cmd, t_item *redir, t_exec *exec)
 	}
 	exec->fd_count++;
 	return (0);
-}
-
-/*
-	If needed, find the absolute path of the command we
-	need to execute.
-
-	If the args list is empty, do not do anything.
-	If the command is a builtin, store it's builtin identifier.
-	Else, find the absolute path of the command.
-*/
-static void	prepare_cmd_path(t_cmd *cmd, t_exec *exec)
-{
-	if (!cmd->args[0])
-		return ;
-	if (ret_builtin_enum(cmd->args[0]) != -1)
-		cmd->builtin = ret_builtin_enum(cmd->args[0]);
-	else
-		cmd->status = find_cmd(exec->path, cmd->args[0], &(cmd->full_path));
 }
