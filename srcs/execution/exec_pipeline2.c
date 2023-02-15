@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:18:54 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 15:26:51 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:05:50 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static int	launch_child(t_exec *exec, int i)
 	}
 	if (pid == 0)
 	{
-		g_retn = pid; //why? isn't g_retn supposed to be for return value of commandlines?
 		redirect(exec->cmds[i].i_fd, exec->cmds[i].o_fd);
 		close_fds(exec);
 		exec_cmd(exec, i);
