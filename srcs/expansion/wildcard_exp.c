@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/15 15:28:53 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:01:39 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,41 +169,21 @@ int	check_starting_wildcard(int *i, char **file, char *expr, char ***chunks)
 /*
 	checks if we end with a wildcard and return accordingly
 
-	How does this function work????
-
-	Possibilities for file:
-	either "" since we've matched the entire string
-
-	either "something" if the last wildcard we matched wasn't at the end
-	then we must check if the last chunk of the file matches the wildcard
-
-	either "aaaa"
-	then the last chunks could overlap.
-
+	If we're not ending with a wildcard:
+	- reset the pointer to before the last chunk (this we know we can do
+	without segfaulting since if we've entered is is because we have matched
+	the last chunk.)
+	- advance the pointer so that the remaining chunk is of the size
+	of the last chunk
+	- check if the remaining chunk is equal to the last chunk
 */
 int	check_ending_wildcard(int i, char *file, char *expr, char **chunks)
 {
-	int	ret;
-	int	y;
-
-	printf("file: {%s}\n", file);
-	y = ft_strlen(file) - 1;
-	ret = 1;
 	if (expr[ft_strlen(expr) - 1] != '*')
 	{
-		while (y >= 0)
-		{
-			if (ft_strncmp(file + y, chunks[i - 1], ft_strlen(file)) == 0)
-			{
-				ret = 1;
-				break ;
-			}
-			else
-			{
-				ret = 0;
-			}
-			y--;
-		}
+		file -= ft_strlen(chunks[i - 1]);
+		file += ft_strlen(file) - ft_strlen(chunks[i - 1]);
+		return (ft_strcmp(file, chunks[i - 1]) == 0);
 	}
-	return (ret);
+	return (1);
 }
