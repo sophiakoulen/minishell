@@ -112,8 +112,8 @@ echo $?
 
 exec_stdout 9 \
 '
-printf "this is here\n" && sleep 1 || echo no | false
+printf "this is here" && sleep 1 || echo no | false
 echo $?
-echo yes | false | false && printf "stop
+echo yes | false | false && printf "stop"
 echo to do more tests
 '
