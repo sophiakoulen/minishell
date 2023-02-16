@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:48:25 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 10:32:20 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:35:44 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ int	ft_strcmp(const char *s1, const char *s2)
 		max_len = len1;
 	else
 		max_len = len2;
-	return (ft_strncmp(s1, s2, max_len));
+	return (ft_strncmp(s1, s2, max_len + 1));
 }

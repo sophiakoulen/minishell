@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_match.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:08:10 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 16:11:46 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:41:55 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
