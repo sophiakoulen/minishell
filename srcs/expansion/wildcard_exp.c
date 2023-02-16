@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 18:08:45 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 13:27:41 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ void	quote_removal_strarr(char **strarr)
 /*
 	updates the file string to what's left to match against
 	the i chunk from the expression
+
+	Returns 0 if we should stop iterating over the chunks
+	(because we're at the end or we've mismatched)
+
  */
 int	check_single_chunk(int i, int *ret, char **file, char **chunks)
 {
@@ -164,29 +168,23 @@ int	check_starting_wildcard(int *i, char **file, char *expr, char ***chunks)
 
 /*
 	checks if we end with a wildcard and return accordingly
- */
+
+	If we're not ending with a wildcard:
+	- reset the pointer to before the last chunk (this we know we can do
+	without segfaulting since if we've entered is is because we have matched
+	the last chunk.)
+	- advance the pointer so that the remaining chunk is of the size
+	of the last chunk
+	- check if the remaining chunk is equal to the last chunk
+*/
 int	check_ending_wildcard(int i, char *file, char *expr, char **chunks)
 {
-	int	ret;
-	int	y;
-
-	y = ft_strlen(file) - 1;
-	ret = 1;
 	if (expr[ft_strlen(expr) - 1] != '*')
 	{
-		while (y >= 0)
-		{
-			if (ft_strncmp(file + y, chunks[i - 1], ft_strlen(file)) == 0)
-			{
-				ret = 1;
-				break ;
-			}
-			else
-			{
-				ret = 0;
-			}
-			y--;
-		}
+		file -= ft_strlen(chunks[i - 1]);
+		file += ft_strlen(file) - ft_strlen(chunks[i - 1]);
+		if (!*chunks[i - 1] || ft_strcmp(file, chunks[i - 1]) != 0)
+			return (0);
 	}
-	return (ret);
+	return (1);
 }
