@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:31:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 14:06:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:15:24 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	is_valid_option(char *arg)
 {
 	if (!arg)
 		return (0);
-	if (strncmp(arg, "-r", 2) == 0)
+	if (ft_strncmp(arg, "-r", 2) == 0)
 		return (HIGHLIGT_RED);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/01/23 16:27:38 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 20:15:17 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_valid_option(char *arg);
 
 /*
 	echo builtin: Print arguments to stdout.
-	
+
 	Arguments are separated by spaces and followed by a newline.
 	If option "-n" is specified, the newline is ommited.
 */
@@ -78,7 +78,7 @@ static int	is_valid_option(char *arg)
 
 	if (!arg)
 		return (0);
-	if (strncmp(arg, "-n", 2) == 0)
+	if (ft_strncmp(arg, "-n", 2) == 0)
 	{
 		i = 2;
 		while (arg[i] == 'n')
