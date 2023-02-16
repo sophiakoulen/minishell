@@ -6,13 +6,15 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 16:26:04 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:40:16 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	check_empty_and_sort(t_list **words, char **ret, char *str);
+static int	contains_wildcards(char *str);
+static int	ciwatod(char *str, char **ret);
 
 /*
 	ret contains a malloced string containing
@@ -25,7 +27,7 @@ void	find_wildcard_matches(char **ret, char *str)
 	DIR				*dir;
 	t_list			*words;
 
-	if (str == NULL || *str == '\0')
+	if (ciwatod(str, ret) == -1)
 		return ;
 	dir = opendir(".");
 	if (dir == NULL)
@@ -61,4 +63,37 @@ static void	check_empty_and_sort(t_list **words, char **ret, char *str)
 		free(*ret);
 		*ret = escaped;
 	}
+}
+
+/*
+	Returns 1 if contains wildcard else 0.
+*/
+static int	contains_wildcards(char *str)
+{
+	int	state;
+	int	i;
+
+	state = 0;
+	i = 0;
+	while (str[i] && (str[i] != '*' || state))
+	{
+		update_state(str + i, &state);
+		i++;
+	}
+	return (str[i] == '*');
+}
+
+/*
+	check if wildcard and try open directory
+ */
+static int	ciwatod(char *str, char **ret)
+{
+	if (str == NULL || *str == '\0')
+		return (-1);
+	if (!contains_wildcards(str))
+	{
+		*ret = ft_strjoin(str, " ");
+		return (-1);
+	}
+	return (0);
 }
