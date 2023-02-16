@@ -2,7 +2,7 @@
 
 #testing the ast
 
-source test_framework.sh
+source $(dirname "$0")/test_framework.sh
 
 make -C ..
 

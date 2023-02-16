@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/16 20:34:22 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/16 22:24:00 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,18 +121,15 @@ $(LIBFT):
 	@cp $(LIBFT) $(NAME)
 
 run-tests : re
-	@make run-tests -C tests-unit ; make run-tests -C tests-builtins
+	@make run-tests -C tests-unit ; make run-tests -C tests-builtins ; tests-functional/launch_tests.sh
 
 clean	:
 	@echo "$(YELLOW)...removing object files...$(RESET)"
 	@$(RM) $(OBJS)
-	@$(MAKE) -s clean -C $(LIBFT_DIR)
 
 fclean	: clean
 	@echo "$(YELLOW)...removing binaries...$(RESET)"
 	@$(RM) $(NAME) $(LIBMINISHELL)
-	@$(MAKE) -s fclean -C tests-unit
-	@$(MAKE) -s fclean -C tests-builtins
 	@$(MAKE) -s fclean -C $(LIBFT_DIR)
 
 re		: fclean all
