@@ -6,9 +6,11 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 15:33:05 by skoulen           #+#    #+#              #
-#    Updated: 2023/02/09 18:10:51 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/16 20:35:00 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+.SECONDARY:
 
 RESET=\033[0m
 BLUE=\033[34m
@@ -61,12 +63,12 @@ run-tests : $(TESTS)
 	@for i in $(TST_SCRIPTS); do echo;"./$$i"; done
 
 clean :
-	@echo "$(YELLOW)...removing object files...$(RESET)"
+	@echo "$(YELLOW)...removing unit-test object files...$(RESET)"
 	@$(RM) $(OBJS)
 
 fclean : clean
-	@echo "$(YELLOW)...removing binaries...$(RESET)"
-	@$(RM) $(addsuffix .test, $(BIN_PATH)$(TEST_NAMES))
+	@echo "$(YELLOW)...removing unit-test binaries...$(RESET)"
+	$(RM) $(TESTS)
 
 re: fclean all
 

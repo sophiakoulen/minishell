@@ -6,9 +6,18 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/15 13:11:55 by znichola          #+#    #+#              #
-#    Updated: 2023/01/26 13:24:38 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/16 20:36:05 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+.SECONDARY:
+
+RESET=\033[0m
+BLUE=\033[34m
+RED=\033[31m
+GREEN=\033[32m
+MAGENTA=\033[35m
+YELLOW=\033[33m
 
 NAME	= builtin-tests
 
@@ -48,9 +57,11 @@ run-tests : re
 	@for i in $(TST_SCRIPTS); do echo;"./$$i"; done
 
 clean :
+	@echo "$(YELLOW)...removing unit-test object files...$(RESET)"
 	$(RM) $(OBJS)
 
 fclean : clean
+	@echo "$(YELLOW)...removing unit-test binaries...$(RESET)"
 	$(RM) $(addprefix $(BIN_PATH), $(addsuffix .test, $(TEST_NAMES)))
 
 # Individual unit tests
