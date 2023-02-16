@@ -1,7 +1,7 @@
 #!/bin/zsh
 # Tokenizer unit test
 
-source ../unit-tests/unit_test_framework.sh
+source ../tests-unit/unit_test_framework.sh
 
 N=pwd
 

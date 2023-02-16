@@ -1,7 +1,7 @@
 #!/bin/zsh
 # Exit builtin unit test
 
-source unit_test_framework.sh
+source ../tests-unit/unit_test_framework.sh
 
 N=exit
 

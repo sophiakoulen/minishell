@@ -2,7 +2,7 @@
 
 #testing the ast
 
-source test_framework.sh
+source $(dirname "$0")/test_framework.sh
 
 make -C ..
 
@@ -112,8 +112,8 @@ echo $?
 
 exec_stdout 9 \
 '
-printf "this is here\n" && sleep 1 || echo no | false
+printf "this is here" && sleep 1 || echo no | false
 echo $?
-echo yes | false | false && printf "stop
+echo yes | false | false && printf "stop"
 echo to do more tests
 '
