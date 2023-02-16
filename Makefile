@@ -6,7 +6,7 @@
 #    By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 12:39:14 by znichola          #+#    #+#              #
-#    Updated: 2023/02/16 14:18:45 by znichola         ###   ########.fr        #
+#    Updated: 2023/02/16 16:11:05 by znichola         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ BUILTINS		=	echo             pwd             env             exit      \
 
 EXPANSION_FILES	=	quote_removal    param_expansion field_split               \
 					expansion        expansion_utils wildcard_exp              \
-					wildcard_wrapper wild_split
+					wildcard_wrapper wild_split      wildcard_match
 
 PARSING_FILES	=	prs_pipeline     prs_cmd         prs_item                  \
 					parse_errors     prs_tree
