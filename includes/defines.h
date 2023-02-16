@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 03:07:43 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:56:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,14 @@ typedef struct s_trunk
 	struct s_trunk	*prev;
 }	t_trunk;
 
-
 # define TREE_STRAGHT "———"
 # define TREE_TOP_JOINT ".———"
 # define TREE_BOT_JOINT "`———"
 # define TREE_VERT_JOINT "    |"
 # define TREE_EMPTY "     "
+
+# define HIGHLIGT_RED 1
+// #define HIGHLIGT_BLUE 2
+// #define HIGHLIGT_BOLD 4
 
 #endif

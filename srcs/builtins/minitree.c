@@ -6,15 +6,11 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:31:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/12 12:09:52 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:27:29 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#define HIGHLIGT_RED 1
-// #define HIGHLIGT_BLUE 2
-// #define HIGHLIGT_BOLD 4
 
 static int	parse_and_print(char *arg, int options);
 static int	parse_options(char ***args);
@@ -50,7 +46,6 @@ static int	parse_and_print(char *arg, int options)
 	t_token	*start;
 	t_tree	*tree;
 
-	(void)options;
 	if (construct_tok_list(&tok_list, arg) != 0)
 	{
 		tok_list_cleanup(tok_list);
@@ -58,7 +53,7 @@ static int	parse_and_print(char *arg, int options)
 	}
 	start = tok_list;
 	if (parse_tree(&tree, &tok_list) != SYNTAX_ERROR)
-		print_minitree(tree, NULL, 0);
+		print_minitree(tree, NULL, 0, options);
 	trunk_garbage_collector(NULL);
 	tree_cleanup(tree);
 	tok_list_cleanup(start);

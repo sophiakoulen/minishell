@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 14:23:48 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:24:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ t_tree		*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
 
 /* t_tree_print.c */
 
-void		print_minitree(t_tree *root, t_trunk *prev, int isright);
+void		print_minitree(t_tree *root, t_trunk *prev, int isright, int opts);
 
 /* t_item.c */
 
@@ -298,6 +298,5 @@ void		cleanup_exec(t_exec *exec);
 t_trunk		*trunk_factory(t_trunk *blueprint);
 void		trunk_print(t_trunk *t);
 void		trunk_garbage_collector(t_trunk *trunk);
-
 
 #endif
