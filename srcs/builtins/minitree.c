@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:31:06 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 13:27:29 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:06:04 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	minitree(char **args, t_env **env, int prev)
 	if (!args)
 		return (2);
 	options = parse_options(&args);
-	if (options & HIGHLIGT_RED)
-		ft_printf("\n ~red highlighting not implemented yet!\n\n");
 	if (*args)
 		return (parse_and_print(*args, options));
 	ft_printf("\nUsage:  minitree [opt] 'minishell comand'\n");
