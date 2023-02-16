@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/13 12:12:49 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:33:57 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,18 @@ int	find_cmd(char **path, char *filename, char **res)
 */
 static int	file_ok(char *filename, char **res)
 {
+	struct stat	path_info;
+
 	*res = 0;
+	if (access(filename, F_OK) == -1)
+		return (errno);
+	if (lstat(filename, &path_info) != 0)
+	{
+		print_error(0, 0, strerror(errno));
+		exit(5);
+	}
+	if (S_ISDIR(path_info.st_mode))
+		return (EISDIR);
 	if (access(filename, X_OK) == -1)
 		return (errno);
 	*res = ft_strdup(filename);

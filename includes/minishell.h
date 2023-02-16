@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 16:09:59 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:37:13 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,14 @@
 # include <readline/history.h>
 # include <sys/errno.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <termios.h>
 # include <dirent.h>
 
 # include "libft.h"
 # include "defines.h"
 # include "structs.h"
-
-// wsl linux
-# include <sys/types.h>
-
-// # include "tokenizer.h"
-// # include "parsing.h"
-// # include "execution.h"
-// # include "cmd.h"
 
 /* cleanup */
 
