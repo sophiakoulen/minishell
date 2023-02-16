@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:39:01 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/12 18:06:16 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:55:07 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	compute_return_value(int status)
 	else if (WIFSIGNALED(status))
 	{
 		sig_num = WTERMSIG(status);
+		print_pipe_error(sig_num);
 		return (128 + sig_num);
 	}
 	else
@@ -62,7 +63,7 @@ int	redirect(int input_fd, int output_fd)
 /*
 	Close all unused file descriptors.
 	That means all any file descriptor except 0, 1 and 2.
-	
+
 	The exec structure keeps track of the amount of file
 	descriptors we've opened. Because when calling open() or
 	dup() the allocated file descriptor is the lowest available,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 16:29:13 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:55:49 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,7 @@ static int	exec_line(char *line, t_env **env, int *retn)
 	}
 	start = tok_list;
 	if (parse_tree(&tree, &tok_list) != SYNTAX_ERROR)
-	{
 		*retn = exec_tree(tree, env, *retn);
-		pipe_return_print(*retn);
-	}
 	else
 		*retn = 258;
 	tree_cleanup(tree);

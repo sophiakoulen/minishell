@@ -6,26 +6,14 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:48:54 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/14 11:15:47 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:56:59 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static const char	*ret_sig_msg(int sig);
-static void			print_pipe_error(int n);
 static int			calc_len(const char *msg, char *num);
-
-/*
-	print and apropriate error message based on the return of a pipe exicution.
-	{ error msg }: { num }
- */
-void	pipe_return_print(int retn)
-{
-	if (retn < 128)
-		return ;
-	print_pipe_error(retn % 128);
-}
 
 /*
 	Print error message along with number
@@ -35,7 +23,7 @@ void	pipe_return_print(int retn)
 
 	n == 13  // for broken pipe that dosn't do a newline!?
 */
-static void	print_pipe_error(int n)
+void	print_pipe_error(int n)
 {
 	int			len;
 	char		*buffer;
