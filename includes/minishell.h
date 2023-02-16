@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/15 14:59:27 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:24:06 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ t_exec		*prepare_pipeline(t_list *pipeline, t_env **env, int prev);
 void		init_exec(t_list *pipeline, t_exec *exec, t_env **env, int prev);
 char		**extract_args(t_item *lst);
 void		prepare_cmd_path(t_cmd *cmd, t_exec *exec);
+
+/* minitree.c */
+
+int			minitree(char **args, t_env **env, int prev);
 
 /* ************************************************************************** */
 /*   expansion                                                                */
@@ -269,8 +273,7 @@ t_tree		*tree_factory(int type, t_tree *lhs, t_tree *rhs, t_list *pipeline);
 
 /* t_tree_print.c */
 
-void		auto_print_tree(t_tree *tree);
-void		print_tree(t_pos p, t_tree *tree);
+void		print_minitree(t_tree *root, t_trunk *prev, int isright, int opts);
 
 /* t_item.c */
 
@@ -289,5 +292,11 @@ t_env		*env_last(t_env *env);
 /* t_exec */
 
 void		cleanup_exec(t_exec *exec);
+
+/* t_trunk.c */
+
+t_trunk		*trunk_factory(t_trunk *blueprint);
+void		trunk_print(t_trunk *t);
+void		trunk_garbage_collector(t_trunk *trunk);
 
 #endif

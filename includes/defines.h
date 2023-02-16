@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:40:00 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/10 19:04:00 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:56:27 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ enum e_token_type
 	e_string,
 };
 
-# define NUM_BUILTINS 8
+# define NUM_BUILTINS 9
 
 enum e_builtin
 {
@@ -96,6 +96,7 @@ enum e_builtin
 	e_env,
 	e_exit,
 	e_shout,
+	e_minitree,
 };
 
 /* prompts */
@@ -122,5 +123,23 @@ enum e_builtin
 # define MSH_MSG_SIGSTOP "Stopped (signal)"
 # define MSH_MSG_SIGTSTP "Stopped (user)"
 # define MSH_MSG_SIGCONT "Continued"
+
+/* for printing the tree */
+
+typedef struct s_trunk
+{
+	char			*str;
+	struct s_trunk	*prev;
+}	t_trunk;
+
+# define TREE_STRAGHT "———"
+# define TREE_TOP_JOINT ".———"
+# define TREE_BOT_JOINT "`———"
+# define TREE_VERT_JOINT "    |"
+# define TREE_EMPTY "     "
+
+# define HIGHLIGT_RED 1
+// #define HIGHLIGT_BLUE 2
+// #define HIGHLIGT_BOLD 4
 
 #endif
