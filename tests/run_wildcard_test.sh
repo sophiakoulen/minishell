@@ -42,6 +42,12 @@ exec_stdout 5 \
 '
 echo "*"*
 '
+
+exec_stdout 6 \
+'
+echo "."*
+'
+
 rm '*diabolical' 'this*test' '*dia_whatnow' '***' diabolical
 
 rm	Afirst Zfirst Zafirstest apple apple1 apple2 apple3 papplez applebananna bannana \

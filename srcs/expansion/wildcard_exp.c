@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 13:27:41 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:47:32 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,16 @@ int	check_single_chunk(int i, int *ret, char **file, char **chunks)
  */
 int	check_starting_wildcard(int *i, char **file, char *expr, char ***chunks)
 {
-	if (*file[0] == '.' && expr[0] != '.')
+	char	*tmp;
+
+	tmp = quote_removal(expr);
+	if (*file[0] == '.' && tmp[0] != '.')
 	{
 		strarr_cleanup(*chunks);
+		free(tmp);
 		return (1);
 	}
+	free(tmp);
 	if (expr[0] != '*')
 	{
 		if (0 != ft_strncmp(*file, *chunks[0], ft_strlen(*chunks[0])))
