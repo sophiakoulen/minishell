@@ -461,3 +461,21 @@ echo world >>out
 ls -la
 rm -f out
 "
+
+#empty strings
+echo "\n\t${ITALIC}${MAGENTA}empty strings${RESET}"
+
+exec_stdout 55 \
+"
+''
+"
+
+exec_stderr 56 \
+"
+echo ''
+"
+
+exec_stderr 57 \
+"
+grep ""
+"

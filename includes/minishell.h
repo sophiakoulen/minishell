@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:34 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 14:24:06 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:09:59 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ char		*escape_special_chars(char *str, int flag);
 void		find_wildcard_matches(char **ret, char *str);
 void		expand_wildcards(t_item **res, t_item *items);
 char		**wild_split(char const *s, char c);
-void		quote_removal_strarr(char **strarr);
+int			match_wildcard(char *file, char *expr);
 
 /* ************************************************************************** */
 /*   parsing                                                                  */
@@ -197,6 +197,7 @@ int			construct_tok_list(t_token **lst, char *str);
 void		tok_list_cleanup(t_token *lst);
 
 /* tokenizer */
+
 int			lexer(t_token **tok, char **str);
 
 /* ************************************************************************** */

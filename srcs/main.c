@@ -6,7 +6,7 @@
 /*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:31:29 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 13:32:11 by znichola         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:29:13 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,22 @@ int	main(int argc, char **argv, char **envp)
 {
 	static t_env		*env[1];
 
-	// env = (t_env **)x_malloc(sizeof(t_env *), 1);
 	if (isatty(0) && isatty(2))
 		rl_outstream = stderr;
 	get_set_termios(1);
 	parent_signals();
 	*env = init_env(envp);
 	check_args(argc, argv);
-	interactive_shell(env, &g_retn); //why are we giving it a pointer if it's a global????????
+	interactive_shell(env, &g_retn);
 	rl_clear_history();
 	env_cleanup_all(*env);
-	// free(env);
 	exit(g_retn);
 	return (g_retn);
 }
+/*
+	interactive_shell(env, &g_retn); -
+						why are we giving it a pointer if it's a global????????
+*/
 
 static void	check_args(int argc, char **argv)
 {
