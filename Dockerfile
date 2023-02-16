@@ -9,7 +9,6 @@ RUN echo 'alias val="valgrind -s --leak-check=full --show-leak-kinds=definite,in
 	chmod +x ~/.zshrc
 COPY . minishell
 WORKDIR minishell
-RUN make re
 ENTRYPOINT [ "/bin/zsh" ]
 
 # usr/bin/valgrind -s --leak-check=full --show-leak-kinds=definite,indirect,possible --track-origins=yes --log-file=valgrind-out.txt

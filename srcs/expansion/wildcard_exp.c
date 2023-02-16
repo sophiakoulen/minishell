@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_exp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:02:38 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 18:18:00 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/16 19:40:16 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	check_empty_and_sort(t_list **words, char **ret, char *str);
 static int	contains_wildcards(char *str);
+static int	ciwatod(char *str, char **ret);
 
 /*
 	ret contains a malloced string containing
@@ -26,13 +27,8 @@ void	find_wildcard_matches(char **ret, char *str)
 	DIR				*dir;
 	t_list			*words;
 
-	if (str == NULL || *str == '\0')
+	if (ciwatod(str, ret) == -1)
 		return ;
-	if (!contains_wildcards(str))
-	{
-		*ret = ft_strjoin(str, " ");
-		return ;
-	}
 	dir = opendir(".");
 	if (dir == NULL)
 	{
@@ -85,4 +81,19 @@ static int	contains_wildcards(char *str)
 		i++;
 	}
 	return (str[i] == '*');
+}
+
+/*
+	check if wildcard and try open directory
+ */
+static int	ciwatod(char *str, char **ret)
+{
+	if (str == NULL || *str == '\0')
+		return (-1);
+	if (!contains_wildcards(str))
+	{
+		*ret = ft_strjoin(str, " ");
+		return (-1);
+	}
+	return (0);
 }
