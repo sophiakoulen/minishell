@@ -1,0 +1,17 @@
+# configuration file so github respects the 4 space tabe size
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+[*.c]
+indent_style = tab
+indent_size = 4
