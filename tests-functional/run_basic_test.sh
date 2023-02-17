@@ -468,6 +468,7 @@ echo "\n\t${ITALIC}${MAGENTA}empty strings${RESET}"
 exec_stdout 55 \
 "
 ''
+echo \$?
 "
 
 exec_stderr 56 \

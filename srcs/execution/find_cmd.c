@@ -6,7 +6,7 @@
 /*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:58:13 by skoulen           #+#    #+#             */
-/*   Updated: 2023/02/16 19:33:57 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/17 09:32:08 by skoulen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	find_cmd(char **path, char *filename, char **res)
 	}
 	else
 	{
-		errno_value = search_path(path, filename, res);
+		if (filename[0] == '\0')
+			errno_value = ENOENT;
+		else
+			errno_value = search_path(path, filename, res);
 		if (errno_value != 0)
 		{
 			if (errno_value == ENOENT)
