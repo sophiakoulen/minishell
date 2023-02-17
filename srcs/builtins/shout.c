@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shout.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skoulen <skoulen@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: znichola <znichola@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:52:30 by znichola          #+#    #+#             */
-/*   Updated: 2023/02/16 20:45:54 by skoulen          ###   ########.fr       */
+/*   Updated: 2023/02/17 09:09:01 by znichola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-# define NO_NEWLINE 1
+#define NO_NEWLINE 1
 
 static int	parse_options(char ***args);
 static int	is_valid_option(char *arg);
